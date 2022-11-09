@@ -1,0 +1,59 @@
+@startuml Lipho DB ER Diagram
+!theme plain
+
+entity User {
+    * **username :: String**
+    --
+    * password :: String
+    * name :: String
+    * surname :: String
+    * followers :: User[0..*]
+    * following :: User[0..*]
+    email :: String
+    phone :: String
+    birthdate :: Date
+}
+
+entity Post {
+    * **id :: Integer**
+    --
+    * image :: Image[1..*]
+    * timestamp :: Timestamp
+    * author :: User
+    * likes :: User[0..*]
+    * comments :: Comment[0..*]
+    * ratings :: Rating[0..*]
+    * average_exposure_rating :: Double
+    * average_color_rating :: Double
+    * average_composition_rating :: Double
+    caption :: String
+
+}
+
+entity Rating {
+    * **id :: Integer**
+    --
+    * user :: User
+    * post :: Post
+    * exposure :: Integer[1..5]
+    * colors :: Integer[1..5]
+    * composition :: Integer[1..5]
+}
+
+entity Comment {
+    * **id :: Integer**
+    --
+    * author :: User
+    * post :: Post
+    * timestamp :: Timestamp
+    * likes :: User[0..*]
+    * text :: String
+}
+
+User }o--|| Post
+Post }o--|| Rating
+Post }o--|| Comment
+Rating ||--o{ User
+Comment ||--o{ User
+
+@enduml
