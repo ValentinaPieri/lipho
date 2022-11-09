@@ -7,33 +7,41 @@ entity User {
     * password :: String
     * name :: String
     * surname :: String
-    * followers :: User[0..*]
-    * following :: User[0..*]
     email :: String
     phone :: String
     birthdate :: Date
 }
 
+entity Following {
+    * **following_username :: String**
+    * **followed_username :: String**
+    --
+    * since :: Date
+}
+
 entity Post {
-    * **id :: Integer**
+    * **post_id :: Integer**
     --
     * image :: Image[1..*]
     * timestamp :: Timestamp
-    * author :: User
-    * likes :: User[0..*]
-    * comments :: Comment[0..*]
-    * ratings :: Rating[0..*]
+    * username :: String
     * average_exposure_rating :: Double
     * average_color_rating :: Double
     * average_composition_rating :: Double
     caption :: String
+}
 
+entity PostLike {
+    * **post_id :: Integer**
+    * **username :: String**
+    --
+    * timestamp :: Timestamp
 }
 
 entity Rating {
-    * **id :: Integer**
+    * **post_id :: Integer**
+    * **username:: String**
     --
-    * user :: User
     * post :: Post
     * exposure :: Integer[1..5]
     * colors :: Integer[1..5]
@@ -41,19 +49,30 @@ entity Rating {
 }
 
 entity Comment {
-    * **id :: Integer**
+    * **post_id :: Integer**
+    * **comment_id :: Integer**
     --
-    * author :: User
+    * username :: String
     * post :: Post
     * timestamp :: Timestamp
-    * likes :: User[0..*]
     * text :: String
 }
 
+entity CommentLike {
+    * **post_id :: Integer**
+    * **comment_id :: Integer**
+    * **username :: String**
+    --
+    * timestamp :: Timestamp
+}
+
+User }o--o{ Following
 User }o--|| Post
 Post }o--|| Rating
 Post }o--|| Comment
+Post }o--|| PostLike
 Rating ||--o{ User
 Comment ||--o{ User
+Comment }o--|| CommentLike
 
 @enduml
