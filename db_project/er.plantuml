@@ -1,7 +1,7 @@
 @startuml Lipho DB ER Diagram
 !theme plain
 
-entity User {
+entity user {
     * **username :: String**
     --
     * password :: String
@@ -12,17 +12,16 @@ entity User {
     birthdate :: Date
 }
 
-entity Following {
+entity following {
     * **following_username :: String**
     * **followed_username :: String**
     --
     * since :: Date
 }
 
-entity Post {
+entity post {
     * **post_id :: Integer**
     --
-    * image :: Image[1..*]
     * timestamp :: Timestamp
     * username :: String
     * average_exposure_rating :: Double
@@ -31,34 +30,39 @@ entity Post {
     caption :: String
 }
 
-entity PostLike {
+entity post_image {
+    * **post_id :: Integer**
+    * **position :: Integer**
+    --
+    * image :: String
+}
+
+entity post_like {
     * **post_id :: Integer**
     * **username :: String**
     --
     * timestamp :: Timestamp
 }
 
-entity Rating {
+entity rating {
     * **post_id :: Integer**
     * **username:: String**
     --
-    * post :: Post
-    * exposure :: Integer[1..5]
-    * colors :: Integer[1..5]
-    * composition :: Integer[1..5]
+    * exposure :: Integer[1-5]
+    * colors :: Integer[1-5]
+    * composition :: Integer[1-5]
 }
 
-entity Comment {
+entity comment {
     * **post_id :: Integer**
     * **comment_id :: Integer**
     --
     * username :: String
-    * post :: Post
     * timestamp :: Timestamp
     * text :: String
 }
 
-entity CommentLike {
+entity comment_like {
     * **post_id :: Integer**
     * **comment_id :: Integer**
     * **username :: String**
@@ -66,13 +70,14 @@ entity CommentLike {
     * timestamp :: Timestamp
 }
 
-User }o--o{ Following
-User }o--|| Post
-Post }o--|| Rating
-Post }o--|| Comment
-Post }o--|| PostLike
-Rating ||--o{ User
-Comment ||--o{ User
-Comment }o--|| CommentLike
+user }o--o{ following
+user }o--|| post
+post }o--|| post_image
+post }o--|| rating
+post }o--|| comment
+post }o--|| post_like
+rating ||--o{ user
+comment ||--o{ user
+comment }o--|| comment_like
 
 @enduml
