@@ -13,8 +13,8 @@ entity user {
 }
 
 entity following {
-    * **following_username :: String**
-    * **followed_username :: String**
+    * **from_username :: String**
+    * **to_username :: String**
     --
     * since :: Date
 }
