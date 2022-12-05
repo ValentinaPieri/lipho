@@ -44,7 +44,7 @@ entity post_like {
     * timestamp :: Timestamp
 }
 
-entity rating {
+entity post_rating {
     * **post_id :: Integer**
     * **username:: String**
     --
@@ -73,7 +73,7 @@ entity comment_like {
 user }o--o{ following
 user }o--|| post
 post }o--|| post_image
-post }o--|| rating
+post }o--|| post_rating
 post }o--|| comment
 post }o--|| post_like
 rating ||--o{ user
