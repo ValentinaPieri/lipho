@@ -76,7 +76,7 @@ post }o--|| post_image
 post }o--|| post_rating
 post }o--|| comment
 post }o--|| post_like
-rating ||--o{ user
+post_rating ||--o{ user
 comment ||--o{ user
 comment }o--|| comment_like
 
