@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 06, 2022 at 08:15 PM
+-- Generation Time: Dec 06, 2022 at 11:28 PM
 -- Server version: 10.5.15-MariaDB-0+deb11u1
 -- PHP Version: 8.0.25
 
@@ -59,6 +59,19 @@ CREATE TABLE `following` (
   `from_username` varchar(250) NOT NULL,
   `to_username` varchar(250) NOT NULL,
   `since` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `notification_id` int(10) UNSIGNED NOT NULL,
+  `text` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `username` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -158,6 +171,13 @@ ALTER TABLE `following`
   ADD KEY `FK_to_user` (`to_username`);
 
 --
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`notification_id`),
+  ADD KEY `FK_notification_user` (`username`);
+
+--
 -- Indexes for table `post`
 --
 ALTER TABLE `post`
@@ -201,6 +221,12 @@ ALTER TABLE `comment`
   MODIFY `comment_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `notification_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
@@ -230,6 +256,12 @@ ALTER TABLE `comment_like`
 ALTER TABLE `following`
   ADD CONSTRAINT `FK_from_user` FOREIGN KEY (`from_username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_to_user` FOREIGN KEY (`to_username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notification`
+--
+ALTER TABLE `notification`
+  ADD CONSTRAINT `FK_notification_user` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post`

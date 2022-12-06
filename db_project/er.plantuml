@@ -69,8 +69,17 @@ entity comment_like {
     * timestamp :: Timestamp
 }
 
+entity notification {
+    * **notification_id :: Integer**
+    --
+    * text :: String
+    * timestamp :: Timestamp
+    * username :: String
+}
+
 user }o--o{ following
 user }o--|| post
+user }o--|| notification
 post }o--|| post_image
 post }o--|| post_rating
 post }o--|| comment
