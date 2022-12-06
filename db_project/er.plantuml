@@ -25,7 +25,7 @@ entity post {
     caption :: String
     * timestamp :: Timestamp
     * average_exposure_rating :: Double
-    * average_color_rating :: Double
+    * average_colors_rating :: Double
     * average_composition_rating :: Double
     * username :: String
 }
