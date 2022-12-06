@@ -16,18 +16,18 @@ entity following {
     * **from_username :: String**
     * **to_username :: String**
     --
-    * since :: Date
+    * since :: Timestamp
 }
 
 entity post {
     * **post_id :: Integer**
     --
+    caption :: String
     * timestamp :: Timestamp
-    * username :: String
     * average_exposure_rating :: Double
     * average_color_rating :: Double
     * average_composition_rating :: Double
-    caption :: String
+    * username :: String
 }
 
 entity post_image {
@@ -54,16 +54,15 @@ entity post_rating {
 }
 
 entity comment {
-    * **post_id :: Integer**
     * **comment_id :: Integer**
     --
-    * username :: String
-    * timestamp :: Timestamp
     * text :: String
+    * timestamp :: Timestamp
+    * post_id :: Integer
+    * username :: String
 }
 
 entity comment_like {
-    * **post_id :: Integer**
     * **comment_id :: Integer**
     * **username :: String**
     --

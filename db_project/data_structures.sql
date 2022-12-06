@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 05, 2022 at 05:26 PM
+-- Generation Time: Dec 06, 2022 at 07:29 PM
 -- Server version: 10.5.15-MariaDB-0+deb11u1
 -- PHP Version: 8.0.25
 
@@ -30,11 +30,11 @@ USE `lipho`;
 --
 
 CREATE TABLE `comment` (
-  `post_id` int(10) UNSIGNED NOT NULL,
-  `comment_id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(250) NOT NULL,
+  `comment_id` int(11) UNSIGNED NOT NULL,
+  `text` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `text` varchar(500) NOT NULL
+  `post_id` int(11) UNSIGNED NOT NULL,
+  `username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -44,8 +44,7 @@ CREATE TABLE `comment` (
 --
 
 CREATE TABLE `comment_like` (
-  `post_id` int(250) UNSIGNED NOT NULL,
-  `comment_id` int(10) UNSIGNED NOT NULL,
+  `comment_id` int(11) UNSIGNED NOT NULL,
   `username` varchar(250) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -59,7 +58,7 @@ CREATE TABLE `comment_like` (
 CREATE TABLE `following` (
   `from_username` varchar(250) NOT NULL,
   `to_username` varchar(250) NOT NULL,
-  `since` date NOT NULL
+  `since` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -70,12 +69,12 @@ CREATE TABLE `following` (
 
 CREATE TABLE `post` (
   `post_id` int(11) UNSIGNED NOT NULL,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `username` varchar(250) NOT NULL,
+  `caption` text DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `average_exposure_rating` double NOT NULL,
   `average_color_rating` double NOT NULL,
   `average_composition_rating` double NOT NULL,
-  `caption` varchar(250) DEFAULT NULL
+  `username` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -87,7 +86,7 @@ CREATE TABLE `post` (
 CREATE TABLE `post_image` (
   `post_id` int(10) UNSIGNED NOT NULL,
   `position` int(10) UNSIGNED NOT NULL,
-  `image` text NOT NULL
+  `image` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -124,7 +123,7 @@ CREATE TABLE `post_rating` (
 
 CREATE TABLE `user` (
   `username` varchar(250) NOT NULL,
-  `password` varchar(250) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `name` varchar(250) NOT NULL,
   `surname` varchar(250) NOT NULL,
   `email` varchar(250) DEFAULT NULL,
@@ -140,14 +139,15 @@ CREATE TABLE `user` (
 -- Indexes for table `comment`
 --
 ALTER TABLE `comment`
-  ADD PRIMARY KEY (`post_id`,`comment_id`) USING BTREE,
-  ADD KEY `FK_comment_user` (`username`);
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `FK_comment_post` (`post_id`),
+  ADD KEY `FK_comment_username` (`username`);
 
 --
 -- Indexes for table `comment_like`
 --
 ALTER TABLE `comment_like`
-  ADD PRIMARY KEY (`post_id`,`comment_id`,`username`),
+  ADD PRIMARY KEY (`comment_id`,`username`),
   ADD KEY `FK_comment_like_user` (`username`);
 
 --
@@ -195,6 +195,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `comment_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
@@ -209,13 +215,13 @@ ALTER TABLE `post`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `FK_comment_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_comment_user` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_comment_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comment_like`
 --
 ALTER TABLE `comment_like`
-  ADD CONSTRAINT `FK_comment_like_comment` FOREIGN KEY (`post_id`,`comment_id`) REFERENCES `comment` (`post_id`, `comment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_comment_like_comment` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`comment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_comment_like_user` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
