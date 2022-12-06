@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 06, 2022 at 07:29 PM
+-- Generation Time: Dec 06, 2022 at 07:43 PM
 -- Server version: 10.5.15-MariaDB-0+deb11u1
 -- PHP Version: 8.0.25
 
@@ -71,9 +71,9 @@ CREATE TABLE `post` (
   `post_id` int(11) UNSIGNED NOT NULL,
   `caption` text DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `average_exposure_rating` double NOT NULL,
-  `average_color_rating` double NOT NULL,
-  `average_composition_rating` double NOT NULL,
+  `average_exposure_rating` double NOT NULL DEFAULT 0,
+  `average_color_rating` double NOT NULL DEFAULT 0,
+  `average_composition_rating` double NOT NULL DEFAULT 0,
   `username` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
