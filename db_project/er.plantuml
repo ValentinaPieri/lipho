@@ -73,6 +73,7 @@ entity notification {
     * **notification_id :: Integer**
     --
     * text :: String
+    * seen :: Boolean
     * timestamp :: Timestamp
     * username :: String
 }

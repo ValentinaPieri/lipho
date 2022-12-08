@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 06, 2022 at 11:28 PM
+-- Generation Time: Dec 08, 2022 at 10:44 AM
 -- Server version: 10.5.15-MariaDB-0+deb11u1
 -- PHP Version: 8.0.25
 
@@ -70,6 +70,7 @@ CREATE TABLE `following` (
 CREATE TABLE `notification` (
   `notification_id` int(10) UNSIGNED NOT NULL,
   `text` text NOT NULL,
+  `seen` tinyint(1) NOT NULL DEFAULT 0,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `username` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
