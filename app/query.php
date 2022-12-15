@@ -1,5 +1,7 @@
 <?php
 
+namespace app;
+
 const QUERY = [
     "add_user" => "INSERT INTO user (username, `password`, `name`, surname, email, phone, birthdate) VALUES (?, ?, ?, ?, ?, ?, ?)",
     "delete_user" => "DELETE FROM user WHERE username = ?",
@@ -26,4 +28,5 @@ const QUERY = [
     "set_notifications_seen" => "UPDATE notification SET seen = 1 WHERE notification_id IN (?)",
     "delete_notification" => "DELETE FROM notification WHERE notification_id = ?",
     "clear_user_notifications" => "DELETE FROM notification WHERE username = ?",
+    "send_notification" => "INSERT INTO notification (`text`, seen, `timestamp`, username) VALUES (?, ?, ?, ?)",
 ];
