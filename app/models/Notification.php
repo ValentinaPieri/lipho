@@ -39,6 +39,7 @@ class Notification
 
     public function setSeen()
     {
+        $this->seen = true;
         $stmt = $this->conn->prepare(QUERY['set_notifications_seen']);
         $stmt->bindParam('i', $this->id);
         $stmt->execute();
