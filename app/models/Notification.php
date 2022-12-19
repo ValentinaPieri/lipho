@@ -6,11 +6,11 @@ use const app\QUERY;
 
 class Notification
 {
-    private $id;
-    private $text;
-    private $seen;
-    private $timestamp;
-    private $username;
+    private int $id;
+    private string $text;
+    private bool $seen;
+    private int $timestamp;
+    private string $username;
     private $conn;
 
     public function __construct($id, $text, $seen, $timestamp, $username, $conn)
