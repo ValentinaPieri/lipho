@@ -2,10 +2,10 @@
 
 class DBConnection
 {
-    private const host = 'detu.ddns.net';
-    private const user = 'lipho';
-    private const passw = 'Lipho@';
-    private const db = 'lipho';
+    private $host = 'detu.ddns.net';
+    private $user = 'lipho';
+    private $passw = 'Lipho@';
+    private $db = 'lipho';
     private $conn;
 
     public function __construct()
@@ -21,3 +21,4 @@ class DBConnection
         return $this->conn;
     }
 }
+?>
