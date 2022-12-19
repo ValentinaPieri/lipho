@@ -44,7 +44,8 @@ class Post
         if(isset($images) && !empty($images)) {
             $stmt = $conn->prepare(QUERY['add_post_image']);
             for ($i = 0; $i < count($images); $i++) {
-                $stmt->bind_param("iis", $this->post_id, $i, base64_encode($images[$i]));
+                $image = base64_encode($images[$i]);
+                $stmt->bind_param("iis", $this->post_id, $i, $image);
                 $stmt->execute();
             }
         }
