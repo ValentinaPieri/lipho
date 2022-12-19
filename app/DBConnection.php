@@ -1,24 +1,13 @@
 <?php
 
-class DBConnection
-{
-    private $host = 'detu.ddns.net';
-    private $user = 'lipho';
-    private $passw = 'Lipho@';
-    private $db = 'lipho';
-    private $conn;
+const host = 'detu.ddns.net';
+const user = 'lipho';
+const passw = 'Lipho@';
+const db = 'lipho';
+const port = 3306;
 
-    public function __construct()
-    {
-        $this->conn = new mysqli($this->host, $this->user, $this->passw, $this->db);
-        if ($this->conn->connect_error) {
-            echo "Connection failed: " . $this->conn->connect_error;
-        }
-    }
-
-    public function getConnection()
-    {
-        return $this->conn;
-    }
+$conn = new mysqli(host, user, passw, db, port);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

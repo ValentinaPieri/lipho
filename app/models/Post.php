@@ -1,32 +1,30 @@
 <?php
 
 namespace app\models;
-
-use DBConnection;
 use const app\QUERY;
-require_once('../DBConnection.php');
-$conn = new DBConnection();
+
+require_once '../DBConnection.php';
 
 class Post 
 {
     private int $post_id;
-    private String $username;
-    private String $caption;
+    private string $username;
+    private string $caption;
     private $likes;
     private $comments;
-    private $avg_exposure_rating;
-    private $avg_colors_rating;
-    private $avg_composition_rating;
+    private float $avg_exposure_rating;
+    private float $avg_colors_rating;
+    private float $avg_composition_rating;
 
-    public function __construct($caption, $images) {
+    public function __construct($username, $caption, $images) {
         $this->caption = $caption;
-        $this->username = $_SESSION['username'];
+        $this->username = $username;
         $this->avg_exposure_rating = 0;
         $this->avg_colors_rating = 0;
         $this->avg_composition_rating = 0;
 
         $this->create_new_post();
-        $this->add_images_to_post(base64_decode($images));
+        $this->add_images_to_post($images);
         
         // TODO: add likes and comments
         $this->likes = array();
@@ -38,7 +36,6 @@ class Post
         $stmt = $conn->prepare(QUERY['add_post']);
         $stmt->bind_param("ss", $this->caption, $this->username);
         $stmt->execute();
-        //get last inserted id
         $this->post_id = $conn->insert_id;
     }
 
@@ -46,13 +43,11 @@ class Post
         global $conn;
         if(isset($images) && !empty($images)) {
             $stmt = $conn->prepare(QUERY['add_post_image']);
-            foreach($images as $image) {
-                $position = array_search($image, $images);
-                $stmt->bind_param("iis", $this->post_id, $position, $image);
+            for ($i = 0; $i < count($images); $i++) {
+                $stmt->bind_param("iis", $this->post_id, $i, base64_encode($images[$i]));
                 $stmt->execute();
             }
         }
     }
 }
- 
 ?>
