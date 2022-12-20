@@ -15,7 +15,7 @@
     <main>
         <?php
         if (isset($templateParams["page"])) {
-            require_once $templateParams["page"];
+            echo $templateParams["page"];
         }
         ?>
     </main>
