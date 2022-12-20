@@ -1,17 +1,16 @@
 <?php
 
-const host = 'detu.ddns.net';
-const user = 'lipho';
-const passw = 'Lipho@';
-const db = 'lipho';
-
 class DBConnection
 {
+    private const host = 'detu.ddns.net';
+    private const user = 'lipho';
+    private const passw = 'Lipho@';
+    private const db = 'lipho';
     private $conn;
 
     public function __construct()
     {
-        $this->conn = new mysqli(host, user, passw, db);
+        $this->conn = new mysqli($this->host, $this->user, $this->passw, $this->db);
         if ($this->conn->connect_error) {
             echo "Connection failed: " . $this->conn->connect_error;
         }
