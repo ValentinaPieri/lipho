@@ -3,7 +3,7 @@
 namespace app\models;
 use const app\QUERY;
 
-require_once '../DBConnection.php';
+require_once('../DBConnection.php');
 
 class Post 
 {
@@ -23,15 +23,14 @@ class Post
         $this->avg_colors_rating = 0;
         $this->avg_composition_rating = 0;
 
-        $this->create_new_post();
-        $this->add_images_to_post($images);
+        $this->create_new()();
+        $this->add_images($images);
         
-        // TODO: add likes and comments
         $this->likes = array();
         $this->comments = array();
     }   
 
-    private function create_new_post() {
+    private function create_new() {
         global $conn;
         $stmt = $conn->prepare(QUERY['add_post']);
         $stmt->bind_param("ss", $this->caption, $this->username);
@@ -39,7 +38,7 @@ class Post
         $this->post_id = $conn->insert_id;
     }
 
-    private function add_images_to_post($images) {
+    private function add_images($images) {
         global $conn;
         if(isset($images) && !empty($images)) {
             $stmt = $conn->prepare(QUERY['add_post_image']);
@@ -49,6 +48,60 @@ class Post
                 $stmt->execute();
             }
         }
+    }
+
+    public function delete() {
+        global $conn;
+        $stmt = $conn->prepare(QUERY['delete_post']);
+        $stmt->bind_param("i", $this->post_id);
+        $stmt->execute();
+    }
+
+    public function like($username) {
+        global $conn;
+        $stmt = $conn->prepare(QUERY['like_post']);
+        $stmt->bind_param("is", $this->post_id, $username);
+        $stmt->execute();
+        $this->likes[] = $username;
+    }
+
+    public function unlike($username) {
+        global $conn;
+        $stmt = $conn->prepare(QUERY['unlike_post']);
+        $stmt->bind_param("is", $this->post_id, $username);
+        $stmt->execute();
+        $this->likes = array_diff($this->likes, array($username));
+    }
+
+    public function comment($text, $username) {
+        $comment = new Comment($text, $this->post_id, $username);
+        $this->comments[] = $comment;
+    }
+
+    public function uncomment($comment_id) {
+        $comment = array_filter($this->comments, function($comment) use ($comment_id) {
+            $comment['comment_id'] == $comment_id;
+            $comment->delete();
+            return $comment;
+        });
+        $this->comments = array_diff($this->comments, $comment);
+    }
+
+    public function rate($username, $exposure, $colors, $composition) {
+        global $conn;
+        $stmt = $conn->prepare(QUERY['rate_post']);
+        $stmt->bind_param("isiii", $this->post_id, $username, $exposure, $colors, $composition);
+        $stmt->execute();
+        $stmt = $conn->prepare(QUERY['update_average_post_rating']);
+        $stmt->bind_param("i", $this->post_id);
+        $stmt->execute();
+        $stmt = $conn->prepare(QUERY['get_average_post_rating']);
+        $stmt->bind_param("i", $this->post_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        $this->avg_exposure_rating = $result['exposure'];
+        $this->avg_colors_rating = $result['colors'];
+        $this->avg_composition_rating = $result['composition'];
     }
 }
 ?>
