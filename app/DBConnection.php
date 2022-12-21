@@ -59,7 +59,7 @@ class DBConnection
         $posts = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $post = new Post(username: $row['username'], caption: $row['caption'], conn: $this->conn, post_id: $row['post_id'], timestamp: $row['timestamp']);
+                $post = new Post(username: $row['username'], caption: $row['caption'], conn: $this->conn, post_id: $row['post_id'], timestamp: $row['timestamp'], avg_exposure_rating: $row['avg_exposure_rating'], avg_colors_rating: $row['avg_colors_rating'], avg_composition_rating: $row['avg_composition_rating']);
                 array_push($posts, $post);
             }
         }
