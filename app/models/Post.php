@@ -10,6 +10,7 @@ class Post
     private int $post_id;
     private string $username;
     private string $caption;
+    private $images;
     private $likes;
     private $comments;
     private float $avg_exposure_rating;
@@ -22,15 +23,12 @@ class Post
         $this->avg_exposure_rating = 0;
         $this->avg_colors_rating = 0;
         $this->avg_composition_rating = 0;
-
-        $this->create_new()();
-        $this->add_images($images);
-        
         $this->likes = array();
         $this->comments = array();
+        $this->images = $images;
     }   
 
-    private function create_new() {
+    public function create_new() {
         global $conn;
         $stmt = $conn->prepare(QUERY['add_post']);
         $stmt->bind_param("ss", $this->caption, $this->username);
@@ -38,7 +36,7 @@ class Post
         $this->post_id = $conn->insert_id;
     }
 
-    private function add_images($images) {
+    public function add_images($images) {
         global $conn;
         if(isset($images) && !empty($images)) {
             $stmt = $conn->prepare(QUERY['add_post_image']);
@@ -78,13 +76,9 @@ class Post
         $this->comments[] = $comment;
     }
 
-    public function uncomment($comment_id) {
-        $comment = array_filter($this->comments, function($comment) use ($comment_id) {
-            $comment['comment_id'] == $comment_id;
-            $comment->delete();
-            return $comment;
-        });
+    public function uncomment($comment) {
         $this->comments = array_diff($this->comments, $comment);
+        $comment->delete();
     }
 
     public function rate($username, $exposure, $colors, $composition) {
