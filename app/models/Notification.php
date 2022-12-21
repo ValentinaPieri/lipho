@@ -1,16 +1,15 @@
 <?php
-
 namespace app\models;
 
-use const app\QUERY;
+require_once 'app/query.php';
 
 class Notification
 {
-    private $id;
-    private $text;
-    private $seen;
-    private $timestamp;
-    private $username;
+    private int $id;
+    private string $text;
+    private bool $seen;
+    private string $timestamp;
+    private string $username;
     private $conn;
 
     public function __construct($id, $text, $seen, $timestamp, $username, $conn)
@@ -23,25 +22,50 @@ class Notification
         $this->conn = $conn;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    public function isSeen()
+    {
+        return $this->seen;
+    }
+
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
     public function send()
     {
-        $stmt = $this->conn->prepare(QUERY['send_notification']);
-        $stmt->bindParam('siis', $this->text, $this->seen, $this->timestamp, $this->username);
+        $stmt = $this->conn->prepare(QUERIES['send_notification']);
+        $stmt->bind_param('siis', $this->text, $this->seen, $this->timestamp, $this->username);
         $stmt->execute();
     }
 
     public function delete()
     {
-        $stmt = $this->conn->prepare(QUERY['delete_notification']);
-        $stmt->bindParam('i', $this->id);
+        $stmt = $this->conn->prepare(QUERIES['delete_notification']);
+        $stmt->bind_param('i', $this->id);
         $stmt->execute();
     }
 
     public function setSeen()
     {
         $this->seen = true;
-        $stmt = $this->conn->prepare(QUERY['set_notifications_seen']);
-        $stmt->bindParam('i', $this->id);
+        $stmt = $this->conn->prepare(QUERIES['set_notifications_seen']);
+        $stmt->bind_param('i', $this->id);
         $stmt->execute();
     }
 }
