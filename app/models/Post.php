@@ -104,13 +104,6 @@ class Post
         $stmt = $this->conn->prepare(QUERIES['update_average_post_rating']);
         $stmt->bind_param("iiii", $this->post_id, $this->post_id, $this->post_id, $this->post_id);
         $stmt->execute();
-        $stmt = $this->conn->prepare(QUERIES['get_average_post_rating']);
-        $stmt->bind_param("i", $this->post_id);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        $this->avg_exposure_rating = $result['exposure'];
-        $this->avg_colors_rating = $result['colors'];
-        $this->avg_composition_rating = $result['composition'];
     }
 
     private function retreiveImages()
