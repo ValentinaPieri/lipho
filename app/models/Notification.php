@@ -50,7 +50,7 @@ class Notification
         return $this->username;
     }
 
-    public function send()
+    private function send()
     {
         $stmt = $this->conn->prepare(QUERIES['send_notification']);
         $stmt->bind_param('sis', $this->text, $this->seen, $this->username);
