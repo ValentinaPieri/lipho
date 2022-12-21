@@ -33,6 +33,10 @@ class Post
         $this->conn = $conn;
         if ($post_id == 0) {
             $this->createNew();
+        } else {
+            $this->retreiveImages();
+            $this->retreiveLikes();
+            $this->retreiveComments();
         }
     }
 
@@ -107,5 +111,41 @@ class Post
         $this->avg_exposure_rating = $result['exposure'];
         $this->avg_colors_rating = $result['colors'];
         $this->avg_composition_rating = $result['composition'];
+    }
+
+    private function retreiveImages()
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_images']);
+        $stmt->bind_param("i", $this->post_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $this->images = array();
+        foreach ($result as $image) {
+            array_push($this->images, $image['image']);
+        }
+    }
+
+    private function retreiveLikes()
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_likes']);
+        $stmt->bind_param("i", $this->post_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $this->likes = array();
+        foreach ($result as $like) {
+            array_push($this->likes, $like['username']);
+        }
+    }
+
+    private function retreiveComments()
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_comments']);
+        $stmt->bind_param("i", $this->post_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $this->comments = array();
+        foreach ($result as $comment) {
+            array_push($this->comments, new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']));
+        }
     }
 }
