@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 
-use const app\QUERY;
+include_once '../query.php';
 
 class Notification
 {
@@ -24,14 +24,14 @@ class Notification
 
     public function send()
     {
-        $stmt = $this->conn->prepare(QUERY['send_notification']);
+        $stmt = $this->conn->prepare(QUERIES['send_notification']);
         $stmt->bindParam('siis', $this->text, $this->seen, $this->timestamp, $this->username);
         $stmt->execute();
     }
 
     public function delete()
     {
-        $stmt = $this->conn->prepare(QUERY['delete_notification']);
+        $stmt = $this->conn->prepare(QUERIES['delete_notification']);
         $stmt->bindParam('i', $this->id);
         $stmt->execute();
     }
@@ -39,7 +39,7 @@ class Notification
     public function setSeen()
     {
         $this->seen = true;
-        $stmt = $this->conn->prepare(QUERY['set_notifications_seen']);
+        $stmt = $this->conn->prepare(QUERIES['set_notifications_seen']);
         $stmt->bindParam('i', $this->id);
         $stmt->execute();
     }
