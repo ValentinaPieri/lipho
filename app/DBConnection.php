@@ -2,11 +2,8 @@
 namespace app;
 
 use mysqli;
+use app\models\Notification;
 include_once 'query.php';
-
-use const app\QUERY;
-
-require_once 'models/Notification.php';
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
@@ -33,7 +30,7 @@ class DBConnection
 
     public function getNotifications()
     {
-        $result = $this->conn->query(QUERY['get_user_notifications']);
+        $result = $this->conn->query(QUERIES['get_user_notifications']);
         $notifications = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
