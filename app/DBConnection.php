@@ -6,8 +6,21 @@ const passw = 'Lipho@';
 const db = 'lipho';
 const port = 3306;
 
-$conn = new mysqli(host, user, passw, db, port);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+class DBConnection
+{
+    private $conn;
+
+    public function __construct()
+    {
+        $this->conn = new mysqli(host, user, passw, db, port);
+        if ($this->conn->connect_error) {
+            echo "Connection failed: " . $this->conn->connect_error;
+        }
+    }
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
 }
 ?>
