@@ -27,7 +27,7 @@ class Comment
         $stmt->execute();
         $this->comment_id = $conn->insert_id;
     }
-
+    
     public function delete() {
         global $conn;
         $stmt = $conn->prepare(QUERY['delete_comment']);
@@ -42,7 +42,7 @@ class Comment
         $stmt->execute();
     }
 
-    public function unliket() {
+    public function unlike() {
         global $conn;
         $stmt = $conn->prepare(QUERY['unlike_comment']);
         $stmt->bind_param("is", $this->comment_id, $this->username);
