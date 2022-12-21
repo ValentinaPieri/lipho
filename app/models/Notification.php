@@ -1,14 +1,14 @@
 <?php
 namespace app\models;
 
-include_once '../query.php';
+require_once 'app/query.php';
 
 class Notification
 {
     private int $id;
     private string $text;
     private bool $seen;
-    private int $timestamp;
+    private string $timestamp;
     private string $username;
     private $conn;
 
@@ -20,6 +20,31 @@ class Notification
         $this->timestamp = $timestamp;
         $this->username = $username;
         $this->conn = $conn;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    public function isSeen()
+    {
+        return $this->seen;
+    }
+
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
     }
 
     public function send()
