@@ -1,7 +1,5 @@
 <?php
 
-namespace app\models;
-
 use const app\QUERY;
 
 class Notification
