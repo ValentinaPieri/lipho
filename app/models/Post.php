@@ -18,14 +18,14 @@ class Post
     private float $avg_composition_rating;
     private $conn;
 
-    public function __construct($username, $caption, $conn, $images = array(), $post_id = 0, $timestamp = "")
+    public function __construct($username, $caption, $conn, $images = array(), $post_id = 0, $timestamp = "", $avg_exposure_rating = 0, $avg_colors_rating = 0, $avg_composition_rating = 0)
     {
         $this->post_id = $post_id;
         $this->caption = $caption;
         $this->username = $username;
-        $this->avg_exposure_rating = 0;
-        $this->avg_colors_rating = 0;
-        $this->avg_composition_rating = 0;
+        $this->avg_exposure_rating = $avg_exposure_rating;
+        $this->avg_colors_rating = $avg_colors_rating;
+        $this->avg_composition_rating = $avg_composition_rating;
         $this->likes = array();
         $this->comments = array();
         $this->images = $images;
