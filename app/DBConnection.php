@@ -1,4 +1,8 @@
 <?php
+namespace app;
+
+use mysqli;
+include_once 'query.php';
 
 use const app\QUERY;
 
