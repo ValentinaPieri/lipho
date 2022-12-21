@@ -25,14 +25,14 @@ class Notification
     public function send()
     {
         $stmt = $this->conn->prepare(QUERIES['send_notification']);
-        $stmt->bindParam('siis', $this->text, $this->seen, $this->timestamp, $this->username);
+        $stmt->bind_param('siis', $this->text, $this->seen, $this->timestamp, $this->username);
         $stmt->execute();
     }
 
     public function delete()
     {
         $stmt = $this->conn->prepare(QUERIES['delete_notification']);
-        $stmt->bindParam('i', $this->id);
+        $stmt->bind_param('i', $this->id);
         $stmt->execute();
     }
 
@@ -40,7 +40,7 @@ class Notification
     {
         $this->seen = true;
         $stmt = $this->conn->prepare(QUERIES['set_notifications_seen']);
-        $stmt->bindParam('i', $this->id);
+        $stmt->bind_param('i', $this->id);
         $stmt->execute();
     }
 }
