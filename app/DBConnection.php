@@ -1,4 +1,8 @@
 <?php
+namespace app;
+
+use mysqli;
+include_once 'query.php';
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
