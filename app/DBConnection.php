@@ -63,5 +63,6 @@ class DBConnection
                 array_push($posts, $post);
             }
         }
+        return $posts;
     }
 }
