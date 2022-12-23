@@ -17,6 +17,8 @@ $templateParams["page"] .= "
 <form method='post' enctype='multipart/form-data'>
     <div id='images-form'>
     <input type='file' class='form-control' id='image-input' name='image' required/>
+    <i class='fa-regular fa-trash-can'></i>
+    <i class='fa-regular fa-arrow-right'></i>
     </div>
 
     <button type='button' class='form-control' id='add-button-form' onclick='addButtonClicked()'><i class='fa-regular fa-circle-plus'></i></button>
@@ -30,19 +32,19 @@ $templateParams["page"] .= "
 </form>
 ";
 
-if(isset($_POST["post-button"])) {
+if (isset($_POST["post-button"])) {
     $images = array();
     $username = "test";
-    
-    foreach($_FILES as $file){
-        $fileName = basename($_FILES["image"]["name"]);
+
+    foreach ($_FILES['image']['name'] as $i => $name) {
+        $fileName = basename($name);
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-        $allowedTypes = array('jpg','png','jpeg');
-        if(in_array($fileType, $allowedTypes)){
-            $image = $_FILES['image']['tmp_name'];
+        $allowedTypes = array('jpg', 'png', 'jpeg');
+        if (in_array($fileType, $allowedTypes)) {
+            $image = $_FILES['image']['tmp_name'][$i];
             $imgContent = addslashes(file_get_contents($image));
             array_push($images, $imgContent);
-            $post = new Post(/*$_SESSION["username"]*/ $username, $_POST["caption"], $conn, $images);
+            $post = new Post(/*$_SESSION["username"]*/$username, $_POST["caption"], $conn, $images);
         }
     }
 }
@@ -54,14 +56,20 @@ require_once 'templates/base.php';
     let images = 1;
 
     function addButtonClicked() {
-        if (images < 5) {
+        if (images < 4) {
             const div = document.getElementById('images-form');
             div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input\' name=\'image\' required/>';
-            if (images == 4) {
-                var button = document.getElementById("add-button-form");
-                button.remove();
-            }
+            div.innerHTML += '<i class=\'fa-regular fa-arrow-left\'></i>';
+            div.innerHTML += '<i class=\'fa-regular fa-trash-can\'></i>';
+            div.innerHTML += '<i class=\'fa-regular fa-arrow-right\'></i>';
             images++;
+        } else if (images == 4) {
+            const div = document.getElementById('images-form');
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input\' name=\'image\' required/>';
+            div.innerHTML += '<i class=\'fa-regular fa-arrow-left\'></i>';
+            div.innerHTML += '<i class=\'fa-regular fa-trash-can\'></i>';
+            var button = document.getElementById("add-button-form");
+            button.remove();
         }
     }
 </script>
