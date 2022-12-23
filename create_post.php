@@ -56,7 +56,7 @@ require_once 'templates/base.php';
     function addButtonClicked() {
         if (images < 5) {
             const div = document.getElementById('images-form');
-            div.innerText += '<input type=\'file\' class=\'form-control\' id=\'image-input\' name=\'image\'/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input\' name=\'image\' required/>';
             if (images == 4) {
                 var button = document.getElementById("add-button-form");
                 button.remove();
