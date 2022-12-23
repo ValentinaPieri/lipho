@@ -15,13 +15,16 @@ $templateParams["page"] = "<h2>Pictures</h2>";
 
 $templateParams["page"] .= "
 <form method='post' enctype='multipart/form-data'>
+
     <div id='images-form'>
-    <input type='file' class='form-control' id='image-input' name='image' required/>
-    <i class='fa-regular fa-trash-can'></i>
-    <i class='fa-regular fa-arrow-right'></i>
+    <input type='file' class='form-control' id='image-input0' name='image' required/>
+    <button type='button' id='trash-can0' onclick='deleteButtonClicked(0)'><i class='fa-regular fa-trash-can'></i></button>
+    <button type='button' id='right-arrow0'><i class='fa-regular fa-arrow-right'></i></button>
     </div>
 
-    <button type='button' class='form-control' id='add-button-form' onclick='addButtonClicked()'><i class='fa-regular fa-circle-plus'></i></button>
+    <div id='add-button-form'>
+    <button type='button' class='form-control' id='add-button' onclick='addButtonClicked()'><i class='fa-regular fa-circle-plus'></i></button>
+    </div>
 
     <div id='caption-form'>
     <label for='caption'><h2>Caption</h2></label>
@@ -58,18 +61,48 @@ require_once 'templates/base.php';
     function addButtonClicked() {
         if (images < 4) {
             const div = document.getElementById('images-form');
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input\' name=\'image\' required/>';
-            div.innerHTML += '<i class=\'fa-regular fa-arrow-left\'></i>';
-            div.innerHTML += '<i class=\'fa-regular fa-trash-can\'></i>';
-            div.innerHTML += '<i class=\'fa-regular fa-arrow-right\'></i>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + images + '\' name=\'image\'/>';
+            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + images + '\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
+            div.innerHTML += '<button type=\'button\' id=\'trash-can' + images + '\' onclick=\'deleteButtonClicked(' + images + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
+            div.innerHTML += '<button type=\'button\' id=\'right-arrow' + images + '\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
             images++;
         } else if (images == 4) {
             const div = document.getElementById('images-form');
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input\' name=\'image\' required/>';
-            div.innerHTML += '<i class=\'fa-regular fa-arrow-left\'></i>';
-            div.innerHTML += '<i class=\'fa-regular fa-trash-can\'></i>';
-            var button = document.getElementById("add-button-form");
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + images + '\' name=\'image\'/>';
+            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + images + '\'><i class=\'fa-regular fa-arrow-left\'></i>';
+            div.innerHTML += '<button type=\'button\' id=\'trash-can' + images + '\' onclick=\'deleteButtonClicked(' + images + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
+            var button = document.getElementById("add-button");
             button.remove();
+        }
+    }
+
+    function deleteButtonClicked(index) {
+        if (images > 0) {
+            let form = document.getElementById('image-input' + index + '');
+            form.remove();
+            if (index == 0) {
+                let button = document.getElementById('trash-can' + index + '');
+                button.remove();
+                button = document.getElementById('right-arrow' + index + '');
+                button.remove();
+            } else if (index == 4) {
+                let button = document.getElementById('left-arrow' + index + '');
+                button.remove();
+                button = document.getElementById('trash-can' + index + '');
+                button.remove();
+            } else {
+                let button = document.getElementById('left-arrow' + index + '');
+                button.remove();
+                button = document.getElementById('trash-can' + index + '');
+                button.remove();
+                button = document.getElementById('right-arrow' + index + '');
+                button.remove();
+            }
+            images--;
+            if (images == 3) {
+                const button = document.getElementById('add-button-form');
+                button.innerHTML += '<button type=\'button\' class=\'form-control\' id=\'add-button\' onclick=\'addButtonClicked()\'><i class=\'fa-regular fa-circle-plus\'></i></button>';
+            }
         }
     }
 </script>
