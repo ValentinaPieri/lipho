@@ -27,4 +27,5 @@ const QUERIES = [
     "delete_notification" => "DELETE FROM notification WHERE notification_id = ?",
     "clear_user_notifications" => "DELETE FROM notification WHERE username = ?",
     "send_notification" => "INSERT INTO notification (`text`, seen, username) VALUES (?, ?, ?)",
+    "get_user_profile_image" => "SELECT profile_image FROM user WHERE username = ?",
 ];
