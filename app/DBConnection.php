@@ -61,4 +61,11 @@ class DBConnection
         }
         return null;
     }
+
+    public function deleteNotification($notificationId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_notification']);
+        $stmt->bind_param('i', $notificationId);
+        $stmt->execute();
+    }
 }
