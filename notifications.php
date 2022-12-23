@@ -32,10 +32,13 @@ for ($current = 0; $current < sizeof($notifications); $current++) {
         $earlier_shown = true;
     }
 
+    $profile_image = $dbconnection->getUserProfileImage($notifications[$current]->getUsername());
+
     $templateParams["page"] .= "
             <div class=\"notification\">
+                <img src=\"data:image/jpeg;base64," . base64_encode($profile_image) . "\" alt=\"" . $notifications[$current]->getUsername() . " profile image\">
+                <a href=\"profile.php?username=" . $notifications[$current]->getUsername() . "\">" . $notifications[$current]->getUsername() . "</a>
                 <p>
-                    <a href=\"profile.php?username=" . $notifications[$current]->getUsername() . "\">" . $notifications[$current]->getUsername() . "</a>
                     " . $notifications[$current]->getText() . "
                 </p>
             </div>
