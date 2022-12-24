@@ -72,23 +72,7 @@ require_once 'templates/base.php';
                 div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
             }
         }
-        for (i = 0; i < imagesNum; i++) {
-            index = i;
-            if (document.getElementById('image-input' + --index + '') == null) {
-                index++;
-                document.getElementById('left-arrow' + i + '').style.display = 'none';
-            } else {
-                index++;
-                document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
-            }
-            if (document.getElementById('image-input' + ++index + '') == null) {
-                index--;
-                document.getElementById('right-arrow' + i + '').style.display = 'none';
-            } else {
-                index--;
-                document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
-            }
-        }
+        imagesRefresh();
         ++imagesNum;
         if (imagesNum > 5) {
             const button = document.getElementById('add-button');
@@ -132,7 +116,7 @@ require_once 'templates/base.php';
     function reindex(index) {
         let newIndex = index;
         while ((document.getElementById('image-input' + index + '')) != null || (document.getElementById('image-input' + ++index + '')) != null) {
-            for (i = index; i <= imagesNum; i++) {
+            for (i = index; i < imagesNum; i++) {
                 let form = document.getElementById('image-input' + i + '');
                 form.id = 'image-input' + (newIndex) + '';
                 let button = document.getElementById('left-arrow' + i + '');
@@ -147,8 +131,26 @@ require_once 'templates/base.php';
             }
             break;
         }
+    }
+
+    function imagesRefresh(){
         for (i = 0; i < imagesNum; i++) {
-            console.log(document.getElementById('image-input' + i + ''))
+            index = i;
+            if (document.getElementById('image-input' + --index + '') == null) {
+                index++;
+                document.getElementById('left-arrow' + i + '').style.display = 'none';
+            } else {
+                index++;
+                document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
+            }
+            if (document.getElementById('image-input' + ++index + '') == null) {
+                index--;
+                document.getElementById('right-arrow' + i + '').style.display = 'none';
+            } else {
+                index--;
+                document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
+            }
         }
     }
+
 </script>
