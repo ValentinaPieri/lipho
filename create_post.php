@@ -56,28 +56,28 @@ require_once 'templates/base.php';
 ?>
 
 <script>
-    let images = 1;
+    let imagesNum = 1;
 
     function addButtonClicked() {
-        if (images < 4) {
+        if (imagesNum < 4) {
             const div = document.getElementById('images-form');
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + images + '\' name=\'image\'/>';
-            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + images + '\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
-            div.innerHTML += '<button type=\'button\' id=\'trash-can' + images + '\' onclick=\'deleteButtonClicked(' + images + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
-            div.innerHTML += '<button type=\'button\' id=\'right-arrow' + images + '\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
-            images++;
-        } else if (images == 4) {
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + imagesNum + '\' name=\'image\'/>';
+            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + imagesNum + '\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
+            div.innerHTML += '<button type=\'button\' id=\'trash-can' + imagesNum + '\' onclick=\'deleteButtonClicked(' + imagesNum + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
+            div.innerHTML += '<button type=\'button\' id=\'right-arrow' + imagesNum + '\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
+            imagesNum++;
+        } else if (imagesNum == 4) {
             const div = document.getElementById('images-form');
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + images + '\' name=\'image\'/>';
-            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + images + '\'><i class=\'fa-regular fa-arrow-left\'></i>';
-            div.innerHTML += '<button type=\'button\' id=\'trash-can' + images + '\' onclick=\'deleteButtonClicked(' + images + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + imagesNum + '\' name=\'image\'/>';
+            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + imagesNum + '\'><i class=\'fa-regular fa-arrow-left\'></i>';
+            div.innerHTML += '<button type=\'button\' id=\'trash-can' + imagesNum + '\' onclick=\'deleteButtonClicked(' + imagesNum + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
             var button = document.getElementById("add-button");
             button.remove();
         }
     }
 
     function deleteButtonClicked(index) {
-        if (images > 0) {
+        if (imagesNum > 0) {
             let form = document.getElementById('image-input' + index + '');
             form.remove();
             if (index == 0) {
@@ -98,8 +98,8 @@ require_once 'templates/base.php';
                 button = document.getElementById('right-arrow' + index + '');
                 button.remove();
             }
-            images--;
-            if (images == 3) {
+            imagesNum--;
+            if (imagesNum == 3) {
                 const button = document.getElementById('add-button-form');
                 button.innerHTML += '<button type=\'button\' class=\'form-control\' id=\'add-button\' onclick=\'addButtonClicked()\'><i class=\'fa-regular fa-circle-plus\'></i></button>';
             }
