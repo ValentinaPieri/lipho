@@ -77,14 +77,17 @@ require_once 'templates/base.php';
     }
 
     function deleteButtonClicked(index) {
-        if (imagesNum > 0) {
+        if (imagesNum - 1 > 0) {
             let form = document.getElementById('image-input' + index + '');
             form.remove();
+            imagesNum--;
             if (index == 0) {
                 let button = document.getElementById('trash-can' + index + '');
                 button.remove();
                 button = document.getElementById('right-arrow' + index + '');
                 button.remove();
+                reindex(index);
+
             } else if (index == 4) {
                 let button = document.getElementById('left-arrow' + index + '');
                 button.remove();
@@ -97,12 +100,35 @@ require_once 'templates/base.php';
                 button.remove();
                 button = document.getElementById('right-arrow' + index + '');
                 button.remove();
+                reindex(index);
             }
-            imagesNum--;
             if (imagesNum == 3) {
                 const button = document.getElementById('add-button-form');
                 button.innerHTML += '<button type=\'button\' class=\'form-control\' id=\'add-button\' onclick=\'addButtonClicked()\'><i class=\'fa-regular fa-circle-plus\'></i></button>';
             }
+        }
+    }
+
+    function reindex(index) {
+        let newIndex = index;
+        while ((document.getElementById('image-input' + index + '')) != null || (document.getElementById('image-input' + ++index + '')) != null) {
+            for (i = index; i <= imagesNum; i++) {
+                let form = document.getElementById('image-input' + i + '');
+                form.id = 'image-input' + (newIndex) + '';
+                let button = document.getElementById('left-arrow' + i + '');
+                button.id = 'left-arrow' + (newIndex) + '';
+                button = document.getElementById('trash-can' + i + '');
+                button.id = 'trash-can' + (newIndex) + '';
+                if (i != imagesNum) {
+                    button = document.getElementById('right-arrow' + i + '');
+                    button.id = 'right-arrow' + (newIndex) + '';
+                }
+                newIndex++;
+            }
+            break;
+        }
+        for (i = 0; i < imagesNum; i++) {
+            console.log(document.getElementById('image-input' + i + ''))
         }
     }
 </script>
