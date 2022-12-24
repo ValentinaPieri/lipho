@@ -18,8 +18,6 @@ $templateParams["page"] .= "
 
     <div id='images-form'>
     <input type='file' class='form-control' id='image-input0' name='image' required/>
-    <button type='button' id='trash-can0' onclick='deleteButtonClicked(0)'><i class='fa-regular fa-trash-can'></i></button>
-    <button type='button' id='right-arrow0'><i class='fa-regular fa-arrow-right'></i></button>
     </div>
 
     <div id='add-button-form'>
@@ -56,22 +54,44 @@ require_once 'templates/base.php';
 ?>
 
 <script>
-    let imagesNum = 1;
+    let imagesNum = 2;
 
     function addButtonClicked() {
-        if (imagesNum < 4) {
-            const div = document.getElementById('images-form');
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + imagesNum + '\' name=\'image\'/>';
-            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + imagesNum + '\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
-            div.innerHTML += '<button type=\'button\' id=\'trash-can' + imagesNum + '\' onclick=\'deleteButtonClicked(' + imagesNum + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
-            div.innerHTML += '<button type=\'button\' id=\'right-arrow' + imagesNum + '\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
-            imagesNum++;
-        } else if (imagesNum == 4) {
-            const div = document.getElementById('images-form');
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + imagesNum + '\' name=\'image\'/>';
-            div.innerHTML += '<button type=\'button\' id=\'left-arrow' + imagesNum + '\'><i class=\'fa-regular fa-arrow-left\'></i>';
-            div.innerHTML += '<button type=\'button\' id=\'trash-can' + imagesNum + '\' onclick=\'deleteButtonClicked(' + imagesNum + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
-            var button = document.getElementById("add-button");
+        const div = document.getElementById('images-form');
+        for (i = 0; i < imagesNum; i++) {
+            if (i != 0 && document.getElementById('image-input' + i + '') == null) {
+                div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\'/>';
+            }
+            if (document.getElementById('left-arrow' + i + '') == null) {
+                div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
+            }
+            if (document.getElementById('trash-can' + i + '') == null) {
+                div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteButtonClicked(' + i + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
+            }
+            if (document.getElementById('right-arrow' + i + '') == null) {
+                div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
+            }
+        }
+        for (i = 0; i < imagesNum; i++) {
+            index = i;
+            if (document.getElementById('image-input' + --index + '') == null) {
+                index++;
+                document.getElementById('left-arrow' + i + '').style.display = 'none';
+            } else {
+                index++;
+                document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
+            }
+            if (document.getElementById('image-input' + ++index + '') == null) {
+                index--;
+                document.getElementById('right-arrow' + i + '').style.display = 'none';
+            } else {
+                index--;
+                document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
+            }
+        }
+        ++imagesNum;
+        if (imagesNum > 5) {
+            const button = document.getElementById('add-button');
             button.remove();
         }
     }
