@@ -1,7 +1,7 @@
 <?php
 
 const QUERIES = [
-    "add_user" => "INSERT INTO user (username, `password`, `name`, surname, email, phone, birthdate) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    "add_user" => "INSERT INTO user (username, `password`, `name`, surname, email, phone, birthdate, profilepic) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     "delete_user" => "DELETE FROM user WHERE username = ?",
     "check_username" => "SELECT * FROM user WHERE username = ?",
     "check_password" => "SELECT * FROM user WHERE username = ? AND `password` = ?",
