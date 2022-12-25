@@ -1,5 +1,7 @@
 <?php
 
+namespace app\models;
+
 require_once 'app/query.php';
 
 class User
@@ -11,25 +13,38 @@ class User
     private string $name;
 
     private string $surname;
-    
-    private string $email;
+
+    private $email;
 
     private $phone;
 
     private $birth_date;
 
+    private string $timestamp;
+
+    private int $id;
+
     private $conn;
 
-    public function __construct($username, $password, $name, $surname, $email, $phone, $birth_date, $conn)
+    private $profile_pic;
+
+    public function __construct($username, $password, $name, $surname, $conn, $email = "", $phone = "", $birth_date = "", $profile_pic = "",  $timestamp = "", $id = 0)
     {
         $this->username = $username;
         $this->password = $password;
         $this->name = $name;
         $this->surname = $surname;
+        $this->conn = $conn;
         $this->email = $email;
         $this->phone = $phone;
         $this->birth_date = $birth_date;
-        $this->conn = $conn;
+        $this->profile_pic = $profile_pic;
+        $this->timestamp = $timestamp;
+        $this->id = $id;
+
+        if($id==0){
+            $this->add();
+        }
     }
 
     public function getUsername()
@@ -70,7 +85,7 @@ class User
     public function add()
     {
         $stmt = $this->conn->prepare(QUERIES['add_user']);
-        $stmt->bind_param('ssssssi', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->phone, $this->birth_date);
+        $stmt->bind_param('ssssssss', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->phone, $this->birth_date, $this->profile_pic);
         $stmt->execute();
     }
 
@@ -104,5 +119,4 @@ class User
         $stmt->bind_param('ssssssi', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->phone, $this->birth_date);
         $stmt->execute();
     }
-
 }
