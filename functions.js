@@ -92,6 +92,7 @@ function addImage() {
 function deleteImage(index) {
     if (--imagesNum > 0) {
         document.getElementById('image-input' + index + '').style.display = 'none';
+        (document.getElementById('image-input' + index + '')).value != '' ? document.getElementById('image-input' + index + '').value = '' : null;
         document.getElementById('left-arrow' + index + '').style.display = 'none';
         document.getElementById('trash-can' + index + '').style.display = 'none';
         document.getElementById('right-arrow' + index + '').style.display = 'none';
