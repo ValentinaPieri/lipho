@@ -3,9 +3,12 @@ require_once 'app/DBConnection.php';
 require_once 'app/models/Notification.php';
 
 use app\DBConnection;
-use app\models\Notification;
 
 $templateParams["title"] = "Notifications";
+$templateParams["page"] = "
+    <script src=\"https://code.jquery.com/jquery-3.5.0.js\"></script>
+    <script src=\"js/notifications.js\"></script>
+    ";
 
 $dbconnection = new DBConnection();
 
@@ -35,12 +38,15 @@ for ($current = 0; $current < sizeof($notifications); $current++) {
     $profile_image = $dbconnection->getUserProfileImage($notifications[$current]->getUsername());
 
     $templateParams["page"] .= "
-            <div class=\"notification\">
+            <div class=\"notification\" id=\"notification" . $notifications[$current]->getId() . "\">
                 <img src=\"data:image/jpeg;base64," . base64_encode($profile_image) . "\" alt=\"" . $notifications[$current]->getUsername() . " profile image\">
                 <a href=\"profile.php?username=" . $notifications[$current]->getUsername() . "\">" . $notifications[$current]->getUsername() . "</a>
                 <p>
                     " . $notifications[$current]->getText() . "
                 </p>
+                <button type=\"button\" class=\"notification-delete-button\" onClick=\"deleteNotification(" . $notifications[$current]->getId() . ")\">
+                    <i class=\"fa-light fa-trash-can\"></i>
+                </button>
             </div>
             ";
 }
@@ -50,6 +56,10 @@ if (sizeof($notifications) == 0) {
     <h2>No notifications</h2>
     <i class=\"fa-regular fa-face-frown-slight\"></i>
     ";
+}
+
+foreach ($notifications as $notification) {
+    $notification->setSeen();
 }
 
 require_once 'templates/base.php';
