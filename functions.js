@@ -4,10 +4,9 @@ function displayImagesForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
         if (i == 0) {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\'/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' style="display: inline-block"/>';
         } else {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\'/>';
-            document.getElementById('image-input' + i + '').style.display = 'none';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' style="display: none"/>';
         }
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
         document.getElementById('left-arrow' + i + '').style.display = 'none';
@@ -122,41 +121,44 @@ function checkRequiredImages() {
 }
 
 function moveImageToLeft(index) {
-    --index;
     let previous;
-    for (let i = index; i >= 0; i--) {
+    index--;
+    for (i = index; i >= 0; i--) {
         if (document.getElementById('image-input' + i + '').style.display != 'none') {
             previous = i;
             break;
         }
     }
     index++;
-    const element1 = document.querySelector('#image-input' + index + '');
-    const element2 = document.querySelector('#image-input' + previous + '');
-    const placeholder = document.createElement('div');
-    element1.parentNode.insertBefore(placeholder, element1);
-    element2.parentNode.insertBefore(element1, element2);
-    placeholder.parentNode.insertBefore(element2, placeholder);
-    placeholder.remove();
+    swap('#image-input' + index + '', '#image-input' + previous + '', index, previous);
     imagesRefresh();
 }
 
 function moveImageToRight(index) {
-    ++index;
     let next;
-    for (let i = index; i < 5; i++) {
+    index++;
+    for (i = index; i < 5; i++) {
         if (document.getElementById('image-input' + i + '').style.display != 'none') {
             next = i;
             break;
         }
-    }
+    }+
     index--;
-    const element1 = document.querySelector('#image-input' + index + '');
-    const element2 = document.querySelector('#image-input' + next + '');
-    const placeholder = document.createElement('div');
+    swap('#image-input' + next + '', '#image-input' + index + '', next, index);
+    imagesRefresh();
+}
+
+function swap(element1Id, element2Id, index, previous) {
+    let element1 = document.querySelector(element1Id);
+    let element2 = document.querySelector(element2Id);
+    let placeholder = document.createElement('div');
     element1.parentNode.insertBefore(placeholder, element1);
     element2.parentNode.insertBefore(element1, element2);
     placeholder.parentNode.insertBefore(element2, placeholder);
     placeholder.remove();
-    imagesRefresh();
+    //swapping IDs
+    element1 = document.getElementById('image-input' + index + '');
+    element2 = document.getElementById('image-input' + previous + '');
+    element1.id = 'image-input' + previous + '';
+    element2.id = 'image-input' + index + '';
 }
