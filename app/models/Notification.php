@@ -12,7 +12,7 @@ class Notification
     private string $username;
     private $conn;
 
-    public function __construct($id, $text, $seen, $timestamp, $username, $conn)
+    public function __construct($text, $seen, $username, $conn, $timestamp = "", $id = 0)
     {
         $this->id = $id;
         $this->text = $text;
@@ -20,6 +20,9 @@ class Notification
         $this->timestamp = $timestamp;
         $this->username = $username;
         $this->conn = $conn;
+
+        if ($id == 0)
+            $this->send();
     }
 
     public function getId()
@@ -47,10 +50,10 @@ class Notification
         return $this->username;
     }
 
-    public function send()
+    private function send()
     {
         $stmt = $this->conn->prepare(QUERIES['send_notification']);
-        $stmt->bind_param('siis', $this->text, $this->seen, $this->timestamp, $this->username);
+        $stmt->bind_param('sis', $this->text, $this->seen, $this->username);
         $stmt->execute();
     }
 
