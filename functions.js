@@ -9,7 +9,7 @@ function displayImagesForms() {
             div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\'/>';
             document.getElementById('image-input' + i + '').style.display = 'none';
         }
-        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
         document.getElementById('left-arrow' + i + '').style.display = 'none';
         div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImage(' + i + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
         document.getElementById('trash-can' + i + '').style.display = 'none';
@@ -119,4 +119,24 @@ function checkRequiredImages() {
             break;
         }
     }
+}
+
+function moveImageToLeft(index) {
+    --index;
+    let previous;
+    for (let i = index; i >= 0; i--) {
+        if (document.getElementById('image-input' + i + '').style.display != 'none') {
+            previous = i;
+            break;
+        }
+    }
+    index++;
+    const element1 = document.querySelector('#image-input' + index + '');
+    const element2 = document.querySelector('#image-input' + previous + '');
+    const placeholder = document.createElement('div');
+    element1.parentNode.insertBefore(placeholder, element1);
+    element2.parentNode.insertBefore(element1, element2);
+    placeholder.parentNode.insertBefore(element2, placeholder);
+    placeholder.remove();
+    imagesRefresh();
 }
