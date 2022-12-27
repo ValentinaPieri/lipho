@@ -43,26 +43,30 @@ class DBConnection
         $notifications = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $notification = new Notification($row['notification_id'], $row['text'], $row['seen'], $row['timestamp'], $row['username'], $this->conn);
+                $notification = new Notification($row['text'], $row['seen'], $row['username'], $this->conn, $row['timestamp'], $row['notification_id']);
                 array_push($notifications, $notification);
             }
         }
         return $notifications;
     }
 
-    public function getUserPosts($username)
+    public function getUserProfileImage($username)
     {
-        $stmt = $this->conn->prepare(QUERIES['get_user_posts']);
-        $stmt->bind_param("s", $username);
+        $stmt = $this->conn->prepare(QUERIES['get_user_profile_image']);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        $posts = array();
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $post = new Post(username: $row['username'], caption: $row['caption'], conn: $this->conn, post_id: $row['post_id'], timestamp: $row['timestamp'], avg_exposure_rating: $row['avg_exposure_rating'], avg_colors_rating: $row['avg_colors_rating'], avg_composition_rating: $row['avg_composition_rating']);
-                array_push($posts, $post);
-            }
+            $row = $result->fetch_assoc();
+            return $row['profile_image'];
         }
-        return $posts;
+        return null;
+    }
+
+    public function deleteNotification($notificationId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_notification']);
+        $stmt->bind_param('i', $notificationId);
+        $stmt->execute();
     }
 }
