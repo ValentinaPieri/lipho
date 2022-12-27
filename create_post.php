@@ -14,7 +14,7 @@ $conn = $dbconnection->getConnection();
 $templateParams["page"] = "";
 
 $templateParams["page"] .= "
-<script src='functions.js'></script>
+<script src='js/posts.js'></script>
 <form method='post' enctype='multipart/form-data'>
 
     <div id='images-form'>
