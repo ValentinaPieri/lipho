@@ -42,7 +42,7 @@ class DBConnection
         $notifications = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $notification = new Notification($row['text'], $row['seen'], $row['username'], $this->conn, $row['timestamp'], $row['notification_id']);
+                $notification = new Notification($row['text'], $row['seen'], $row['receiver'], $row['sender'], $this->conn, $row['timestamp'], $row['notification_id']);
                 array_push($notifications, $notification);
             }
         }
