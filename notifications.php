@@ -5,9 +5,9 @@ require_once 'app/models/Notification.php';
 use app\DBConnection;
 
 $templateParams["title"] = "Notifications";
-$templateParams["page"] = "
-    <script src=\"https://code.jquery.com/jquery-3.5.0.js\"></script>
-    <script src=\"js/notifications.js\"></script>
+$templateParams["scripts"] = "
+    <script type=\"text/javascript\" src=\"https://code.jquery.com/jquery-3.5.0.js\"></script>
+    <script type=\"text/javascript\" src=\"js/notifications.js\"></script>
     ";
 
 $dbconnection = new DBConnection();
@@ -19,7 +19,7 @@ $yesterday_shown = false;
 $earlier_shown = false;
 for ($current = 0; $current < sizeof($notifications); $current++) {
     if (!$today_shown && date("Y-m-d", strtotime($notifications[$current]->getTimestamp())) == date("Y-m-d", strtotime("now"))) {
-        $templateParams["page"] = "
+        $templateParams["page"] .= "
         <h2>Today</h2>
         ";
         $today_shown = true;
