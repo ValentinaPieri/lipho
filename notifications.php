@@ -9,6 +9,7 @@ $templateParams["scripts"] = "
     <script type=\"text/javascript\" src=\"https://code.jquery.com/jquery-3.5.0.js\"></script>
     <script type=\"text/javascript\" src=\"js/notifications.js\"></script>
     ";
+$templateParams["page"] = "";
 
 $dbconnection = new DBConnection();
 
