@@ -14,7 +14,7 @@
             <h1 id="SignUp">Sign up</h1>
         </div>
         <div class="container">
-            <form action="" method="post" target="_blank">
+            <form action="#" method="post">
                 <i class="fa-solid fa-asterisk"></i><input type="text" name="username" placeholder="username" required><br>
                 <i class="fa-solid fa-asterisk"></i><input type="password" name="password1" placeholder="password" required><br>
                 <i class="fa-solid fa-asterisk"></i><input type="password" name="password2"
