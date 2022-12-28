@@ -1,7 +1,14 @@
 <?php
 
 const QUERIES = [
-    "add_user" => "INSERT INTO user (username, `password`, `name`, surname, email, phone, birthdate, profilepic) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    "add_user" => "INSERT INTO user (username, `password`, `name`, surname) VALUES (?, ?, ?, ?)",
+    "add_user_email" => "INSERT INTO user (username, `password`, `name`, surname, email) VALUES (?, ?, ?, ?, ?)",
+    "add_user_phone" => "INSERT INTO user (username, `password`, `name`, surname, phone) VALUES (?, ?, ?, ?, ?)",
+    "add_user_birthdate" => "INSERT INTO user (username, `password`, `name`, surname, birthdate) VALUES (?, ?, ?, ?, ?)",
+    "add_user_email_phone" => "INSERT INTO user (username, `password`, `name`, surname, email, phone) VALUES (?, ?, ?, ?, ?, ?)",
+    "add_user_email_birthdate" => "INSERT INTO user (username, `password`, `name`, surname, email, birthdate) VALUES (?, ?, ?, ?, ?, ?)",
+    "add_user_phone_birthdate" => "INSERT INTO user (username, `password`, `name`, surname, phone, birthdate) VALUES (?, ?, ?, ?, ?, ?)",
+    "add_user_email_phone_birthdate" => "INSERT INTO user (username, `password`, `name`, surname, email, phone, birthdate) VALUES (?, ?, ?, ?, ?, ?, ?)",
     "delete_user" => "DELETE FROM user WHERE username = ?",
     "check_username" => "SELECT * FROM user WHERE username = ?",
     "check_password" => "SELECT * FROM user WHERE username = ? AND `password` = ?",
