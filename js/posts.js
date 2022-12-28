@@ -8,11 +8,13 @@ function displayImagesForms() {
         } else {
             div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' style="display: none"/>';
         }
+        div.innerHTML += '<img id=\'image-element' + i + '\'></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
         div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImage(' + i + ')\' style="display: none"><i class=\'fa-regular fa-trash-can\'></i></button>';
         div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
     }
     checkRequiredImages();
+    showUploadedImages();
 }
 
 function imagesRefresh() {
@@ -130,6 +132,7 @@ function moveImageToLeft(index) {
     }
     index++;
     swap('#image-input' + index + '', '#image-input' + previous + '', index, previous);
+    swap('#image-element' + index + '', '#image-element' + previous + '', index, previous);
     imagesRefresh();
 }
 
@@ -144,6 +147,7 @@ function moveImageToRight(index) {
     } +
         index--;
     swap('#image-input' + next + '', '#image-input' + index + '', next, index);
+    swap('#image-element' + next + '', '#image-element' + index + '', next, index);
     imagesRefresh();
 }
 
@@ -156,12 +160,31 @@ function swap(element1Id, element2Id, index, previous) {
     placeholder.parentNode.insertBefore(element2, placeholder);
     placeholder.remove();
     //swapping IDs
-    element1 = document.getElementById('image-input' + index + '');
-    element2 = document.getElementById('image-input' + previous + '');
-    element1.id = 'image-input' + previous + '';
-    element2.id = 'image-input' + index + '';
+    let element1IdNoHashtag = element1Id.replace(/#/g, '');
+    let element2IdNoHashtag = element2Id.replace(/#/g, '');
+    element1 = document.getElementById(element1IdNoHashtag);
+    element2 = document.getElementById(element2IdNoHashtag);
+    let element1IdNoNumbers = element1IdNoHashtag.replace(/[0-9]/g, '');
+    let element2IdNoNumbers = element2IdNoHashtag.replace(/[0-9]/g, '');
+    element1.id = '' + element1IdNoNumbers + previous + '';
+    element2.id = '' + element2IdNoNumbers + index + '';
 }
 
 function imagesCounter() {
     document.getElementById('images-counter').innerHTML = imagesNum + '/5';
+}
+
+function showUploadedImages() {
+    for (let i = 0; i < 5; i++) {
+        const imageInput = document.getElementById('image-input' + i + '');
+        const imageElement = document.getElementById('image-element' + i + '');
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                imageElement.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 }
