@@ -13,16 +13,21 @@ $conn = $dbconnection->getConnection();
 
 $templateParams["page"] = "<h1>Sign-Up</h1>";
 
-if (isset($_POST['sign-up']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name']) && isset($_POST['surname'])) {
-    
-    if (isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['birth_date'])) {
-        $user = new User($_POST['username'], $_POST['password'], $_POST['name'], $_POST['surname'], $conn, $_POST['email'], $_POST['phone'], $_POST['birth_date']);
+if (isset($_POST["sign-up"])) {
+
+    // Check if username already exists
+    $stmt = $conn->prepare(QUERIES['check_username']);
+    $stmt->bind_param("s", $_POST['username']);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    if ($result->num_rows == 0) {
+        if(($_POST['password1']) == ($_POST['password2'])){
+            $user = new User($_POST['username'], $_POST['password2'], $_POST['name'], $_POST['surname'], $conn, $_POST['email'], $_POST['phone'], $_POST['birthday']);
+        }else{
+            $templateParams["page"] = "<br><p> *passwords don't match</p>";
+        } 
+    }else{
+        $templateParams["page"] = "<br><p> *username already exists</p>";   
     }
-    $user = new User($_POST['username'], $_POST['password'], $_POST['name'], $_POST['surname'], $conn);
-}else{
-    $templateParams["page"] = "<br><p> *fill mandatory fields</p>";
 }
-
 require_once 'templates/signup.php';
-
-?>
