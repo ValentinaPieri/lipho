@@ -9,3 +9,8 @@ if (isset($_POST['notificationId'])) {
     $dbconnection = new DBConnection();
     $dbconnection->deleteNotification($index);
 }
+
+if (isset($_POST['deleteAllNotifications'])) {
+    $dbconnection = new DBConnection();
+    $dbconnection->deleteAllNotifications();
+}
