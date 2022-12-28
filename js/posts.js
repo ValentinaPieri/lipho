@@ -61,11 +61,11 @@ function imagesRefresh() {
             index--;
         }
     }
-    checkImagesAdded();
+    checkAddButton();
     checkRequiredImages();
 }
 
-function checkImagesAdded() {
+function checkAddButton() {
     if (imagesNum < 5) {
         document.getElementById('add-button').style.display = 'inline-block';
     } else {
@@ -81,7 +81,7 @@ function addImage() {
             document.getElementById('trash-can' + i + '').style.display = 'inline-block';
             document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
             imagesNum++;
-            checkImagesAdded();
+            checkAddButton();
             break;
         }
     }
