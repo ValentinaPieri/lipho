@@ -1,12 +1,13 @@
 let imagesNum = 1;
+let imagesUploaded = 0;
 
 function displayImagesForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
         if (i == 0) {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' style="display: inline-block"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'uploadsCounter(' + i + ')\' style="display: inline-block"/>';
         } else {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' style="display: none"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'uploadsCounter(' + i + ')\' style="display: none"/>';
         }
         div.innerHTML += '<img id=\'image-element' + i + '\'></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
@@ -72,19 +73,23 @@ function checkAddButton() {
 }
 
 function addImage() {
-    for (let i = 4; i >= 0; i--) {
-        if (document.getElementById('image-input' + i + '').style.display == 'none') {
-            document.getElementById('image-input' + i + '').style.display = 'inline-block';
-            document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
-            document.getElementById('trash-can' + i + '').style.display = 'inline-block';
-            document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
-            imagesNum++;
-            checkAddButton();
-            break;
+    if (imagesUploaded == imagesNum) {
+        for (let i = 4; i >= 0; i--) {
+            if (document.getElementById('image-input' + i + '').style.display == 'none') {
+                document.getElementById('image-input' + i + '').style.display = 'inline-block';
+                document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
+                document.getElementById('trash-can' + i + '').style.display = 'inline-block';
+                document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
+                imagesNum++;
+                checkAddButton();
+                break;
+            }
         }
+        imagesRefresh();
+        imagesCounter();
+    } else {
+        window.alert('Upload an image to the existing form first');
     }
-    imagesRefresh();
-    imagesCounter();
 }
 
 function deleteImage(index) {
@@ -93,6 +98,7 @@ function deleteImage(index) {
         if ((document.getElementById('image-input' + index + '')).value != '') {
             document.getElementById('image-input' + index + '').value = '';
             document.getElementById('image-element' + index + '').style.display = 'none';
+            imagesUploaded--;
         }
         document.getElementById('left-arrow' + index + '').style.display = 'none';
         document.getElementById('trash-can' + index + '').style.display = 'none';
@@ -176,20 +182,25 @@ function imagesCounter() {
     document.getElementById('images-counter').innerHTML = imagesNum + '/5';
 }
 
-function showUploadedImages() {
-    for (let i = 0; i < 5; i++) {
-        const imageInput = document.getElementById('image-input' + i + '');
-        const imageElement = document.getElementById('image-element' + i + '');
-        imageInput.addEventListener('input', () => {
-            const file = imageInput.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                imageElement.src = reader.result;
-            };
-            reader.readAsDataURL(file);
-            if (imageElement.style.display == 'none') {
-                imageElement.style.display = 'inline-block';
-            }
-        });
+function showUploadedImages(index) {
+    const imageInput = document.getElementById('image-input' + index + '');
+    const imageElement = document.getElementById('image-element' + index + '');
+    imageInput.addEventListener('input', () => {
+        const file = imageInput.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            imageElement.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+        if (imageElement.style.display == 'none') {
+            imageElement.style.display = 'inline-block';
+        }
+    });
+}
+
+function uploadsCounter(index) {
+    let imageInput = document.getElementById('image-input' + index + '');
+    if (imageInput.files.length == 1 && imageInput.files[0] != undefined) {
+        imagesUploaded++;
     }
 }
