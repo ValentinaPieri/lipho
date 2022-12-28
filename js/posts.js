@@ -74,7 +74,7 @@ function checkAddButton() {
 
 function addImage() {
     if (imagesUploaded == imagesNum) {
-        for (let i = 4; i >= 0; i--) {
+        for (let i = 1; i < 5; i++) {
             if (document.getElementById('image-input' + i + '').style.display == 'none') {
                 document.getElementById('image-input' + i + '').style.display = 'inline-block';
                 document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
