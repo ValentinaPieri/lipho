@@ -4,9 +4,9 @@ function displayImagesForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
         if (i == 0) {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' style="display: inline-block"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' style="display: inline-block"/>';
         } else {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' style="display: none"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' style="display: none"/>';
         }
         div.innerHTML += '<img id=\'image-element' + i + '\'></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
@@ -14,7 +14,6 @@ function displayImagesForms() {
         div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
     }
     checkRequiredImages();
-    showUploadedImages();
 }
 
 function imagesRefresh() {
@@ -91,7 +90,10 @@ function addImage() {
 function deleteImage(index) {
     if (--imagesNum > 0) {
         document.getElementById('image-input' + index + '').style.display = 'none';
-        (document.getElementById('image-input' + index + '')).value != '' ? document.getElementById('image-input' + index + '').value = '' : null;
+        if ((document.getElementById('image-input' + index + '')).value != '') {
+            document.getElementById('image-input' + index + '').value = '';
+            document.getElementById('image-element' + index + '').style.display = 'none';
+        }
         document.getElementById('left-arrow' + index + '').style.display = 'none';
         document.getElementById('trash-can' + index + '').style.display = 'none';
         document.getElementById('right-arrow' + index + '').style.display = 'none';
@@ -178,13 +180,16 @@ function showUploadedImages() {
     for (let i = 0; i < 5; i++) {
         const imageInput = document.getElementById('image-input' + i + '');
         const imageElement = document.getElementById('image-element' + i + '');
-        imageInput.addEventListener('change', () => {
+        imageInput.addEventListener('input', () => {
             const file = imageInput.files[0];
             const reader = new FileReader();
             reader.onload = () => {
                 imageElement.src = reader.result;
             };
             reader.readAsDataURL(file);
+            if (imageElement.style.display == 'none') {
+                imageElement.style.display = 'inline-block';
+            }
         });
     }
 }
