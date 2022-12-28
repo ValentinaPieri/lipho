@@ -7,6 +7,7 @@ use app\DBConnection;
 use app\models\Post;
 
 $templateParams["title"] = "Create Post";
+$templateParams["scripts"] = "<script src='js/posts.js'></script>";
 
 $dbconnection = new DBConnection();
 $conn = $dbconnection->getConnection();
@@ -14,7 +15,6 @@ $conn = $dbconnection->getConnection();
 $templateParams["page"] = "";
 
 $templateParams["page"] .= "
-<script src='js/posts.js'></script>
 <form method='post' enctype='multipart/form-data'>
 
     <div id='images-form'>
