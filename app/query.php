@@ -25,7 +25,7 @@ const QUERIES = [
     "get_user_notifications" => "SELECT * FROM notification WHERE receiver = ? ORDER BY `timestamp` DESC",
     "set_notifications_seen" => "UPDATE notification SET seen = 1 WHERE notification_id IN (?)",
     "delete_notification" => "DELETE FROM notification WHERE notification_id = ?",
-    "clear_user_notifications" => "DELETE FROM notification WHERE receiver = ?",
+    "delete_user_notifications" => "DELETE FROM notification WHERE receiver = ?",
     "send_notification" => "INSERT INTO notification (`text`, seen, receiver, sender) VALUES (?, ?, ?, ?)",
     "get_user_profile_image" => "SELECT profile_image FROM user WHERE username = ?",
 ];
