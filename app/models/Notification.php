@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 require_once 'app/query.php';
@@ -9,16 +10,18 @@ class Notification
     private string $text;
     private bool $seen;
     private string $timestamp;
-    private string $username;
+    private string $receiver;
+    private string $sender;
     private $conn;
 
-    public function __construct($text, $seen, $username, $conn, $timestamp = "", $id = 0)
+    public function __construct($text, $seen, $receiver, $sender, $conn, $timestamp = "", $id = 0)
     {
         $this->id = $id;
         $this->text = $text;
         $this->seen = $seen;
         $this->timestamp = $timestamp;
-        $this->username = $username;
+        $this->receiver = $receiver;
+        $this->sender = $sender;
         $this->conn = $conn;
 
         if ($id == 0)
@@ -45,15 +48,20 @@ class Notification
         return $this->timestamp;
     }
 
-    public function getUsername()
+    public function getReceiver()
     {
-        return $this->username;
+        return $this->receiver;
+    }
+
+    public function getSender()
+    {
+        return $this->sender;
     }
 
     private function send()
     {
         $stmt = $this->conn->prepare(QUERIES['send_notification']);
-        $stmt->bind_param('sis', $this->text, $this->seen, $this->username);
+        $stmt->bind_param('siss', $this->text, $this->seen, $this->receiver, $this->sender);
         $stmt->execute();
     }
 

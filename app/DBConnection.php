@@ -42,7 +42,7 @@ class DBConnection
         $notifications = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $notification = new Notification($row['text'], $row['seen'], $row['username'], $this->conn, $row['timestamp'], $row['notification_id']);
+                $notification = new Notification($row['text'], $row['seen'], $row['receiver'], $row['sender'], $this->conn, $row['timestamp'], $row['notification_id']);
                 array_push($notifications, $notification);
             }
         }
@@ -66,6 +66,14 @@ class DBConnection
     {
         $stmt = $this->conn->prepare(QUERIES['delete_notification']);
         $stmt->bind_param('i', $notificationId);
+        $stmt->execute();
+    }
+
+    public function deleteAllNotifications()
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_user_notifications']);
+        $username = 'test'; //TODO: change this to the current user
+        $stmt->bind_param('s', $username);
         $stmt->execute();
     }
 }
