@@ -15,6 +15,19 @@ $dbconnection = new DBConnection();
 
 $notifications = $dbconnection->getNotifications();
 
+if (sizeof($notifications) == 0) {
+    $templateParams["page"] = "
+    <h2>No notifications</h2>
+    <i class=\"fa-regular fa-face-frown-slight\"></i>
+    ";
+} else {
+    $templateParams["page"] = "
+    <button type=\"button\" id=\"delete-all-notifications-button\" onClick=\"deleteAllNotifications()\">
+        <i class=\"fa-regular fa-trash-can-list\"></i>
+    </button>
+    ";
+}
+
 $today_shown = false;
 $yesterday_shown = false;
 $earlier_shown = false;
