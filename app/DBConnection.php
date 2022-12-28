@@ -68,4 +68,12 @@ class DBConnection
         $stmt->bind_param('i', $notificationId);
         $stmt->execute();
     }
+
+    public function deleteAllNotifications()
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_user_notifications']);
+        $username = 'test'; //TODO: change this to the current user
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+    }
 }
