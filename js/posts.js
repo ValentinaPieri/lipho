@@ -86,6 +86,7 @@ function addImage() {
         }
     }
     imagesRefresh();
+    imagesCounter();
 }
 
 function deleteImage(index) {
@@ -97,13 +98,14 @@ function deleteImage(index) {
         document.getElementById('right-arrow' + index + '').style.display = 'none';
         if (imagesNum == 1) {
             for (let i = 0; i < 5; i++) {
-                document.getElementById('trash-can' + i + '').style.display == 'none';
+                document.getElementById('trash-can' + i + '').style.display = 'none';
             }
         }
     } else {
         imagesNum++;
     }
     imagesRefresh();
+    imagesCounter();
 }
 
 function checkRequiredImages() {
@@ -142,8 +144,8 @@ function moveImageToRight(index) {
             next = i;
             break;
         }
-    }+
-    index--;
+    } +
+        index--;
     swap('#image-input' + next + '', '#image-input' + index + '', next, index);
     imagesRefresh();
 }
@@ -161,4 +163,8 @@ function swap(element1Id, element2Id, index, previous) {
     element2 = document.getElementById('image-input' + previous + '');
     element1.id = 'image-input' + previous + '';
     element2.id = 'image-input' + index + '';
+}
+
+function imagesCounter() {
+    document.getElementById('images-counter').innerHTML = imagesNum + '/5';
 }
