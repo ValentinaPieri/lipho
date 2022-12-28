@@ -14,15 +14,15 @@
             <h1 id="SignUp">Sign up</h1>
         </div>
         <div class="container">
-            <form action="" method="post">
-                <i class="fa-solid fa-asterisk"></i><input type="text" placeholder="username"><br>
-                <i class="fa-solid fa-asterisk"></i><input type="password" id="password1" placeholder="password"><br>
-                <i class="fa-solid fa-asterisk"></i><input type="password" id="password2"
-                    placeholder="confirm password"><br>
-                <i class="fa-solid fa-asterisk"></i><input type="text" placeholder="name"><br>
-                <i class="fa-solid fa-asterisk"></i><input type="text" placeholder="surname"><br>
-                <input type="text" placeholder="email"><br>
-                <input type="text" placeholder="phone"><br>
+            <form action="" method="post" target="_blank">
+                <i class="fa-solid fa-asterisk"></i><input type="text" name="username" placeholder="username" required><br>
+                <i class="fa-solid fa-asterisk"></i><input type="password" name="password1" placeholder="password" required><br>
+                <i class="fa-solid fa-asterisk"></i><input type="password" name="password2"
+                    placeholder="confirm password" required><br>
+                <i class="fa-solid fa-asterisk"></i><input type="text" name="name" placeholder="name" required><br>
+                <i class="fa-solid fa-asterisk"></i><input type="text" name="surname" placeholder="surname" required><br>
+                <input type="text" name="email" placeholder="email"><br>
+                <input type="text" name="phone" placeholder="phone"><br>
                 <label for="birthday">birthday:</label>&nbsp;
                 <input type="date" id="birthday" name="birthday"><i class="fa-regular fa-calendar"></i><br><br>
                 <button type="submit" name="sign-up">Sign up</button>
