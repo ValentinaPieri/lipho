@@ -1,23 +1,23 @@
 let imagesNum = 1;
 let imagesUploaded = 0;
 
-function displayImagesForms() {
+function displayImageForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
         if (i == 0) {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'uploadsCounter(' + i + ')\' style="display: inline-block"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: inline-block"/>';
         } else {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'uploadsCounter(' + i + ')\' style="display: none"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: none"/>';
         }
         div.innerHTML += '<img id=\'image-element' + i + '\'></img>';
-        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
-        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImage(' + i + ')\' style="display: none"><i class=\'fa-regular fa-trash-can\'></i></button>';
-        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' style="display: none"><i class=\'fa-regular fa-trash-can\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
     }
-    checkRequiredImages();
+    checkRequiredImageForms();
 }
 
-function imagesRefresh() {
+function imageFormsRefresh() {
     for (let i = 0; i < 5; i++) {
         if (document.getElementById('image-input' + i + '').style.display != 'none') {
             document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
@@ -61,7 +61,7 @@ function imagesRefresh() {
         }
     }
     checkAddButton();
-    checkRequiredImages();
+    checkRequiredImageForms();
 }
 
 function checkAddButton() {
@@ -72,7 +72,7 @@ function checkAddButton() {
     }
 }
 
-function addImage() {
+function addImageForm() {
     if (imagesUploaded == imagesNum) {
         for (let i = 1; i < 5; i++) {
             if (document.getElementById('image-input' + i + '').style.display == 'none') {
@@ -85,14 +85,14 @@ function addImage() {
                 break;
             }
         }
-        imagesRefresh();
+        imageFormsRefresh();
         imagesCounter();
     } else {
         window.alert('Upload an image to the existing form first');
     }
 }
 
-function deleteImage(index) {
+function deleteImageForm(index) {
     if (--imagesNum > 0) {
         document.getElementById('image-input' + index + '').style.display = 'none';
         if ((document.getElementById('image-input' + index + '')).value != '') {
@@ -111,11 +111,11 @@ function deleteImage(index) {
     } else {
         imagesNum++;
     }
-    imagesRefresh();
+    imageFormsRefresh();
     imagesCounter();
 }
 
-function checkRequiredImages() {
+function checkRequiredImageForms() {
     for (let i = 0; i < 5; i++) {
         if (document.getElementById('image-input' + i + '').required == true) {
             document.getElementById('image-input' + i + '').required = false;
@@ -129,7 +129,7 @@ function checkRequiredImages() {
     }
 }
 
-function moveImageToLeft(index) {
+function moveImageFormToLeft(index) {
     let previous;
     index--;
     for (i = index; i >= 0; i--) {
@@ -139,12 +139,12 @@ function moveImageToLeft(index) {
         }
     }
     index++;
-    swap('#image-input' + index + '', '#image-input' + previous + '', index, previous);
-    swap('#image-element' + index + '', '#image-element' + previous + '', index, previous);
-    imagesRefresh();
+    swapImageForms('#image-input' + index + '', '#image-input' + previous + '', index, previous);
+    swapImageForms('#image-element' + index + '', '#image-element' + previous + '', index, previous);
+    imageFormsRefresh();
 }
 
-function moveImageToRight(index) {
+function moveImageFormToRight(index) {
     let next;
     index++;
     for (i = index; i < 5; i++) {
@@ -154,12 +154,12 @@ function moveImageToRight(index) {
         }
     } +
         index--;
-    swap('#image-input' + next + '', '#image-input' + index + '', next, index);
-    swap('#image-element' + next + '', '#image-element' + index + '', next, index);
-    imagesRefresh();
+    swapImageForms('#image-input' + next + '', '#image-input' + index + '', next, index);
+    swapImageForms('#image-element' + next + '', '#image-element' + index + '', next, index);
+    imageFormsRefresh();
 }
 
-function swap(element1Id, element2Id, index, previous) {
+function swapImageForms(element1Id, element2Id, index, previous) {
     let element1 = document.querySelector(element1Id);
     let element2 = document.querySelector(element2Id);
     let placeholder = document.createElement('div');
@@ -198,7 +198,7 @@ function showUploadedImages(index) {
     });
 }
 
-function uploadsCounter(index) {
+function imagesUploadedCounter(index) {
     let imageInput = document.getElementById('image-input' + index + '');
     if (imageInput.files.length == 1 && imageInput.files[0] != undefined) {
         imagesUploaded++;
