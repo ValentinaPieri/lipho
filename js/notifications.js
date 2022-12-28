@@ -4,8 +4,6 @@ function deleteNotification(notificationId) {
             if (result != "") {
                 alert(result);
             }
-            let div_id = "notification" + notificationId;
-            document.getElementById(div_id).remove();
             location.reload();
         });
 }
