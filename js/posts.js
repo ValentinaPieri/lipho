@@ -8,12 +8,9 @@ function displayImagesForms() {
         } else {
             div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' style="display: none"/>';
         }
-        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
-        document.getElementById('left-arrow' + i + '').style.display = 'none';
-        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImage(' + i + ')\'><i class=\'fa-regular fa-trash-can\'></i></button>';
-        document.getElementById('trash-can' + i + '').style.display = 'none';
-        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageToRight(' + i + ')\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
-        document.getElementById('right-arrow' + i + '').style.display = 'none';
+        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImage(' + i + ')\' style="display: none"><i class=\'fa-regular fa-trash-can\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
     }
     checkRequiredImages();
 }
