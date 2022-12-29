@@ -88,7 +88,14 @@ function addImageForm() {
         imageFormsRefresh();
         imagesCounter();
     } else {
-        alert('Upload an image to the existing form first');
+        if (document.getElementById("message") == null) {
+            let container = document.getElementById("caption-form");
+            let message = document.createElement("p");
+            message.id = "message";
+            message.innerHTML = "Upload an image to the existing form first";
+            let firstChild = container.firstChild;
+            container.insertBefore(message, firstChild);
+        }
     }
 }
 
@@ -203,5 +210,8 @@ function imagesUploadedCounter(index) {
     let imageInput = document.getElementById('image-input' + index + '');
     if (imageInput.files.length == 1 && imageInput.files[0] != undefined) {
         imagesUploaded++;
+    }
+    if (document.getElementById('message') != null && imagesUploaded == imagesNum) {
+        document.getElementById('message').remove();
     }
 }
