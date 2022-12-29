@@ -7,7 +7,7 @@ $templateParams["page"] .= "
 <form action='post_requests_handler.php' method='post' enctype='multipart/form-data'>
 
     <div id='images-form'>
-    <label for='caption'><h2>Pictures</h2></label>
+    <h2>Pictures</h2>
     <p id='images-counter'><script>imagesCounter()</script></p>
     <script>displayImageForms();</script>
     <button type='button' class='form-control' id='add-button' onclick='addImageForm()'><i class='fa-regular fa-circle-plus'></i></button>
@@ -15,7 +15,7 @@ $templateParams["page"] .= "
     </div>
 
     <div id='caption-form'>
-    <label for='caption'><h2>Caption</h2></label>
+    <h2>Caption</h2>
     <textarea class='form-control' id='caption' name='caption'></textarea>
     </div>
 
