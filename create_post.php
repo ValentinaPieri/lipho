@@ -1,10 +1,4 @@
 <?php
-require_once 'app/DBConnection.php';
-require_once 'app/models/Post.php';
-require_once 'app/query.php';
-
-use app\DBConnection;
-use app\models\Post;
 
 $templateParams["title"] = "Create Post";
 $templateParams["scripts"] = "<script src='js/posts.js'></script>";
