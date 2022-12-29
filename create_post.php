@@ -38,17 +38,19 @@ if (isset($_POST["post-button"])) {
     $images = array();
     $username = "test";
 
-    foreach ($_FILES['image']['name'] as $i => $name) {
-        $fileName = basename($name);
-        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-        $allowedTypes = array('jpg', 'png', 'jpeg');
-        if (in_array($fileType, $allowedTypes)) {
-            $image = $_FILES['image']['tmp_name'][$i];
-            $imgContent = addslashes(file_get_contents($image));
-            array_push($images, $imgContent);
-            $post = new Post(/*$_SESSION["username"]*/$username, $_POST["caption"], $conn, $images);
+    for ($i = 0; $i < 5; $i++) {
+        if (isset($_FILES['image-input' . $i])) {
+            $fileName = basename($_FILES['image-input' . $i]['name']);
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            $allowedTypes = array('jpg', 'png', 'jpeg');
+            if (in_array($fileType, $allowedTypes)) {
+                $image = $_FILES['image-input' . $i]['tmp_name'];
+                $imgContent = addslashes(file_get_contents($image));
+                array_push($images, $imgContent);
+            }
         }
     }
+    $post = new Post(/*$_SESSION["username"]*/$username, $_POST["caption"], $conn, $images);
 }
 
 require_once 'templates/base.php';

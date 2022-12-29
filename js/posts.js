@@ -5,11 +5,11 @@ function displayImageForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
         if (i == 0) {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: inline-block"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: inline-block"/>';
         } else {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: none"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: none"/>';
         }
-        div.innerHTML += '<img id=\'image-element' + i + '\'></img>';
+        div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' ></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
         div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' style="display: none"><i class=\'fa-regular fa-trash-can\'></i></button>';
         div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
@@ -88,7 +88,7 @@ function addImageForm() {
         imageFormsRefresh();
         imagesCounter();
     } else {
-        window.alert('Upload an image to the existing form first');
+        alert('Upload an image to the existing form first');
     }
 }
 
@@ -139,8 +139,8 @@ function moveImageFormToLeft(index) {
         }
     }
     index++;
-    swapImageForms('#image-input' + index + '', '#image-input' + previous + '', index, previous);
-    swapImageForms('#image-element' + index + '', '#image-element' + previous + '', index, previous);
+    swapImageForms('#image-input' + index + '', '#image-input' + previous + '', 'image-input' + index + '', 'image-input' + previous + '', index, previous);
+    swapImageForms('#image-element' + index + '', '#image-element' + previous + '', 'image-element' + index + '', 'image-element' + previous + '', index, previous);
     imageFormsRefresh();
 }
 
@@ -154,12 +154,12 @@ function moveImageFormToRight(index) {
         }
     } +
         index--;
-    swapImageForms('#image-input' + next + '', '#image-input' + index + '', next, index);
-    swapImageForms('#image-element' + next + '', '#image-element' + index + '', next, index);
+    swapImageForms('#image-input' + next + '', '#image-input' + index + '', 'image-input' + next + '', 'image-input' + index + '', next, index);
+    swapImageForms('#image-element' + next + '', '#image-element' + index + '', 'image-element' + next + '', 'image-element' + index + '', next, index);
     imageFormsRefresh();
 }
 
-function swapImageForms(element1Id, element2Id, index, previous) {
+function swapImageForms(element1Id, element2Id, element1Name, element2Name, index, previous) {
     let element1 = document.querySelector(element1Id);
     let element2 = document.querySelector(element2Id);
     let placeholder = document.createElement('div');
@@ -172,10 +172,11 @@ function swapImageForms(element1Id, element2Id, index, previous) {
     let element2IdNoHashtag = element2Id.replace(/#/g, '');
     element1 = document.getElementById(element1IdNoHashtag);
     element2 = document.getElementById(element2IdNoHashtag);
-    let element1IdNoNumbers = element1IdNoHashtag.replace(/[0-9]/g, '');
-    let element2IdNoNumbers = element2IdNoHashtag.replace(/[0-9]/g, '');
-    element1.id = '' + element1IdNoNumbers + previous + '';
-    element2.id = '' + element2IdNoNumbers + index + '';
+    element1.id = '' + element2IdNoHashtag + '';
+    element2.id = '' + element1IdNoHashtag + '';
+    //swapping names
+    element1.name = '' + element2Name + '';
+    element2.name = '' + element1Name + '';
 }
 
 function imagesCounter() {
