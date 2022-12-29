@@ -5,9 +5,9 @@ function displayImageForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
         if (i == 0) {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: inline-block"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' style="display: inline-block"/>';
         } else {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: none"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' style="display: none"/>';
         }
         div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' style="display: none"></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
@@ -31,14 +31,14 @@ function imageFormsRefresh() {
             index++;
             document.getElementById('left-arrow' + i + '').style.display = 'none';
         } else { //checking if no image forms are shown before the current one so to remove the current one left arrow
-            let noneshown = true;
+            let noneShown = true;
             for (let j = index; j >= 0; j--) {
                 if (document.getElementById('image-input' + j + '').style.display != 'none') {
-                    noneshown = false;
+                    noneShown = false;
                     break;
                 }
             }
-            if (noneshown) {
+            if (noneShown) {
                 document.getElementById('left-arrow' + i + '').style.display = 'none';
             }
             index++;
@@ -47,14 +47,14 @@ function imageFormsRefresh() {
             index--;
             document.getElementById('right-arrow' + i + '').style.display = 'none';
         } else { //checking if no image forms are shown after the current one so to remove the current one right arrow
-            let noneshown = true;
+            let noneShown = true;
             for (let j = index; j < 5; j++) {
                 if (document.getElementById('image-input' + j + '').style.display != 'none') {
-                    noneshown = false;
+                    noneShown = false;
                     break;
                 }
             }
-            if (noneshown) {
+            if (noneShown) {
                 document.getElementById('right-arrow' + i + '').style.display = 'none';
             }
             index--;
@@ -86,7 +86,7 @@ function addImageForm() {
             }
         }
         imageFormsRefresh();
-        imagesCounter();
+        updateImageFormsCounter();
     } else {
         if (document.getElementById("message") == null) {
             let container = document.getElementById("caption-form");
@@ -119,7 +119,7 @@ function deleteImageForm(index) {
         imagesNum++;
     }
     imageFormsRefresh();
-    imagesCounter();
+    updateImageFormsCounter();
 }
 
 function checkRequiredImageForms() {
@@ -185,17 +185,17 @@ function swapImageForms(element1Id, element2Id, element1Name, element2Name, elem
     element1.name = '' + element2Name + '';
     element2.name = '' + element1Name + '';
     //updating onclicks and onchanges
-    element1.setAttribute('onclick', 'showUploadedImages(' + element2Index + ')');
-    element2.setAttribute('onclick', 'showUploadedImages(' + element1Index + ')');
-    element1.setAttribute('onchange', 'imagesUploadedCounter(' + element2Index + ')');
-    element2.setAttribute('onchange', 'imagesUploadedCounter(' + element1Index + ')');
+    element1.setAttribute('onclick', 'showUploadedImage(' + element2Index + ')');
+    element2.setAttribute('onclick', 'showUploadedImage(' + element1Index + ')');
+    element1.setAttribute('onchange', 'updateUploadedImagesCounter(' + element2Index + ')');
+    element2.setAttribute('onchange', 'updateUploadedImagesCounter(' + element1Index + ')');
 }
 
-function imagesCounter() {
+function updateImageFormsCounter() {
     document.getElementById('images-counter').innerHTML = imagesNum + '/5';
 }
 
-function showUploadedImages(index) {
+function showUploadedImage(index) {
     const imageInput = document.getElementById('image-input' + index + '');
     const imageElement = document.getElementById('image-element' + index + '');
     imageInput.addEventListener('input', () => {
@@ -209,7 +209,7 @@ function showUploadedImages(index) {
     });
 }
 
-function imagesUploadedCounter(index) {
+function updateUploadedImagesCounter(index) {
     let imageInput = document.getElementById('image-input' + index + '');
     if (imageInput.files.length == 1 && imageInput.files[0] != undefined) {
         imagesUploaded++;
