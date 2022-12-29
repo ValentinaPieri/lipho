@@ -68,4 +68,16 @@ class DBConnection
         $stmt->bind_param('i', $notificationId);
         $stmt->execute();
     }
+
+    public function checkUsername($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['check_username']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return false;
+        }
+        return true;
+    }
 }

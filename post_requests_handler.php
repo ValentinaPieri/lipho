@@ -1,8 +1,10 @@
 <?php
 
 require_once 'app/DBConnection.php';
+require_once 'app/models/User.php';
 
 use app\DBConnection;
+use app\models\User;
 
 if (isset($_POST['notificationId'])) {
     $index = intval($_POST['notificationId']);
@@ -10,16 +12,16 @@ if (isset($_POST['notificationId'])) {
     $dbconnection->deleteNotification($index);
 }
 
-if(isset($_POST['username'])){
+if (isset($_POST['signup'])) {
     $username = $_POST['username'];
     $dbconnection = new DBConnection();
-    $conn = $dbconnection->getConnection();
-    $stmt = $conn -> prepare(QUERIES['check_username']);
-    $stmt -> bind_param("s", $_POST['username']);
-    $stmt -> execute();
-    $result -> store_result();
-    if(isset($stmt) && $result->num_rows > 0){
-        $result->checkUsername($username);
-        echo "Username is not available";
+    $result["usernameValid"] = $dbconnection->checkUsername($username);
+    $result["passwordsMatching"] = ($_POST['password1']) == ($_POST['password2']);
+    //check if the password length is at least 8 characters long and if it contains at least one number and one symbol 
+    $result["passwordValid"] = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', $_POST['password1']);
+    var_dump($_POST['username']);
+    if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"]) {
+        $user = new User($_POST['username'], $_POST['password2'], $_POST['name'], $_POST['surname'], $conn, $_POST['email'], $_POST['phone'], $_POST['birthdate']);
     }
+    echo json_encode($result);
 }
