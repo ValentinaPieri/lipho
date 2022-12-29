@@ -9,7 +9,7 @@ function displayImageForms() {
         } else {
             div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImages(' + i + ')\' onchange=\'imagesUploadedCounter(' + i + ')\' style="display: none"/>';
         }
-        div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' ></img>';
+        div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' style="display: none"></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
         div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' style="display: none"><i class=\'fa-regular fa-trash-can\'></i></button>';
         div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
@@ -166,7 +166,7 @@ function moveImageFormToRight(index) {
     imageFormsRefresh();
 }
 
-function swapImageForms(element1Id, element2Id, element1Name, element2Name, index, previous) {
+function swapImageForms(element1Id, element2Id, element1Name, element2Name, element1Index, element2Index) {
     let element1 = document.querySelector(element1Id);
     let element2 = document.querySelector(element2Id);
     let placeholder = document.createElement('div');
@@ -184,6 +184,11 @@ function swapImageForms(element1Id, element2Id, element1Name, element2Name, inde
     //swapping names
     element1.name = '' + element2Name + '';
     element2.name = '' + element1Name + '';
+    //updating onclicks and onchanges
+    element1.setAttribute('onclick', 'showUploadedImages(' + element2Index + ')');
+    element2.setAttribute('onclick', 'showUploadedImages(' + element1Index + ')');
+    element1.setAttribute('onchange', 'imagesUploadedCounter(' + element2Index + ')');
+    element2.setAttribute('onchange', 'imagesUploadedCounter(' + element1Index + ')');
 }
 
 function imagesCounter() {
@@ -200,9 +205,7 @@ function showUploadedImages(index) {
             imageElement.src = reader.result;
         };
         reader.readAsDataURL(file);
-        if (imageElement.style.display == 'none') {
-            imageElement.style.display = 'inline-block';
-        }
+        imageElement.style.display = 'inline-block';
     });
 }
 
