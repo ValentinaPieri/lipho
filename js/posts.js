@@ -30,7 +30,7 @@ function imageFormsRefresh() {
         if (document.getElementById('image-input' + --index + '') == null) {
             index++;
             document.getElementById('left-arrow' + i + '').hidden = true;
-        } else { //checking if no image forms are shown before the current one so to remove the current one left arrow
+        } else {
             let noneShown = true;
             for (let j = index; j >= 0; j--) {
                 if (document.getElementById('image-input' + j + '').hidden != true) {
@@ -46,7 +46,7 @@ function imageFormsRefresh() {
         if (document.getElementById('image-input' + ++index + '') == null) {
             index--;
             document.getElementById('right-arrow' + i + '').hidden = true;
-        } else { //checking if no image forms are shown after the current one so to remove the current one right arrow
+        } else {
             let noneShown = true;
             for (let j = index; j < 5; j++) {
                 if (document.getElementById('image-input' + j + '').hidden != true) {
