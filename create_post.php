@@ -9,13 +9,14 @@ $templateParams["page"] .= "
     <div id='images-form'>
     <h2>Pictures</h2>
     <p id='images-counter'><script>updateImageFormsCounter()</script></p>
-    <script>displayImageForms();</script>
+    <script>displayImageForms()</script>
     <button type='button' class='form-control' id='add-button' onclick='addImageForm()'><i class='fa-regular fa-circle-plus'></i></button>
-    <script>checkAddButton();</script>
+    <script>checkAddButton()</script>
     </div>
 
     <div id='caption-form'>
     <h2>Caption</h2>
+    <label for='caption' hidden=true>caption text area</label>
     <textarea class='form-control' id='caption' name='caption'></textarea>
     </div>
 
