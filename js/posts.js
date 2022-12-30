@@ -5,57 +5,57 @@ function displayImageForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
         if (i == 0) {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' style="display: inline-block"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\'/>';
         } else {
-            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' style="display: none"/>';
+            div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' hidden=\'true\'/>';
         }
-        div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' style="display: none"></img>';
-        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-left\'></i></button>';
-        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' style="display: none"><i class=\'fa-regular fa-trash-can\'></i></button>';
-        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' style="display: none"><i class=\'fa-regular fa-arrow-right\'></i></button>';
+        div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' hidden=\'true\'></img>';
+        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' hidden=\'true\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' hidden=\'true\'><i class=\'fa-regular fa-trash-can\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' hidden=\'true\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
     }
     checkRequiredImageForms();
 }
 
 function imageFormsRefresh() {
     for (let i = 0; i < 5; i++) {
-        if (document.getElementById('image-input' + i + '').style.display != 'none') {
-            document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
-            document.getElementById('trash-can' + i + '').style.display = 'inline-block';
-            document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
+        if (document.getElementById('image-input' + i + '').hidden != true) {
+            document.getElementById('left-arrow' + i + '').hidden = false;
+            document.getElementById('trash-can' + i + '').hidden = false;
+            document.getElementById('right-arrow' + i + '').hidden = false;
         }
     }
     for (let i = 0; i < 5; i++) {
         let index = i;
         if (document.getElementById('image-input' + --index + '') == null) {
             index++;
-            document.getElementById('left-arrow' + i + '').style.display = 'none';
+            document.getElementById('left-arrow' + i + '').hidden = true;
         } else { //checking if no image forms are shown before the current one so to remove the current one left arrow
             let noneShown = true;
             for (let j = index; j >= 0; j--) {
-                if (document.getElementById('image-input' + j + '').style.display != 'none') {
+                if (document.getElementById('image-input' + j + '').hidden != true) {
                     noneShown = false;
                     break;
                 }
             }
             if (noneShown) {
-                document.getElementById('left-arrow' + i + '').style.display = 'none';
+                document.getElementById('left-arrow' + i + '').hidden = true;
             }
             index++;
         }
         if (document.getElementById('image-input' + ++index + '') == null) {
             index--;
-            document.getElementById('right-arrow' + i + '').style.display = 'none';
+            document.getElementById('right-arrow' + i + '').hidden = true;
         } else { //checking if no image forms are shown after the current one so to remove the current one right arrow
             let noneShown = true;
             for (let j = index; j < 5; j++) {
-                if (document.getElementById('image-input' + j + '').style.display != 'none') {
+                if (document.getElementById('image-input' + j + '').hidden != true) {
                     noneShown = false;
                     break;
                 }
             }
             if (noneShown) {
-                document.getElementById('right-arrow' + i + '').style.display = 'none';
+                document.getElementById('right-arrow' + i + '').hidden = true;
             }
             index--;
         }
@@ -66,20 +66,20 @@ function imageFormsRefresh() {
 
 function checkAddButton() {
     if (imagesNum < 5) {
-        document.getElementById('add-button').style.display = 'inline-block';
+        document.getElementById('add-button').hidden = false;
     } else {
-        document.getElementById('add-button').style.display = 'none';
+        document.getElementById('add-button').hidden = true;
     }
 }
 
 function addImageForm() {
     if (imagesUploaded == imagesNum) {
         for (let i = 1; i < 5; i++) {
-            if (document.getElementById('image-input' + i + '').style.display == 'none') {
-                document.getElementById('image-input' + i + '').style.display = 'inline-block';
-                document.getElementById('left-arrow' + i + '').style.display = 'inline-block';
-                document.getElementById('trash-can' + i + '').style.display = 'inline-block';
-                document.getElementById('right-arrow' + i + '').style.display = 'inline-block';
+            if (document.getElementById('image-input' + i + '').hidden == true) {
+                document.getElementById('image-input' + i + '').hidden = false;
+                document.getElementById('left-arrow' + i + '').hidden = false;
+                document.getElementById('trash-can' + i + '').hidden = false;
+                document.getElementById('right-arrow' + i + '').hidden = false;
                 imagesNum++;
                 checkAddButton();
                 break;
@@ -101,18 +101,18 @@ function addImageForm() {
 
 function deleteImageForm(index) {
     if (--imagesNum > 0) {
-        document.getElementById('image-input' + index + '').style.display = 'none';
+        document.getElementById('image-input' + index + '').hidden = true;
         if ((document.getElementById('image-input' + index + '')).value != '') {
             document.getElementById('image-input' + index + '').value = '';
-            document.getElementById('image-element' + index + '').style.display = 'none';
+            document.getElementById('image-element' + index + '').hidden = true;
             imagesUploaded--;
         }
-        document.getElementById('left-arrow' + index + '').style.display = 'none';
-        document.getElementById('trash-can' + index + '').style.display = 'none';
-        document.getElementById('right-arrow' + index + '').style.display = 'none';
+        document.getElementById('left-arrow' + index + '').hidden = true;
+        document.getElementById('trash-can' + index + '').hidden = true;
+        document.getElementById('right-arrow' + index + '').hidden = true;
         if (imagesNum == 1) {
             for (let i = 0; i < 5; i++) {
-                document.getElementById('trash-can' + i + '').style.display = 'none';
+                document.getElementById('trash-can' + i + '').hidden = true;
             }
         }
     } else {
@@ -129,7 +129,7 @@ function checkRequiredImageForms() {
         }
     }
     for (let i = 0; i < 5; i++) {
-        if (document.getElementById('image-input' + i + '').style.display != 'none') {
+        if (document.getElementById('image-input' + i + '').hidden != true) {
             document.getElementById('image-input' + i + '').required = true;
             break;
         }
@@ -140,7 +140,7 @@ function moveImageFormToLeft(index) {
     let previous;
     index--;
     for (i = index; i >= 0; i--) {
-        if (document.getElementById('image-input' + i + '').style.display != 'none') {
+        if (document.getElementById('image-input' + i + '').hidden != true) {
             previous = i;
             break;
         }
@@ -155,7 +155,7 @@ function moveImageFormToRight(index) {
     let next;
     index++;
     for (i = index; i < 5; i++) {
-        if (document.getElementById('image-input' + i + '').style.display != 'none') {
+        if (document.getElementById('image-input' + i + '').hidden != true) {
             next = i;
             break;
         }
@@ -205,7 +205,7 @@ function showUploadedImage(index) {
             imageElement.src = reader.result;
         };
         reader.readAsDataURL(file);
-        imageElement.style.display = 'inline-block';
+        imageElement.hidden = false;
     });
 }
 
