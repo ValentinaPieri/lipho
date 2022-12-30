@@ -15,8 +15,7 @@ $templateParams["page"] .= "
     </div>
 
     <div id='caption-form'>
-    <h2>Caption</h2>
-    <label for='caption' hidden=true>caption text area</label>
+    <h2><label for='caption'>Caption</label></h2>
     <textarea class='form-control' id='caption' name='caption'></textarea>
     </div>
 
