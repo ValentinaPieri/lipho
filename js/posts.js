@@ -10,9 +10,9 @@ function displayImageForms() {
             div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' hidden=\'true\'/>';
         }
         div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' hidden=\'true\'></img>';
-        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' hidden=\'true\'><i class=\'fa-regular fa-arrow-left\'></i></button>';
-        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' hidden=\'true\'><i class=\'fa-regular fa-trash-can\'></i></button>';
-        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' hidden=\'true\'><i class=\'fa-regular fa-arrow-right\'></i></button>';
+        div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' hidden=\'true\'><span class=\'fa-regular fa-arrow-left\'></span></button>';
+        div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' hidden=\'true\'><span class=\'fa-regular fa-trash-can\'></span></button>';
+        div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' hidden=\'true\'><span class=\'fa-regular fa-arrow-right\'></span></button>';
     }
     checkRequiredImageForms();
 }
