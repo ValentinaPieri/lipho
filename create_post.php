@@ -8,7 +8,7 @@ $templateParams["page"] .= "
 
     <div id='images-form'>
     <h2>Pictures</h2>
-    <p id='images-counter'><script>imagesCounter()</script></p>
+    <p id='images-counter'><script>updateImageFormsCounter()</script></p>
     <script>displayImageForms();</script>
     <button type='button' class='form-control' id='add-button' onclick='addImageForm()'><i class='fa-regular fa-circle-plus'></i></button>
     <script>checkAddButton();</script>
