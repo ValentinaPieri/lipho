@@ -18,12 +18,12 @@ $notifications = $dbconnection->getNotifications();
 if (sizeof($notifications) == 0) {
     $templateParams["page"] = "
     <h2>No notifications</h2>
-    <i class=\"fa-regular fa-face-frown-slight\"></i>
+    <span class=\"fa-regular fa-face-frown-slight\"></span>
     ";
 } else {
     $templateParams["page"] = "
     <button type=\"button\" id=\"delete-all-notifications-button\" onClick=\"deleteAllNotifications()\">
-        <i class=\"fa-regular fa-trash-can-list\"></i>
+        <span class=\"fa-regular fa-trash-can-list\"></span>
     </button>
     ";
 }
@@ -59,7 +59,7 @@ for ($current = 0; $current < sizeof($notifications); $current++) {
                     " . $notifications[$current]->getText() . "
                 </p>
                 <button type=\"button\" class=\"notification-delete-button\" onClick=\"deleteNotification(" . $notifications[$current]->getId() . ")\">
-                    <i class=\"fa-light fa-trash-can\"></i>
+                    <span class=\"fa-light fa-trash-can\"></span>
                 </button>
             </div>
             ";
@@ -68,7 +68,7 @@ for ($current = 0; $current < sizeof($notifications); $current++) {
 if (sizeof($notifications) == 0) {
     $templateParams["page"] = "
     <h2>No notifications</h2>
-    <i class=\"fa-regular fa-face-frown-slight\"></i>
+    <span class=\"fa-regular fa-face-frown-slight\"></span>
     ";
 }
 
