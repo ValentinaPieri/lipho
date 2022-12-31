@@ -14,11 +14,11 @@ class User
 
     private string $surname;
 
-    private $email;
+    private string $email;
 
-    private $phone;
+    private string $phone;
 
-    private $birth_date;
+    private string $birth_date;
 
     private string $timestamp;
 
@@ -42,7 +42,7 @@ class User
         $this->timestamp = $timestamp;
         $this->id = $id;
 
-        if($id==0){
+        if ($id == 0) {
             $this->add();
         }
     }
@@ -84,32 +84,39 @@ class User
 
     public function add()
     {
-        if($this->email!="" && $this->phone!="" && $this->birth_date!=""){
+        if ($this->email != "" && $this->phone != "" && $this->birth_date != "") {
             $stmt = $this->conn->prepare(QUERIES['add_user_email_phone_birthdate']);
             $stmt->bind_param('sssssss', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->phone, $this->birth_date);
-        }else if($this->email!="" && $this->phone!=""){
+            $stmt->execute();
+        } else if ($this->email != "" && $this->phone != "") {
             $stmt = $this->conn->prepare(QUERIES['add_user_email_phone']);
             $stmt->bind_param('ssssss', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->phone);
-        }else if($this->email!="" && $this->birth_date!=""){
+            $stmt->execute();
+        } else if ($this->email != "" && $this->birth_date != "") {
             $stmt = $this->conn->prepare(QUERIES['add_user_email_birthdate']);
             $stmt->bind_param('ssssss', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->birth_date);
-        }else if($this->phone!="" && $this->birth_date!=""){
+            $stmt->execute();
+        } else if ($this->phone != "" && $this->birth_date != "") {
             $stmt = $this->conn->prepare(QUERIES['add_user_phone_birthdate']);
             $stmt->bind_param('ssssss', $this->username, $this->password, $this->name, $this->surname, $this->phone, $this->birth_date);
-        }else if($this->email!=""){
+            $stmt->execute();
+        } else if ($this->email != "") {
             $stmt = $this->conn->prepare(QUERIES['add_user_email']);
             $stmt->bind_param('sssss', $this->username, $this->password, $this->name, $this->surname, $this->email);
-        }else if($this->phone!=""){
+            $stmt->execute();
+        } else if ($this->phone != "") {
             $stmt = $this->conn->prepare(QUERIES['add_user_phone']);
             $stmt->bind_param('sssss', $this->username, $this->password, $this->name, $this->surname, $this->phone);
-        }else if($this->birth_date!=""){
+            $stmt->execute();
+        } else if ($this->birth_date != "") {
             $stmt = $this->conn->prepare(QUERIES['add_user_birthdate']);
             $stmt->bind_param('sssss', $this->username, $this->password, $this->name, $this->surname, $this->birth_date);
-        }else{
+            $stmt->execute();
+        } else {
             $stmt = $this->conn->prepare(QUERIES['add_user']);
             $stmt->bind_param('ssss', $this->username, $this->password, $this->name, $this->surname);
+            $stmt->execute();
         }
-        $stmt->execute();
     }
 
     public function login()
