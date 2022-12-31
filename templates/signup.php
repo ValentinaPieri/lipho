@@ -27,9 +27,7 @@
                 <input type="text" name="phone" id="phone" placeholder="phone"><br>
                 <label for="birthday">birthday:</label>&nbsp;
                 <input type="date" id="birthdate" name="birthdate"><i class="fa-regular fa-calendar"></i><br><br>
-                <button type="button" onclick="submitForm(document.getElementById('username').value, document.getElementById('password1').value, 
-                document.getElementById('password2').value, document.getElementById('name').value, document.getElementById('surname').value, 
-                document.getElementById('email').value, document.getElementById('phone').value, document.getElementById('birthdate').value)">Sign up</button>
+                <button type="button" onclick="submitForm(document.getElementById('username').value, document.getElementById('password1').value, document.getElementById('password2').value, document.getElementById('name').value, document.getElementById('surname').value, document.getElementById('email').value, document.getElementById('phone').value, document.getElementById('birthdate').value)">Sign up</button>
 
             </div>
         </div>
