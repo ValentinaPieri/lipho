@@ -9,7 +9,7 @@ function displayImageForms() {
         } else {
             div.innerHTML += '<input type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' hidden=\'true\'/>';
         }
-        div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' hidden=\'true\' alt=\'image' + i + '\'></img>';
+        div.innerHTML += '<img id=\'image-element' + i + '\' name=\'image-element' + i + '\' hidden=\'true\' alt=\'Image ' + i + '\'></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' hidden=\'true\'><span class=\'fa-regular fa-arrow-left\'></span></button>';
         div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' hidden=\'true\'><span class=\'fa-regular fa-trash-can\'></span></button>';
         div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' hidden=\'true\'><span class=\'fa-regular fa-arrow-right\'></span></button>';
@@ -146,8 +146,8 @@ function moveImageFormToLeft(index) {
         }
     }
     index++;
-    swapImageForms('#image-input' + index + '', '#image-input' + previous + '', 'image-input' + index + '', 'image-input' + previous + '', index, previous);
-    swapImageForms('#image-element' + index + '', '#image-element' + previous + '', 'image-element' + index + '', 'image-element' + previous + '', index, previous);
+    swapImageForms('image-input' + index + '', 'image-input' + previous + '', index, previous);
+    swapImageForms('image-element' + index + '', 'image-element' + previous + '', index, previous);
     imageFormsRefresh();
 }
 
@@ -161,34 +161,32 @@ function moveImageFormToRight(index) {
         }
     } +
         index--;
-    swapImageForms('#image-input' + next + '', '#image-input' + index + '', 'image-input' + next + '', 'image-input' + index + '', next, index);
-    swapImageForms('#image-element' + next + '', '#image-element' + index + '', 'image-element' + next + '', 'image-element' + index + '', next, index);
+    swapImageForms('image-input' + next + '', 'image-input' + index + '', next, index);
+    swapImageForms('image-element' + next + '', 'image-element' + index + '', next, index);
     imageFormsRefresh();
 }
 
-function swapImageForms(element1Id, element2Id, element1Name, element2Name, element1Index, element2Index) {
-    let element1 = document.querySelector(element1Id);
-    let element2 = document.querySelector(element2Id);
+function swapImageForms(element1Id, element2Id, index1, index2) {
+    let element1 = document.getElementById(element1Id);
+    let element2 = document.getElementById(element2Id);
     let placeholder = document.createElement('div');
     element1.parentNode.insertBefore(placeholder, element1);
     element2.parentNode.insertBefore(element1, element2);
     placeholder.parentNode.insertBefore(element2, placeholder);
     placeholder.remove();
-    //swapping IDs
-    let element1IdNoHashtag = element1Id.replace(/#/g, '');
-    let element2IdNoHashtag = element2Id.replace(/#/g, '');
-    element1 = document.getElementById(element1IdNoHashtag);
-    element2 = document.getElementById(element2IdNoHashtag);
-    element1.id = '' + element2IdNoHashtag + '';
-    element2.id = '' + element1IdNoHashtag + '';
-    //swapping names
-    element1.name = '' + element2Name + '';
-    element2.name = '' + element1Name + '';
-    //updating onclicks and onchanges
-    element1.setAttribute('onclick', 'showUploadedImage(' + element2Index + ')');
-    element2.setAttribute('onclick', 'showUploadedImage(' + element1Index + ')');
-    element1.setAttribute('onchange', 'updateUploadedImagesCounter(' + element2Index + ')');
-    element2.setAttribute('onchange', 'updateUploadedImagesCounter(' + element1Index + ')');
+    element1.id = '' + element2Id + '';
+    element2.id = '' + element1Id + '';
+    element1.name = '' + element2Id + '';
+    element2.name = '' + element1Id + '';
+    if (element1Id.includes('image-input') && element2Id.includes('image-input')) {
+        element1.setAttribute('onclick', 'showUploadedImage(' + index2 + ')');
+        element2.setAttribute('onclick', 'showUploadedImage(' + index1 + ')');
+        element1.setAttribute('onchange', 'updateUploadedImagesCounter(' + index2 + ')');
+        element2.setAttribute('onchange', 'updateUploadedImagesCounter(' + index1 + ')');
+    } else if (element1Id.includes('image-element') && element2Id.includes('image-element')) {
+        element1.setAttribute('alt', 'Image ' + index2 + '');
+        element2.setAttribute('alt', 'Image ' + index1 + '');
+    }
 }
 
 function updateImageFormsCounter() {
