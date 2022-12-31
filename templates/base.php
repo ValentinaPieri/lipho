@@ -26,11 +26,11 @@
     </main>
     <footer>
         <div class="navbar">
-            <a href="index.php" type="Home Page"><i class="fa-regular fa-house"></i></a>
-            <a href="search.php" type="Search Page"><i class="fa-regular fa-magnifying-glass"></i></a>
-            <a href="create_post.php" type="Create Post Page"><i class="fa-regular fa-plus"></i></a>
-            <a href="notifications.php" type="Notifications Page"><i class="fa-regular fa-bell"></i></a>
-            <a href="profile.php" type="Profile Page"><i class="fa-regular fa-user"></i></a>
+            <a href="index.php"><i class="fa-regular fa-house"></i></a>
+            <a href="search.php"><i class="fa-regular fa-magnifying-glass"></i></a>
+            <a href="create_post.php"><i class="fa-regular fa-plus"></i></a>
+            <a href="notifications.php"><i class="fa-regular fa-bell"></i></a>
+            <a href="profile.php"><i class="fa-regular fa-user"></i></a>
         </div>
     </footer>
 </body>
