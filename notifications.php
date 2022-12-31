@@ -22,7 +22,7 @@ if (sizeof($notifications) == 0) {
     ";
 } else {
     $templateParams["page"] = "
-    <button type=\"button\" id=\"delete-all-notifications-button\" onClick=\"deleteAllNotifications()\" alt=\"Delete all notifications\">
+    <button type=\"button\" id=\"delete-all-notifications-button\" onClick=\"deleteAllNotifications()\">
         <i class=\"fa-regular fa-trash-can-list\"></i>
     </button>
     ";
