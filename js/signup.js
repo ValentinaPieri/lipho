@@ -3,9 +3,8 @@ function submitForm(username, password1, password2, name, surname, email, phone,
         if (result.usernameValid === false) {
             document.getElementById("username").style.borderColor = "red";
         }
-        if (password1 !== password2) {
+        if (result.passwordsMatching === false) {
             document.getElementById("password2").style.borderColor = "red";
         }
     }, "json");
-    console.log(username);
 }
