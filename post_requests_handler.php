@@ -18,7 +18,6 @@ if (isset($_POST['deleteAllNotifications'])) {
 
 if (isset($_POST["post-button"])) {
     $dbconnection = new DBConnection();
-    $conn = $dbconnection->getConnection();
     $images = array();
     $username = "test"; //TODO: change this to the current user
     for ($i = 0; $i < 5; $i++) {
@@ -33,6 +32,6 @@ if (isset($_POST["post-button"])) {
             }
         }
     }
-    $post = new Post(/*$_SESSION["username"]*/$username, $_POST["caption"], $conn, $images);
+    $post = new Post($username, $_POST["caption"], $dbconnection->getConnection(), $images);
     header("Location: create_post.php");
 }
