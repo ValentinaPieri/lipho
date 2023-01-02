@@ -76,4 +76,19 @@ class DBConnection
         $stmt->bind_param('s', $username);
         $stmt->execute();
     }
+
+    public function getMatchingUsers($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_matching_users']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $user = array('username' => $row['username'], 'profile_image' => $row['profile_image']);
+                array_push($users, $user);
+            }
+        }
+    }
 }
