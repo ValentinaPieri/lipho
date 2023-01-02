@@ -14,3 +14,9 @@ if (isset($_POST['deleteAllNotifications'])) {
     $dbconnection = new DBConnection();
     $dbconnection->deleteAllNotifications();
 }
+
+if (isset($_POST['getMatchingUsers'])) {
+    $dbconnection = new DBConnection();
+    $users = $dbconnection->getMatchingUsers($_POST['username']);
+    echo json_encode($users);
+}
