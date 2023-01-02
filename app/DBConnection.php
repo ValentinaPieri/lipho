@@ -11,7 +11,7 @@ use app\models\Notification;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
-const passw = 'Lipho@';
+const passw = 'RV4^yKIoyD4E#$';
 const db = 'lipho';
 const port = 3306;
 
