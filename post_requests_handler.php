@@ -19,7 +19,11 @@ if (isset($_POST['signup'])) {
     $result["passwordsMatching"] = $_POST['password1'] == $_POST['password2'];
     //check if the password length is at least 8 characters long and if it contains at least one number and one symbol
     $result["passwordValid"] = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', $_POST['password1']) == 0;
-    if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"]) {
+    //phone number validation
+    $result["phoneValid"] = preg_match('/^[0-9]{10}$/', $_POST['phone']) == 0;
+    //email validation
+    $result["emailValid"] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"] && $result["phoneValid"] && $result["emailValid"]) {
         $user = new User($_POST['username'], $_POST['password2'], $_POST['name'], $_POST['surname'], $dbconnection->getConnection(), $_POST['email'], $_POST['phone'], $_POST['birthdate']);
     }
     echo json_encode($result);

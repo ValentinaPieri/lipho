@@ -6,5 +6,11 @@ function submitForm(username, password1, password2, name, surname, email, phone,
         if (result.passwordsMatching === false) {
             document.getElementById("password2").style.borderColor = "red";
         }
+        if (result.phoneValid === false) {
+            document.getElementById("phone").style.borderColor = "red";
+        }
+        if (result.emailValid === false) {
+            document.getElementById("email").style.borderColor = "red";
+        }
     }, "json");
 }
