@@ -12,7 +12,7 @@ use app\models\Post;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
-const passw = 'Lipho@';
+const passw = 'RV4^yKIoyD4E#$';
 const db = 'lipho';
 const port = 3306;
 
@@ -76,5 +76,23 @@ class DBConnection
         $username = 'test'; //TODO: change this to the current user
         $stmt->bind_param('s', $username);
         $stmt->execute();
+    }
+
+    public function getMatchingUsers($username)
+    {
+        $username .= '%';
+        $stmt = $this->conn->prepare(QUERIES['get_matching_users']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $user = array('username' => $row['username'], 'profile_image' => base64_encode($row['profile_image']));
+                array_push($users, $user);
+            }
+        }
+
+        return $users;
     }
 }

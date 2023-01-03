@@ -35,3 +35,9 @@ if (isset($_POST["post-button"])) {
     $post = new Post($username, $_POST["caption"], $dbconnection->getConnection(), $images);
     header("Location: create_post.php");
 }
+
+if (isset($_POST['getMatchingUsers'])) {
+    $dbconnection = new DBConnection();
+    $users = $dbconnection->getMatchingUsers($_POST['username']);
+    echo json_encode($users);
+}
