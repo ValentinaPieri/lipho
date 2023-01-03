@@ -42,6 +42,8 @@
                     $notSeenNumber = $dbconnection->getNotSeenNotificationsNumber();
                     if ($notSeenNumber > 0) {
                         echo "<span id=\"notifications-badge\" class=\"notifications-badge\">" . $notSeenNumber . "</span>";
+                    } else {
+                        echo "<span id=\"notifications-badge\" class=\"notifications-badge\"\"></span>";
                     }
                     ?>
                 </span>
