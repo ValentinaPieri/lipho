@@ -9,7 +9,7 @@ function displayImageForms() {
         } else {
             div.innerHTML += '<input title=\'Image input form ' + i + '\' aria-label=\'Image input form ' + i + '\' type=\'file\' class=\'form-control\' id=\'image-input' + i + '\' name=\'image-input' + i + '\' onclick=\'showUploadedImage(' + i + ')\' onchange=\'updateUploadedImagesCounter(' + i + ')\' hidden/>';
         }
-        div.innerHTML += '<img src=\'resources/blankspace.jpg\' id=\'image-element' + i + '\' hidden alt=\'Image ' + i + '\'></img>';
+        div.innerHTML += '<img src=\'resources/images/blankspace.jpg\' id=\'image-element' + i + '\' hidden alt=\'Image ' + i + '\'></img>';
         div.innerHTML += '<button type=\'button\' id=\'left-arrow' + i + '\' onclick=\'moveImageFormToLeft(' + i + ')\' hidden><span class=\'fa-regular fa-arrow-left\'></span></button>';
         div.innerHTML += '<button type=\'button\' id=\'trash-can' + i + '\' onclick=\'deleteImageForm(' + i + ')\' hidden><span class=\'fa-regular fa-trash-can\'></span></button>';
         div.innerHTML += '<button type=\'button\' id=\'right-arrow' + i + '\' onclick=\'moveImageFormToRight(' + i + ')\' hidden><span class=\'fa-regular fa-arrow-right\'></span></button>';
