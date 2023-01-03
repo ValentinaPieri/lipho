@@ -29,7 +29,21 @@
             <a href="index.php" title="Home Page"><span class="fa-regular fa-house"></span></a>
             <a href="search.php" title="Search Page"><span class="fa-regular fa-magnifying-glass"></span></a>
             <a href="create_post.php" title="Create Post Page"><span class="fa-regular fa-plus"></span></a>
-            <a href="notifications.php" title="Notifications Page"><span class="fa-regular fa-bell"></span></a>
+            <a href="notifications.php" title="Notifications Page">
+                <span class="fa-regular fa-bell">
+                    <?php
+                    require_once 'app/DBConnection.php';
+
+                    use app\DBConnection;
+
+                    $dbconnection = new DBConnection();
+                    $notSeenNumber = $dbconnection->getNotSeenNotificationsNumber();
+                    if ($notSeenNumber > 0) {
+                        echo "<span class=\"badge\">" . $notSeenNumber . "</span>";
+                    }
+                    ?>
+                </span>
+            </a>
             <a href="profile.php" title="Profile Page"><span class="fa-regular fa-user"></span></a>
         </div>
     </footer>
