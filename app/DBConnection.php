@@ -76,4 +76,17 @@ class DBConnection
         $stmt->bind_param('s', $username);
         $stmt->execute();
     }
+
+    public function getNotSeenNotificationsNumber()
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_not_seen_notifications_number']);
+        $username = 'test'; //TODO: change this to the current user
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['number'];
+        }
+    }
 }
