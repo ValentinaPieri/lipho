@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="js/push-notifications.js"></script>
     <?php
     if (isset($templateParams["scripts"])) {
         echo $templateParams["scripts"];
@@ -39,7 +41,7 @@
                     $dbconnection = new DBConnection();
                     $notSeenNumber = $dbconnection->getNotSeenNotificationsNumber();
                     if ($notSeenNumber > 0) {
-                        echo "<span class=\"badge\">" . $notSeenNumber . "</span>";
+                        echo "<span id=\"notifications-badge\" class=\"notifications-badge\">" . $notSeenNumber . "</span>";
                     }
                     ?>
                 </span>
