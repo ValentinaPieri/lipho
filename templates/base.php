@@ -18,15 +18,15 @@
         <h1><img src="resources/icons/foreground.png" alt="Lipho logo"> - <?php echo $templateParams["title"]; ?></h1>
     </header>
     <main>
-
-        <?php
+        TODO: finish session check
+        <!-- <?php
         session_start();
 
         if (!(isset($_SESSION["login"]) && $_SESSION["login"] == "OK")) {
             header("Location: login.php");
             exit;
         }
-        ?>
+        ?> -->
 
         <?php
         if (isset($templateParams["page"])) {
