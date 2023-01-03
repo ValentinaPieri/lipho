@@ -52,17 +52,29 @@ for ($current = 0; $current < sizeof($notifications); $current++) {
     $profile_image = $dbconnection->getUserProfileImage($notifications[$current]->getSender());
 
     $templateParams["page"] .= "
-            <div class=\"notification\" id=\"notification" . $notifications[$current]->getId() . "\">
-                <img src=\"data:image/jpeg;base64," . base64_encode($profile_image) . "\" alt=\"" . $notifications[$current]->getSender() . " profile image\">
-                <a href=\"profile.php?username=" . $notifications[$current]->getSender() . "\">" . $notifications[$current]->getSender() . "</a>
-                <p>
-                    " . $notifications[$current]->getText() . "
-                </p>
-                <button type=\"button\" class=\"notification-delete-button\" onClick=\"deleteNotification(" . $notifications[$current]->getId() . ")\">
-                    <span class=\"fa-light fa-trash-can\"></span>
-                </button>
-            </div>
-            ";
+        <div class=\"notification\" id=\"notification" . $notifications[$current]->getId() . "\">
+    ";
+
+    if ($profile_image != null) {
+        $templateParams["page"] .= "
+            <img src=\"data:image/jpeg;base64," . base64_encode($profile_image) . "\" alt=\"Profile image\">
+        ";
+    } else {
+        $templateParams["page"] .= "
+            <img src=\"resources/images/blank_profile_picture.jpeg\" alt=\"Blank profile image\">
+        ";
+    }
+
+    $templateParams["page"] .= "
+            <a href=\"profile.php?username=" . $notifications[$current]->getSender() . "\">" . $notifications[$current]->getSender() . "</a>
+            <p>
+                " . $notifications[$current]->getText() . "
+            </p>
+            <button type=\"button\" class=\"notification-delete-button\" onClick=\"deleteNotification(" . $notifications[$current]->getId() . ")\">
+                <span class=\"fa-light fa-trash-can\"></span>
+            </button>
+        </div>
+    ";
 }
 
 if (sizeof($notifications) == 0) {
