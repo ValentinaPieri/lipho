@@ -218,7 +218,6 @@ function updateUploadedImagesCounter(index) {
             imagesUploaded++;
         }
     }
-    console.log(imagesUploaded);
     if (document.getElementById('message') != null && imagesUploaded == imagesNum) {
         document.getElementById('message').remove();
     }
