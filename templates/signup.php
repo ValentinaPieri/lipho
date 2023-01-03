@@ -24,7 +24,7 @@
                 <i class="fa-solid fa-asterisk"></i><input type="text" name="name" id="name" placeholder="name" required><br>
                 <i class="fa-solid fa-asterisk"></i><input type="text" name="surname" id="surname" placeholder="surname" required><br>
                 <input type="text" name="email" id="email" placeholder="email"><br>
-                <input type="text" name="phone" id="phone" placeholder="phone"><br>
+                <input type="tel" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="phone ex. xxx-xxx-xxxx"><br>
                 <label for="birthday">birthday:</label>&nbsp;
                 <input type="date" id="birthdate" name="birthdate"><i class="fa-regular fa-calendar"></i><br><br>
                 <button type="button" onclick="submitForm(document.getElementById('username').value, document.getElementById('password1').value, document.getElementById('password2').value, document.getElementById('name').value, document.getElementById('surname').value, document.getElementById('email').value, document.getElementById('phone').value, document.getElementById('birthdate').value)">Sign up</button>
