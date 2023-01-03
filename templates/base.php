@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
+    <?php
+    if (isset($templateParams["scripts"])) {
+        echo $templateParams["scripts"];
+    }
+    ?>
 </head>
 
 <body>
@@ -31,11 +36,11 @@
     </main>
     <footer>
         <div class="navbar">
-            <a href="index.php" type="Home Page"><i class="fa-regular fa-house"></i></a>
-            <a href="search.php" type="Search Page"><i class="fa-regular fa-magnifying-glass"></i></a>
-            <a href="create_post.php" type="Create Post Page"><i class="fa-regular fa-plus"></i></a>
-            <a href="notifications.php" type="Notifications Page"><i class="fa-regular fa-bell"></i></a>
-            <a href="profile.php" type="Profile Page"><i class="fa-regular fa-user"></i></a>
+            <a href="index.php" title="Home Page"><span class="fa-regular fa-house"></span></a>
+            <a href="search.php" title="Search Page"><span class="fa-regular fa-magnifying-glass"></span></a>
+            <a href="create_post.php" title="Create Post Page"><span class="fa-regular fa-plus"></span></a>
+            <a href="notifications.php" title="Notifications Page"><span class="fa-regular fa-bell"></span></a>
+            <a href="profile.php" title="Profile Page"><span class="fa-regular fa-user"></span></a>
         </div>
     </footer>
 </body>

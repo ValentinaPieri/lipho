@@ -75,7 +75,8 @@ entity notification {
     * text :: String
     * seen :: Boolean
     * timestamp :: Timestamp
-    * username :: String
+    * receiver :: String
+    * sender :: String
 }
 
 user }o--o{ following

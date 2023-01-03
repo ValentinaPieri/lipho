@@ -4,14 +4,15 @@ namespace app;
 
 require_once 'query.php';
 require_once 'models/Notification.php';
+require_once 'models/Post.php';
 
 use mysqli;
 use app\models\Notification;
-
+use app\models\Post;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
-const passw = 'Lipho@';
+const passw = 'RV4^yKIoyD4E#$';
 const db = 'lipho';
 const port = 3306;
 
@@ -42,7 +43,7 @@ class DBConnection
         $notifications = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $notification = new Notification($row['text'], $row['seen'], $row['username'], $this->conn, $row['timestamp'], $row['notification_id']);
+                $notification = new Notification($row['text'], $row['seen'], $row['receiver'], $row['sender'], $this->conn, $row['timestamp'], $row['notification_id']);
                 array_push($notifications, $notification);
             }
         }
@@ -79,5 +80,31 @@ class DBConnection
             return false;
         }
         return true;
+    }
+    
+    public function deleteAllNotifications()
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_user_notifications']);
+        $username = 'test'; //TODO: change this to the current user
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+    }
+
+    public function getMatchingUsers($username)
+    {
+        $username .= '%';
+        $stmt = $this->conn->prepare(QUERIES['get_matching_users']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $user = array('username' => $row['username'], 'profile_image' => base64_encode($row['profile_image']));
+                array_push($users, $user);
+            }
+        }
+
+        return $users;
     }
 }

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 08, 2022 at 10:44 AM
--- Server version: 10.5.15-MariaDB-0+deb11u1
--- PHP Version: 8.0.25
+-- Generation Time: Dec 28, 2022 at 12:15 PM
+-- Server version: 10.5.18-MariaDB-0+deb11u1
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,7 +35,7 @@ CREATE TABLE `comment` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `post_id` int(11) UNSIGNED NOT NULL,
   `username` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE `comment_like` (
   `comment_id` int(11) UNSIGNED NOT NULL,
   `username` varchar(250) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE `following` (
   `from_username` varchar(250) NOT NULL,
   `to_username` varchar(250) NOT NULL,
   `since` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -72,8 +72,9 @@ CREATE TABLE `notification` (
   `text` text NOT NULL,
   `seen` tinyint(1) NOT NULL DEFAULT 0,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `username` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `receiver` varchar(250) NOT NULL,
+  `sender` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,7 @@ CREATE TABLE `post` (
   `average_colors_rating` double NOT NULL DEFAULT 0,
   `average_composition_rating` double NOT NULL DEFAULT 0,
   `username` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,7 @@ CREATE TABLE `post_image` (
   `post_id` int(10) UNSIGNED NOT NULL,
   `position` int(10) UNSIGNED NOT NULL,
   `image` longblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -113,7 +114,7 @@ CREATE TABLE `post_like` (
   `post_id` int(10) UNSIGNED NOT NULL,
   `username` varchar(250) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -127,7 +128,7 @@ CREATE TABLE `post_rating` (
   `exposure` int(11) NOT NULL,
   `colors` int(11) NOT NULL,
   `composition` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -142,8 +143,9 @@ CREATE TABLE `user` (
   `surname` varchar(250) NOT NULL,
   `email` varchar(250) DEFAULT NULL,
   `phone` varchar(250) DEFAULT NULL,
-  `birthdate` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `birthdate` date DEFAULT NULL,
+  `profile_image` mediumblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -176,7 +178,8 @@ ALTER TABLE `following`
 --
 ALTER TABLE `notification`
   ADD PRIMARY KEY (`notification_id`),
-  ADD KEY `FK_notification_user` (`username`);
+  ADD KEY `FK_notification_receiver_user` (`receiver`),
+  ADD KEY `FK_notification_sender_user` (`sender`);
 
 --
 -- Indexes for table `post`
@@ -262,7 +265,8 @@ ALTER TABLE `following`
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `FK_notification_user` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_notification_receiver_user` FOREIGN KEY (`receiver`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_notification_sender_user` FOREIGN KEY (`sender`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post`

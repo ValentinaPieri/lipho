@@ -5,21 +5,35 @@ require_once 'app/models/Notification.php';
 use app\DBConnection;
 
 $templateParams["title"] = "Notifications";
-$templateParams["page"] = "
+$templateParams["scripts"] = "
     <script src=\"https://code.jquery.com/jquery-3.5.0.js\"></script>
     <script src=\"js/notifications.js\"></script>
     ";
+$templateParams["page"] = "";
 
 $dbconnection = new DBConnection();
 
 $notifications = $dbconnection->getNotifications();
+
+if (sizeof($notifications) == 0) {
+    $templateParams["page"] = "
+    <h2>No notifications</h2>
+    <span class=\"fa-regular fa-face-frown-slight\"></span>
+    ";
+} else {
+    $templateParams["page"] = "
+    <button type=\"button\" id=\"delete-all-notifications-button\" onClick=\"deleteAllNotifications()\">
+        <span class=\"fa-regular fa-trash-can-list\"></span>
+    </button>
+    ";
+}
 
 $today_shown = false;
 $yesterday_shown = false;
 $earlier_shown = false;
 for ($current = 0; $current < sizeof($notifications); $current++) {
     if (!$today_shown && date("Y-m-d", strtotime($notifications[$current]->getTimestamp())) == date("Y-m-d", strtotime("now"))) {
-        $templateParams["page"] = "
+        $templateParams["page"] .= "
         <h2>Today</h2>
         ";
         $today_shown = true;
@@ -35,26 +49,38 @@ for ($current = 0; $current < sizeof($notifications); $current++) {
         $earlier_shown = true;
     }
 
-    $profile_image = $dbconnection->getUserProfileImage($notifications[$current]->getUsername());
+    $profile_image = $dbconnection->getUserProfileImage($notifications[$current]->getSender());
 
     $templateParams["page"] .= "
-            <div class=\"notification\" id=\"notification" . $notifications[$current]->getId() . "\">
-                <img src=\"data:image/jpeg;base64," . base64_encode($profile_image) . "\" alt=\"" . $notifications[$current]->getUsername() . " profile image\">
-                <a href=\"profile.php?username=" . $notifications[$current]->getUsername() . "\">" . $notifications[$current]->getUsername() . "</a>
-                <p>
-                    " . $notifications[$current]->getText() . "
-                </p>
-                <button type=\"button\" class=\"notification-delete-button\" onClick=\"deleteNotification(" . $notifications[$current]->getId() . ")\">
-                    <i class=\"fa-light fa-trash-can\"></i>
-                </button>
-            </div>
-            ";
+        <div class=\"notification\" id=\"notification" . $notifications[$current]->getId() . "\">
+    ";
+
+    if ($profile_image != null) {
+        $templateParams["page"] .= "
+            <img src=\"data:image/jpeg;base64," . base64_encode($profile_image) . "\" alt=\"Profile image\">
+        ";
+    } else {
+        $templateParams["page"] .= "
+            <img src=\"resources/images/blank_profile_picture.jpeg\" alt=\"Blank profile image\">
+        ";
+    }
+
+    $templateParams["page"] .= "
+            <a href=\"profile.php?username=" . $notifications[$current]->getSender() . "\">" . $notifications[$current]->getSender() . "</a>
+            <p>
+                " . $notifications[$current]->getText() . "
+            </p>
+            <button type=\"button\" class=\"notification-delete-button\" onClick=\"deleteNotification(" . $notifications[$current]->getId() . ")\">
+                <span class=\"fa-light fa-trash-can\"></span>
+            </button>
+        </div>
+    ";
 }
 
 if (sizeof($notifications) == 0) {
     $templateParams["page"] = "
     <h2>No notifications</h2>
-    <i class=\"fa-regular fa-face-frown-slight\"></i>
+    <span class=\"fa-regular fa-face-frown-slight\"></span>
     ";
 }
 
