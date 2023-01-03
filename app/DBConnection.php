@@ -4,10 +4,11 @@ namespace app;
 
 require_once 'query.php';
 require_once 'models/Notification.php';
+require_once 'models/Post.php';
 
 use mysqli;
 use app\models\Notification;
-
+use app\models\Post;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
