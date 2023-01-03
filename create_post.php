@@ -1,7 +1,7 @@
 <?php
 
 $templateParams["title"] = "Create Post";
-$templateParams["scripts"] = "<script src='js/posts.js'></script>";
+$templateParams["scripts"] = "<script src='js/create_posts.js'></script>";
 $templateParams["page"] = "";
 $templateParams["page"] .= "
 <form action='post_requests_handler.php' method='post' enctype='multipart/form-data'>
