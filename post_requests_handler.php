@@ -14,3 +14,8 @@ if (isset($_POST['deleteAllNotifications'])) {
     $dbconnection = new DBConnection();
     $dbconnection->deleteAllNotifications();
 }
+
+if (isset($_POST['getNotSeenNotificationsNumber'])) {
+    $dbconnection = new DBConnection();
+    echo $dbconnection->getNotSeenNotificationsNumber();
+}
