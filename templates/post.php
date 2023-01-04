@@ -16,6 +16,9 @@
                 echo 'displayPostImages(src, i);';
                 echo '</script>';
             }
+            if ($postImagesNum != 1) {
+                echo '<script>showSlide(1)</script>';
+            }
             echo '<script>displayPostImagesButtons()</script>';
         }
         ?>
