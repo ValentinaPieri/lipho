@@ -1,15 +1,29 @@
+<script src="js/posts.js"></script>
+
 <div class="post">
-    <div class="post-image">
-        <img src="data:image/jpeg;base64,<?php if (isset($templateParams["post"])) echo base64_encode($templateParams["post"]["images"][0]); ?>" alt="Post image 0"></img>
-        <button id="full-screen-button" type="button"><span class="fa-regular fa-expand"></span></button>
-        <button id="like-button" type="button"><span class="fa-regular fa-heart"></span></button>
-        <button id="comment-button" type="button"><span class="fa-regular fa-comment-dots"></span></button>
-        <button id="rating-button" type="button"><span class="fa-regular fa-square-star"></span></button>
+    <div class="post-images" id="post-images">
+        <div class=slide-index id="slide-index"></div>
+        <?php
+        if (isset($templateParams["post"]["images"])) {
+            $postImagesNum = count($templateParams["post"]["images"]);
+            for ($i = 0; $i < $postImagesNum; $i++) {
+                echo '<script>';
+                echo 'i = "' . $i . '";';
+                echo '</script>';
+                $src = base64_encode($templateParams['post']['images'][$i]);
+                echo '<script>';
+                echo 'src = "' . $src . '";';
+                echo 'displayPostImages(src, i);';
+                echo '</script>';
+            }
+            echo '<script>displayPostImagesButtons()</script>';
+        }
+        ?>
     </div>
     <div class="post-comments">
         <form>
-            <input title="comment text input area" aria-label="comment text input area" type="text" placeholder="Type here your comment">
-            <button id="submit-comment-button" type="submit"><span class="fa-regular fa-paper-plane-top"></span></button>
+            <input class="post-comment-input" title="comment text input area" aria-label="comment text input area" type="text" placeholder="Type here your comment">
+            <button class="post-button" id="submit-comment-button" type="submit"><span class="fa-regular fa-paper-plane-top"></span></button>
         </form>
         <?php
         if (isset($templateParams["post"])) {
