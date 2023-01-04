@@ -23,13 +23,10 @@
         }
         ?>
     </div>
-    <div class="post-comments">
-        <form>
-            <input class="post-comment-input" title="comment text input area" aria-label="comment text input area" type="text" placeholder="Type here your comment">
-            <button class="post-button" id="submit-comment-button" type="submit"><span class="fa-regular fa-paper-plane-top"></span></button>
-        </form>
+    <div class="post-comments" id="post-comments">
         <?php
         if (isset($templateParams["post"])) {
+            echo '<script>showPostCommentSection()</script>';
             foreach ($templateParams["post"]["comments"] as $comment) {
                 echo "<p class='comment-username'>" . $comment->getUsername() . "</p>";
                 echo "<p class='comment-text'>" . $comment->getText() . "</p>";

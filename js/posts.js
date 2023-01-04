@@ -36,3 +36,9 @@ function showSlide(step) {
 function changeSlide(step) {
     showSlide(slideIndex[0] += step);
 }
+
+function showPostCommentSection() {
+    document.getElementById("post-comments").innerHTML += "<form method='post' id='comments-form'></form>";
+    document.getElementById("comments-form").innerHTML += "<input class='post-comment-input' title='comment text input area' aria-label='comment text input area' type='text' placeholder='Type here your comment'>";
+    document.getElementById("comments-form").innerHTML += "<button class='post-button' id='submit-comment-button' type='submit'><span class='fa-regular fa-paper-plane-top'></span></button>";
+}
