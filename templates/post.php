@@ -35,16 +35,8 @@
         }
         ?>
     </div>
-    <div class="post-rating">
-        <form>
-            <label for="exposure-rating">Exposure</label>
-            <input id="exposure-rating" type="range" min="0" max="5" value="5">
-            <label for="color-rating">Color</label>
-            <input id="color-rating" type="range" min="0" max="5" value="5">
-            <label for="composition-rating">Composition</label>
-            <input id="composition-rating" type="range" min="0" max="5" value="5">
-            <button type="submit">Rate</button>
-        </form>
+    <div class="post-rating" id="post-rating">
+        <?php echo "<script>showPostRatingSection();</script>"; ?>
     </div>
     <div class="post-caption">
         <?php

@@ -42,3 +42,14 @@ function showPostCommentSection() {
     document.getElementById("comments-form").innerHTML += "<input class='post-comment-input' title='comment text input area' aria-label='comment text input area' type='text' placeholder='Type here your comment'>";
     document.getElementById("comments-form").innerHTML += "<button class='post-button' id='submit-comment-button' type='submit'><span class='fa-regular fa-paper-plane-top'></span></button>";
 }
+
+function showPostRatingSection() {
+    document.getElementById("post-rating").innerHTML += "<form method='post' id='ratings-form'></form>";
+    document.getElementById("ratings-form").innerHTML += "<label for='exposure-rating'>Exposure</label>";
+    document.getElementById("ratings-form").innerHTML += "<input class='rating-input' id='exposure-rating' type='range' min='0' max='5' value='5'>";
+    document.getElementById("ratings-form").innerHTML += "<label for='color-rating'>Color</label>";
+    document.getElementById("ratings-form").innerHTML += "<input class='rating-input' id='color-rating' type='range' min='0' max='5' value='5'>";
+    document.getElementById("ratings-form").innerHTML += "<label for='composition-rating'>Color</label>";
+    document.getElementById("ratings-form").innerHTML += "<input class='rating-input' id='composition-rating' type='range' min='0' max='5' value='5'>";
+    document.getElementById("ratings-form").innerHTML += "<button class='rating-submit-button' id='rating-submit-button' type='submit'>Rate</button>";
+}
