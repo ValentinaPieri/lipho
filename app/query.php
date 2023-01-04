@@ -24,6 +24,7 @@ const QUERIES = [
     "get_post_images" => "SELECT * FROM post_image WHERE post_id = ?",
     "add_post_image" => "INSERT INTO post_image (post_id, position, `image`) VALUES (?, ?, ?)",
     "get_user_notifications" => "SELECT * FROM notification WHERE receiver = ? ORDER BY `timestamp` DESC",
+    "get_not_seen_notifications_number" => "SELECT COUNT(*) AS number FROM notification WHERE receiver = ? AND seen = 0",
     "set_notifications_seen" => "UPDATE notification SET seen = 1 WHERE notification_id IN (?)",
     "delete_notification" => "DELETE FROM notification WHERE notification_id = ?",
     "delete_user_notifications" => "DELETE FROM notification WHERE receiver = ?",

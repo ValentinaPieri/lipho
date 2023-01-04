@@ -16,6 +16,11 @@ if (isset($_POST['deleteAllNotifications'])) {
     $dbconnection->deleteAllNotifications();
 }
 
+if (isset($_POST['getNotSeenNotificationsNumber'])) {
+    $dbconnection = new DBConnection();
+    echo $dbconnection->getNotSeenNotificationsNumber();
+}
+
 if (isset($_POST["post-button"])) {
     $dbconnection = new DBConnection();
     $images = array();
