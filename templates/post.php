@@ -1,6 +1,6 @@
 <div class="post">
     <div class="post-image">
-        <img src="data:image/jpeg;base64,<?php if (isset($templateParams["post"])) echo $templateParams["post"]["images"][0]; ?>" alt="Post image 0"></img>
+        <img src="data:image/jpeg;base64,<?php if (isset($templateParams["post"])) echo base64_encode($templateParams["post"]["images"][0]); ?>" alt="Post image 0"></img>
         <button id="full-screen-button" type="button"><span class="fa-regular fa-expand"></span></button>
         <button id="like-button" type="button"><span class="fa-regular fa-heart"></span></button>
         <button id="comment-button" type="button"><span class="fa-regular fa-comment-dots"></span></button>
