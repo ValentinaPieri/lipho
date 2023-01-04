@@ -26,6 +26,31 @@ class Comment
         }
     }
 
+    public function getCommentId()
+    {
+        return $this->comment_id;
+    }
+
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    public function getPostId()
+    {
+        return $this->post_id;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
     private function createNew()
     {
         $stmt = $this->conn->prepare(QUERIES['comment_post']);
