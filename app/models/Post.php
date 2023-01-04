@@ -40,6 +40,56 @@ class Post
         }
     }
 
+    public function getPostId()
+    {
+        return $this->post_id;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function getAvgExposureRating()
+    {
+        return $this->avg_exposure_rating;
+    }
+
+    public function getAvgColorsRating()
+    {
+        return $this->avg_colors_rating;
+    }
+
+    public function getAvgCompositionRating()
+    {
+        return $this->avg_composition_rating;
+    }
+
     public function createNew()
     {
         $stmt = $this->conn->prepare(QUERIES['add_post']);
