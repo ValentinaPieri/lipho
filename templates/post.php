@@ -14,8 +14,8 @@
         <?php
         if (isset($templateParams["post"])) {
             foreach ($templateParams["post"]["comments"] as $comment) {
-                echo "<p class='comment-username'>" . $comment["username"] . "</p>";
-                echo "<p class='comment-text'>" . $comment["text"] . "</p>";
+                echo "<p class='comment-username'>" . $comment->getUsername() . "</p>";
+                echo "<p class='comment-text'>" . $comment->getText() . "</p>";
                 echo "<button id='reply-button' type='button'>Reply</button>";
             }
         }
