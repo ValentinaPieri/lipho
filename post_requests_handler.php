@@ -27,7 +27,7 @@ if (isset($_POST["post-button"])) {
             $allowedTypes = array('jpg', 'png', 'jpeg');
             if (in_array($fileType, $allowedTypes)) {
                 $image = $_FILES['image-input' . $i]['tmp_name'];
-                $imgContent = addslashes(file_get_contents($image));
+                $imgContent = file_get_contents($image);
                 array_push($images, $imgContent);
             }
         }
