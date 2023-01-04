@@ -34,17 +34,30 @@ $earlier_shown = false;
 for ($current = 0; $current < sizeof($notifications); $current++) {
     if (!$today_shown && date("Y-m-d", strtotime($notifications[$current]->getTimestamp())) == date("Y-m-d", strtotime("now"))) {
         $templateParams["page"] .= "
-        <h2>Today</h2>
+        <div class=\"today-notifications\" id=\"today-notifications\">
+            <h2>Today</h2>
         ";
         $today_shown = true;
     } else if (!$yesterday_shown && date("Y-m-d", strtotime($notifications[$current]->getTimestamp())) == date("Y-m-d", strtotime("-1 day"))) {
+        if ($today_shown) {
+            $templateParams["page"] .= "
+            </div>
+            ";
+        }
         $templateParams["page"] .= "
-        <h2>Yesterday</h2>
+        <div class=\"yesterday-notifications\" id=\"yesterday-notifications\">
+            <h2>Yesterday</h2>
         ";
         $yesterday_shown = true;
     } else if (!$earlier_shown && date("Y-m-d", strtotime($notifications[$current]->getTimestamp())) <= date("Y-m-d", strtotime("-2 day"))) {
+        if ($yesterday_shown) {
+            $templateParams["page"] .= "
+            </div>
+            ";
+        }
         $templateParams["page"] .= "
-        <h2>Earlier</h2>
+        <div class=\"earlier-notifications\" id=\"earlier-notifications\">
+            <h2>Earlier</h2>
         ";
         $earlier_shown = true;
     }
@@ -77,10 +90,9 @@ for ($current = 0; $current < sizeof($notifications); $current++) {
     ";
 }
 
-if (sizeof($notifications) == 0) {
-    $templateParams["page"] = "
-    <h2>No notifications</h2>
-    <span class=\"fa-regular fa-face-frown-slight\"></span>
+if ($today_shown || $yesterday_shown || $earlier_shown) {
+    $templateParams["page"] .= "
+    </div>
     ";
 }
 
