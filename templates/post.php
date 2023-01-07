@@ -29,7 +29,7 @@ if (isset($templateParams["post"])) {
 
     $POST_TEMPLATE .= "
             <button class='post-button' id='full-screen-button' type='button'><span class='fa-regular fa-expand'></span></button>
-            <button class='post-button' id='like-button' type='button' onclick='toggleLikePost(" . $templateParams["post"]["post_id"] . ")'><span class='fa-regular fa-heart'></span></button>
+            <button class='post-button' id='like-button' type='button' onclick='likePost(" . $templateParams["post"]["post_id"] . ")'><span class='fa-regular fa-heart'></span></button>
             <button class='post-button' id='comment-button' type='button'><span class='fa-regular fa-comment-dots'></span></button>
             <button class='post-button' id='rating-button' type='button'><span class='fa-regular fa-square-star'></span></button>
         </div>

@@ -31,10 +31,19 @@ function showSlideRight() {
     }
 }
 
-function toggleLikePost(postId) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, toggleLikePost: true })
+function likePost(postId) {
+    $.post("/lipho/post_requests_handler.php", { postId: postId, likePost: true })
         .done(function () {
             document.getElementById("like-button").innerHTML = "<span class='fa-solid fa-heart'></span>";
+            document.getElementById("like-button").setAttribute("onclick", "unlikePost(" + postId + ")");
+        });
+}
+
+function unlikePost(postId) {
+    $.post("/lipho/post_requests_handler.php", { postId: postId, unlikePost: true })
+        .done(function () {
+            document.getElementById("like-button").innerHTML = "<span class='fa-regular fa-heart'></span>";
+            document.getElementById("like-button").setAttribute("onclick", "likePost(" + postId + ")");
         });
 }
 
