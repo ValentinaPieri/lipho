@@ -42,9 +42,16 @@ if (isset($_POST['getMatchingUsers'])) {
     echo json_encode($users);
 }
 
-if (isset($_POST['postId']) && isset($_POST['like'])) {
+if (isset($_POST['likePost'])) {
     $dbconnection = new DBConnection();
     $username = "test"; //TODO: change this to the current user
     $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
     $post->like($username);
+}
+
+if (isset($_POST['commentPost'])) {
+    $dbconnection = new DBConnection();
+    $username = "test"; //TODO: change this to the current user
+    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
+    $post->comment($_POST["text"], $username);
 }
