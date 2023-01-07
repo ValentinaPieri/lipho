@@ -3,7 +3,7 @@ if (isset($templateParams["post"])) {
     $POST_TEMPLATE = "
         <div class=\"post\">
             <div class=\"post-images\" id=\"post-images\">
-                <div class=slide-index id=\"slide-index\"></div>
+                <div class=\"slide-index\" id=\"slide-index\"></div>
     ";
 
     $postImagesNum = count($templateParams["post"]["images"]);

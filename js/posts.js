@@ -11,15 +11,14 @@ function displayPostImageNumber(imageIndex, totalImagesNumber) {
 }
 
 function displayPostImagesButtons(postId) {
-    document.getElementById("post-images").innerHTML += "<form id='post-buttons-form' method='post'></form>";
     if (postImageNum > 1) {
-        document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='previous-slide-button' type='button' onclick='changeSlide(-1)'><span class='fa-regular fa-arrow-left'></span></button>";
-        document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='next-slide-button' type='button' onclick='changeSlide(1)'><span class='fa-regular fa-arrow-right'></span></button>";
+        document.getElementById("post-images").innerHTML += "<button class='post-button' id='previous-slide-button' type='button' onclick='changeSlide(-1)'><span class='fa-regular fa-arrow-left'></span></button>";
+        document.getElementById("post-images").innerHTML += "<button class='post-button' id='next-slide-button' type='button' onclick='changeSlide(1)'><span class='fa-regular fa-arrow-right'></span></button>";
     }
-    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='full-screen-button' type='button'><span class='fa-regular fa-expand'></span></button>";
-    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='like-button' type='submit' onclick='likePost(" + postId + ")'><span class='fa-regular fa-heart'></span></button>";
-    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='comment-button' type='button'><span class='fa-regular fa-comment-dots'></span></button>";
-    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='rating-button' type='button'><span class='fa-regular fa-square-star'></span></button>";
+    document.getElementById("post-images").innerHTML += "<button class='post-button' id='full-screen-button' type='button'><span class='fa-regular fa-expand'></span></button>";
+    document.getElementById("post-images").innerHTML += "<button class='post-button' id='like-button' type='button' onclick='likePost(" + postId + ")'><span class='fa-regular fa-heart'></span></button>";
+    document.getElementById("post-images").innerHTML += "<button class='post-button' id='comment-button' type='button'><span class='fa-regular fa-comment-dots'></span></button>";
+    document.getElementById("post-images").innerHTML += "<button class='post-button' id='rating-button' type='button'><span class='fa-regular fa-square-star'></span></button>";
 }
 
 function showSlide(step) {
@@ -39,9 +38,9 @@ function changeSlide(step) {
 }
 
 function showPostCommentSection(postId) {
-    document.getElementById("post-comments").innerHTML += "<form method='post' id='comments-form'></form>";
-    document.getElementById("comments-form").innerHTML += "<input class='post-comment-input' id='post-comment-input' title='comment text input area' aria-label='comment text input area' type='text' placeholder='Type here your comment'>";
-    document.getElementById("comments-form").innerHTML += "<button class='post-button' id='submit-comment-button' type='submit' onclick='commentPost(" + postId + ",document.getElementById(\"post-comment-input\").value)'><span class='fa-regular fa-paper-plane-top'></span></button>";
+    // console.log(postId)
+    document.getElementById("post-comments").innerHTML += "<input class='post-comment-input' id='post-comment-input' title='comment text input area' aria-label='comment text input area' type='text' placeholder='Type here your comment'/>";
+    document.getElementById("post-comments").innerHTML += "<button class='post-button' id='submit-comment-button' type='button' onclick='commentPost(" + postId + ",document.getElementById(\"post-comment-input\").value)'><span class='fa-regular fa-paper-plane-top'></span></button>";
 }
 
 function showPostRatingSection() {
@@ -58,12 +57,11 @@ function showPostRatingSection() {
 function likePost(postId) {
     $.post("/lipho/post_requests_handler.php", { postId: postId, likePost: true })
         .done(function () {
-            location.reload();
+            document.getElementById("like-button").innerHTML = "<span class='fa-solid fa-heart'></span>";
         });
 }
 
 function commentPost(postId, text) {
-    console.log(text)
     $.post("/lipho/post_requests_handler.php", { postId: postId, text: text, commentPost: true })
         .done(function () {
             location.reload();
