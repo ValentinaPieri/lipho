@@ -107,7 +107,7 @@ class DBConnection
         $posts = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $post = new Post($row['owner'], $row['caption'], $this->conn, $row['post_id'], $row['timestamp'], $row['avg_exposure_rating'], $row['avg_colors_rating'], $row['avg_composition_rating']);
+                $post = new Post($username = $row['owner'], $caption = $row['caption'], $conn = $this->conn, $images = array(), $post_id = $row['post_id'], $timestamp = $row['timestamp'], $avg_exposure_rating = $row['average_exposure_rating'], $avg_colors_rating = $row['average_colors_rating'], $avg_composition_rating = $row['average_composition_rating']);
 
                 if (isset($row['username'])) {
                     $liked = true;
