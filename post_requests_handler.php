@@ -5,7 +5,7 @@ require_once 'app/DBConnection.php';
 use app\DBConnection;
 use app\models\Post;
 
-if (isset($_POST['notificationId'])) {
+if (isset($_POST['deleteNotification'])) {
     $index = intval($_POST['notificationId']);
     $dbconnection = new DBConnection();
     $dbconnection->deleteNotification($index);

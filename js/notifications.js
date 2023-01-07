@@ -1,5 +1,5 @@
 function deleteNotification(notificationId) {
-    $.post("/lipho/post_requests_handler.php", { notificationId: notificationId })
+    $.post("/lipho/post_requests_handler.php", { deleteNotification: true, notificationId: notificationId })
         .done(function (result) {
             if (result != "") {
                 alert(result);
