@@ -38,10 +38,10 @@ function changeSlide(step) {
     showSlide(slideIndex[0] += step);
 }
 
-function showPostCommentSection() {
+function showPostCommentSection(postId) {
     document.getElementById("post-comments").innerHTML += "<form method='post' id='comments-form'></form>";
-    document.getElementById("comments-form").innerHTML += "<input class='post-comment-input' title='comment text input area' aria-label='comment text input area' type='text' placeholder='Type here your comment'>";
-    document.getElementById("comments-form").innerHTML += "<button class='post-button' id='submit-comment-button' type='submit'><span class='fa-regular fa-paper-plane-top'></span></button>";
+    document.getElementById("comments-form").innerHTML += "<input class='post-comment-input' id='post-comment-input' title='comment text input area' aria-label='comment text input area' type='text' placeholder='Type here your comment'>";
+    document.getElementById("comments-form").innerHTML += "<button class='post-button' id='submit-comment-button' type='submit' onclick='commentPost(" + postId + ",document.getElementById(\"post-comment-input\").value)'><span class='fa-regular fa-paper-plane-top'></span></button>";
 }
 
 function showPostRatingSection() {
@@ -56,7 +56,15 @@ function showPostRatingSection() {
 }
 
 function likePost(postId) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, like: true })
+    $.post("/lipho/post_requests_handler.php", { postId: postId, likePost: true })
+        .done(function () {
+            location.reload();
+        });
+}
+
+function commentPost(postId, text) {
+    console.log(text)
+    $.post("/lipho/post_requests_handler.php", { postId: postId, text: text, commentPost: true })
         .done(function () {
             location.reload();
         });

@@ -30,4 +30,5 @@ const QUERIES = [
     "send_notification" => "INSERT INTO notification (`text`, seen, receiver, sender) VALUES (?, ?, ?, ?)",
     "get_user_profile_image" => "SELECT profile_image FROM user WHERE username = ?",
     "get_matching_users" => "SELECT username, profile_image FROM user WHERE username LIKE ?",
+    "get_if_user_liked_post" => "SELECT * FROM post_like WHERE post_id = ? AND username = ?",
 ];
