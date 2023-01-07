@@ -3,6 +3,9 @@
 namespace app\models;
 
 require_once 'app/query.php';
+require_once 'app/models/Comment.php';
+
+use app\models\Comment;
 
 class Post
 {
