@@ -7,18 +7,19 @@ function displayPostImages(src, imageIndex) {
 }
 
 function displayPostImageNumber(imageIndex, totalImagesNumber) {
-    document.getElementById("slide-index").innerHTML = "<p></p><p>" + ++imageIndex + "/" + totalImagesNumber + "</p>";
+    document.getElementById("slide-index").innerHTML = "<p>" + ++imageIndex + "/" + totalImagesNumber + "</p>";
 }
 
-function displayPostImagesButtons() {
+function displayPostImagesButtons(postId) {
+    document.getElementById("post-images").innerHTML += "<form id='post-buttons-form' method='post'></form>";
     if (postImageNum > 1) {
-        document.getElementById("post-images").innerHTML += "<button class='post-button' id='previous-slide-button' type='button' onclick='changeSlide(-1)'><span class='fa-regular fa-arrow-left'></span></button>";
-        document.getElementById("post-images").innerHTML += "<button class='post-button' id='next-slide-button' type='button' onclick='changeSlide(1)'><span class='fa-regular fa-arrow-right'></span></button>";
+        document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='previous-slide-button' type='button' onclick='changeSlide(-1)'><span class='fa-regular fa-arrow-left'></span></button>";
+        document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='next-slide-button' type='button' onclick='changeSlide(1)'><span class='fa-regular fa-arrow-right'></span></button>";
     }
-    document.getElementById("post-images").innerHTML += "<button class='post-button' id='full-screen-button' type='button'><span class='fa-regular fa-expand'></span></button>";
-    document.getElementById("post-images").innerHTML += "<button class='post-button' id='like-button' type='button'><span class='fa-regular fa-heart'></span></button>";
-    document.getElementById("post-images").innerHTML += "<button class='post-button' id='comment-button' type='button'><span class='fa-regular fa-comment-dots'></span></button>";
-    document.getElementById("post-images").innerHTML += "<button class='post-button' id='rating-button' type='button'><span class='fa-regular fa-square-star'></span></button>";
+    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='full-screen-button' type='button'><span class='fa-regular fa-expand'></span></button>";
+    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='like-button' type='submit' onclick='likePost(" + postId + ")'><span class='fa-regular fa-heart'></span></button>";
+    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='comment-button' type='button'><span class='fa-regular fa-comment-dots'></span></button>";
+    document.getElementById("post-buttons-form").innerHTML += "<button class='post-button' id='rating-button' type='button'><span class='fa-regular fa-square-star'></span></button>";
 }
 
 function showSlide(step) {
@@ -52,4 +53,11 @@ function showPostRatingSection() {
     document.getElementById("ratings-form").innerHTML += "<label for='composition-rating'>Color</label>";
     document.getElementById("ratings-form").innerHTML += "<input class='rating-input' id='composition-rating' type='range' min='0' max='5' value='5'>";
     document.getElementById("ratings-form").innerHTML += "<button class='rating-submit-button' id='rating-submit-button' type='submit'>Rate</button>";
+}
+
+function likePost(postId) {
+    $.post("/lipho/post_requests_handler.php", { postId: postId, like: true })
+        .done(function () {
+            location.reload();
+        });
 }

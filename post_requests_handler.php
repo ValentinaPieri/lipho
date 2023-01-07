@@ -41,3 +41,10 @@ if (isset($_POST['getMatchingUsers'])) {
     $users = $dbconnection->getMatchingUsers($_POST['username']);
     echo json_encode($users);
 }
+
+if (isset($_POST['postId']) && isset($_POST['like'])) {
+    $dbconnection = new DBConnection();
+    $username = "test"; //TODO: change this to the current user
+    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
+    $post->like($username);
+}

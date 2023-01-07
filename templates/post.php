@@ -1,4 +1,5 @@
-<script src="js/posts.js"></script>
+<script src='js/posts.js'></script>
+<script src='https://code.jquery.com/jquery-3.5.0.js'></script>
 
 <div class="post">
     <div class="post-images" id="post-images">
@@ -19,7 +20,8 @@
             if ($postImagesNum != 1) {
                 echo '<script>showSlide(1)</script>';
             }
-            echo '<script>displayPostImagesButtons()</script>';
+            echo '<script>postId = "' . $templateParams["post"]["post_id"] . '";';
+            echo 'displayPostImagesButtons(postId, true)</script>';
         }
         ?>
     </div>
