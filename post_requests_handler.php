@@ -49,6 +49,13 @@ if (isset($_POST['likePost'])) {
     $post->like($username);
 }
 
+if (isset($_POST['unlikePost'])) {
+    $dbconnection = new DBConnection();
+    $username = "test"; //TODO: change this to the current user
+    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
+    $post->unlike($username);
+}
+
 if (isset($_POST['commentPost'])) {
     $dbconnection = new DBConnection();
     $username = "test"; //TODO: change this to the current user
