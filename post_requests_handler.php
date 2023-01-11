@@ -15,7 +15,7 @@ if (isset($_POST['notificationId'])) {
 
 if (isset($_POST['signup'])) {
     $dbconnection = new DBConnection();
-    $result["usernameValid"] = $dbconnection->checkUsername($_POST['username']);
+    $result["usernameValid"] = $_POST['username'] != "" && $dbconnection->checkUsername($_POST['username']);
     $result["passwordsMatching"] = $_POST['password1'] == $_POST['password2'];
     //check if the password length is at least 8 characters long and if it contains at least one number and one symbol
     $result["passwordValid"] = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', $_POST['password1']) == 0;
