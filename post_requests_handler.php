@@ -24,7 +24,11 @@ if (isset($_POST['signup'])) {
     $result["surnameNotEmpty"] = $_POST['surname'] != "";
     $result["emailValid"] = $_POST['email'] == "" || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
     if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"] && $result["nameNotEmpty"] && $result["surnameNotEmpty"] && $result["phoneValid"] && $result["emailValid"]) {
-        $user = new User($_POST['username'], $_POST['password2'], $_POST['name'], $_POST['surname'], $dbconnection->getConnection(), $_POST['email'], $_POST['phone'], $_POST['birthdate']);
+        $options = [
+            'cost' => 12,
+        ];
+        $hashed_password = password_hash($_POST['password2'], PASSWORD_BCRYPT, $options);
+        $user = new User($_POST['username'], $hashed_password, $_POST['name'], $_POST['surname'], $dbconnection->getConnection(), $_POST['email'], $_POST['phone'], $_POST['birthdate']);
     }
     echo json_encode($result);
 }
