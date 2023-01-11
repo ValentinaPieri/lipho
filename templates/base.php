@@ -22,7 +22,7 @@
     <main>
         <?php
         if (isset($templateParams["page"])) {
-            echo $templateParams["page"];
+            require_once $templateParams["page"];
         }
         ?>
     </main>
