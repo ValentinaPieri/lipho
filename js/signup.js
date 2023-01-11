@@ -1,3 +1,12 @@
+import retrieveData from './retrieve_data.js';
+
+let form = document.getElementById("signupForm");
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let args=retrieveData(new FormData(form));
+    submitForm(args.username, args.password1, args.password2, args.name, args.surname, args.email, args.phone, args.birthdate);
+});
+
 function submitForm(username, password1, password2, name, surname, email, phone, birthdate) {
     const inputs = [...document.getElementsByTagName("input")];
     inputs.forEach(input => {
