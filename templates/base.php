@@ -6,13 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="js/push-notifications.js"></script>
-    <?php
-    if (isset($templateParams["scripts"])) {
-        echo $templateParams["scripts"];
-    }
-    ?>
 </head>
 
 <body>
@@ -22,7 +15,7 @@
     <main>
         <?php
         if (isset($templateParams["page"])) {
-            require_once $templateParams["page"];
+            require_once "app/pages/" . $templateParams["page"];
         }
         ?>
     </main>
@@ -52,5 +45,13 @@
         </div>
     </footer>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="js/push-notifications.js"></script>
+<?php
+if (isset($templateParams["scripts"])) {
+    echo $templateParams["scripts"];
+}
+?>
 
 </html>
