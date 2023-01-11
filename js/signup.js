@@ -40,7 +40,13 @@ function submitForm(username, password1, password2, name, surname, email, phone,
 
 function showInsertError($value) {
     document.getElementById($value).style.borderColor = "red";
-    document.getElementById($value).placeholder = "Please insert " + $value;
+    if($value==="password2"){
+        document.getElementById($value).placeholder = "Please insert password again";
+    }else if($value==="password1"){
+        document.getElementById($value).placeholder = "Please insert password";
+    }else{
+        document.getElementById($value).placeholder = "Please insert " + $value;
+    }
 }
 
 function showInvalidError($value) {
