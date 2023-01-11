@@ -25,9 +25,9 @@
                     <span class="fa-solid fa-asterisk"></span><input title="surname" aria-label="surname input form" type="text" name="surname" id="surname" placeholder="surname">
                     <input title="email" aria-label="email input form" type="text" name="email" id="email" placeholder="email">
                     <input title="phone" aria-label="phone input form" type="tel" name="phone" id="phone" placeholder="ex. +393213334444">
-                    <label for="birthdate">birthday:</label>&nbsp;
+                    <label for="birthdate">birthday:</label>
                     <input title="birthdate" type="date" id="birthdate" name="birthdate"><span class="fa-regular fa-calendar"></span>
-                    <button type="button" onclick="submitForm(document.getElementById('username').value, document.getElementById('password1').value, document.getElementById('password2').value, document.getElementById('name').value, document.getElementById('surname').value, document.getElementById('email').value, document.getElementById('phone').value, document.getElementById('birthdate').value)">Sign up</button>
+                    <input aria-label="button to submit" type="submit" id="signupButton" value="Sign Up">
                 </form>
             </div>
         </div>
