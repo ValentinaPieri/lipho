@@ -3,7 +3,7 @@ import retrieveData from './retrieve_data.js';
 let form = document.getElementById("signupForm");
 form.addEventListener("submit", function (e) {
     e.preventDefault();
-    let args=retrieveData(new FormData(form));
+    let args = retrieveData(new FormData(form));
     submitForm(args.username, args.password1, args.password2, args.name, args.surname, args.email, args.phone, args.birthdate);
 });
 
@@ -39,21 +39,19 @@ function submitForm(username, password1, password2, name, surname, email, phone,
         }
         if (result.emailValid === false) {
             showInvalidError("email");
+        } else {
+            window.location.href = "index.php";
         }
-        //TODO: to complete after doing login.php
-        // else{
-        //     window.location.href = "/lipho/index.php";
-        // }
     }, "json");
 }
 
 function showInsertError($value) {
     document.getElementById($value).style.borderColor = "red";
-    if($value==="password2"){
+    if ($value === "password2") {
         document.getElementById($value).placeholder = "Please insert password again";
-    }else if($value==="password1"){
+    } else if ($value === "password1") {
         document.getElementById($value).placeholder = "Please insert password";
-    }else{
+    } else {
         document.getElementById($value).placeholder = "Please insert " + $value;
     }
 }
