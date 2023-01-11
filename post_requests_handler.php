@@ -18,7 +18,7 @@ if (isset($_POST['signup'])) {
     $result["usernameValid"] = $_POST['username'] != "" && $dbconnection->checkUsername($_POST['username']);
     $result["passwordsMatching"] = $_POST['password1'] == $_POST['password2'];
     //check if the password length is at least 8 characters long and if it contains at least one number and one symbol
-    $result["passwordValid"] = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', $_POST['password1']) == 0;
+    $result["passwordValid"] = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', $_POST['password1']) == 1;
     //phone number validation
     $result["phoneValid"] = preg_match('/^[0-9]{10}$/', $_POST['phone']) == 0;
     //email validation
