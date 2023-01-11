@@ -23,7 +23,7 @@ if (isset($_POST['signup'])) {
     $result["nameNotEmpty"] = $_POST['name'] != "";
     $result["surnameNotEmpty"] = $_POST['surname'] != "";
     $result["emailValid"] = $_POST['email'] == "" || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"] && $result["phoneValid"] && $result["emailValid"]) {
+    if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"] && $result["name"] && $result["surname"] && $result["phoneValid"] && $result["emailValid"]) {
         $user = new User($_POST['username'], $_POST['password2'], $_POST['name'], $_POST['surname'], $dbconnection->getConnection(), $_POST['email'], $_POST['phone'], $_POST['birthdate']);
     }
     echo json_encode($result);
