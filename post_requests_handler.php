@@ -22,7 +22,7 @@ if (isset($_POST['signup'])) {
     $result["phoneValid"] = $_POST['phone'] == "" || preg_match('(\+98|0|98|0098)?([ ]|-|[()]){0,2}9[0-9]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}', $_POST['phone']) == 1;
     $result["nameNotEmpty"] = $_POST['name'] != "";
     $result["surnameNotEmpty"] = $_POST['surname'] != "";
-    $result["emailValid"] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $result["emailValid"] = $_POST['email'] == "" || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
     if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"] && $result["phoneValid"] && $result["emailValid"]) {
         $user = new User($_POST['username'], $_POST['password2'], $_POST['name'], $_POST['surname'], $dbconnection->getConnection(), $_POST['email'], $_POST['phone'], $_POST['birthdate']);
     }
