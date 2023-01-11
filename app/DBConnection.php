@@ -44,23 +44,11 @@ class DBConnection
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $notification = new Notification($row['text'], $row['seen'], $row['receiver'], $row['sender'], $this->conn, $row['timestamp'], $row['notification_id']);
-                array_push($notifications, $notification);
+
+                array_push($notifications, array("notification" => $notification, "profileImage" => base64_encode(isset($row['profile_image']) ? $row['profile_image'] : file_get_contents(("/resources/images/blank_profile.jpeg")))));
             }
         }
         return $notifications;
-    }
-
-    public function getUserProfileImage($username)
-    {
-        $stmt = $this->conn->prepare(QUERIES['get_user_profile_image']);
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            return $row['profile_image'];
-        }
-        return null;
     }
 
     public function deleteNotification($notificationId)
