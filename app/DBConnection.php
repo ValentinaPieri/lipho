@@ -110,7 +110,7 @@ class DBConnection
             while ($row = $result->fetch_assoc()) {
                 $post = new Post($username = $row['owner'], $caption = $row['caption'], $conn = $this->conn, $images = array(), $post_id = $row['post_id'], $timestamp = $row['timestamp'], $avg_exposure_rating = $row['average_exposure_rating'], $avg_colors_rating = $row['average_colors_rating'], $avg_composition_rating = $row['average_composition_rating']);
 
-                array_push($posts, array("post" => $post, "liked" => isset($row['username'])));
+                array_push($posts, array("post" => $post, "liked" => isset($row['username']), "rated" => isset($row['rated'])));
             }
         }
         return $posts;
