@@ -6,16 +6,17 @@ require_once 'app/query.php';
 require_once 'app/models/Comment.php';
 
 use app\models\Comment;
+use JsonSerializable;
 
-class Post
+class Post implements JsonSerializable
 {
     private int $post_id;
     private string $username;
     private string $caption;
     private string $timestamp;
-    private $images;
-    private $likes;
-    private $comments;
+    private array $images;
+    private array $likes;
+    private array $comments;
     private float $avg_exposure_rating;
     private float $avg_colors_rating;
     private float $avg_composition_rating;
@@ -193,5 +194,21 @@ class Post
         foreach ($result as $comment) {
             array_push($this->comments, new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']));
         }
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'post_id' => $this->post_id,
+            'username' => $this->username,
+            'caption' => $this->caption,
+            'images' => array_map("base64_encode", $this->images),
+            'likes' => $this->likes,
+            'comments' => $this->comments,
+            'timestamp' => $this->timestamp,
+            'avg_exposure_rating' => $this->avg_exposure_rating,
+            'avg_colors_rating' => $this->avg_colors_rating,
+            'avg_composition_rating' => $this->avg_composition_rating
+        ];
     }
 }

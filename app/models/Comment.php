@@ -4,7 +4,9 @@ namespace app\models;
 
 require_once 'app/query.php';
 
-class Comment
+use JsonSerializable;
+
+class Comment implements JsonSerializable
 {
     private int $comment_id;
     private string $text;
@@ -78,5 +80,16 @@ class Comment
         $stmt = $this->conn->prepare(QUERIES['unlike_comment']);
         $stmt->bind_param("is", $this->comment_id, $this->username);
         $stmt->execute();
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'comment_id' => $this->comment_id,
+            'text' => $this->text,
+            'timestamp' => $this->timestamp,
+            'post_id' => $this->post_id,
+            'username' => $this->username
+        ];
     }
 }
