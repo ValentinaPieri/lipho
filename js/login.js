@@ -32,3 +32,13 @@ function showInsertError($value) {
     document.getElementById($value).style.borderColor = "red";
     document.getElementById($value).placeholder = "Please insert " + $value;
 }
+
+function showInvalidError($value) {
+    document.getElementById($value).style.borderColor = "red";
+    document.getElementById($value).value = "";
+    if ($value === "username") {
+        document.getElementById($value).placeholder = "Username does not exists";
+    }else{
+        document.getElementById($value).placeholder = "Wrong password";
+    }
+}
