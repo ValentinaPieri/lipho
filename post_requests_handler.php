@@ -44,30 +44,27 @@ if (isset($_POST['getMatchingUsers'])) {
 
 if (isset($_POST['likePost'])) {
     $dbconnection = new DBConnection();
-    $username = "test"; //TODO: change this to the current user
-    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
-    $post->like($username);
+    $dbconnection->likePost($_POST['postId'], $_POST['owner']);
 }
 
 if (isset($_POST['unlikePost'])) {
     $dbconnection = new DBConnection();
-    $username = "test"; //TODO: change this to the current user
-    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
-    $post->unlike($username);
+    $dbconnection->unlikePost($_POST['postId']);
 }
 
 if (isset($_POST['commentPost'])) {
     $dbconnection = new DBConnection();
-    $username = "test"; //TODO: change this to the current user
-    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
-    $post->comment($_POST["text"], $username);
+    $dbconnection->commentPost($_POST['postId'], $_POST['owner'], $_POST['text']);
+}
+
+if (isset($_POST['uncommentPost'])) {
+    $dbconnection = new DBConnection();
+    $dbconnection->uncommentPost($_POST['commentId']);
 }
 
 if (isset($_POST['ratePost'])) {
     $dbconnection = new DBConnection();
-    $username = "test"; //TODO: change this to the current user
-    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
-    $post->rate($username, $_POST['exposure'], $_POST['colors'], $_POST['composition']);
+    $dbconnection->ratePost($_POST['postId'], $_POST['owner'], $_POST['exposure'], $_POST['colors'], $_POST['composition']);
 }
 
 if (isset($_POST['getFeedPosts'])) {
@@ -76,13 +73,13 @@ if (isset($_POST['getFeedPosts'])) {
     echo json_encode($posts);
 }
 
-if (isset($_POST['getPostLikesNumber'])){
+if (isset($_POST['getPostLikesNumber'])) {
     $dbconnection = new DBConnection();
     $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['post_id']);
     echo json_encode($postLikesNumber);
 }
 
-if (isset($_POST['getPostComments'])){
+if (isset($_POST['getPostComments'])) {
     $dbconnection = new DBConnection();
     $comments = $dbconnection->getPostComments($_POST['post_id']);
     echo json_encode($comments);

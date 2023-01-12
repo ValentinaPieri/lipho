@@ -140,4 +140,43 @@ class DBConnection
         }
         return $comments;
     }
+
+    public function ratePost($postId, $owner, $exposure, $colors, $composition)
+    {
+        $stmt = $this->conn->prepare(QUERIES['rate_post']);
+        $username = 'test'; //TODO: change this to the current user
+        $stmt->bind_param("isiii", $postId, $username, $exposure, $colors, $composition);
+        $stmt->execute();
+        new Notification("rated your post", false, $owner, $username, $this->conn);
+    }
+
+    public function commentPost($postId, $owner, $text)
+    {
+        $username = 'test'; //TODO: change this to the current user
+        $comment = new Comment($text, $postId, $username, $this->conn);
+        new Notification("commented on your post", false, $owner, $username, $this->conn);
+    }
+
+    public function uncommentPost($commentId)
+    {
+        $comment = new Comment(null, null, null, $this->conn, $commentId);
+        $comment->delete();
+    }
+
+    public function likePost($postId, $owner)
+    {
+        $stmt = $this->conn->prepare(QUERIES['like_post']);
+        $username = 'test'; //TODO: change this to the current user
+        $stmt->bind_param("is", $postId, $username);
+        $stmt->execute();
+        new Notification("liked your post", false, $owner, $username, $this->conn);
+    }
+
+    public function unlikePost($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['unlike_post']);
+        $username = 'test'; //TODO: change this to the current user
+        $stmt->bind_param("is", $postId, $username);
+        $stmt->execute();
+    }
 }
