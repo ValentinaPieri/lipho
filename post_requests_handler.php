@@ -80,3 +80,9 @@ if (isset($_POST['login'])) {
     }
     echo json_encode($result);
 }
+
+if (isset($_POST['getNotifications'])) {
+    $dbconnection = new DBConnection();
+    $notifications = $dbconnection->getNotifications();
+    echo json_encode($notifications);
+}
