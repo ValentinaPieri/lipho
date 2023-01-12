@@ -21,8 +21,6 @@
     </header>
     <main>
         <?php
-        require_once './check_session.php';
-
         if (isset($templateParams["page"])) {
             echo $templateParams["page"];
         }
