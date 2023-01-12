@@ -27,3 +27,8 @@ function searchForm(username, password) {
         }
     }, "json");
 }
+
+function showInsertError($value) {
+    document.getElementById($value).style.borderColor = "red";
+    document.getElementById($value).placeholder = "Please insert " + $value;
+}
