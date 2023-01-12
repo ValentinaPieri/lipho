@@ -1,5 +1,4 @@
 let currentSlide = 0;
-let postImageNum = 0;
 
 function getPostContainer(postId, username, caption, images, likes, comments, average_exposure_rating, average_colors_rating, average_composition_rating, liked) {
     let postDiv = document.createElement("div");
@@ -40,7 +39,9 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
         let leftArrowButtonIcon = document.createElement("span");
         leftArrowButtonIcon.className = "fa-regular fa-arrow-left";
         leftArrowButton.appendChild(leftArrowButtonIcon);
-        leftArrowButton.addEventListener("click", showSlideLeft);
+        leftArrowButton.addEventListener("click", function () {
+            showSlideLeft(postId);
+        });
         let rightArrowButton = document.createElement("button");
         rightArrowButton.className = "post-button";
         rightArrowButton.id = "next-slide-button" + postId;
@@ -49,7 +50,9 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
         rightArrowButtonIcon.className = "fa-regular fa-arrow-right";
         rightArrowButton.appendChild(rightArrowButtonIcon);
 
-        rightArrowButton.addEventListener("click", showSlideRight);
+        rightArrowButton.addEventListener("click", function () {
+            showSlideRight(postId);
+        });
         postImagesDiv.appendChild(leftArrowButton);
         postImagesDiv.appendChild(rightArrowButton);
     }
@@ -246,12 +249,14 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
     }
 }
 
-function displayPostImageNumber(imageIndex, totalImagesNumber) {
-    document.getElementById("slide-index").innerHTML = "<p>" + ++imageIndex + "/" + totalImagesNumber + "</p>";
+function displayPostImageNumber(postId, imageIndex, totalImagesNumber) {
+    document.getElementById("index" + postId).textContent = "" + ++imageIndex + "/" + totalImagesNumber + "";
 }
 
-function showSlideLeft() {
-    let slide = document.getElementsByClassName('post-image-slide');
+function showSlideLeft(postId) {
+    console.log("left" + postId)
+    let slides = document.getElementById("post-images" + postId);
+    let slide = slides.getElementsByClassName('post-image-slide');
     if (currentSlide > 0) {
         slide[currentSlide].hidden = true;
         currentSlide--;
@@ -261,10 +266,13 @@ function showSlideLeft() {
         currentSlide = slide.length - 1;
         slide[currentSlide].hidden = false;
     }
+    displayPostImageNumber(postId, currentSlide, slide.length)
 }
 
-function showSlideRight() {
-    let slide = document.getElementsByClassName('post-image-slide');
+function showSlideRight(postId) {
+    console.log("right" + postId)
+    let slides = document.getElementById("post-images" + postId);
+    let slide = slides.getElementsByClassName('post-image-slide');
     if (currentSlide < slide.length - 1) {
         slide[currentSlide].hidden = true;
         currentSlide++;
@@ -274,6 +282,7 @@ function showSlideRight() {
         currentSlide = 0;
         slide[currentSlide].hidden = false;
     }
+    displayPostImageNumber(postId, currentSlide, slide.length)
 }
 
 function likePost(postId) {
@@ -350,7 +359,7 @@ function showRatingDiv(postId) {
     }
     else {
         document.getElementById("post-rating" + postId).hidden = false;
-        document.getElementById("post-input-comment-div-div" + postId).hidden = true;
+        document.getElementById("post-input-comment-div" + postId).hidden = true;
         document.getElementById("post-comments" + postId).hidden = true;
         let commentButton = document.getElementById("comment-button" + postId);
         let commentButtonIcon = commentButton.getElementsByTagName("span")[0];
