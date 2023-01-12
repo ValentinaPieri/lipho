@@ -6,6 +6,7 @@ require_once 'query.php';
 require_once 'models/Notification.php';
 require_once 'models/Post.php';
 
+use app\models\Comment;
 use mysqli;
 use app\models\Notification;
 use app\models\Post;
@@ -96,12 +97,12 @@ class DBConnection
         return $users;
     }
 
-    //TODO: update this to enable infinte scrolling 
-    public function getFeedPosts()
+    //TODO: update this to enable infinte scrolling
+    public function getFeedPosts($offset, $limit)
     {
         $stmt = $this->conn->prepare(QUERIES['get_feed_posts']);
         $username = 'test'; //TODO: change this to the current user
-        $stmt->bind_param('s', $username);
+        $stmt->bind_param('sii', $username, $offset, $limit);
         $stmt->execute();
         $result = $stmt->get_result();
         $posts = array();
@@ -109,15 +110,34 @@ class DBConnection
             while ($row = $result->fetch_assoc()) {
                 $post = new Post($username = $row['owner'], $caption = $row['caption'], $conn = $this->conn, $images = array(), $post_id = $row['post_id'], $timestamp = $row['timestamp'], $avg_exposure_rating = $row['average_exposure_rating'], $avg_colors_rating = $row['average_colors_rating'], $avg_composition_rating = $row['average_composition_rating']);
 
-                if (isset($row['username'])) {
-                    $liked = true;
-                } else {
-                    $liked = false;
-                }
-
-                array_push($posts, array('post' => $post, 'liked' => $liked));
+                array_push($posts, array("post" => $post, "liked" => isset($row['username'])));
             }
         }
         return $posts;
+    }
+
+    public function getPostLikesNumber($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_likes_number']);
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['likes_number'];
+        }
+    }
+
+    public function getPostComments($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_comments']);
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $comments = array();
+        foreach ($result as $comment) {
+            array_push($comments, new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']));
+        }
+        return $comments;
     }
 }
