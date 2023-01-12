@@ -1,8 +1,6 @@
 function getMatchingUsers(username) {
     $.post("/lipho/post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
-        console.log(users);
         if (users != "") {
-
             const searchResultsContainer = document.getElementById("search-results-container");
             searchResultsContainer.innerHTML = "";
 
