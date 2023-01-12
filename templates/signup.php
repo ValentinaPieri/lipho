@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="option">
-            <p>Already have an account? <a href="./signin.php">Login now</a></p>
+            <p>Already have an account? <a href="./login.php">Login now</a></p>
         </div>
     </main>
 </body>
