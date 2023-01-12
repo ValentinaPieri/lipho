@@ -16,7 +16,7 @@
                 <h1 id="SignUp">Sign up</h1>
             </div>
             <div class="container">
-                <form id="signupForm">
+                <form id="signupForm" action="">
                     <span class="fa-solid fa-asterisk"></span><input title="username" aria-label="username input form" type="text" name="username" id="username" placeholder="username">
                     <span class="fa-solid fa-asterisk"></span><input title="password" aria-label="password input form" type="password" name="password1" id="password1" placeholder="password">
                     <span class="fa-solid fa-asterisk"></span><input title="confirm password" aria-label="confirm password input form" type="password" name="password2" id="password2" placeholder="confirm password">
