@@ -29,6 +29,7 @@ if (isset($_POST['signup'])) {
         ];
         $hashed_password = password_hash($_POST['password2'], PASSWORD_BCRYPT, $options);
         $user = new User($_POST['username'], $hashed_password, $_POST['name'], $_POST['surname'], $dbconnection->getConnection(), $_POST['email'], $_POST['phone'], $_POST['birthdate']);
+        $dbconnection->setUserLoggedIn($_POST['username']);
     }
     echo json_encode($result);
 }
