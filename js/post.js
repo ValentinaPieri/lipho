@@ -114,8 +114,8 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     postImagesDiv.appendChild(ratingButton);
 
     let postInputCommentDiv = document.createElement("div");
-    postInputCommentDiv.className = "post-input-comment";
-    postInputCommentDiv.id = "post-input-comment" + postId;
+    postInputCommentDiv.className = "post-input-comment-div";
+    postInputCommentDiv.id = "post-input-comment-div" + postId;
     let commentInput = document.createElement("input");
     commentInput.className = "post-comment-input";
     commentInput.id = "post-comment-input" + postId;
@@ -317,19 +317,20 @@ function ratePost(postId, exposure, color, composition) {
 }
 
 function replyToComment(commentId) {
-    document.getElementById("post-comment-input" + commentId).textContent = "@" + document.getElementById("comment-username" + commentId) + " ";
+    console.log(document.getElementById("post-comment-username" + commentId).textContent);
+    document.getElementById("post-comment-input" + postId).textContent = "@" + document.getElementById("post-comment-username" + commentId).textContent + " ";
 }
 
 function showCommentsDiv(postId) {
-    if (document.getElementById("post-comments" + postId).hidden == false && document.getElementById("post-input-comment" + postId).hidden == false) {
-        document.getElementById("post-input-comment" + postId).hidden = true;
+    if (document.getElementById("post-comments" + postId).hidden == false && document.getElementById("post-input-comment-div" + postId).hidden == false) {
+        document.getElementById("post-input-comment-div" + postId).hidden = true;
         document.getElementById("post-comments" + postId).hidden = true;
         let commentButton = document.getElementById("comment-button" + postId);
         let commentButtonIcon = commentButton.getElementsByTagName("span")[0];
         commentButtonIcon.className = "fa-regular fa-comment-dots";
     }
     else {
-        document.getElementById("post-input-comment" + postId).hidden = false;
+        document.getElementById("post-input-comment-div" + postId).hidden = false;
         document.getElementById("post-comments" + postId).hidden = false;
         document.getElementById("post-rating" + postId).hidden = true;
         let commentButton = document.getElementById("comment-button" + postId);
@@ -350,7 +351,7 @@ function showRatingDiv(postId) {
     }
     else {
         document.getElementById("post-rating" + postId).hidden = false;
-        document.getElementById("post-input-comment" + postId).hidden = true;
+        document.getElementById("post-input-comment-div-div" + postId).hidden = true;
         document.getElementById("post-comments" + postId).hidden = true;
         let commentButton = document.getElementById("comment-button" + postId);
         let commentButtonIcon = commentButton.getElementsByTagName("span")[0];
