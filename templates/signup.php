@@ -26,12 +26,12 @@
                     <input title="phone" aria-label="phone input form" type="tel" name="phone" id="phone" placeholder="ex. +393213334444">
                     <label for="birthdate">birthday:</label>
                     <input title="birthdate" type="date" id="birthdate" name="birthdate"><span class="fa-regular fa-calendar"></span>
-                    <input aria-label="button to submit" type="submit" id="signupButton" value="Sign Up">
+                    <input title="signup button" aria-label="button to submit" type="submit" id="signupButton" value="Sign Up">
                 </form>
             </div>
         </div>
         <div class="option">
-            <p>Already have an account? <a href="./templates/login.php">Login now</a></p>
+            <p>Already have an account? <a href="./login.php">Login now</a></p>
         </div>
     </main>
 </body>
