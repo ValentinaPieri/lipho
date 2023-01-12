@@ -8,5 +8,22 @@ form.addEventListener("submit", function (e) {
 });
 
 function searchForm(username, password) {
-
+    const inputs = [...document.getElementsByTagName("input")];
+    inputs.forEach(input => {
+        input.style.borderColor = "black";
+    });
+    $.post("/lipho/post_requests_handler.php", { login: true, username: username, password: password }, function (result) {
+        if (username === "") {
+            showInsertError("username");
+        } else if (result.usernameValid === false) {
+            showInvalidError("username");
+        }
+        if (password === "") {
+            showInsertError("password");
+        } else if (result.passwordValid === false) {
+            showInvalidError("password");
+        } else {
+            window.location.href = "index.php";
+        }
+    }, "json");
 }
