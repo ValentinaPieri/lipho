@@ -15,10 +15,10 @@
                 <h1 id="Login">Login</h1>
             </div>
             <div class="container">
-                <form id="signinForm">
-                    <input type="text" name="username" placeholder="Username">
-                    <input type="password" name="password" placeholder="Password"><span class="fa-solid fa-eye"></span>
-                    <input type="submit" name="submit" value="Login">
+                <form id="loginForm">
+                    <input title="username" aria-label="username" type="text" name="username" id="username" placeholder="Username">
+                    <input title="password" aria-label="password" type="password" name="password" id="password" placeholder="Password"><span class="fa-solid fa-eye"></span>
+                    <input title="login button" aria-label="button to login" type="submit" id="loginButton" value="Login">
                 </form>
             </div>
         </div>
