@@ -231,45 +231,64 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
     for (let i = 0; i < comments.length; i++) {
         let commentDiv = document.createElement("div");
         commentDiv.className = "comment-div";
-        commentDiv.id = "comment-div" + comments[i].comment_id;
+        commentDiv.id = "comment-div" + comments[i].comment.comment_id;
         let commentUsername = document.createElement("a");
         commentUsername.className = "comment-username";
-        commentUsername.id = "post-comment-username" + comments[i].comment_id;
-        commentUsername.href = "profile.php?username=" + comments[i].username;
-        commentUsername.textContent = comments[i].username;
+        commentUsername.id = "post-comment-username" + comments[i].comment.comment_id;
+        commentUsername.href = "profile.php?username=" + comments[i].comment.username;
+        commentUsername.textContent = comments[i].comment.username;
         convertMentionsToLinks(comments);
         let commentText = document.createElement("p");
         commentText.className = "comment-text";
-        commentText.id = "post-comment-text" + comments[i].comment_id;
-        commentText.innerHTML = comments[i].text;
+        commentText.id = "post-comment-text" + comments[i].comment.comment_id;
+        commentText.innerHTML = comments[i].comment.text;
+
+        let likeCommentButton = document.createElement("button");
+        likeCommentButton.className = "post-button";
+        likeCommentButton.id = "like-comment-button" + comments[i].comment.comment_id;
+        likeCommentButton.type = "button";
+        let likeCommentIcon = document.createElement("span");
+        if (comments[i].liked) {
+            likeCommentIcon.className = "fa-solid fa-heart";
+            likeCommentButton.addEventListener("click", function () {
+                unlikeComment(comments[i].comment.comment_id, comments[i].comment.username);
+            });
+        } else {
+            likeCommentIcon.className = "fa-regular fa-heart";
+            likeCommentButton.addEventListener("click", function () {
+                likeComment(comments[i].comment.comment_id, comments[i].comment.username);
+            });
+        }
+        likeCommentButton.appendChild(likeCommentIcon);
 
         let username = "test" //TODO: get username from session
         let deleteCommentButton = document.createElement("button");
-        if (username == comments[i].username) {
+        if (username == comments[i].comment.username) {
             deleteCommentButton.className = "post-button";
-            deleteCommentButton.id = "delete-comment-button" + comments[i].comment_id;
+            deleteCommentButton.id = "delete-comment-button" + comments[i].comment.comment_id;
             deleteCommentButton.type = "button";
             let deleteCommentIcon = document.createElement("span");
             deleteCommentIcon.className = "fa-regular fa-trash-can";
             deleteCommentButton.appendChild(deleteCommentIcon);
             deleteCommentButton.addEventListener("click", function () {
-                uncommentPost(comments[i].comment_id);
+                uncommentPost(comments[i].comment.comment_id);
             });
         }
 
         let replyButton = document.createElement("button");
         replyButton.className = "post-button";
-        replyButton.id = "reply-button" + comments[i].comment_id;
+        replyButton.id = "reply-button" + comments[i].comment.comment_id;
         replyButton.type = "button";
         replyButton.textContent = "Reply";
         replyButton.addEventListener("click", function () {
-            replyToComment(postId, comments[i].comment_id);
+            replyToComment(postId, comments[i].comment.comment_id);
         });
         commentDiv.appendChild(commentUsername);
         commentDiv.appendChild(commentText);
-        if (username == comments[i].username) {
+        if (username == comments[i].comment.username) {
             commentDiv.appendChild(deleteCommentButton);
         }
+        commentDiv.appendChild(likeCommentButton);
         commentDiv.appendChild(replyButton);
         postCommentsDiv.appendChild(commentDiv);
     }
@@ -277,7 +296,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
 
 function convertMentionsToLinks(comments) {
     for (let i = 0; i < comments.length; i++) {
-        const comment = comments[i];
+        const comment = comments[i].comment;
         comment.text = comment.text.replace(/@([a-zA-Z0-9]+)/g, function (match, username) {
             return `<a href="profile.php?username=${username}">@${username}</a>`;
         });
@@ -355,6 +374,32 @@ function commentPost(postId, owner, text) {
 
 function uncommentPost(commentId) {
     $.post("/lipho/post_requests_handler.php", { commentId: commentId, uncommentPost: true });
+}
+
+function likeComment(commentId, owner) {
+    $.post("/lipho/post_requests_handler.php", { commentId: commentId, owner: owner, likeComment: true })
+        .done(function () {
+            let likeButton = document.getElementById("like-comment-button" + commentId);
+            let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
+            likeButtonIcon.className = "fa-solid fa-heart";
+            likeButton.removeEventListener("click", likeComment);
+            likeButton.addEventListener("click", function () {
+                unlikeComment(commentId, owner);
+            });
+        });
+}
+
+function unlikeComment(commentId, owner) {
+    $.post("/lipho/post_requests_handler.php", { commentId: commentId, owner: owner, unlikeComment: true })
+        .done(function () {
+            let likeButton = document.getElementById("like-comment-button" + commentId);
+            let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
+            likeButtonIcon.className = "fa-regular fa-heart";
+            likeButton.removeEventListener("click", unlikeComment);
+            likeButton.addEventListener("click", function () {
+                likeComment(commentId, owner);
+            });
+        });
 }
 
 function ratePost(postId, owner, exposure, colors, composition) {
