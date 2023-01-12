@@ -1,6 +1,6 @@
 import retrieveData from './retrieve_data.js';
 
-let form = document.getElementById("signinForm");
+let form = document.getElementById("loginForm");
 form.addEventListener("submit", function (e) {
     e.preventDefault();
     let args = retrieveData(new FormData(form));
@@ -17,8 +17,7 @@ function searchForm(username, password) {
             showInsertError("username");
         } else if (result.usernameValid === false) {
             showInvalidError("username");
-        }
-        if (password === "") {
+        } else if (password === "") {
             showInsertError("password");
         } else if (result.passwordValid === false) {
             showInvalidError("password");
@@ -38,7 +37,7 @@ function showInvalidError($value) {
     document.getElementById($value).value = "";
     if ($value === "username") {
         document.getElementById($value).placeholder = "Username does not exists";
-    }else{
+    } else {
         document.getElementById($value).placeholder = "Wrong password";
     }
 }
