@@ -39,7 +39,8 @@ function submitForm(username, password1, password2, name, surname, email, phone,
         }
         if (result.emailValid === false) {
             showInvalidError("email");
-        } else {
+        }
+        if (username !== "" && result.usernameValid === true && password1 !== "" && result.passwordValid === true && password2 !== "" && result.passwordsMatching === true && name !== "" && surname !== "" && result.phoneValid === true && result.emailValid === true) {
             window.location.href = "index.php";
         }
     }, "json");
