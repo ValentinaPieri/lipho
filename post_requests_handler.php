@@ -62,3 +62,28 @@ if (isset($_POST['commentPost'])) {
     $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
     $post->comment($_POST["text"], $username);
 }
+
+if (isset($_POST['ratePost'])) {
+    $dbconnection = new DBConnection();
+    $username = "test"; //TODO: change this to the current user
+    $post = new Post($username, "", $dbconnection->getConnection(), array(), $_POST['postId']);
+    $post->rate($username, $_POST['exposure'], $_POST['colors'], $_POST['composition']);
+}
+
+if (isset($_POST['getFeedPosts'])) {
+    $dbconnection = new DBConnection();
+    $posts = $dbconnection->getFeedPosts($_POST['offset'], $_POST['limit']);
+    echo json_encode($posts);
+}
+
+if (isset($_POST['getPostLikesNumber'])){
+    $dbconnection = new DBConnection();
+    $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['post_id']);
+    echo json_encode($postLikesNumber);
+}
+
+if (isset($_POST['getPostComments'])){
+    $dbconnection = new DBConnection();
+    $comments = $dbconnection->getPostComments($_POST['post_id']);
+    echo json_encode($comments);
+}
