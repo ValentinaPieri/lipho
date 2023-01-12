@@ -2,7 +2,6 @@ showNotifications();
 
 function showNotifications() {
     $.post("/lipho/post_requests_handler.php", { getNotifications: true }, function (notifications) {
-        console.log(notifications);
         if (notifications.length == 0) {
             document.createElement("h2").textContent = "No notifications";
             document.createElement("span").className = "fa-regular fa-face-frown-slight";
