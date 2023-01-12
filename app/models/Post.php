@@ -122,44 +122,6 @@ class Post implements JsonSerializable
         $stmt->execute();
     }
 
-    public function like($username)
-    {
-        array_push($this->likes, $username);
-        $stmt = $this->conn->prepare(QUERIES['like_post']);
-        $stmt->bind_param("is", $this->post_id, $username);
-        $stmt->execute();
-    }
-
-    public function unlike($username)
-    {
-        $stmt = $this->conn->prepare(QUERIES['unlike_post']);
-        $stmt->bind_param("is", $this->post_id, $username);
-        $stmt->execute();
-        $this->likes = array_diff($this->likes, array($username));
-    }
-
-    public function comment($text, $username)
-    {
-        $comment = new Comment($text, $this->post_id, $username, $this->conn);
-        array_push($this->comments, $comment);
-    }
-
-    public function uncomment($comment)
-    {
-        $this->comments = array_diff($this->comments, $comment);
-        $comment->delete();
-    }
-
-    public function rate($username, $exposure, $colors, $composition)
-    {
-        $stmt = $this->conn->prepare(QUERIES['rate_post']);
-        $stmt->bind_param("isiii", $this->post_id, $username, $exposure, $colors, $composition);
-        $stmt->execute();
-        $stmt = $this->conn->prepare(QUERIES['update_average_post_rating']);
-        $stmt->bind_param("iiii", $this->post_id, $this->post_id, $this->post_id, $this->post_id);
-        $stmt->execute();
-    }
-
     private function retreiveImages()
     {
         $stmt = $this->conn->prepare(QUERIES['get_post_images']);
@@ -186,13 +148,14 @@ class Post implements JsonSerializable
 
     private function retreiveComments()
     {
+        $username = "test"; //TODO: change to actual username
         $stmt = $this->conn->prepare(QUERIES['get_post_comments']);
-        $stmt->bind_param("i", $this->post_id);
+        $stmt->bind_param("si", $username, $this->post_id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $this->comments = array();
         foreach ($result as $comment) {
-            array_push($this->comments, new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']));
+            array_push($this->comments, array("comment" => new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']), "liked" => isset($comment['liked'])));
         }
     }
 
