@@ -204,9 +204,10 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     let postCaptionDiv = document.createElement("div");
     postCaptionDiv.className = "post-caption";
     postCaptionDiv.id = "post-caption" + postId;
-    let captionUsername = document.createElement("p");
+    let captionUsername = document.createElement("a");
     captionUsername.className = "caption-username";
     captionUsername.id = "caption-username" + postId;
+    captionUsername.href = "profile.php?username=" + username;
     captionUsername.textContent = username;
     let captionText = document.createElement("p");
     captionText.className = "caption-text";
@@ -227,14 +228,19 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
 function getCommentsContainer(postId, postCommentsDiv, comments) {
     postCommentsDiv.innerHTML = "";
     for (let i = 0; i < comments.length; i++) {
-        let commentUsername = document.createElement("p");
+        let commentDiv = document.createElement("div");
+        commentDiv.className = "comment-div";
+        commentDiv.id = "comment-div" + comments[i].comment_id;
+        let commentUsername = document.createElement("a");
         commentUsername.className = "comment-username";
         commentUsername.id = "post-comment-username" + comments[i].comment_id;
+        commentUsername.href = "profile.php?username=" + comments[i].username;
         commentUsername.textContent = comments[i].username;
+        convertMentionsToLinks(comments);
         let commentText = document.createElement("p");
         commentText.className = "comment-text";
         commentText.id = "post-comment-text" + comments[i].comment_id;
-        commentText.textContent = comments[i].text;
+        commentText.innerHTML = comments[i].text;
         let replyButton = document.createElement("button");
         replyButton.className = "post-button";
         replyButton.id = "reply-button" + comments[i].comment_id;
@@ -243,11 +249,22 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
         replyButton.addEventListener("click", function () {
             replyToComment(postId, comments[i].comment_id);
         });
-        postCommentsDiv.appendChild(commentUsername);
-        postCommentsDiv.appendChild(commentText);
-        postCommentsDiv.appendChild(replyButton);
+        commentDiv.appendChild(commentUsername);
+        commentDiv.appendChild(commentText);
+        commentDiv.appendChild(replyButton);
+        postCommentsDiv.appendChild(commentDiv);
     }
 }
+
+function convertMentionsToLinks(comments) {
+    for (let i = 0; i < comments.length; i++) {
+        const comment = comments[i];
+        comment.text = comment.text.replace(/@([a-zA-Z0-9]+)/g, function (match, username) {
+            return `<a href="profile.php?username=${username}">@${username}</a>`;
+        });
+    }
+}
+
 
 function displayPostImageNumber(postId, imageIndex, totalImagesNumber) {
     document.getElementById("index" + postId).textContent = "" + ++imageIndex + "/" + totalImagesNumber + "";
@@ -314,15 +331,12 @@ function unlikePost(postId) {
 function commentPost(postId, text) {
     $.post("/lipho/post_requests_handler.php", { postId: postId, text: text, commentPost: true })
         .done(function () {
-            location.reload();
+            document.getElementById("post-comment-input" + postId).value = "";
         });
 }
 
 function ratePost(postId, exposure, color, composition) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, exposure: exposure, color: color, composition: composition, ratePost: true })
-        .done(function () {
-            location.reload();
-        });
+    $.post("/lipho/post_requests_handler.php", { postId: postId, exposure: exposure, color: color, composition: composition, ratePost: true });
 }
 
 function replyToComment(postId, commentId) {
