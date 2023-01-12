@@ -68,3 +68,9 @@ if (isset($_POST['getMatchingUsers'])) {
     $users = $dbconnection->getMatchingUsers($_POST['username']);
     echo json_encode($users);
 }
+
+if (isset($_POST['getNotifications'])) {
+    $dbconnection = new DBConnection();
+    $notifications = $dbconnection->getNotifications();
+    echo json_encode($notifications);
+}
