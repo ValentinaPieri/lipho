@@ -58,6 +58,18 @@ class DBConnection
         $stmt->execute();
     }
 
+    public function checkUsername($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['check_username']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return false;
+        }
+        return true;
+    }
+    
     public function deleteAllNotifications()
     {
         $stmt = $this->conn->prepare(QUERIES['delete_user_notifications']);
