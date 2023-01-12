@@ -11,7 +11,7 @@ const QUERIES = [
     "get_post_likes" => "SELECT * FROM post_like WHERE post_id = ? ORDER BY `timestamp` DESC",
     "comment_post" => "INSERT INTO comment (post_id, `text`, username) VALUES (?, ?, ?)",
     "delete_comment" => "DELETE FROM comment WHERE comment_id = ?",
-    "get_post_comments" => "SELECT * FROM comment WHERE post_id = ? ORDER BY `timestamp` DESC",
+    "get_post_comments" => "SELECT c.*, cl.username AS liked FROM comment c LEFT JOIN comment_like cl ON c.comment_id = cl.comment_id AND cl.username = ? WHERE c.post_id = ? ORDER BY `timestamp` DESC",
     "add_post" => "INSERT INTO post (caption, username) VALUES (?, ?)",
     "delete_post" => "DELETE FROM post WHERE post_id = ?",
     "get_user_posts" => "SELECT * FROM post WHERE username = ? ORDER BY `timestamp` DESC",
