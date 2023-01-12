@@ -121,7 +121,10 @@ class DBConnection
     public function setUserLoggedIn($username)
     {
         //start session
-        session_start($options = array('username' => $username));
+        session_start();
+        // Set the session variable
+        $_SESSION["loggedin"] = true;
+        $_SESSION["username"] = $username;
     }
 
     public function getMatchingUsers($username)
