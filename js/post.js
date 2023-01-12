@@ -1,6 +1,7 @@
-let currentSlide = 0;
+let postsCurrentSlide = [];
 
 function getPostContainer(postId, username, caption, images, likes, comments, average_exposure_rating, average_colors_rating, average_composition_rating, liked) {
+    postsCurrentSlide[postId] = 0;
     let postDiv = document.createElement("div");
     postDiv.className = "post";
     postDiv.id = "post" + postId;
@@ -274,32 +275,32 @@ function showSlideLeft(postId) {
     console.log("left" + postId)
     let slides = document.getElementById("post-images" + postId);
     let slide = slides.getElementsByClassName('post-image-slide');
-    if (currentSlide > 0) {
-        slide[currentSlide].hidden = true;
-        currentSlide--;
-        slide[currentSlide].hidden = false;
+    if (postsCurrentSlide[postId] > 0) {
+        slide[postsCurrentSlide[postId]].hidden = true;
+        postsCurrentSlide[postId]--;
+        slide[postsCurrentSlide[postId]].hidden = false;
     } else {
-        slide[currentSlide].hidden = true;
-        currentSlide = slide.length - 1;
-        slide[currentSlide].hidden = false;
+        slide[postsCurrentSlide[postId]].hidden = true;
+        postsCurrentSlide[postId] = slide.length - 1;
+        slide[postsCurrentSlide[postId]].hidden = false;
     }
-    displayPostImageNumber(postId, currentSlide, slide.length)
+    displayPostImageNumber(postId, postsCurrentSlide[postId], slide.length)
 }
 
 function showSlideRight(postId) {
     console.log("right" + postId)
     let slides = document.getElementById("post-images" + postId);
     let slide = slides.getElementsByClassName('post-image-slide');
-    if (currentSlide < slide.length - 1) {
-        slide[currentSlide].hidden = true;
-        currentSlide++;
-        slide[currentSlide].hidden = false;
+    if (postsCurrentSlide[postId] < slide.length - 1) {
+        slide[postsCurrentSlide[postId]].hidden = true;
+        postsCurrentSlide[postId]++;
+        slide[postsCurrentSlide[postId]].hidden = false;
     } else {
-        slide[currentSlide].hidden = true;
-        currentSlide = 0;
-        slide[currentSlide].hidden = false;
+        slide[postsCurrentSlide[postId]].hidden = true;
+        postsCurrentSlide[postId] = 0;
+        slide[postsCurrentSlide[postId]].hidden = false;
     }
-    displayPostImageNumber(postId, currentSlide, slide.length)
+    displayPostImageNumber(postId, postsCurrentSlide[postId], slide.length)
 }
 
 function likePost(postId) {
