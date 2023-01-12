@@ -1,6 +1,6 @@
 let postsCurrentSlide = [];
 
-function getPostContainer(postId, username, caption, images, likes, comments, average_exposure_rating, average_colors_rating, average_composition_rating, liked) {
+function getPostContainer(postId, username, caption, images, likes, comments, liked, rated) {
     postsCurrentSlide[postId] = 0;
     let postDiv = document.createElement("div");
     postDiv.className = "post";
@@ -101,21 +101,26 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     commentButton.addEventListener("click", function () {
         showCommentsDiv(postId);
     });
-    let ratingButton = document.createElement("button");
-    ratingButton.className = "post-button";
-    ratingButton.id = "rating-button" + postId;
-    ratingButton.type = "button";
-    let ratingButtonIcon = document.createElement("span");
-    ratingButtonIcon.className = "fa-regular fa-square-star";
-    ratingButton.appendChild(ratingButtonIcon);
-    ratingButton.addEventListener("click", function () {
-        showRatingDiv(postId)
-    });
+    let ratingButton;
+    if (!rated) {
+        ratingButton = document.createElement("button");
+        ratingButton.className = "post-button";
+        ratingButton.id = "rating-button" + postId;
+        ratingButton.type = "button";
+        let ratingButtonIcon = document.createElement("span");
+        ratingButtonIcon.className = "fa-regular fa-square-star";
+        ratingButton.appendChild(ratingButtonIcon);
+        ratingButton.addEventListener("click", function () {
+            showRatingDiv(postId)
+        });
+    }
     postImagesDiv.appendChild(fullScreenButton);
     postImagesDiv.appendChild(likesNumber);
     postImagesDiv.appendChild(likeButton);
     postImagesDiv.appendChild(commentButton);
-    postImagesDiv.appendChild(ratingButton);
+    if (!rated) {
+        postImagesDiv.appendChild(ratingButton);
+    }
 
     let postInputCommentDiv = document.createElement("div");
     postInputCommentDiv.className = "post-input-comment-div";
@@ -149,58 +154,61 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     postInputCommentDiv.hidden = true;
     postCommentsDiv.hidden = true;
 
-    let postRatingDiv = document.createElement("div");
-    postRatingDiv.className = "post-rating";
-    postRatingDiv.id = "post-rating" + postId;
-    let exposureLabel = document.createElement("label");
-    exposureLabel.className = "rating-label";
-    exposureLabel.for = "exposure-rating" + postId;
-    exposureLabel.textContent = "Exposure";
-    let exposureRating = document.createElement("input");
-    exposureRating.className = "rating-input";
-    exposureRating.id = "exposure-rating" + postId;
-    exposureRating.type = "range";
-    exposureRating.min = 0;
-    exposureRating.max = 5;
-    exposureRating.value = 5;
-    let colorLabel = document.createElement("label");
-    colorLabel.className = "rating-label";
-    colorLabel.for = "colors-rating" + postId;
-    colorLabel.textContent = "Color";
-    let colorRating = document.createElement("input");
-    colorRating.className = "rating-input";
-    colorRating.id = "colors-rating" + postId;
-    colorRating.type = "range";
-    colorRating.min = 0;
-    colorRating.max = 5;
-    colorRating.value = 5;
-    let compositionLabel = document.createElement("label");
-    compositionLabel.className = "rating-label";
-    compositionLabel.for = "composition-rating" + postId;
-    compositionLabel.textContent = "Composition";
-    let compositionRating = document.createElement("input");
-    compositionRating.className = "rating-input";
-    compositionRating.id = "composition-rating" + postId;
-    compositionRating.type = "range";
-    compositionRating.min = 0;
-    compositionRating.max = 5;
-    compositionRating.value = 5;
-    let submitRatingButton = document.createElement("button");
-    submitRatingButton.className = "post-button";
-    submitRatingButton.id = "submit-rating-button" + postId;
-    submitRatingButton.type = "button";
-    submitRatingButton.textContent = "Rate";
-    submitRatingButton.addEventListener("click", function () {
-        ratePost(postId, username, parseInt(document.getElementById("exposure-rating" + postId).value), parseInt(document.getElementById("colors-rating" + postId).value), parseInt(document.getElementById("composition-rating" + postId).value))
-    });
-    postRatingDiv.appendChild(exposureLabel);
-    postRatingDiv.appendChild(exposureRating);
-    postRatingDiv.appendChild(colorLabel);
-    postRatingDiv.appendChild(colorRating);
-    postRatingDiv.appendChild(compositionLabel);
-    postRatingDiv.appendChild(compositionRating);
-    postRatingDiv.appendChild(submitRatingButton);
-    postRatingDiv.hidden = true;
+    let postRatingDiv;
+    if (!rated) {
+        postRatingDiv = document.createElement("div");
+        postRatingDiv.className = "post-rating";
+        postRatingDiv.id = "post-rating" + postId;
+        let exposureLabel = document.createElement("label");
+        exposureLabel.className = "rating-label";
+        exposureLabel.for = "exposure-rating" + postId;
+        exposureLabel.textContent = "Exposure";
+        let exposureRating = document.createElement("input");
+        exposureRating.className = "rating-input";
+        exposureRating.id = "exposure-rating" + postId;
+        exposureRating.type = "range";
+        exposureRating.min = 0;
+        exposureRating.max = 5;
+        exposureRating.value = 5;
+        let colorLabel = document.createElement("label");
+        colorLabel.className = "rating-label";
+        colorLabel.for = "colors-rating" + postId;
+        colorLabel.textContent = "Color";
+        let colorRating = document.createElement("input");
+        colorRating.className = "rating-input";
+        colorRating.id = "colors-rating" + postId;
+        colorRating.type = "range";
+        colorRating.min = 0;
+        colorRating.max = 5;
+        colorRating.value = 5;
+        let compositionLabel = document.createElement("label");
+        compositionLabel.className = "rating-label";
+        compositionLabel.for = "composition-rating" + postId;
+        compositionLabel.textContent = "Composition";
+        let compositionRating = document.createElement("input");
+        compositionRating.className = "rating-input";
+        compositionRating.id = "composition-rating" + postId;
+        compositionRating.type = "range";
+        compositionRating.min = 0;
+        compositionRating.max = 5;
+        compositionRating.value = 5;
+        let submitRatingButton = document.createElement("button");
+        submitRatingButton.className = "post-button";
+        submitRatingButton.id = "submit-rating-button" + postId;
+        submitRatingButton.type = "button";
+        submitRatingButton.textContent = "Rate";
+        submitRatingButton.addEventListener("click", function () {
+            ratePost(postId, username, parseInt(document.getElementById("exposure-rating" + postId).value), parseInt(document.getElementById("colors-rating" + postId).value), parseInt(document.getElementById("composition-rating" + postId).value));
+        });
+        postRatingDiv.appendChild(exposureLabel);
+        postRatingDiv.appendChild(exposureRating);
+        postRatingDiv.appendChild(colorLabel);
+        postRatingDiv.appendChild(colorRating);
+        postRatingDiv.appendChild(compositionLabel);
+        postRatingDiv.appendChild(compositionRating);
+        postRatingDiv.appendChild(submitRatingButton);
+        postRatingDiv.hidden = true;
+    }
 
     let postCaptionDiv = document.createElement("div");
     postCaptionDiv.className = "post-caption";
@@ -220,7 +228,9 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     postDiv.appendChild(postImagesDiv);
     postDiv.appendChild(postInputCommentDiv);
     postDiv.appendChild(postCommentsDiv);
-    postDiv.appendChild(postRatingDiv);
+    if (!rated) {
+        postDiv.appendChild(postRatingDiv);
+    }
     postDiv.appendChild(postCaptionDiv);
 
     return postDiv;
@@ -261,7 +271,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
         }
         likeCommentButton.appendChild(likeCommentIcon);
 
-        let username = "test" //TODO: get username from session
+        let username = "test" //TODO: change this to the current username
         let deleteCommentButton = document.createElement("button");
         if (username == comments[i].comment.username) {
             deleteCommentButton.className = "post-button";
@@ -403,9 +413,9 @@ function unlikeComment(commentId, owner) {
 }
 
 function ratePost(postId, owner, exposure, colors, composition) {
-    console.log(postId, exposure, colors, composition);
     $.post("/lipho/post_requests_handler.php", { postId: postId, owner: owner, exposure: exposure, colors: colors, composition: composition, ratePost: true }).done(function () {
-        //TODO: remove rating div
+        document.getElementById("post-rating" + postId).remove();
+        document.getElementById("rating-button" + postId).remove();
     });
 }
 
@@ -422,15 +432,18 @@ function showCommentsDiv(postId) {
         commentButtonIcon.className = "fa-regular fa-comment-dots";
     }
     else {
+        let ratingDiv = document.getElementById("post-rating" + postId);
         document.getElementById("post-input-comment-div" + postId).hidden = false;
         document.getElementById("post-comments" + postId).hidden = false;
-        document.getElementById("post-rating" + postId).hidden = true;
+        if (ratingDiv != null) {
+            ratingDiv.hidden = true;
+            let ratingButton = document.getElementById("rating-button" + postId);
+            let ratingButtonIcon = ratingButton.getElementsByTagName("span")[0];
+            ratingButtonIcon.className = "fa-regular fa-square-star";
+        }
         let commentButton = document.getElementById("comment-button" + postId);
         let commentButtonIcon = commentButton.getElementsByTagName("span")[0];
         commentButtonIcon.className = "fa-solid fa-comment-dots";
-        let ratingButton = document.getElementById("rating-button" + postId);
-        let ratingButtonIcon = ratingButton.getElementsByTagName("span")[0];
-        ratingButtonIcon.className = "fa-regular fa-square-star";
     }
 }
 
