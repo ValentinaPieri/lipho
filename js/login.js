@@ -2,13 +2,14 @@ import retrieveData from './retrieve_data.js';
 
 //on click on the eye icon, the password will be visible
 document.getElementById("visible").addEventListener("click", function () {
-    let span = document.getElementById("visible").className;
-    if (span === "fa fa-eye") {
-        document.getElementById("password").type = "text";
-        document.getElementById("visible").className = "fa fa-eye-slash";
+    let span = document.getElementById("visible");
+    let passwordInput = document.getElementById("password");
+    if (span.className === "fa-solid fa-eye") {
+        passwordInput.type = "text";
+        span.className = "fa-solid fa-eye-slash";
     } else {
-        document.getElementById("password").type = "password";
-        document.getElementById("visible").className = "fa fa-eye";
+        passwordInput.type = "password";
+        span.className = "fa-solid fa-eye";
     }
 });
 
