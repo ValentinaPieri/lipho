@@ -12,7 +12,7 @@
     <main>
         <div class="page">
             <div class="header">
-                <h1 id="SignUp">Sign up</h1>
+                <h1 id="Login">Login</h1>
             </div>
             <div class="container">
                 <form id="signinForm">
