@@ -140,7 +140,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     postCommentsDiv.className = "post-comments";
     postCommentsDiv.id = "post-comments" + postId;
 
-    getCommentsContainer(postCommentsDiv, comments);
+    getCommentsContainer(postId, postCommentsDiv, comments);
 
     postInputCommentDiv.hidden = true;
     postCommentsDiv.hidden = true;
@@ -221,24 +221,24 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     return postDiv;
 }
 
-function getCommentsContainer(postCommentsDiv, comments) {
+function getCommentsContainer(postId, postCommentsDiv, comments) {
     postCommentsDiv.innerHTML = "";
     for (let i = 0; i < comments.length; i++) {
         let commentUsername = document.createElement("p");
         commentUsername.className = "comment-username";
-        commentUsername.id = "post-comment-username" + i;
+        commentUsername.id = "post-comment-username" + comments[i].comment_id;
         commentUsername.textContent = comments[i].username;
         let commentText = document.createElement("p");
         commentText.className = "comment-text";
-        commentText.id = "post-comment-text" + i;
+        commentText.id = "post-comment-text" + comments[i].comment_id;
         commentText.textContent = comments[i].text;
         let replyButton = document.createElement("button");
         replyButton.className = "post-button";
-        replyButton.id = "reply-button" + i;
+        replyButton.id = "reply-button" + comments[i].comment_id;
         replyButton.type = "button";
         replyButton.textContent = "Reply";
         replyButton.addEventListener("click", function () {
-            replyToComment(comments[i].comment_id);
+            replyToComment(postId, comments[i].comment_id);
         });
         postCommentsDiv.appendChild(commentUsername);
         postCommentsDiv.appendChild(commentText);
@@ -316,9 +316,8 @@ function ratePost(postId, exposure, color, composition) {
         });
 }
 
-function replyToComment(commentId) {
-    console.log(document.getElementById("post-comment-username" + commentId).textContent);
-    document.getElementById("post-comment-input" + postId).textContent = "@" + document.getElementById("post-comment-username" + commentId).textContent + " ";
+function replyToComment(postId, commentId) {
+    document.getElementById("post-comment-input" + postId).value = "@" + document.getElementById("post-comment-username" + commentId).textContent + " ";
 }
 
 function showCommentsDiv(postId) {
