@@ -1,7 +1,13 @@
 showNotifications();
 
+setInterval(function () {
+    showNotifications();
+}, 1000);
+
 function showNotifications() {
     $.post("/lipho/post_requests_handler.php", { getNotifications: true }, function (notifications) {
+        let mainTag = document.getElementsByTagName("main")[0];
+        mainTag.innerHTML = "";
         if (notifications.length == 0) {
             document.createElement("h2").textContent = "No notifications";
             document.createElement("span").className = "fa-regular fa-face-frown-slight";
@@ -14,7 +20,6 @@ function showNotifications() {
             deleteAllNotificationsButton.appendChild(trashIcon);
         }
 
-        let mainTag = document.getElementsByTagName("main")[0];
 
         let todayShown = false;
         let yesterdayShown = false;
