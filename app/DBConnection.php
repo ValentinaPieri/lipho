@@ -81,20 +81,20 @@ class DBConnection
         }
         return true;
     }
-    
+
     public function checkPassword($username, $password)
     {
-        $stmt = $this->conn->prepare(QUERIES['check_password']);
-        $stmt->bind_param('ss', $username, $password);
+        $stmt = $this->conn->prepare(QUERIES['get_username_password']);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row['password'])) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public function deleteAllNotifications()
@@ -116,6 +116,12 @@ class DBConnection
             $row = $result->fetch_assoc();
             return $row['number'];
         }
+    }
+
+    public function setUserLoggedIn($username)
+    {
+        //start session
+        session_start($options = array('username' => $username));
     }
 
     public function getMatchingUsers($username)
