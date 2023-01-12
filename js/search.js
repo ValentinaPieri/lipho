@@ -1,10 +1,14 @@
+let searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", function () {
+    getMatchingUsers(searchInput.value);
+});
+
 function getMatchingUsers(username) {
     $.post("/lipho/post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
-        console.log(users);
-        if (users != "") {
+        const searchResultsContainer = document.getElementById("search-results-container");
+        searchResultsContainer.innerHTML = "";
 
-            const searchResultsContainer = document.getElementById("search-results-container");
-            searchResultsContainer.innerHTML = "";
+        if (users != "") {
 
             const resultsCount = document.createElement("p");
             resultsCount.classList.add("results-count");

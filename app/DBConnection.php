@@ -93,6 +93,9 @@ class DBConnection
 
     public function getMatchingUsers($username)
     {
+        if ($username == '') {
+            return array();
+        }
         $username .= '%';
         $stmt = $this->conn->prepare(QUERIES['get_matching_users']);
         $stmt->bind_param('s', $username);
