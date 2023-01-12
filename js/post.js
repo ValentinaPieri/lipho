@@ -85,12 +85,13 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
             likePost(postId);
         });
     }
-    likeButton.appendChild(likeButtonIcon);
-
     let likeNumber = document.createElement("p");
     likeNumber.className = "likes-number";
     likeNumber.id = "likes-number" + postId;
     likeNumber.textContent = likes.length;
+    likeButton.appendChild(likeButtonIcon);
+    likeButton.appendChild(likeNumber);
+
     let commentButton = document.createElement("button");
     commentButton.className = "post-button";
     commentButton.id = "comment-button" + postId;
@@ -113,7 +114,6 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     });
     postImagesDiv.appendChild(fullScreenButton);
     postImagesDiv.appendChild(likeButton);
-    postImagesDiv.appendChild(likeNumber);
     postImagesDiv.appendChild(commentButton);
     postImagesDiv.appendChild(ratingButton);
 
