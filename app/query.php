@@ -30,7 +30,7 @@ const QUERIES = [
     "get_user_average_post_rating" => "SELECT AVG(average_exposure_rating), AVG(average_colors_rating), AVG(average_composition_rating) FROM post WHERE username = ?",
     "get_post_images" => "SELECT * FROM post_image WHERE post_id = ?",
     "add_post_image" => "INSERT INTO post_image (post_id, position, `image`) VALUES (?, ?, ?)",
-    "get_user_notifications" => "SELECT * FROM notification WHERE receiver = ? ORDER BY `timestamp` DESC",
+    "get_user_notifications" => "SELECT n.*, u.profile_image FROM notification n LEFT JOIN user u ON n.sender = u.username WHERE receiver = ? ORDER BY `timestamp` DESC",
     "get_not_seen_notifications_number" => "SELECT COUNT(*) AS number FROM notification WHERE receiver = ? AND seen = 0",
     "set_notifications_seen" => "UPDATE notification SET seen = 1 WHERE notification_id IN (?)",
     "delete_notification" => "DELETE FROM notification WHERE notification_id = ?",
