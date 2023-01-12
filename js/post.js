@@ -85,12 +85,11 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
             likePost(postId);
         });
     }
-    let likeNumber = document.createElement("p");
-    likeNumber.className = "likes-number";
-    likeNumber.id = "likes-number" + postId;
-    likeNumber.textContent = likes.length;
+    let likesNumber = document.createElement("span");
+    likesNumber.className = "likes-number";
+    likesNumber.id = "likes-number" + postId;
+    likesNumber.textContent = likes.length;
     likeButton.appendChild(likeButtonIcon);
-    likeButton.appendChild(likeNumber);
 
     let commentButton = document.createElement("button");
     commentButton.className = "post-button";
@@ -113,6 +112,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
         showRatingDiv(postId)
     });
     postImagesDiv.appendChild(fullScreenButton);
+    postImagesDiv.appendChild(likesNumber);
     postImagesDiv.appendChild(likeButton);
     postImagesDiv.appendChild(commentButton);
     postImagesDiv.appendChild(ratingButton);
@@ -135,7 +135,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     submitCommentButtonIcon.className = "fa-regular fa-paper-plane-top";
     submitCommentButton.appendChild(submitCommentButtonIcon);
     submitCommentButton.addEventListener("click", function () {
-        commentPost(postId, document.getElementById("post-comment-input" + postId).value);
+        commentPost(postId, username, document.getElementById("post-comment-input" + postId).value);
     });
     postInputCommentDiv.appendChild(commentInput);
     postInputCommentDiv.appendChild(submitCommentButton);
@@ -165,11 +165,11 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     exposureRating.value = 5;
     let colorLabel = document.createElement("label");
     colorLabel.className = "rating-label";
-    colorLabel.for = "color-rating" + postId;
+    colorLabel.for = "colors-rating" + postId;
     colorLabel.textContent = "Color";
     let colorRating = document.createElement("input");
     colorRating.className = "rating-input";
-    colorRating.id = "color-rating" + postId;
+    colorRating.id = "colors-rating" + postId;
     colorRating.type = "range";
     colorRating.min = 0;
     colorRating.max = 5;
@@ -191,7 +191,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, av
     submitRatingButton.type = "button";
     submitRatingButton.textContent = "Rate";
     submitRatingButton.addEventListener("click", function () {
-        ratePost(postId, document.getElementById("exposure-rating" + postId).value, document.getElementById("color-rating" + postId).value, document.getElementById("composition-rating" + postId).value)
+        ratePost(postId, username, parseInt(document.getElementById("exposure-rating" + postId).value), parseInt(document.getElementById("colors-rating" + postId).value), parseInt(document.getElementById("composition-rating" + postId).value))
     });
     postRatingDiv.appendChild(exposureLabel);
     postRatingDiv.appendChild(exposureRating);
@@ -242,6 +242,21 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
         commentText.className = "comment-text";
         commentText.id = "post-comment-text" + comments[i].comment_id;
         commentText.innerHTML = comments[i].text;
+
+        let username = "test" //TODO: get username from session
+        let deleteCommentButton = document.createElement("button");
+        if (username == comments[i].username) {
+            deleteCommentButton.className = "post-button";
+            deleteCommentButton.id = "delete-comment-button" + comments[i].comment_id;
+            deleteCommentButton.type = "button";
+            let deleteCommentIcon = document.createElement("span");
+            deleteCommentIcon.className = "fa-regular fa-trash-can";
+            deleteCommentButton.appendChild(deleteCommentIcon);
+            deleteCommentButton.addEventListener("click", function () {
+                uncommentPost(comments[i].comment_id);
+            });
+        }
+
         let replyButton = document.createElement("button");
         replyButton.className = "post-button";
         replyButton.id = "reply-button" + comments[i].comment_id;
@@ -252,6 +267,9 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
         });
         commentDiv.appendChild(commentUsername);
         commentDiv.appendChild(commentText);
+        if (username == comments[i].username) {
+            commentDiv.appendChild(deleteCommentButton);
+        }
         commentDiv.appendChild(replyButton);
         postCommentsDiv.appendChild(commentDiv);
     }
@@ -265,7 +283,6 @@ function convertMentionsToLinks(comments) {
         });
     }
 }
-
 
 function displayPostImageNumber(postId, imageIndex, totalImagesNumber) {
     document.getElementById("index" + postId).textContent = "" + ++imageIndex + "/" + totalImagesNumber + "";
@@ -304,7 +321,7 @@ function showSlideRight(postId) {
 }
 
 function likePost(postId) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, likePost: true })
+    $.post("/lipho/post_requests_handler.php", { postId: postId, owner: username, likePost: true })
         .done(function () {
             let likeButton = document.getElementById("like-button" + postId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
@@ -329,15 +346,22 @@ function unlikePost(postId) {
         });
 }
 
-function commentPost(postId, text) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, text: text, commentPost: true })
+function commentPost(postId, owner, text) {
+    $.post("/lipho/post_requests_handler.php", { postId: postId, owner: owner, text: text, commentPost: true })
         .done(function () {
             document.getElementById("post-comment-input" + postId).value = "";
         });
 }
 
-function ratePost(postId, exposure, color, composition) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, exposure: exposure, color: color, composition: composition, ratePost: true });
+function uncommentPost(commentId) {
+    $.post("/lipho/post_requests_handler.php", { commentId: commentId, uncommentPost: true });
+}
+
+function ratePost(postId, owner, exposure, colors, composition) {
+    console.log(postId, exposure, colors, composition);
+    $.post("/lipho/post_requests_handler.php", { postId: postId, owner: owner, exposure: exposure, colors: colors, composition: composition, ratePost: true }).done(function () {
+        //TODO: remove rating div
+    });
 }
 
 function replyToComment(postId, commentId) {

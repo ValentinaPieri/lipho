@@ -159,7 +159,7 @@ class DBConnection
 
     public function uncommentPost($commentId)
     {
-        $comment = new Comment(null, null, null, $this->conn, $commentId);
+        $comment = new Comment("", 0, "", $this->conn, $commentId);
         $comment->delete();
     }
 
