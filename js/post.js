@@ -362,18 +362,23 @@ function showRatingDiv(postId) {
 }
 
 function fullScreenImage(postId) {
-    let postSlides = document.getElementsByClassName("post-image-slide");
-    postSlides.forEach(postSlide => {
-        if (!postSlide.getAttribute("hidden")) {
-            let imgAspectRatio = postSlide.naturalWidth / postSlide.naturalHeight;
+    let postImagesDiv = document.getElementById("post-images" + postId);
+    let postSlides = postImagesDiv.getElementsByTagName("img");
+    for (let i = 0; i < postSlides.length; i++) {
+        if (!postSlides[i].getAttribute("hidden")) {
+            let imgAspectRatio = postSlides[i].naturalWidth / postSlides[i].naturalHeight;
             let screenAspectRatio = window.innerWidth / window.innerHeight;
             if (imgAspectRatio > screenAspectRatio) {
-                postSlide.style.width = "100vw";
-                postSlide.style.height = "auto";
+                postSlides[i].style.width = "100vw";
+                postSlides[i].style.height = "auto";
             } else {
-                postSlide.style.height = "100vh";
-                postSlide.style.width = "auto";
+                postSlides[i].style.height = "100vh";
+                postSlides[i].style.width = "auto";
             }
         }
-    });
+    }
+    let fullScreenButton = document.getElementById("full-screen-button" + postId);
+    let fullScreenButtonIcon = fullScreenButton.getElementsByTagName("span")[0];
+    fullScreenButtonIcon.className = "fa-regular fa-compress";
+
 }
