@@ -6,11 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
-    <?php
-    if (isset($templateParams["scripts"])) {
-        echo $templateParams["scripts"];
-    }
-    ?>
 </head>
 
 <body>
@@ -34,5 +29,10 @@
         </div>
     </footer>
 </body>
+<?php
+if (isset($templateParams["scripts"])) {
+    echo $templateParams["scripts"];
+}
+?>
 
 </html>
