@@ -62,6 +62,16 @@ if (isset($_POST['uncommentPost'])) {
     $dbconnection->uncommentPost($_POST['commentId']);
 }
 
+if (isset($_POST['likeComment'])) {
+    $dbconnection = new DBConnection();
+    $dbconnection->likeComment($_POST['commentId'], $_POST['owner']);
+}
+
+if (isset($_POST['unlikeComment'])) {
+    $dbconnection = new DBConnection();
+    $dbconnection->unlikeComment($_POST['commentId'], $_POST['owner']);
+}
+
 if (isset($_POST['ratePost'])) {
     $dbconnection = new DBConnection();
     $dbconnection->ratePost($_POST['postId'], $_POST['owner'], $_POST['exposure'], $_POST['colors'], $_POST['composition']);

@@ -130,13 +130,14 @@ class DBConnection
 
     public function getPostComments($postId)
     {
+        $username = "test"; //TODO: change to actual username
         $stmt = $this->conn->prepare(QUERIES['get_post_comments']);
-        $stmt->bind_param("i", $postId);
+        $stmt->bind_param("si", $username, $postId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $comments = array();
         foreach ($result as $comment) {
-            array_push($comments, new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']));
+            array_push($comments, array("comment" => new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']), "liked" => isset($comment['liked'])));
         }
         return $comments;
     }
@@ -178,5 +179,18 @@ class DBConnection
         $username = 'test'; //TODO: change this to the current user
         $stmt->bind_param("is", $postId, $username);
         $stmt->execute();
+    }
+
+    public function likeComment($commentId, $username)
+    {
+        $comment = new Comment("", 0, $username, $this->conn, $commentId);
+        $comment->like();
+        new Notification("liked your comment", false, $username, "test", $this->conn);
+    }
+
+    public function unlikeComment($commentId, $username)
+    {
+        $comment = new Comment("", 0, $username, $this->conn, $commentId);
+        $comment->unlike();
     }
 }
