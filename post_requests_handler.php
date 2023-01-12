@@ -68,3 +68,12 @@ if (isset($_POST['getMatchingUsers'])) {
     $users = $dbconnection->getMatchingUsers($_POST['username']);
     echo json_encode($users);
 }
+
+if (isset($_POST['login'])){
+    $dbconnection = new DBConnection();
+    $result["usernameValid"] = $dbconnection->checkUsername($_POST['username']);
+    if ($result["usernameValid"]){
+        $result["passwordValid"] = $dbconnection->checkPassword($_POST['username'], $_POST['password']);
+    }
+    echo json_encode($result);
+}
