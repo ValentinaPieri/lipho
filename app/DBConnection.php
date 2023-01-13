@@ -97,12 +97,10 @@ class DBConnection
         return $users;
     }
 
-    //TODO: update this to enable infinte scrolling
     public function getFeedPosts($offset, $limit)
     {
         $stmt = $this->conn->prepare(QUERIES['get_feed_posts']);
-        $username = 'test'; //TODO: change this to the current user
-        $stmt->bind_param('sii', $username, $offset, $limit);
+        $stmt->bind_param('sii', $_SESSION['username'], $offset, $limit);
         $stmt->execute();
         $result = $stmt->get_result();
         $posts = array();
@@ -130,9 +128,8 @@ class DBConnection
 
     public function getPostComments($postId)
     {
-        $username = "test"; //TODO: change to actual username
         $stmt = $this->conn->prepare(QUERIES['get_post_comments']);
-        $stmt->bind_param("si", $username, $postId);
+        $stmt->bind_param("si", $_SESSION['username'], $postId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $comments = array();
@@ -145,17 +142,15 @@ class DBConnection
     public function ratePost($postId, $owner, $exposure, $colors, $composition)
     {
         $stmt = $this->conn->prepare(QUERIES['rate_post']);
-        $username = 'test'; //TODO: change this to the current user
-        $stmt->bind_param("isiii", $postId, $username, $exposure, $colors, $composition);
+        $stmt->bind_param("isiii", $postId, $_SESSION['username'], $exposure, $colors, $composition);
         $stmt->execute();
-        new Notification("rated your post", false, $owner, $username, $this->conn);
+        new Notification("rated your post", false, $owner, $_SESSION['username'], $this->conn);
     }
 
     public function commentPost($postId, $owner, $text)
     {
-        $username = 'test'; //TODO: change this to the current user
-        $comment = new Comment($text, $postId, $username, $this->conn);
-        new Notification("commented on your post", false, $owner, $username, $this->conn);
+        $comment = new Comment($text, $postId, $_SESSION['username'], $this->conn);
+        new Notification("commented on your post", false, $owner, $_SESSION['username'], $this->conn);
     }
 
     public function uncommentPost($commentId)
@@ -167,17 +162,15 @@ class DBConnection
     public function likePost($postId, $owner)
     {
         $stmt = $this->conn->prepare(QUERIES['like_post']);
-        $username = 'test'; //TODO: change this to the current user
-        $stmt->bind_param("is", $postId, $username);
+        $stmt->bind_param("is", $postId, $_SESSION['username']);
         $stmt->execute();
-        new Notification("liked your post", false, $owner, $username, $this->conn);
+        new Notification("liked your post", false, $owner, $_SESSION['username'], $this->conn);
     }
 
     public function unlikePost($postId)
     {
         $stmt = $this->conn->prepare(QUERIES['unlike_post']);
-        $username = 'test'; //TODO: change this to the current user
-        $stmt->bind_param("is", $postId, $username);
+        $stmt->bind_param("is", $postId, $_SESSION['username']);
         $stmt->execute();
     }
 
