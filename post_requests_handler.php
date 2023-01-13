@@ -19,7 +19,6 @@ if (isset($_POST['deleteAllNotifications'])) {
 if (isset($_POST["post-button"])) {
     $dbconnection = new DBConnection();
     $images = array();
-    $username = "test"; //TODO: change this to the current user
     for ($i = 0; $i < 5; $i++) {
         if (isset($_FILES['image-input' . $i])) {
             $fileName = basename($_FILES['image-input' . $i]['name']);
@@ -32,7 +31,7 @@ if (isset($_POST["post-button"])) {
             }
         }
     }
-    $post = new Post($username, $_POST["caption"], $dbconnection->getConnection(), $images);
+    $post = new Post($_SESSION['username'], $_POST["caption"], $dbconnection->getConnection(), $images);
     header("Location: create_post.php");
 }
 
@@ -80,7 +79,7 @@ if (isset($_POST['ratePost'])) {
 if (isset($_POST['getFeedPosts'])) {
     $dbconnection = new DBConnection();
     $posts = $dbconnection->getFeedPosts($_POST['offset'], $_POST['limit']);
-    echo json_encode($posts);
+    echo json_encode(array('posts' => $posts, 'currentUsername' => $_SESSION['username']));
 }
 
 if (isset($_POST['getPostLikesNumber'])) {
