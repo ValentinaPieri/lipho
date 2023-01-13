@@ -15,7 +15,7 @@
     <main>
         <?php
         if (isset($templateParams["page"])) {
-            echo $templateParams["page"];
+            require_once "app/pages/" . $templateParams["page"];
         }
         ?>
     </main>
@@ -24,11 +24,30 @@
             <a href="index.php" title="Home Page"><span class="fa-regular fa-house"></span></a>
             <a href="search.php" title="Search Page"><span class="fa-regular fa-magnifying-glass"></span></a>
             <a href="create_post.php" title="Create Post Page"><span class="fa-regular fa-plus"></span></a>
-            <a href="notifications.php" title="Notifications Page"><span class="fa-regular fa-bell"></span></a>
+            <a href="notifications.php" title="Notifications Page">
+                <span class="fa-regular fa-bell">
+                    <?php
+                    require_once 'app/DBConnection.php';
+
+                    use app\DBConnection;
+
+                    $dbconnection = new DBConnection();
+                    $notSeenNumber = $dbconnection->getNotSeenNotificationsNumber();
+                    if ($notSeenNumber > 0) {
+                        echo "<span id=\"notifications-badge\" class=\"notifications-badge\">" . $notSeenNumber . "</span>";
+                    } else {
+                        echo "<span id=\"notifications-badge\" class=\"notifications-badge\"\"></span>";
+                    }
+                    ?>
+                </span>
+            </a>
             <a href="profile.php" title="Profile Page"><span class="fa-regular fa-user"></span></a>
         </div>
     </footer>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="js/push-notifications.js"></script>
 <?php
 if (isset($templateParams["scripts"])) {
     echo $templateParams["scripts"];

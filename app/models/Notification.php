@@ -2,9 +2,11 @@
 
 namespace app\models;
 
+use JsonSerializable;
+
 require_once 'app/query.php';
 
-class Notification
+class Notification implements JsonSerializable
 {
     private int $id;
     private string $text;
@@ -78,5 +80,10 @@ class Notification
         $stmt = $this->conn->prepare(QUERIES['set_notifications_seen']);
         $stmt->bind_param('i', $this->id);
         $stmt->execute();
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }
