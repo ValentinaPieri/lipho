@@ -151,7 +151,7 @@ class DBConnection
 
     public function commentPost($postId, $owner, $text)
     {
-        $comment = new Comment($text, $postId, $_SESSION['username'], $this->conn);
+        new Comment($text, $postId, $_SESSION['username'], $this->conn);
         if ($owner != $_SESSION['username']) {
             new Notification("commented on your post", false, $owner, $_SESSION['username'], $this->conn);
         }
