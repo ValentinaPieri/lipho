@@ -1,6 +1,6 @@
 let postsCurrentSlide = [];
 
-function getPostContainer(postId, username, caption, images, likes, comments, liked, rated) {
+function getPostContainer(postId, owner, caption, images, likes, comments, liked, rated, currentUsername) {
     postsCurrentSlide[postId] = 0;
     let postDiv = document.createElement("div");
     postDiv.className = "post";
@@ -140,7 +140,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
     submitCommentButtonIcon.className = "fa-regular fa-paper-plane-top";
     submitCommentButton.appendChild(submitCommentButtonIcon);
     submitCommentButton.addEventListener("click", function () {
-        commentPost(postId, username, document.getElementById("post-comment-input" + postId).value);
+        commentPost(postId, owner, document.getElementById("post-comment-input" + postId).value);
     });
     postInputCommentDiv.appendChild(commentInput);
     postInputCommentDiv.appendChild(submitCommentButton);
@@ -149,7 +149,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
     postCommentsDiv.className = "post-comments";
     postCommentsDiv.id = "post-comments" + postId;
 
-    getCommentsContainer(postId, postCommentsDiv, comments);
+    getCommentsContainer(postId, postCommentsDiv, comments, currentUsername);
 
     postInputCommentDiv.hidden = true;
     postCommentsDiv.hidden = true;
@@ -198,7 +198,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
         submitRatingButton.type = "button";
         submitRatingButton.textContent = "Rate";
         submitRatingButton.addEventListener("click", function () {
-            ratePost(postId, username, parseInt(document.getElementById("exposure-rating" + postId).value), parseInt(document.getElementById("colors-rating" + postId).value), parseInt(document.getElementById("composition-rating" + postId).value));
+            ratePost(postId, owner, parseInt(document.getElementById("exposure-rating" + postId).value), parseInt(document.getElementById("colors-rating" + postId).value), parseInt(document.getElementById("composition-rating" + postId).value));
         });
         postRatingDiv.appendChild(exposureLabel);
         postRatingDiv.appendChild(exposureRating);
@@ -217,8 +217,8 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
     captionUsername.className = "caption-username";
     captionUsername.id = "caption-username" + postId;
     captionUsername.title = "caption user link";
-    captionUsername.href = "profile.php?username=" + username;
-    captionUsername.textContent = username;
+    captionUsername.href = "profile.php?username=" + owner;
+    captionUsername.textContent = owner;
     let captionText = document.createElement("p");
     captionText.className = "caption-text";
     captionText.id = "caption-text" + postId;
@@ -237,7 +237,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
     return postDiv;
 }
 
-function getCommentsContainer(postId, postCommentsDiv, comments) {
+function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername) {
     postCommentsDiv.innerHTML = "";
     for (let i = 0; i < comments.length; i++) {
         let commentDiv = document.createElement("div");
@@ -273,9 +273,8 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
         }
         likeCommentButton.appendChild(likeCommentIcon);
 
-        let username = "test" //TODO: change this to the current username
         let deleteCommentButton = document.createElement("button");
-        if (username == comments[i].comment.username) {
+        if (currentUsername == comments[i].comment.username) {
             deleteCommentButton.className = "post-button";
             deleteCommentButton.id = "delete-comment-button" + comments[i].comment.comment_id;
             deleteCommentButton.type = "button";
