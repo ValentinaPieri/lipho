@@ -52,7 +52,7 @@ class DBConnection
         return $notifications;
     }
 
-    public function sendNotification($text, $receiver)
+    public function sendNotification($receiver, $text)
     {
         if ($receiver != $_SESSION['username']) {
             $stmt = $this->conn->prepare(QUERIES['send_notification']);
