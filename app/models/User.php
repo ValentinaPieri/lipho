@@ -129,4 +129,9 @@ class User
         $stmt->bind_param('ssssssi', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->phone, $this->birthdate);
         $stmt->execute();
     }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 }
