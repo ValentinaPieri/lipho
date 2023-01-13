@@ -3,16 +3,20 @@
 namespace app\models;
 
 require_once 'app/query.php';
+require_once 'app/models/Comment.php';
 
-class Post
+use app\models\Comment;
+use JsonSerializable;
+
+class Post implements JsonSerializable
 {
     private int $post_id;
     private string $username;
     private string $caption;
     private string $timestamp;
-    private $images;
-    private $likes;
-    private $comments;
+    private array $images;
+    private array $likes;
+    private array $comments;
     private float $avg_exposure_rating;
     private float $avg_colors_rating;
     private float $avg_composition_rating;
@@ -38,6 +42,56 @@ class Post
             $this->retreiveLikes();
             $this->retreiveComments();
         }
+    }
+
+    public function getPostId()
+    {
+        return $this->post_id;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function getAvgExposureRating()
+    {
+        return $this->avg_exposure_rating;
+    }
+
+    public function getAvgColorsRating()
+    {
+        return $this->avg_colors_rating;
+    }
+
+    public function getAvgCompositionRating()
+    {
+        return $this->avg_composition_rating;
     }
 
     public function createNew()
@@ -68,44 +122,6 @@ class Post
         $stmt->execute();
     }
 
-    public function like($username)
-    {
-        array_push($this->likes, $username);
-        $stmt = $this->conn->prepare(QUERIES['like_post']);
-        $stmt->bind_param("is", $this->post_id, $username);
-        $stmt->execute();
-    }
-
-    public function unlike($username)
-    {
-        $stmt = $this->conn->prepare(QUERIES['unlike_post']);
-        $stmt->bind_param("is", $this->post_id, $username);
-        $stmt->execute();
-        $this->likes = array_diff($this->likes, array($username));
-    }
-
-    public function comment($text, $username)
-    {
-        $comment = new Comment($text, $this->post_id, $username, $this->conn);
-        array_push($this->comments, $comment);
-    }
-
-    public function uncomment($comment)
-    {
-        $this->comments = array_diff($this->comments, $comment);
-        $comment->delete();
-    }
-
-    public function rate($username, $exposure, $colors, $composition)
-    {
-        $stmt = $this->conn->prepare(QUERIES['rate_post']);
-        $stmt->bind_param("isiii", $this->post_id, $username, $exposure, $colors, $composition);
-        $stmt->execute();
-        $stmt = $this->conn->prepare(QUERIES['update_average_post_rating']);
-        $stmt->bind_param("iiii", $this->post_id, $this->post_id, $this->post_id, $this->post_id);
-        $stmt->execute();
-    }
-
     private function retreiveImages()
     {
         $stmt = $this->conn->prepare(QUERIES['get_post_images']);
@@ -132,13 +148,30 @@ class Post
 
     private function retreiveComments()
     {
+        $username = "test"; //TODO: change to actual username
         $stmt = $this->conn->prepare(QUERIES['get_post_comments']);
-        $stmt->bind_param("i", $this->post_id);
+        $stmt->bind_param("si", $username, $this->post_id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $this->comments = array();
         foreach ($result as $comment) {
-            array_push($this->comments, new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']));
+            array_push($this->comments, array("comment" => new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']), "liked" => isset($comment['liked'])));
         }
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'post_id' => $this->post_id,
+            'username' => $this->username,
+            'caption' => $this->caption,
+            'images' => array_map("base64_encode", $this->images),
+            'likes' => $this->likes,
+            'comments' => $this->comments,
+            'timestamp' => $this->timestamp,
+            'avg_exposure_rating' => $this->avg_exposure_rating,
+            'avg_colors_rating' => $this->avg_colors_rating,
+            'avg_composition_rating' => $this->avg_composition_rating
+        ];
     }
 }
