@@ -296,7 +296,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         });
         commentDiv.appendChild(commentUsername);
         commentDiv.appendChild(commentText);
-        if (username == comments[i].comment.username) {
+        if (currentUsername == comments[i].comment.username) {
             commentDiv.appendChild(deleteCommentButton);
         }
         commentDiv.appendChild(likeCommentButton);
@@ -319,7 +319,6 @@ function displayPostImageNumber(postId, imageIndex, totalImagesNumber) {
 }
 
 function showSlideLeft(postId) {
-    console.log("left" + postId)
     let slides = document.getElementById("post-images" + postId);
     let slide = slides.getElementsByClassName("post-image-slide");
     if (postsCurrentSlide[postId] > 0) {
@@ -335,7 +334,6 @@ function showSlideLeft(postId) {
 }
 
 function showSlideRight(postId) {
-    console.log("right" + postId)
     let slides = document.getElementById("post-images" + postId);
     let slide = slides.getElementsByClassName("post-image-slide");
     if (postsCurrentSlide[postId] < slide.length - 1) {

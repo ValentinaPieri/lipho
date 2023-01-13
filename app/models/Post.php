@@ -39,8 +39,6 @@ class Post implements JsonSerializable
             $this->createNew();
         } else {
             $this->retreiveImages();
-            $this->retreiveLikes();
-            $this->retreiveComments();
         }
     }
 
@@ -131,31 +129,6 @@ class Post implements JsonSerializable
         $this->images = array();
         foreach ($result as $image) {
             array_push($this->images, $image['image']);
-        }
-    }
-
-    private function retreiveLikes()
-    {
-        $stmt = $this->conn->prepare(QUERIES['get_post_likes']);
-        $stmt->bind_param("i", $this->post_id);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $this->likes = array();
-        foreach ($result as $like) {
-            array_push($this->likes, $like['username']);
-        }
-    }
-
-    private function retreiveComments()
-    {
-        $username = "test"; //TODO: change to actual username
-        $stmt = $this->conn->prepare(QUERIES['get_post_comments']);
-        $stmt->bind_param("si", $username, $this->post_id);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $this->comments = array();
-        foreach ($result as $comment) {
-            array_push($this->comments, array("comment" => new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']), "liked" => isset($comment['liked'])));
         }
     }
 

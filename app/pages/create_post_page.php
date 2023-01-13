@@ -2,18 +2,8 @@
 
     <div id='images-form'>
         <h2>Pictures</h2>
-        <p id='images-counter'>
-            <script>
-                updateImageFormsCounter()
-            </script>
-        </p>
-        <script>
-            displayImageForms()
-        </script>
+        <p id='images-counter'></p>
         <button type='button' class='form-control' id='add-button' onclick='addImageForm()'><span class='fa-regular fa-circle-plus'></span></button>
-        <script>
-            checkAddButton()
-        </script>
     </div>
 
     <div id='caption-form'>
