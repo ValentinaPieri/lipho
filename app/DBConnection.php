@@ -6,8 +6,8 @@ require_once 'query.php';
 require_once 'models/Notification.php';
 require_once 'models/Post.php';
 
-use app\models\Comment;
 use mysqli;
+use app\models\Comment;
 use app\models\Notification;
 use app\models\Post;
 
