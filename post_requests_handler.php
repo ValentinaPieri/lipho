@@ -120,13 +120,14 @@ if (isset($_POST['getPostComments'])) {
     $dbconnection = new DBConnection();
     $comments = $dbconnection->getPostComments($_POST['post_id']);
     echo json_encode($comments);
+}
 
 if (isset($_POST['login'])) {
     $dbconnection = new DBConnection();
     $result["usernameValid"] = !$dbconnection->checkUsername($_POST['username']);
     if ($result["usernameValid"]) {
         $result["passwordValid"] = $dbconnection->checkPassword($_POST['username'], $_POST['password']);
-        if($result["passwordValid"]) {
+        if ($result["passwordValid"]) {
             $dbconnection->setUserLoggedIn($_POST['username']);
         }
     }
