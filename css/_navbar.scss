@@ -1,0 +1,45 @@
+.navbar {
+    position: fixed;
+    z-index: 1;
+    background: $white;
+    bottom: 0;
+    border: $border-navbar;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    width: 100%;
+    a {
+        width: 100%;
+        padding: 0.5vh 0;
+        color: $black;
+        span {
+            font-size: 1.0rem;
+        }
+        &:hover {
+            background-color: #A4E378;
+            opacity: 0.8;
+        }
+        &:not(:last-child){
+            border-right: $border-navbar;
+        }
+    }
+}
+
+body {
+    background: $white;
+}
+
+@media (width >= $media-query-value) {
+    .navbar {
+        bottom: 1vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 35rem;
+        a {
+            padding: 1vh;
+            span {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
