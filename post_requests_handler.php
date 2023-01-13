@@ -70,6 +70,18 @@ if (isset($_POST['getMatchingUsers'])) {
     echo json_encode($users);
 }
 
+if (isset($_POST['login'])) {
+    $dbconnection = new DBConnection();
+    $result["usernameValid"] = !$dbconnection->checkUsername($_POST['username']);
+    if ($result["usernameValid"]) {
+        $result["passwordValid"] = $dbconnection->checkPassword($_POST['username'], $_POST['password']);
+        if($result["passwordValid"]) {
+            $dbconnection->setUserLoggedIn($_POST['username']);
+        }
+    }
+    echo json_encode($result);
+}
+
 if (isset($_POST['getNotifications'])) {
     $dbconnection = new DBConnection();
     $notifications = $dbconnection->getNotifications();

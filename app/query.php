@@ -11,7 +11,7 @@ const QUERIES = [
     "add_user_email_phone_birthdate" => "INSERT INTO user (username, `password`, `name`, surname, email, phone, birthdate) VALUES (?, ?, ?, ?, ?, ?, ?)",
     "delete_user" => "DELETE FROM user WHERE username = ?",
     "check_username" => "SELECT * FROM user WHERE username = ?",
-    "check_password" => "SELECT * FROM user WHERE username = ? AND `password` = ?",
+    "get_username_password" => "SELECT `password` FROM user WHERE username = ?",
     "get_feed_posts" => "SELECT * FROM post WHERE username IN (SELECT to_username FROM `following` WHERE from_username = ?) ORDER BY `timestamp` DESC",
     "like_post" => "INSERT INTO post_like (post_id, username) VALUES (?, ?)",
     "unlike_post" => "DELETE FROM post_like WHERE post_id = ? AND username = ?",

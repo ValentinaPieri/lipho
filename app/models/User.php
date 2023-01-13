@@ -119,23 +119,6 @@ class User
         }
     }
 
-    public function login()
-    {
-        $stmt = $this->conn->prepare(QUERIES['check_username']);
-        $stmt->bind_param('s', $this->username);
-        $stmt->execute();
-        $result = $stmt->store_result();
-        if ($result->num_rows > 0) {
-            $stmt = $this->conn->prepare(QUERIES['check_password']);
-            $stmt->bind_param('s', $this->password);
-            $stmt->execute();
-            $result = $stmt->store_result();
-            if ($stmt->num_rows > 0) {
-                return true;
-            }
-        }
-    }
-
     public function delete()
     {
         $stmt = $this->conn->prepare(QUERIES['delete_user']);
