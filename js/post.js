@@ -161,7 +161,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
         postRatingDiv.id = "post-rating" + postId;
         let exposureLabel = document.createElement("label");
         exposureLabel.className = "rating-label";
-        exposureLabel.for = "exposure-rating" + postId;
+        exposureLabel.htmlFor = "exposure-rating" + postId;
         exposureLabel.textContent = "Exposure";
         let exposureRating = document.createElement("input");
         exposureRating.className = "rating-input";
@@ -172,7 +172,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
         exposureRating.value = 5;
         let colorLabel = document.createElement("label");
         colorLabel.className = "rating-label";
-        colorLabel.for = "colors-rating" + postId;
+        colorLabel.htmlFor = "colors-rating" + postId;
         colorLabel.textContent = "Color";
         let colorRating = document.createElement("input");
         colorRating.className = "rating-input";
@@ -183,7 +183,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
         colorRating.value = 5;
         let compositionLabel = document.createElement("label");
         compositionLabel.className = "rating-label";
-        compositionLabel.for = "composition-rating" + postId;
+        compositionLabel.htmlFor = "composition-rating" + postId;
         compositionLabel.textContent = "Composition";
         let compositionRating = document.createElement("input");
         compositionRating.className = "rating-input";
@@ -216,6 +216,7 @@ function getPostContainer(postId, username, caption, images, likes, comments, li
     let captionUsername = document.createElement("a");
     captionUsername.className = "caption-username";
     captionUsername.id = "caption-username" + postId;
+    captionUsername.title = "caption user link";
     captionUsername.href = "profile.php?username=" + username;
     captionUsername.textContent = username;
     let captionText = document.createElement("p");
@@ -245,6 +246,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments) {
         let commentUsername = document.createElement("a");
         commentUsername.className = "comment-username";
         commentUsername.id = "post-comment-username" + comments[i].comment.comment_id;
+        commentUsername.title = "comment user link";
         commentUsername.href = "profile.php?username=" + comments[i].comment.username;
         commentUsername.textContent = comments[i].comment.username;
         convertMentionsToLinks(comments);
@@ -308,7 +310,7 @@ function convertMentionsToLinks(comments) {
     for (let i = 0; i < comments.length; i++) {
         const comment = comments[i].comment;
         comment.text = comment.text.replace(/@([a-zA-Z0-9]+)/g, function (match, username) {
-            return `<a href="profile.php?username=${username}">@${username}</a>`;
+            return `<a title="mentioned user link" href="profile.php?username=${username}">@${username}</a>`;
         });
     }
 }
