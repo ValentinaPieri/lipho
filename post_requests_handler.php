@@ -1,5 +1,6 @@
 <?php
 
+require_once 'app/check_session.php';
 require_once 'app/DBConnection.php';
 require_once 'app/models/User.php';
 
