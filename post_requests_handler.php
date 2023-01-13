@@ -141,3 +141,9 @@ if (isset($_POST['getNotifications'])) {
     $notifications = $dbconnection->getNotifications();
     echo json_encode($notifications);
 }
+
+if (isset($_POST['getUserData'])) {
+    $dbconnection = new DBConnection();
+    $user = $dbconnection->getUserData();
+    echo json_encode($user);
+}
