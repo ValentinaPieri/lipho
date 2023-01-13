@@ -7,7 +7,7 @@ function getFeedPosts(offset, limit) {
         let postDiv;
         const mainTag = document.querySelector("main");
         posts.forEach(post => {
-            postDiv = getPostContainer(post.post.post_id, post.post.username, post.post.caption, post.post.images, post.post.likes, post.post.comments, post.post.avg_exposure_rating, post.post.avg_colors_rating, post.post.avg_composition_rating, post.liked);
+            postDiv = getPostContainer(post.post.post_id, post.post.username, post.post.caption, post.post.images, post.post.likes, post.post.comments, post.liked, post.rated);
             mainTag.appendChild(postDiv);
             setInterval(function () {
                 $.post("/lipho/post_requests_handler.php", { getPostLikesNumber: true, post_id: post.post.post_id }, function (likesNumber) {
@@ -18,7 +18,7 @@ function getFeedPosts(offset, limit) {
                 let postCommentsDiv = document.getElementById("post-comments" + post.post.post_id);
                 if (!postCommentsDiv.hidden) {
                     $.post("/lipho/post_requests_handler.php", { getPostComments: true, post_id: post.post.post_id }, function (comments) {
-                        getCommentsContainer(postCommentsDiv, comments);
+                        getCommentsContainer(post.post.post_id, postCommentsDiv, comments);
                     }, "json");
                 }
             }, 1000);
