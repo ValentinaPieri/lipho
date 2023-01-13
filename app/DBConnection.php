@@ -144,13 +144,17 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['rate_post']);
         $stmt->bind_param("isiii", $postId, $_SESSION['username'], $exposure, $colors, $composition);
         $stmt->execute();
-        new Notification("rated your post", false, $owner, $_SESSION['username'], $this->conn);
+        if ($owner != $_SESSION['username']) {
+            new Notification("rated your post", false, $owner, $_SESSION['username'], $this->conn);
+        }
     }
 
     public function commentPost($postId, $owner, $text)
     {
         $comment = new Comment($text, $postId, $_SESSION['username'], $this->conn);
-        new Notification("commented on your post", false, $owner, $_SESSION['username'], $this->conn);
+        if ($owner != $_SESSION['username']) {
+            new Notification("commented on your post", false, $owner, $_SESSION['username'], $this->conn);
+        }
     }
 
     public function uncommentPost($commentId)
@@ -164,7 +168,9 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['like_post']);
         $stmt->bind_param("is", $postId, $_SESSION['username']);
         $stmt->execute();
-        new Notification("liked your post", false, $owner, $_SESSION['username'], $this->conn);
+        if ($owner != $_SESSION['username']) {
+            new Notification("liked your post", false, $owner, $_SESSION['username'], $this->conn);
+        }
     }
 
     public function unlikePost($postId)
@@ -174,11 +180,13 @@ class DBConnection
         $stmt->execute();
     }
 
-    public function likeComment($commentId, $username)
+    public function likeComment($commentId, $owner)
     {
-        $comment = new Comment("", 0, $username, $this->conn, $commentId);
+        $comment = new Comment("", 0, $owner, $this->conn, $commentId);
         $comment->like();
-        new Notification("liked your comment", false, $username, "test", $this->conn);
+        if ($owner != $_SESSION['username']) {
+            new Notification("liked your comment", false, $owner, $_SESSION['username'], $this->conn);
+        }
     }
 
     public function unlikeComment($commentId, $username)
