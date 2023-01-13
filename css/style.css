@@ -1,18 +1,32 @@
 .post {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 15vh;
+  margin-bottom: 15vh;
   height: auto;
+  width: 100%;
 }
 .post .post-images {
   z-index: 0;
-  background: #040F0F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 150vw;
+  background: #040F0F;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .post .post-images img {
-  height: 150vw;
+  -o-object-fit: contain;
+     object-fit: contain; /* Scale the image to cover the entire div */
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
 }
 .post .post-images .slide-index {
   width: 100%;
@@ -33,27 +47,203 @@
   background: #FFFCF2;
   border: 2px solid #040F0F;
   border-right: none;
-  bottom: calc(100vh - 150vw);
+  top: calc(150vw - 12vmin - 4rem - 6px);
   right: 0;
 }
 .post .post-images .post-buttons-div button {
   border: none;
+  cursor: pointer;
 }
 .post .post-images .post-buttons-div span {
+  background: #FFFCF2;
   padding: 1.5vmin;
+  text-align: center;
+  font-size: 1rem;
+}
+.post .post-images .arrow-buttons-div {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  top: 75vw;
+}
+.post .post-images .arrow-buttons-div button {
+  border: none;
+  background: rgba(255, 252, 242, 0.3);
+  padding: 1.5vmin;
+  text-align: center;
 }
 .post .post-images .post-button {
   z-index: 1;
 }
 .post .post-images .post-button.full-screen-button {
   display: none;
+  cursor: pointer;
 }
 .post .post-images .post-button.rating-button {
   position: relative;
   bottom: 0;
   left: 0;
 }
+.post .post-caption {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 2vmin 0;
+  width: 100%;
+}
+.post .post-caption > * {
+  padding: 0 1vmin;
+}
+.post .post-caption a {
+  color: #0F571F;
+  font-weight: bold;
+  text-align: start;
+}
+.post .post-caption a:hover {
+  color: #A4E378;
+}
+.post .post-caption p {
+  color: #040F0F;
+}
+.post .post-input-comment-div {
+  width: calc(100% - 4vmin);
+  padding: 2vmin 0;
+  margin-left: 4vmin;
+}
+.post .post-input-comment-div input {
+  width: 85%;
+  border: none;
+  border: 2px solid #040F0F;
+  background: transparent;
+  color: #040F0F;
+  padding: 0.6vmin 0;
+  font-size: 1rem;
+}
+.post .post-input-comment-div button {
+  margin-left: 2vmin;
+  border: none;
+  background: transparent;
+  padding: 1vmin;
+  color: #040F0F;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.post .post-comments {
+  display: grid;
+  align-items: start;
+  width: calc(100% - 1vmin);
+}
+.post .post-comments > * {
+  padding: 0 1vmin;
+}
+.post .post-comments .comment-div {
+  display: grid;
+}
+.post .post-comments .comment-div a {
+  color: #0F571F;
+  font-weight: bold;
+}
+.post .post-comments .comment-div a:hover {
+  color: #A4E378;
+}
+.post .post-comments .comment-div p {
+  color: #040F0F;
+}
+.post .post-comments .comment-div .comment-buttons-div {
+  text-align: end;
+  width: 100%;
+}
+.post .post-comments .comment-div .comment-buttons-div button {
+  border: none;
+  background: #FFFCF2;
+  padding: 1vmin;
+  cursor: pointer;
+}
+.post .post-rating {
+  width: calc(100% - 4vmin);
+  margin: 2vmin;
+}
+.post .post-rating .rating-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 2vmin 0;
+}
+.post .post-rating .rating-div > * {
+  width: 100%;
+}
+.post .post-rating .rating-div label {
+  color: #040F0F;
+  font-weight: bold;
+}
+.post .post-rating .rating-div input[type=range] {
+  color: #040F0F;
+  text-align: end;
+  -webkit-appearance: none;
+  background: #040F0F;
+  border-radius: 1rem;
+}
+.post .post-rating .rating-div input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #FFFCF2;
+  border: 2px solid #040F0F;
+}
+.post .post-rating button {
+  width: 100%;
+  padding: 1vmin 0;
+  background: #FFFCF2;
+  color: #040F0F;
+  border: 2px solid #040F0F;
+  margin-bottom: 5vmin;
+  cursor: pointer;
+}
 
+@media (width >= 425px) {
+  .post {
+    width: 25rem;
+    border: 2px solid #040F0F;
+    margin: 6rem auto;
+  }
+  .post:first-child {
+    margin: 0 auto;
+  }
+  .post .post-images {
+    height: 37.5rem;
+    width: 25rem;
+  }
+  .post .post-images .post-buttons-div {
+    top: calc(37.5rem - 12vmin - 4rem - 6px);
+  }
+  .post .post-images .arrow-buttons-div {
+    top: 18.75rem;
+  }
+  .post .post-images .full-screen-button {
+    position: absolute;
+    top: calc(37.5rem - 1.5vmin - 2rem);
+    background: #FFFCF2;
+    border: 2px solid #040F0F;
+    padding: 1.5vmin;
+    left: 0;
+  }
+  .post .post-images .post-buttons-div, .post .post-images .arrow-buttons-div, .post .post-images .full-screen-button {
+    display: none;
+  }
+  .post .post-images:hover .post-buttons-div, .post .post-images:hover .arrow-buttons-div, .post .post-images:hover .full-screen-button {
+    display: flex;
+  }
+  .post .post-input-comment-div {
+    margin-left: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  .post .post-input-comment-div input {
+    max-width: 100%;
+  }
+}
 .navbar {
   position: fixed;
   z-index: 1;
@@ -115,7 +305,59 @@ header {
     width: 20vmin;
   }
 }
+.search-container {
+  padding-top: 2vh;
+  padding-bottom: 2.5vh;
+  margin: 0 3vw;
+  border-bottom: 2px solid #040F0F;
+}
+.search-container input {
+  width: 100%;
+  height: 3vh;
+  background: #FFFCF9;
+  border: 2px solid #040F0F;
+  border-radius: 0.3rem;
+  font-size: 1.5vh;
+}
+.search-container input::-moz-placeholder {
+  padding-left: 1vw;
+}
+.search-container input:-ms-input-placeholder {
+  padding-left: 1vw;
+}
+.search-container input::placeholder {
+  padding-left: 1vw;
+}
+
+#search-results-container .results-count {
+  margin: 3vmin;
+  text-align: right;
+}
+#search-results-container .user-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+#search-results-container .user-container .user-image {
+  width: 10vmin;
+  border-radius: 50%;
+  margin: 3vmin 5vmin 3vmin 3vmin;
+}
+#search-results-container .user-container a {
+  color: #0F571F;
+  font-weight: bold;
+}
+#search-results-container .user-container a:hover {
+  color: #A4E378;
+}
+
+@media screen and (width >= 768px) {
+  #search-results-container > .user-container > .user-image {
+    width: 5vmin;
+  }
+}
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
 }/*# sourceMappingURL=style.css.map */
