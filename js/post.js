@@ -25,7 +25,7 @@ function getPostContainer(postId, owner, caption, images, likes, comments, liked
     for (let i = 0; i < images.length; i++) {
         let postImageSlide = document.createElement("img");
         postImageSlide.className = "post-image-slide";
-        postImageSlide.id = "post-image-slide" + i;
+        postImageSlide.id = "post-image-slide" + postId + i;
         postImageSlide.src = "data:image/jpeg;base64," + images[i];
         postImageSlide.alt = "Post image " + i;
         postImageSlide.hidden = i != 0;
@@ -321,7 +321,7 @@ function displayPostImageNumber(postId, imageIndex, totalImagesNumber) {
 function showSlideLeft(postId) {
     console.log("left" + postId)
     let slides = document.getElementById("post-images" + postId);
-    let slide = slides.getElementsByClassName('post-image-slide');
+    let slide = slides.getElementsByClassName("post-image-slide");
     if (postsCurrentSlide[postId] > 0) {
         slide[postsCurrentSlide[postId]].hidden = true;
         postsCurrentSlide[postId]--;
@@ -337,7 +337,7 @@ function showSlideLeft(postId) {
 function showSlideRight(postId) {
     console.log("right" + postId)
     let slides = document.getElementById("post-images" + postId);
-    let slide = slides.getElementsByClassName('post-image-slide');
+    let slide = slides.getElementsByClassName("post-image-slide");
     if (postsCurrentSlide[postId] < slide.length - 1) {
         slide[postsCurrentSlide[postId]].hidden = true;
         postsCurrentSlide[postId]++;
