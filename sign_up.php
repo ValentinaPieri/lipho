@@ -1,4 +1,5 @@
 <?php
+require_once 'app/check_session.php';
 
 $templateParams["title"] = "Sign-Up";
 
