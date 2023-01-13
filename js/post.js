@@ -86,7 +86,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     } else {
         likeButtonIcon.className = "fa-regular fa-heart";
         likeButton.addEventListener("click", function () {
-            likePost(postId);
+            likePost(postId, owner);
         });
     }
     let likesNumber = document.createElement("span");
@@ -368,8 +368,8 @@ function showSlideRight(postId) {
     displayPostImageNumber(postId, postsCurrentSlide[postId], slide.length)
 }
 
-function likePost(postId) {
-    $.post("./post_requests_handler.php", { postId: postId, owner: username, likePost: true })
+function likePost(postId, owner) {
+    $.post("./post_requests_handler.php", { postId: postId, owner: owner, likePost: true })
         .done(function () {
             let likeButton = document.getElementById("like-button" + postId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
