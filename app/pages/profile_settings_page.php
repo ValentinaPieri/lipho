@@ -8,6 +8,7 @@
         <label for="edit-name">Edit name</label><input id="edit-name" type="text" />
         <label for="edit-surname">Edit surname</label><input id="edit-surname" type="text" />
         <label for="edit-email">Edit email</label><input id="edit-email" type="email" />
+        <label for="edit-phone-number">Edit phone number</label><input id="edit-phone-number" type="tel" />
         <label for="edit-birthdate">Edit birthdate</label><input id="edit-birthdate" type="date" />
         <button type="button" id="logout-button">Log out</button><span class="fa-regular fa-arrow-right-from-bracket"></span>
         <button type="button" id="delete-account-button">Delete account</button><span class="fa-regular fa-trash-xmark"></span>
