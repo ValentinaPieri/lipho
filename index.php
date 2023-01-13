@@ -1,4 +1,6 @@
 <?php
+require_once 'app/check_session.php';
+
 $templateParams["title"] = "Home";
 $templateParams["scripts"] = "
     <script src='js/feed.js'></script>
