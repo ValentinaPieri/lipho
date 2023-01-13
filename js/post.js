@@ -81,7 +81,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     if (liked) {
         likeButtonIcon.className = "fa-solid fa-heart";
         likeButton.addEventListener("click", function () {
-            unlikePost(postId);
+            unlikePost(postId, owner);
         });
     } else {
         likeButtonIcon.className = "fa-regular fa-heart";
@@ -376,12 +376,12 @@ function likePost(postId, owner) {
             likeButtonIcon.className = "fa-solid fa-heart";
             likeButton.removeEventListener("click", likePost);
             likeButton.addEventListener("click", function () {
-                unlikePost(postId);
+                unlikePost(postId, owner);
             });
         });
 }
 
-function unlikePost(postId) {
+function unlikePost(postId, owner) {
     $.post("./post_requests_handler.php", { postId: postId, unlikePost: true })
         .done(function () {
             let likeButton = document.getElementById("like-button" + postId);
@@ -389,7 +389,7 @@ function unlikePost(postId) {
             likeButtonIcon.className = "fa-regular fa-heart";
             likeButton.removeEventListener("click", unlikePost);
             likeButton.addEventListener("click", function () {
-                likePost(postId);
+                likePost(postId, owner);
             });
         });
 }
