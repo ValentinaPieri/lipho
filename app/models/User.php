@@ -20,15 +20,13 @@ class User
 
     private string $birthdate;
 
-    private string $timestamp;
-
-    private int $id;
+    private bool $newUser;
 
     private $conn;
 
     private $profile_pic;
 
-    public function __construct($username, $password, $name, $surname, $conn, $email, $phone, $birthdate, $profile_pic = "",  $timestamp = "", $id = 0)
+    public function __construct($username, $password, $name, $surname, $conn, $email, $phone, $birthdate, $profile_pic = "", $newUser = false)
     {
         $this->username = $username;
         $this->password = $password;
@@ -39,10 +37,9 @@ class User
         $this->phone = $phone;
         $this->birthdate = $birthdate;
         $this->profile_pic = $profile_pic;
-        $this->timestamp = $timestamp;
-        $this->id = $id;
+        $this->newUser = $newUser;
 
-        if ($id == 0) {
+        if ($newUser) {
             $this->add();
         }
     }
@@ -131,5 +128,10 @@ class User
         $stmt = $this->conn->prepare(QUERIES['update_user']);
         $stmt->bind_param('ssssssi', $this->username, $this->password, $this->name, $this->surname, $this->email, $this->phone, $this->birthdate);
         $stmt->execute();
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }
