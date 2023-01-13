@@ -20,15 +20,13 @@ class User
 
     private string $birthdate;
 
-    private string $timestamp;
-
-    private int $id;
+    private bool $newUser;
 
     private $conn;
 
     private $profile_pic;
 
-    public function __construct($username, $password, $name, $surname, $conn, $email, $phone, $birthdate, $profile_pic = "",  $timestamp = "", $id = 0)
+    public function __construct($username, $password, $name, $surname, $conn, $email, $phone, $birthdate, $profile_pic = "", $newUser = false)
     {
         $this->username = $username;
         $this->password = $password;
@@ -39,10 +37,9 @@ class User
         $this->phone = $phone;
         $this->birthdate = $birthdate;
         $this->profile_pic = $profile_pic;
-        $this->timestamp = $timestamp;
-        $this->id = $id;
+        $this->newUser = $newUser;
 
-        if ($id == 0) {
+        if ($newUser) {
             $this->add();
         }
     }
@@ -116,23 +113,6 @@ class User
             $stmt = $this->conn->prepare(QUERIES['add_user']);
             $stmt->bind_param('ssss', $this->username, $this->password, $this->name, $this->surname);
             $stmt->execute();
-        }
-    }
-
-    public function login()
-    {
-        $stmt = $this->conn->prepare(QUERIES['check_username']);
-        $stmt->bind_param('s', $this->username);
-        $stmt->execute();
-        $result = $stmt->store_result();
-        if ($result->num_rows > 0) {
-            $stmt = $this->conn->prepare(QUERIES['check_password']);
-            $stmt->bind_param('s', $this->password);
-            $stmt->execute();
-            $result = $stmt->store_result();
-            if ($stmt->num_rows > 0) {
-                return true;
-            }
         }
     }
 
