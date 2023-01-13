@@ -136,7 +136,7 @@ class DBConnection
     public function getFeedPosts($offset, $limit)
     {
         $stmt = $this->conn->prepare(QUERIES['get_feed_posts']);
-        $stmt->bind_param('sii', $_SESSION['username'], $offset, $limit);
+        $stmt->bind_param('sssii', $_SESSION['username'], $_SESSION['username'], $_SESSION['username'], $offset, $limit);
         $stmt->execute();
         $result = $stmt->get_result();
         $posts = array();
