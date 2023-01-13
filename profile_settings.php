@@ -1,4 +1,6 @@
 <?php
+require_once 'app/check_session.php';
+
 $templateParams["title"] = "Profile Settings";
 $templateParams["scripts"] = "
     <script src='js/profile_settings.js'></script>
