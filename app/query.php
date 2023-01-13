@@ -11,7 +11,7 @@ const QUERIES = [
     "add_user_email_phone_birthdate" => "INSERT INTO user (username, `password`, `name`, surname, email, phone, birthdate) VALUES (?, ?, ?, ?, ?, ?, ?)",
     "delete_user" => "DELETE FROM user WHERE username = ?",
     "check_username" => "SELECT * FROM user WHERE username = ?",
-    "get_feed_posts" => "SELECT p.post_id, p.caption, p.`timestamp`, p.average_exposure_rating, p.average_colors_rating, p.average_composition_rating, p.username AS owner, pl.username, pr.username AS rated FROM post p LEFT JOIN post_like pl ON p.post_id = pl.post_id LEFT JOIN post_rating pr ON p.post_id = pr.post_id WHERE p.username IN (SELECT to_username FROM `following` WHERE from_username = ?) ORDER BY p.`timestamp` DESC LIMIT ?, ?",
+    "get_feed_posts" => "SELECT p.post_id, p.caption, p.`timestamp`, p.average_exposure_rating, p.average_colors_rating, p.average_composition_rating, p.username AS owner, pl.username, pr.username AS rated FROM post p LEFT JOIN post_like pl ON p.post_id = pl.post_id AND pl.username = ? LEFT JOIN post_rating pr ON p.post_id = pr.post_id AND pr.username = ? WHERE p.username IN (SELECT to_username FROM `following` WHERE from_username = ?) ORDER BY p.`timestamp` DESC LIMIT ?, ?",
     "get_username_password" => "SELECT `password` FROM user WHERE username = ?",
     "like_post" => "INSERT INTO post_like (post_id, username) VALUES (?, ?)",
     "unlike_post" => "DELETE FROM post_like WHERE post_id = ? AND username = ?",
