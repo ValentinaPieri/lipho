@@ -27,19 +27,7 @@
             <a href="create_post.php" title="Create Post Page"><span class="fa-regular fa-plus"></span></a>
             <a href="notifications.php" title="Notifications Page">
                 <span class="fa-regular fa-bell">
-                    <?php
-                    require_once 'app/DBConnection.php';
-
-                    use app\DBConnection;
-
-                    $dbconnection = new DBConnection();
-                    $notSeenNumber = $dbconnection->getNotSeenNotificationsNumber();
-                    if ($notSeenNumber > 0) {
-                        echo "<span id=\"notifications-badge\" class=\"notifications-badge\">" . $notSeenNumber . "</span>";
-                    } else {
-                        echo "<span id=\"notifications-badge\" class=\"notifications-badge\"\"></span>";
-                    }
-                    ?>
+                    <span id="notifications-badge" class="notifications-badge"></span>
                 </span>
             </a>
             <a href="profile.php" title="Profile Page"><span class="fa-regular fa-user"></span></a>

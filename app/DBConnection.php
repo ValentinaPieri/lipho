@@ -3,13 +3,8 @@
 namespace app;
 
 require_once 'query.php';
-require_once 'models/Notification.php';
-require_once 'models/Post.php';
 
 use mysqli;
-use app\models\Comment;
-use app\models\Notification;
-use app\models\Post;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
@@ -43,12 +38,27 @@ class DBConnection
         $notifications = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $notification = new Notification($row['text'], $row['seen'], $row['receiver'], $row['sender'], $this->conn, $row['timestamp'], $row['notification_id']);
+                $notification['notification_id'] = $row['notification_id'];
+                $notification['text'] = $row['text'];
+                $notification['seen'] = $row['seen'];
+                $notification['receiver'] = $row['receiver'];
+                $notification['sender'] = $row['sender'];
+                $notification['timestamp'] = $row['timestamp'];
+                $notification['profile_image'] = isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
 
-                array_push($notifications, array("notification" => $notification, "profileImage" => base64_encode(isset($row['profile_image']) ? $row['profile_image'] : file_get_contents(("/resources/images/blank_profile.jpeg")))));
+                array_push($notifications, $notification);
             }
         }
         return $notifications;
+    }
+
+    public function sendNotification($text, $receiver)
+    {
+        if ($receiver != $_SESSION['username']) {
+            $stmt = $this->conn->prepare(QUERIES['send_notification']);
+            $stmt->bind_param('sss', $text, $receiver, $_SESSION['username']);
+            $stmt->execute();
+        }
     }
 
     public function deleteNotification($notificationId)
@@ -106,10 +116,24 @@ class DBConnection
 
     public function setUserLoggedIn($username)
     {
-        session_start();
-
         $_SESSION["loggedin"] = true;
         $_SESSION["username"] = $username;
+    }
+
+    public function setUserLoggedOut()
+    {
+        unset($_SESSION["loggedin"]);
+        unset($_SESSION["username"]);
+        session_destroy();
+    }
+
+    public function deleteUser()
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_user']);
+        $stmt->bind_param('s', $_SESSION['username']);
+        $stmt->execute();
+
+        $this->setUserLoggedOut();
     }
 
     public function getMatchingUsers($username)
@@ -121,14 +145,7 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['get_matching_users']);
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $users = array();
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $user = array('username' => $row['username'], 'profile_image' => base64_encode($row['profile_image']));
-                array_push($users, $user);
-            }
-        }
+        $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         return $users;
     }
@@ -142,12 +159,49 @@ class DBConnection
         $posts = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $post = new Post($username = $row['owner'], $caption = $row['caption'], $conn = $this->conn, $images = array(), $post_id = $row['post_id'], $timestamp = $row['timestamp'], $avg_exposure_rating = $row['average_exposure_rating'], $avg_colors_rating = $row['average_colors_rating'], $avg_composition_rating = $row['average_composition_rating']);
+                $post = $row;
+                $post['images'] = $this->getPostImages($row['post_id']);
+                $post['liked'] = isset($row['username']);
+                $post['rated'] = isset($row['rated']);
 
-                array_push($posts, array("post" => $post, "liked" => isset($row['username']), "rated" => isset($row['rated'])));
+                array_push($posts, $post);
             }
         }
         return $posts;
+    }
+
+    public function getPostImages($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_images']);
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $images = array();
+        foreach ($result as $image) {
+            array_push($images, $image['image']);
+        }
+
+        return $images;
+    }
+
+    public function createPost($caption, $images)
+    {
+        $stmt = $this->conn->prepare(QUERIES['add_post']);
+        $stmt->bind_param("ss", $caption, $_SESSION['username']);
+        $stmt->execute();
+        $this->addPostImages($this->conn->insert_id, $images);
+    }
+
+    private function addPostImages($postId, $images)
+    {
+        if (isset($images) && !empty($images)) {
+            $stmt = $this->conn->prepare(QUERIES['add_post_image']);
+            for ($i = 0; $i < count($images); $i++) {
+                $image = $images[$i];
+                $stmt->bind_param("iis", $postId, $i, $image);
+                $stmt->execute();
+            }
+        }
     }
 
     public function getPostLikesNumber($postId)
@@ -168,11 +222,11 @@ class DBConnection
         $stmt->bind_param("si", $_SESSION['username'], $postId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $comments = array();
-        foreach ($result as $comment) {
-            array_push($comments, array("comment" => new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']), "liked" => isset($comment['liked'])));
+        foreach ($result as &$comment) {
+            $comment['liked'] = isset($comment['liked']);
         }
-        return $comments;
+
+        return $result;
     }
 
     public function ratePost($postId, $owner, $exposure, $colors, $composition)
@@ -180,23 +234,22 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['rate_post']);
         $stmt->bind_param("isiii", $postId, $_SESSION['username'], $exposure, $colors, $composition);
         $stmt->execute();
-        if ($owner != $_SESSION['username']) {
-            new Notification("rated your post", false, $owner, $_SESSION['username'], $this->conn);
-        }
+        $this->sendNotification($owner, "rated your post");
     }
 
     public function commentPost($postId, $owner, $text)
     {
-        new Comment($text, $postId, $_SESSION['username'], $this->conn);
-        if ($owner != $_SESSION['username']) {
-            new Notification("commented on your post", false, $owner, $_SESSION['username'], $this->conn);
-        }
+        $stmt = $this->conn->prepare(QUERIES['comment_post']);
+        $stmt->bind_param("iss", $postId, $text, $_SESSION['username']);
+        $stmt->execute();
+        $this->sendNotification($owner, "commented on your post");
     }
 
     public function uncommentPost($commentId)
     {
-        $comment = new Comment("", 0, "", $this->conn, $commentId);
-        $comment->delete();
+        $stmt = $this->conn->prepare(QUERIES['delete_comment']);
+        $stmt->bind_param("i", $commentId);
+        $stmt->execute();
     }
 
     public function likePost($postId, $owner)
@@ -204,9 +257,7 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['like_post']);
         $stmt->bind_param("is", $postId, $_SESSION['username']);
         $stmt->execute();
-        if ($owner != $_SESSION['username']) {
-            new Notification("liked your post", false, $owner, $_SESSION['username'], $this->conn);
-        }
+        $this->sendNotification($owner, "liked your post");
     }
 
     public function unlikePost($postId)
@@ -218,16 +269,110 @@ class DBConnection
 
     public function likeComment($commentId, $owner)
     {
-        $comment = new Comment("", 0, $owner, $this->conn, $commentId);
-        $comment->like();
-        if ($owner != $_SESSION['username']) {
-            new Notification("liked your comment", false, $owner, $_SESSION['username'], $this->conn);
+        $stmt = $this->conn->prepare(QUERIES['like_comment']);
+        $stmt->bind_param("is", $commentId, $_SESSION['username']);
+        $stmt->execute();
+        $this->sendNotification($owner, "liked your comment");
+    }
+
+    public function unlikeComment($commentId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['unlike_comment']);
+        $stmt->bind_param("is", $commentId, $_SESSION['username']);
+        $stmt->execute();
+    }
+
+    public function getUserData($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            return $user;
         }
     }
 
-    public function unlikeComment($commentId, $username)
+    public function updateUserData($username, $password, $name, $surname, $email, $phone, $birthdate, $profileImage)
     {
-        $comment = new Comment("", 0, $username, $this->conn, $commentId);
-        $comment->unlike();
+        if ($profileImage != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_profile_image']);
+            $stmt->bind_param('bs', $profileImage, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($username != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_username']);
+            $stmt->bind_param('ss', $username, $_SESSION['username']);
+            $stmt->execute();
+            $_SESSION['username'] = $username;
+        }
+        if ($password != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_password']);
+            $stmt->bind_param('ss', $password, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($name != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_name']);
+            $stmt->bind_param('ss', $name, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($surname != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_surname']);
+            $stmt->bind_param('ss', $surname, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($email != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_email']);
+            $stmt->bind_param('ss', $email, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($phone != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_phone']);
+            $stmt->bind_param('ss', $phone, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($birthdate != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_birthdate']);
+            $stmt->bind_param('ss', $birthdate, $_SESSION['username']);
+            $stmt->execute();
+        }
+    }
+
+    public function addUser($username, $password, $name, $surname, $email, $phone, $birthdate)
+    {
+        if ($email != "" && $phone != "" && $birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email_phone_birthdate']);
+            $stmt->bind_param('sssssss', $username, $password, $name, $surname, $email, $phone, $birthdate);
+            $stmt->execute();
+        } else if ($email != "" && $phone != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email_phone']);
+            $stmt->bind_param('ssssss', $username, $password, $name, $surname, $email, $phone);
+            $stmt->execute();
+        } else if ($email != "" && $birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email_birthdate']);
+            $stmt->bind_param('ssssss', $username, $password, $name, $surname, $email, $birthdate);
+            $stmt->execute();
+        } else if ($phone != "" && $birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_phone_birthdate']);
+            $stmt->bind_param('ssssss', $username, $password, $name, $surname, $phone, $birthdate);
+            $stmt->execute();
+        } else if ($email != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email']);
+            $stmt->bind_param('sssss', $username, $password, $name, $surname, $email);
+            $stmt->execute();
+        } else if ($phone != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_phone']);
+            $stmt->bind_param('sssss', $username, $password, $name, $surname, $phone);
+            $stmt->execute();
+        } else if ($birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_birthdate']);
+            $stmt->bind_param('sssss', $username, $password, $name, $surname, $birthdate);
+            $stmt->execute();
+        } else {
+            $stmt = $this->conn->prepare(QUERIES['add_user']);
+            $stmt->bind_param('ssss', $username, $password, $name, $surname);
+            $stmt->execute();
+        }
     }
 }

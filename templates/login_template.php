@@ -17,9 +17,9 @@
             </div>
             <div class="container">
                 <form id="loginForm">
-                    <input title="username" aria-label="username" type="text" name="username" id="username" placeholder="Username">
-                    <input title="password" aria-label="password" type="password" name="password" id="password" placeholder="Password"><span id="visible" class="fa-solid fa-eye"></span>
-                    <input title="login button" aria-label="button to login" type="submit" id="loginButton" value="Login">
+                    <input title="username" aria-label="username" type="text" name="username" id="username" placeholder="Username" />
+                    <input title="password" aria-label="password" type="password" name="password" id="password" placeholder="Password" /><span id="visible" class="fa-solid fa-eye"></span>
+                    <input title="login button" aria-label="button to login" type="submit" id="loginButton" value="Login" />
                 </form>
             </div>
         </div>

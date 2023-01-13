@@ -5,12 +5,19 @@ setInterval(function () {
 }, 1000);
 
 function showNotifications() {
-    $.post("/lipho/post_requests_handler.php", { getNotifications: true }, function (notifications) {
+    $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
         let mainTag = document.getElementsByTagName("main")[0];
         mainTag.innerHTML = "";
         if (notifications.length == 0) {
-            document.createElement("h2").textContent = "No notifications";
-            document.createElement("span").className = "fa-regular fa-face-frown-slight";
+            let noNotificationsFoundDiv = document.createElement("div");
+            noNotificationsFoundDiv.className = "no-notifications-found";
+            let noNotificationsFoundHeader = document.createElement("h2");
+            noNotificationsFoundHeader.textContent = "No notifications";
+            let noNotificationsFoundIcon = document.createElement("span");
+            noNotificationsFoundIcon.className = "fa-regular fa-face-frown-slight";
+            noNotificationsFoundDiv.appendChild(noNotificationsFoundHeader);
+            noNotificationsFoundDiv.appendChild(noNotificationsFoundIcon);
+            mainTag.appendChild(noNotificationsFoundDiv);
         } else {
             let deleteAllNotificationsButton = document.createElement("button");
             deleteAllNotificationsButton.type = "button";
@@ -26,8 +33,8 @@ function showNotifications() {
         let earlierShown = false;
         let notificationsDiv;
         for (let current = 0; current < notifications.length; current++) {
-            const notification = notifications[current].notification;
-            const profileImage = notifications[current].profileImage;
+            const notification = notifications[current];
+            const profileImage = notification.profile_image;
 
             if (!todayShown && isToday(new Date(notification.timestamp))) {
                 notificationsDiv = document.createElement("div");
@@ -76,7 +83,7 @@ function getNotificationContainer(notification, profileImage) {
     let notificationDeleteButton = document.createElement("button");
     notificationDeleteButton.type = "button";
     notificationDeleteButton.addEventListener("click", function () {
-        deleteNotification(notification.id);
+        deleteNotification(notification.notification_id);
     });
 
     let notificationDeleteIcon = document.createElement("span");
@@ -117,14 +124,14 @@ function isEarlier(date) {
 }
 
 function deleteNotification(notificationId) {
-    $.post("/lipho/post_requests_handler.php", { deleteNotification: true, notificationId: notificationId })
+    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId })
         .done(function (result) {
             location.reload();
         });
 }
 
 function deleteAllNotifications() {
-    $.post("/lipho/post_requests_handler.php", { deleteAllNotifications: true })
+    $.post("./post_requests_handler.php", { deleteAllNotifications: true })
         .done(function (result) {
             location.reload();
         });
