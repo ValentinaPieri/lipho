@@ -44,8 +44,9 @@ class DBConnection
                 $notification['receiver'] = $row['receiver'];
                 $notification['sender'] = $row['sender'];
                 $notification['timestamp'] = $row['timestamp'];
+                $notification['profile_image'] = isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
 
-                array_push($notifications, array("notification" => $notification, "profileImage" => isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents(("/resources/images/blank_profile.jpeg")))));
+                array_push($notifications, $notification);
             }
         }
         return $notifications;

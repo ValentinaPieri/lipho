@@ -26,8 +26,8 @@ function showNotifications() {
         let earlierShown = false;
         let notificationsDiv;
         for (let current = 0; current < notifications.length; current++) {
-            const notification = notifications[current].notification;
-            const profileImage = notifications[current].profileImage;
+            const notification = notifications[current];
+            const profileImage = notification.profile_image;
 
             if (!todayShown && isToday(new Date(notification.timestamp))) {
                 notificationsDiv = document.createElement("div");
@@ -76,7 +76,7 @@ function getNotificationContainer(notification, profileImage) {
     let notificationDeleteButton = document.createElement("button");
     notificationDeleteButton.type = "button";
     notificationDeleteButton.addEventListener("click", function () {
-        deleteNotification(notification.id);
+        deleteNotification(notification.notification_id);
     });
 
     let notificationDeleteIcon = document.createElement("span");
