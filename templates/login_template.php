@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
+    <link rel="icon" type="image/x-icon" href="resources/icons/favicon.ico">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <link rel="stylesheet" href="css/style.css">
