@@ -85,7 +85,7 @@ class DBConnection
 
     public function checkPassword($username, $password)
     {
-        $stmt = $this->conn->prepare(QUERIES['get_username_password']);
+        $stmt = $this->conn->prepare(QUERIES['get_password']);
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
