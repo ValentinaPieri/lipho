@@ -44,7 +44,7 @@ const QUERIES = [
     "set_notifications_seen" => "UPDATE notification SET seen = 1 WHERE notification_id IN (?)",
     "delete_notification" => "DELETE FROM notification WHERE notification_id = ?",
     "delete_user_notifications" => "DELETE FROM notification WHERE receiver = ?",
-    "send_notification" => "INSERT INTO notification (`text`, seen, receiver, sender) VALUES (?, ?, ?, ?)",
+    "send_notification" => "INSERT INTO notification (`text`, receiver, sender) VALUES (?, ?, ?)",
     "get_user_profile_image" => "SELECT profile_image FROM user WHERE username = ?",
     "get_matching_users" => "SELECT username, profile_image FROM user WHERE username LIKE ?",
     "get_if_user_liked_post" => "SELECT * FROM post_like WHERE post_id = ? AND username = ?",
