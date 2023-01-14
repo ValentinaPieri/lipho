@@ -246,9 +246,9 @@ function deletePost(postId) {
   });
 }
 
-window.addEventListener("scroll", function () {
+window.onscroll = function () {
   if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
     offset += limit;
     showPostsList(offset, limit);
   }
-});
+};
