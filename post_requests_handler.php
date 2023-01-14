@@ -6,14 +6,14 @@ require_once 'app/DBConnection.php';
 
 use app\DBConnection;
 
+$dbconnection = new DBConnection();
+
 if (isset($_POST['deleteNotification'])) {
     $index = intval($_POST['notificationId']);
-    $dbconnection = new DBConnection();
     $dbconnection->deleteNotification($index);
 }
 
 if (isset($_POST['signup'])) {
-    $dbconnection = new DBConnection();
     $result["usernameValid"] = $_POST['username'] != "" && $dbconnection->checkUsername($_POST['username']);
     $result["passwordsMatching"] = $_POST['password1'] == $_POST['password2'];
     //check if the password length is at least 8 characters long and if it contains at least one number and one symbol
@@ -36,17 +36,14 @@ if (isset($_POST['signup'])) {
 }
 
 if (isset($_POST['deleteAllNotifications'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->deleteAllNotifications();
 }
 
 if (isset($_POST['getNotSeenNotificationsNumber'])) {
-    $dbconnection = new DBConnection();
     echo $dbconnection->getNotSeenNotificationsNumber();
 }
 
 if (isset($_POST["post-button"])) {
-    $dbconnection = new DBConnection();
     $images = array();
     for ($i = 0; $i < 5; $i++) {
         if (isset($_FILES['image-input' . $i])) {
@@ -65,66 +62,54 @@ if (isset($_POST["post-button"])) {
 }
 
 if (isset($_POST['getMatchingUsers'])) {
-    $dbconnection = new DBConnection();
     $users = $dbconnection->getMatchingUsers($_POST['username']);
     echo json_encode($users);
 }
 
 if (isset($_POST['likePost'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->likePost($_POST['postId'], $_POST['owner']);
 }
 
 if (isset($_POST['unlikePost'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->unlikePost($_POST['postId']);
 }
 
 if (isset($_POST['commentPost'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->commentPost($_POST['postId'], $_POST['owner'], $_POST['text']);
 }
 
 if (isset($_POST['uncommentPost'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->uncommentPost($_POST['commentId']);
 }
 
 if (isset($_POST['likeComment'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->likeComment($_POST['commentId'], $_POST['owner']);
 }
 
 if (isset($_POST['unlikeComment'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->unlikeComment($_POST['commentId']);
 }
 
 if (isset($_POST['ratePost'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->ratePost($_POST['postId'], $_POST['owner'], $_POST['exposure'], $_POST['colors'], $_POST['composition']);
 }
 
 if (isset($_POST['getFeedPosts'])) {
-    $dbconnection = new DBConnection();
     $posts = $dbconnection->getFeedPosts($_POST['offset'], $_POST['limit']);
     echo json_encode(array('posts' => $posts, 'currentUsername' => $_SESSION['username']));
 }
 
 if (isset($_POST['getPostLikesNumber'])) {
-    $dbconnection = new DBConnection();
     $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['post_id']);
     echo json_encode($postLikesNumber);
 }
 
 if (isset($_POST['getPostComments'])) {
-    $dbconnection = new DBConnection();
     $comments = $dbconnection->getPostComments($_POST['post_id']);
     echo json_encode($comments);
 }
 
 if (isset($_POST['login'])) {
-    $dbconnection = new DBConnection();
     $result["usernameValid"] = !$dbconnection->checkUsername($_POST['username']);
     if ($result["usernameValid"]) {
         $result["passwordValid"] = $dbconnection->checkPassword($_POST['username'], $_POST['password']);
@@ -136,29 +121,24 @@ if (isset($_POST['login'])) {
 }
 
 if (isset($_POST['logout'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->setUserLoggedOut($_SESSION['username']);
 }
 
 if (isset($_POST['deleteUser'])) {
-    $dbconnection = new DBConnection();
     $dbconnection->deleteUser();
 }
 
 if (isset($_POST['getNotifications'])) {
-    $dbconnection = new DBConnection();
     $notifications = $dbconnection->getNotifications();
     echo json_encode($notifications);
 }
 
 if (isset($_POST['getUserData'])) {
-    $dbconnection = new DBConnection();
     $user = $dbconnection->getUserData($_SESSION['username']);
     echo json_encode($user);
 }
 
 if (isset($_POST['editProfile'])) {
-    $dbconnection = new DBConnection();
     $result["usernameValid"] = !isset($_POST['username']) || $_POST['username'] != "" && ($dbconnection->checkUsername($_POST['username']) || $_POST['username'] == $_SESSION['username']);
     $result["passwordValid"] = !isset($_POST['password']) || preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/", $_POST['password']) == 1;
     $result["nameValid"] = !isset($_POST['name']) || $_POST['name'] != "";
