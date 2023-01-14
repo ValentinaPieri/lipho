@@ -61,6 +61,10 @@ if (isset($_POST["post-button"])) {
     header("Location: create_post.php");
 }
 
+if (isset($_POST['deletePost'])) {
+    $dbconnection->deletePost($_POST['postId']);
+}
+
 if (isset($_POST['getMatchingUsers'])) {
     $users = $dbconnection->getMatchingUsers($_POST['username']);
     echo json_encode($users);
@@ -131,6 +135,30 @@ if (isset($_POST['deleteUser'])) {
 if (isset($_POST['getNotifications'])) {
     $notifications = $dbconnection->getNotifications();
     echo json_encode($notifications);
+}
+
+if (isset($_POST['getProfileData'])) {
+    $profileData['user'] = $dbconnection->getUserData(($_POST['username'] != "") ? $_POST['username'] : $_SESSION['username']);
+    $profileData['numberPosts'] = $dbconnection->getUserPostsNumber($_POST['username']);
+    $profileData['numberFollowers'] = $dbconnection->getUserFollowersNumber($_POST['username']);
+    $profileData['numberFollowings'] = $dbconnection->getUserFollowingNumber($_POST['username']);
+    $profileData['postFrequency'] = $dbconnection->getUserPostFrequency($_POST['username']);
+    $profileData['averageRating'] = $dbconnection->getUserAverageRating($_POST['username']);
+    $profileData['isFollowing'] = $_SESSION['username'] != $_POST['username'] ? $dbconnection->isFollowing($_POST['username']) : false;
+    echo json_encode(array("profileData" => $profileData, "currentUsername" => $_SESSION['username']));
+}
+
+if (isset($_POST['follow'])) {
+    $dbconnection->followUser($_POST['username']);
+}
+
+if (isset($_POST['unfollow'])) {
+    $dbconnection->unfollowUser($_POST['username']);
+}
+
+if (isset($_POST['getProfilePosts'])) {
+    $posts = $dbconnection->getProfilePosts($_POST['username'], $_POST['offset'], $_POST['limit']);
+    echo json_encode($posts);
 }
 
 if (isset($_POST['getUserData'])) {
