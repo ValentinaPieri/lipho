@@ -45,7 +45,8 @@
             </div>
         </div>
         <div class="option">
-            <p>Already have an account? <a href="./templates/login.php">Login now</a></p>
+            <p>Already have an account? <a href="./login.php">Login now</a></p>
+        </div>
         </div>
     </main>
 </body>
