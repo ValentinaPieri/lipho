@@ -55,6 +55,10 @@ main > .delete-all-notifications{
             }
         }
     }
+
+    .notification.notification-seen > .notification-info{
+        opacity: 0.5;
+    }
 }
 
 @media screen and (width >= $media-query-value) {
