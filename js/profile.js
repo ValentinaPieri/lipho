@@ -67,7 +67,7 @@ function showProfile() {
       editProfileLink.appendChild(editProfileButton);
       editProfileDiv.appendChild(editProfileLink);
     } else {
-      if (result.isFollowing) {
+      if (result.profileData.isFollowing) {
         followUnfollowButton.textContent = "Unfollow";
         followUnfollowButton.onclick = unfollow;
       } else {
