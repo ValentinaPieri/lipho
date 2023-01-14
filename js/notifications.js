@@ -20,6 +20,7 @@ function showNotifications() {
             mainTag.appendChild(noNotificationsFoundDiv);
         } else {
             let deleteAllNotificationsButton = document.createElement("button");
+            deleteAllNotificationsButton.classList.add("delete-all-notifications");
             deleteAllNotificationsButton.type = "button";
             deleteAllNotificationsButton.addEventListener("click", deleteAllNotifications);
             let trashIcon = document.createElement("span");
@@ -103,7 +104,7 @@ function getNotificationContainer(notification, profileImage) {
     notificationDiv.appendChild(notificationProfileImage);
     notificationInfoDiv.appendChild(notificationProfileLink);
     notificationInfoDiv.appendChild(notificationText);
-    notificationInfoDiv.appendChild(notificationDeleteButton);
+    notificationDiv.appendChild(notificationDeleteButton);
     notificationDiv.appendChild(notificationInfoDiv);
 
     return notificationDiv;
