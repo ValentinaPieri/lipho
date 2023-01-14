@@ -257,7 +257,7 @@
 }
 .navbar .notifications-badge:not(:empty) {
   font-size: 0.8rem;
-  border-radius: 1rem;
+  border-radius: 50%;
   padding: 0.3rem;
   border: 2px solid #040F0F;
 }
@@ -346,6 +346,7 @@ header {
 }
 #search-results-container .user-container .user-image {
   width: 10vmin;
+  height: 10vmin;
   border-radius: 50%;
   margin: 3vmin 5vmin 3vmin 3vmin;
 }
@@ -360,6 +361,7 @@ header {
 @media screen and (width >= 768px) {
   #search-results-container > .user-container > .user-image {
     width: 5vmin;
+    height: 5vmin;
   }
 }
 main > .delete-all-notifications {
@@ -572,7 +574,7 @@ main > .delete-all-notifications span {
 .edit-profile-image img {
   width: 5rem;
   height: 5rem;
-  border-radius: 5rem;
+  border-radius: 50%;
 }
 .edit-profile-image .save-button {
   width: 100%;
@@ -734,6 +736,113 @@ main > .delete-all-notifications span {
     height: 5rem;
   }
 }
+.edit-profile {
+  margin: 0.4rem 2rem;
+  text-align: end;
+}
+
+.profile-header {
+  margin-left: 2vw;
+  width: calc(100% - 5vw);
+}
+.profile-header .profile-details .profile-image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-header .profile-details .profile-image img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile-header .profile-details .profile-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.profile-header .profile-details .profile-data .username {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.profile-header .profile-details .profile-data .profile-name p {
+  display: inline;
+}
+.profile-header .profile-details .profile-specs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 2vw;
+}
+.profile-header .profile-details .profile-specs .profile-stats {
+  margin: 1rem 0;
+}
+.profile-header .profile-details .profile-specs .profile-stats span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.profile-header .profile-details .profile-specs .profile-stats button {
+  padding: 0 0.7rem;
+  border: 2px solid #040F0F;
+  background: #FFFCF2;
+  color: #040F0F;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.profile-header .profile-details .profile-specs .profile-insights {
+  border: 2px solid #040F0F;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  right: 0;
+}
+.profile-header .profile-details .profile-specs .profile-insights .insight-icon {
+  display: flex;
+  word-break: break-all;
+}
+.profile-header .profile-details .profile-specs .profile-insights .insight-icon span {
+  margin-right: 0.5rem;
+}
+
+.display-mode-buttons {
+  margin: 1rem 0 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.display-mode-buttons button {
+  padding: 0.5rem 1rem;
+  background: #FFFCF2;
+  color: #040F0F;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.profile-posts.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  padding-bottom: 20vh;
+}
+.profile-posts.grid .post-button {
+  width: 100%;
+  height: 100%;
+  height: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile-posts.grid img {
+  width: 100%;
+  height: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;

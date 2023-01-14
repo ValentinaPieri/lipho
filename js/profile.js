@@ -14,8 +14,7 @@ let intervalIds = [];
 let url = new URL(window.location.href);
 let username = url.searchParams.get("username");
 let currentUsername = null;
-showProfile(username);
-showPostsGrid(offset, limit);
+showProfile();
 
 showPostsGridButton.onclick = function () {
   if (!gridActive) {
@@ -49,12 +48,14 @@ showPostsListButton.onclick = function () {
   }
 };
 
-function showProfile(username) {
+function showProfile() {
   $.post("./post_requests_handler.php", { getProfileData: true, username: username }, function (result) {
     currentUsername = result.currentUsername;
     if (username === null) {
       username = currentUsername;
     }
+
+    showPostsGrid(offset, limit);
 
     if (currentUsername === username) {
       followUnfollowButton.remove();
@@ -124,7 +125,7 @@ function showPostFrequencyText(postFrequency) {
   } else if (postFrequency >= 1) {
     postFrequencyDiv.textContent = "monthly";
   } else if (postFrequency === 0) {
-    postFrequencyDiv.textContent = "once in a while";
+    postFrequencyDiv.textContent = "rarely";
   }
 }
 
