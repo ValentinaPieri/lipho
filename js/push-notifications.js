@@ -1,6 +1,6 @@
 getNotSeenNotificationsNumber();
 
-setInterval(getNotSeenNotificationsNumber, 1000);
+setInterval(getNotSeenNotificationsNumber, 5000);
 
 function getNotSeenNotificationsNumber() {
     $.post("./post_requests_handler.php", { getNotSeenNotificationsNumber: true }, function (notSeenNotificationsNumber) {

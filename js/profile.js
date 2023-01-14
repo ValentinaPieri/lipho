@@ -145,10 +145,10 @@ function showPostsList(offset, limit) {
         let postCommentsDiv = document.getElementById("post-comments" + post.post_id);
         if (!postCommentsDiv.hidden) {
           $.post("./post_requests_handler.php", { getPostComments: true, post_id: post.post_id }, function (comments) {
-            getCommentsContainer(post.post_id, postCommentsDiv, comments, result.currentUsername);
+            getCommentsContainer(post.post_id, postCommentsDiv, comments, currentUsername);
           }, "json");
         }
-      }, 1000));
+      }, 5000));
     });
   }, "json");
 }
@@ -201,7 +201,7 @@ function getGridViewPostContainer(postId, owner, images) {
     fullScreenImageGrid(postId);
   };
 
-  if (owner !== currentUsername) {
+  if (owner === currentUsername) {
     let deleteButton = document.createElement("button");
     deleteButton.className = "post-button";
     deleteButton.id = "delete-button" + postId;
