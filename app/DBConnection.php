@@ -3,13 +3,11 @@
 namespace app;
 
 require_once 'query.php';
-require_once 'models/Notification.php';
 require_once 'models/Post.php';
 require_once 'models/User.php';
 
 use mysqli;
 use app\models\Comment;
-use app\models\Notification;
 use app\models\Post;
 use app\models\User;
 
@@ -45,7 +43,12 @@ class DBConnection
         $notifications = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $notification = new Notification($row['text'], $row['seen'], $row['receiver'], $row['sender'], $this->conn, $row['timestamp'], $row['notification_id']);
+                $notification['notification_id'] = $row['notification_id'];
+                $notification['text'] = $row['text'];
+                $notification['seen'] = $row['seen'];
+                $notification['receiver'] = $row['receiver'];
+                $notification['sender'] = $row['sender'];
+                $notification['timestamp'] = $row['timestamp'];
 
                 array_push($notifications, array("notification" => $notification, "profileImage" => base64_encode(isset($row['profile_image']) ? $row['profile_image'] : file_get_contents(("/resources/images/blank_profile.jpeg")))));
             }
@@ -183,7 +186,10 @@ class DBConnection
         $stmt->bind_param("isiii", $postId, $_SESSION['username'], $exposure, $colors, $composition);
         $stmt->execute();
         if ($owner != $_SESSION['username']) {
-            new Notification("rated your post", false, $owner, $_SESSION['username'], $this->conn);
+            $stmt = $this->conn->prepare(QUERIES['send_notification']);
+            $text = "rated your post";
+            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
+            $stmt->execute();
         }
     }
 
@@ -191,7 +197,10 @@ class DBConnection
     {
         new Comment($text, $postId, $_SESSION['username'], $this->conn);
         if ($owner != $_SESSION['username']) {
-            new Notification("commented on your post", false, $owner, $_SESSION['username'], $this->conn);
+            $stmt = $this->conn->prepare(QUERIES['send_notification']);
+            $text = "commented on your post";
+            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
+            $stmt->execute();
         }
     }
 
@@ -207,7 +216,10 @@ class DBConnection
         $stmt->bind_param("is", $postId, $_SESSION['username']);
         $stmt->execute();
         if ($owner != $_SESSION['username']) {
-            new Notification("liked your post", false, $owner, $_SESSION['username'], $this->conn);
+            $stmt = $this->conn->prepare(QUERIES['send_notification']);
+            $text = "liked your post";
+            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
+            $stmt->execute();
         }
     }
 
@@ -223,7 +235,10 @@ class DBConnection
         $comment = new Comment("", 0, $owner, $this->conn, $commentId);
         $comment->like();
         if ($owner != $_SESSION['username']) {
-            new Notification("liked your comment", false, $owner, $_SESSION['username'], $this->conn);
+            $stmt = $this->conn->prepare(QUERIES['send_notification']);
+            $text = "liked your comment";
+            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
+            $stmt->execute();
         }
     }
 
