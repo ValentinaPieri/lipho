@@ -14,7 +14,7 @@ let intervalIds = [];
 let url = new URL(window.location.href);
 let username = url.searchParams.get("username");
 let currentUsername = null;
-showProfile(username);
+showProfile();
 
 showPostsGridButton.onclick = function () {
   if (!gridActive) {
@@ -48,7 +48,7 @@ showPostsListButton.onclick = function () {
   }
 };
 
-function showProfile(username) {
+function showProfile() {
   $.post("./post_requests_handler.php", { getProfileData: true, username: username }, function (result) {
     currentUsername = result.currentUsername;
     if (username === null) {
