@@ -201,7 +201,7 @@ function getGridViewPostContainer(postId, owner, images) {
     fullScreenImageGrid(postId);
   };
 
-  if (owner !== currentUsername) {
+  if (owner === currentUsername) {
     let deleteButton = document.createElement("button");
     deleteButton.className = "post-button";
     deleteButton.id = "delete-button" + postId;
