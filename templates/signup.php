@@ -40,7 +40,7 @@
                         <label for="birthdate">birthday:</label>
                         <input title="birthdate" type="date" id="birthdate" name="birthdate" /><span class="fa-regular fa-calendar"></span>
                     </div>
-                    <input aria-label="button to submit" type="submit" id="signupButton" value="Sign Up">
+                    <input class='signup-button' title="signup button" aria-label="button to submit" type="submit" id="signupButton" value="Sign Up" />
                 </form>
             </div>
         </div>
