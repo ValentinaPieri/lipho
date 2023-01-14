@@ -8,7 +8,7 @@ function getMatchingUsers(username) {
         const searchResultsContainer = document.getElementById("search-results-container");
         searchResultsContainer.innerHTML = "";
 
-        if (users != "") {
+        if (users.length > 0) {
 
             const resultsCount = document.createElement("p");
             resultsCount.classList.add("results-count");
@@ -37,6 +37,16 @@ function getMatchingUsers(username) {
 
                 searchResultsContainer.appendChild(userContainer);
             });
+        } else {
+            let noMatchesDiv = document.createElement("div");
+            noMatchesDiv.className = "no-matches-found";
+            let noMatchesHeader = document.createElement("h2");
+            noMatchesHeader.textContent = "No matches found";
+            let noMatchesIcon = document.createElement("span");
+            noMatchesIcon.className = "fa-regular fa-face-frown-slight";
+            noMatchesDiv.appendChild(noMatchesHeader);
+            noMatchesDiv.appendChild(noMatchesIcon);
+            searchResultsContainer.appendChild(noMatchesDiv);
         }
     }, "json");
 }

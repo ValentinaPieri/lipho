@@ -9,8 +9,15 @@ function showNotifications() {
         let mainTag = document.getElementsByTagName("main")[0];
         mainTag.innerHTML = "";
         if (notifications.length == 0) {
-            document.createElement("h2").textContent = "No notifications";
-            document.createElement("span").className = "fa-regular fa-face-frown-slight";
+            let noNotificationsFoundDiv = document.createElement("div");
+            noNotificationsFoundDiv.className = "no-notifications-found";
+            let noNotificationsFoundHeader = document.createElement("h2");
+            noNotificationsFoundHeader.textContent = "No notifications";
+            let noNotificationsFoundIcon = document.createElement("span");
+            noNotificationsFoundIcon.className = "fa-regular fa-face-frown-slight";
+            noNotificationsFoundDiv.appendChild(noNotificationsFoundHeader);
+            noNotificationsFoundDiv.appendChild(noNotificationsFoundIcon);
+            mainTag.appendChild(noNotificationsFoundDiv);
         } else {
             let deleteAllNotificationsButton = document.createElement("button");
             deleteAllNotificationsButton.type = "button";

@@ -77,12 +77,12 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     if (liked) {
         likeButtonIcon.className = "fa-solid fa-heart";
         likeButton.addEventListener("click", function () {
-            unlikePost(postId);
+            unlikePost(postId, owner);
         });
     } else {
         likeButtonIcon.className = "fa-regular fa-heart";
         likeButton.addEventListener("click", function () {
-            likePost(postId);
+            likePost(postId, owner);
         });
     }
     let likesNumber = document.createElement("span");
@@ -347,20 +347,20 @@ function showSlideRight(postId) {
     displayPostImageNumber(postId, postsCurrentSlide[postId], slide.length)
 }
 
-function likePost(postId) {
-    $.post("./post_requests_handler.php", { postId: postId, owner: username, likePost: true })
+function likePost(postId, owner) {
+    $.post("./post_requests_handler.php", { postId: postId, owner: owner, likePost: true })
         .done(function () {
             let likeButton = document.getElementById("like-button" + postId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
             likeButtonIcon.className = "fa-solid fa-heart";
             likeButton.removeEventListener("click", likePost);
             likeButton.addEventListener("click", function () {
-                unlikePost(postId);
+                unlikePost(postId, owner);
             });
         });
 }
 
-function unlikePost(postId) {
+function unlikePost(postId, owner) {
     $.post("./post_requests_handler.php", { postId: postId, unlikePost: true })
         .done(function () {
             let likeButton = document.getElementById("like-button" + postId);
@@ -368,7 +368,7 @@ function unlikePost(postId) {
             likeButtonIcon.className = "fa-regular fa-heart";
             likeButton.removeEventListener("click", unlikePost);
             likeButton.addEventListener("click", function () {
-                likePost(postId);
+                likePost(postId, owner);
             });
         });
 }

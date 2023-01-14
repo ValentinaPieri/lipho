@@ -52,7 +52,7 @@ class DBConnection
         return $notifications;
     }
 
-    public function sendNotification($text, $receiver)
+    public function sendNotification($receiver, $text)
     {
         if ($receiver != $_SESSION['username']) {
             $stmt = $this->conn->prepare(QUERIES['send_notification']);
@@ -163,6 +163,7 @@ class DBConnection
                 $post['images'] = $this->getPostImages($row['post_id']);
                 $post['liked'] = isset($row['username']);
                 $post['rated'] = isset($row['rated']);
+                unset($post['username']);
 
                 array_push($posts, $post);
             }

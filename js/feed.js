@@ -7,7 +7,7 @@ function getFeedPosts(offset, limit) {
         let postDiv;
         const mainTag = document.querySelector("main");
         result.posts.forEach(post => {
-            postDiv = getPostContainer(post.post_id, post.username, post.caption, post.images, post.comments, post.liked, post.rated, result.currentUsername);
+            postDiv = getPostContainer(post.post_id, post.owner, post.caption, post.images, post.comments, post.liked, post.rated, result.currentUsername);
             mainTag.appendChild(postDiv);
             setInterval(function () {
                 $.post("./post_requests_handler.php", { getPostLikesNumber: true, post_id: post.post_id }, function (likesNumber) {
