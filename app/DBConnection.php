@@ -5,6 +5,7 @@ namespace app;
 require_once 'query.php';
 
 use mysqli;
+use DateTime;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
@@ -180,6 +181,93 @@ class DBConnection
         return $posts;
     }
 
+    public function getProfilePosts($username, $offset, $limit)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_posts']);
+        $stmt->bind_param('sssii', $_SESSION['username'], $_SESSION['username'], $username, $offset, $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $posts = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $post = $row;
+                $post['images'] = $this->getPostImages($row['post_id']);
+                $post['liked'] = isset($row['username']);
+                $post['rated'] = isset($row['rated']);
+
+                array_push($posts, $post);
+            }
+        }
+        return $posts;
+    }
+
+    public function getUserPostsNumber($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_posts_number']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['number'];
+        }
+        return 0;
+    }
+
+    public function getUserFollowersNumber($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_followers_number']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['number'];
+        }
+        return 0;
+    }
+
+    public function getUserFollowingNumber($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_following_number']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['number'];
+        }
+        return 0;
+    }
+
+    public function getUserPostFrequency($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_post_frequency']);
+        $date = new DateTime();
+        $date->modify('-1 month');
+        $date = $date->format('Y-m-d H:i:s');
+        $stmt->bind_param('ss', $username, $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['number'];
+        }
+        return 0;
+    }
+
+    public function getUserAverageRating($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_average_post_rating']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return array('average_exposure_rating' => isset($row['average_exposure_rating']) ? $row['average_exposure_rating'] : 0, 'average_colors_rating' => isset($row['average_colors_rating']) ? $row['average_colors_rating'] : 0, 'average_composition_rating' => isset($row['average_composition_rating']) ? $row['average_composition_rating'] : 0);
+        }
+    }
+
     public function getPostImages($postId)
     {
         $stmt = $this->conn->prepare(QUERIES['get_post_images']);
@@ -200,6 +288,13 @@ class DBConnection
         $stmt->bind_param("ss", $caption, $_SESSION['username']);
         $stmt->execute();
         $this->addPostImages($this->conn->insert_id, $images);
+    }
+
+    public function deletePost($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_post']);
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
     }
 
     private function addPostImages($postId, $images)
@@ -383,6 +478,34 @@ class DBConnection
             $stmt = $this->conn->prepare(QUERIES['add_user']);
             $stmt->bind_param('ssss', $username, $password, $name, $surname);
             $stmt->execute();
+        }
+    }
+
+    public function followUser($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['follow_user']);
+        $stmt->bind_param('ss', $_SESSION['username'], $username);
+        $stmt->execute();
+        $this->sendNotification($username, "started following you");
+    }
+
+    public function unfollowUser($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['unfollow_user']);
+        $stmt->bind_param('ss', $_SESSION['username'], $username);
+        $stmt->execute();
+    }
+
+    public function isFollowing($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['is_following']);
+        $stmt->bind_param('ss', $_SESSION['username'], $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
