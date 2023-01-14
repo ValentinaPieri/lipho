@@ -5,11 +5,13 @@ namespace app;
 require_once 'query.php';
 require_once 'models/Notification.php';
 require_once 'models/Post.php';
+require_once 'models/User.php';
 
 use mysqli;
 use app\models\Comment;
 use app\models\Notification;
 use app\models\Post;
+use app\models\User;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
@@ -229,5 +231,63 @@ class DBConnection
     {
         $comment = new Comment("", 0, $username, $this->conn, $commentId);
         $comment->unlike();
+    }
+
+    public function getUserData()
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user']);
+        $stmt->bind_param('s', $_SESSION['username']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $user = new User($row['username'], $row['password'], $row['name'], $row['surname'], $this->conn, $row['email'], $row['phone'], $row['birthdate'], base64_encode($row['profile_image']));
+            return $user;
+        }
+    }
+
+    public function updateUserData($username, $password, $name, $surname, $email, $phone, $birthdate, $profileImage)
+    {
+        if ($profileImage != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_profile_image']);
+            $stmt->bind_param('bs', $profileImage, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($username != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_username']);
+            $stmt->bind_param('ss', $username, $_SESSION['username']);
+            $stmt->execute();
+            $_SESSION['username'] = $username;
+        }
+        if ($password != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_password']);
+            $stmt->bind_param('ss', $password, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($name != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_name']);
+            $stmt->bind_param('ss', $name, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($surname != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_surname']);
+            $stmt->bind_param('ss', $surname, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($email != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_email']);
+            $stmt->bind_param('ss', $email, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($phone != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_phone']);
+            $stmt->bind_param('ss', $phone, $_SESSION['username']);
+            $stmt->execute();
+        }
+        if ($birthdate != null) {
+            $stmt = $this->conn->prepare(QUERIES['update_user_birthdate']);
+            $stmt->bind_param('ss', $birthdate, $_SESSION['username']);
+            $stmt->execute();
+        }
     }
 }

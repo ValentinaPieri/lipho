@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+session_start();
 
 require_once 'app/DBConnection.php';
 require_once 'app/models/User.php';
@@ -138,4 +140,42 @@ if (isset($_POST['getNotifications'])) {
     $dbconnection = new DBConnection();
     $notifications = $dbconnection->getNotifications();
     echo json_encode($notifications);
+}
+
+if (isset($_POST['getUserData'])) {
+    $dbconnection = new DBConnection();
+    $user = $dbconnection->getUserData();
+    echo json_encode($user);
+}
+
+if (isset($_POST['editProfile'])) {
+    $dbconnection = new DBConnection();
+    $result["usernameValid"] = !isset($_POST['username']) || $_POST['username'] != "" && ($dbconnection->checkUsername($_POST['username']) || $_POST['username'] == $_SESSION['username']);
+    $result["passwordValid"] = !isset($_POST['password']) || preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/", $_POST['password']) == 1;
+    $result["nameValid"] = !isset($_POST['name']) || $_POST['name'] != "";
+    $result["surnameValid"] = !isset($_POST['surname']) || $_POST['surname'] != "";
+    $result["emailValid"] = !isset($_POST['email']) || $_POST['email'] == "" && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $result["phoneValid"] = !isset($_POST['phone']) || $_POST['phone'] == "" || preg_match("/(\+98|0|98|0098)?([ ]|-|[()]){0,2}9[0-9]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/", $_POST['phone']) == 1;
+
+    if ($result["usernameValid"] && $result["passwordValid"] && $result["nameValid"] && $result["surnameValid"] && $result["emailValid"] && $result["phoneValid"]) {
+        if (isset($_POST['password'])) {
+            $options = [
+                'cost' => 12,
+            ];
+            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
+        } else {
+            $password = null;
+        }
+
+        $username = isset($_POST['username']) ? $_POST['username'] : null;
+        $name = isset($_POST['name']) ? $_POST['name'] : null;
+        $surname = isset($_POST['surname']) ? $_POST['surname'] : null;
+        $email = isset($_POST['email']) ? $_POST['email'] : null;
+        $phone = isset($_POST['phone']) ? $_POST['phone'] : null;
+        $birthdate = isset($_POST['birthdate']) ? $_POST['birthdate'] : null;
+        $profileImage = isset($_POST['profileImage']) ? $_POST['profileImage'] : null;
+
+        $dbconnection->updateUserData($username, $password, $name, $surname, $email, $phone, $birthdate, $profileImage);
+    }
+    echo json_encode($result);
 }
