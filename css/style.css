@@ -255,6 +255,12 @@
   text-align: center;
   width: 100%;
 }
+.navbar .notifications-badge:not(:empty) {
+  font-size: 0.8rem;
+  border-radius: 1rem;
+  padding: 0.3rem;
+  border: 2px solid #040F0F;
+}
 .navbar a {
   width: 100%;
   padding: 0.5vh 0;
@@ -356,6 +362,92 @@ header {
     width: 5vmin;
   }
 }
+main > .delete-all-notifications {
+  float: right;
+  margin: 0 1rem;
+  background: #FFFCF2;
+  border: none;
+  margin-top: 0.7rem;
+}
+main > .delete-all-notifications span {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.today-notifications, .yesterday-notifications, .earlier-notifications {
+  margin: 0 0.7rem;
+  padding-top: 1rem;
+  padding-bottom: 1.3rem;
+}
+.today-notifications:not(:last-child), .yesterday-notifications:not(:last-child), .earlier-notifications:not(:last-child) {
+  border-bottom: 2px solid #040F0F;
+}
+.today-notifications h2, .yesterday-notifications h2, .earlier-notifications h2 {
+  width: 100%;
+  font-size: 2rem;
+}
+.today-notifications .notification, .yesterday-notifications .notification, .earlier-notifications .notification {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.today-notifications .notification img, .yesterday-notifications .notification img, .earlier-notifications .notification img {
+  width: 10vmin;
+  border-radius: 50%;
+  margin: 3vmin 5vmin 3vmin 3vmin;
+}
+.today-notifications .notification .notification-info, .yesterday-notifications .notification .notification-info, .earlier-notifications .notification .notification-info {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  width: 100%;
+}
+.today-notifications .notification .notification-info a, .yesterday-notifications .notification .notification-info a, .earlier-notifications .notification .notification-info a {
+  color: #0F571F;
+  font-weight: bold;
+}
+.today-notifications .notification .notification-info a:hover, .yesterday-notifications .notification .notification-info a:hover, .earlier-notifications .notification .notification-info a:hover {
+  color: #A4E378;
+}
+.today-notifications .notification .notification-info p, .yesterday-notifications .notification .notification-info p, .earlier-notifications .notification .notification-info p {
+  margin: 0 0.5rem;
+}
+.today-notifications .notification button, .yesterday-notifications .notification button, .earlier-notifications .notification button {
+  margin: 0 0.5rem;
+  background: #FFFCF2;
+  border: none;
+}
+.today-notifications .notification button span, .yesterday-notifications .notification button span, .earlier-notifications .notification button span {
+  font-size: 1rem;
+  width: 100%;
+}
+
+@media screen and (width >= 768px) {
+  .today-notifications > img, .yesterday-notifications > img, .earlier-notifications > img {
+    width: 5vmin;
+  }
+  .today-notifications .notification > button span, .yesterday-notifications .notification > button span, .earlier-notifications .notification > button span {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  main > .delete-all-notifications > span {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}
+.no-matches-found, .no-notifications-found {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.no-matches-found > *, .no-notifications-found > * {
+  margin: 0.4rem;
+}
+.no-matches-found span, .no-notifications-found span {
+  font-size: 1.2rem;
+}
+
 * {
   margin: 0;
   padding: 0;

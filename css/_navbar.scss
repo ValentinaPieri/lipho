@@ -8,6 +8,12 @@
     justify-content: space-around;
     text-align: center;
     width: 100%;
+    .notifications-badge:not(:empty){
+        font-size: 0.8rem;
+        border-radius: 1rem;
+        padding: 0.3rem;
+        border: $border-navbar;
+    }
     a {
         width: 100%;
         padding: 0.5vh 0;
