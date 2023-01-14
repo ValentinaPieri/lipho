@@ -558,6 +558,182 @@ main > .delete-all-notifications span {
     height: 100vh;
   }
 }
+.edit-profile-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.edit-profile-image button {
+  padding: 0.2rem;
+  background: #FFFCF2;
+  cursor: pointer;
+}
+.edit-profile-image img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
+}
+.edit-profile-image .save-button {
+  width: 100%;
+  text-align: right;
+}
+.edit-profile-image .save-button button {
+  margin: 1rem 0.6rem 0.4rem 0;
+  border: none;
+}
+.edit-profile-image .image-settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit-profile-image .image-settings p {
+  margin-left: 1.2rem;
+  margin-top: 3rem;
+  font-size: 0.7rem;
+}
+.edit-profile-image .image-settings label {
+  margin-right: 1.2rem;
+  font-size: 1rem;
+}
+.edit-profile-image .image-settings span {
+  position: absolute;
+  margin-left: 2rem;
+}
+.edit-profile-image .form-settings {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.edit-profile-image .form-settings .input-field {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0.4rem 0;
+}
+.edit-profile-image .form-settings .input-field input {
+  max-width: 100%;
+}
+.edit-profile-image .form-settings .input-field.logout-delete {
+  display: flex;
+  justify-content: flex-start;
+}
+.edit-profile-image .form-settings .input-field.logout-delete span {
+  margin-left: 1.2rem;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+}
+.edit-profile-image .form-settings .input-field.logout-delete .delete-account {
+  border: solid 2px #70161E;
+  color: #70161E;
+}
+
+.create-post-form {
+  margin: 0 5vw;
+  padding-bottom: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.create-post-form #images-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.create-post-form #images-form .top-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.create-post-form #images-form .top-form > * {
+  margin: 0.2rem 0;
+}
+.create-post-form #images-form .image-form-div {
+  width: 100%;
+  margin-bottom: 0.2rem;
+}
+.create-post-form #images-form .image-form-div .image-div {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 150vw;
+  background: #040F0F;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.create-post-form #images-form .image-form-div .image-div img {
+  -o-object-fit: contain;
+     object-fit: contain; /* Scale the image to cover the entire div */
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+}
+.create-post-form #images-form .image-form-div .input-buttons-div {
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.create-post-form #images-form .image-form-div .input-buttons-div > * {
+  margin: 0.2rem 0;
+}
+.create-post-form #images-form .image-form-div .input-buttons-div input {
+  max-width: 80%;
+  cursor: pointer;
+  border: 2px solid #040F0F;
+  border-radius: 0.2rem;
+  background: #FFFCF2;
+  color: #040F0F;
+}
+.create-post-form #caption-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.create-post-form #caption-form > * {
+  margin: 0.2rem 0;
+}
+.create-post-form #caption-form textarea {
+  width: 100%;
+  height: 5rem;
+  resize: none;
+}
+.create-post-form button {
+  background: #FFFCF2;
+  border: none;
+  cursor: pointer;
+}
+.create-post-form .btn {
+  font-weight: bold;
+}
+
+@media screen and (width >= 425px) {
+  .create-post-form {
+    margin: 0 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .create-post-form #images-form .image-form-div .image-div {
+    margin: auto;
+    width: 25rem !important;
+    height: 37.5rem !important;
+  }
+  .create-post-form #caption-form textarea {
+    max-width: 60%;
+    height: 5rem;
+  }
+}
 * {
   margin: 0;
   padding: 0;

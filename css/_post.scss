@@ -202,9 +202,6 @@
     }
 }
 
-$width-post-dekstop: 25rem;
-$height-post-dekstop: calc($width-post-dekstop + ($width-post-dekstop / 2));
-
 @media (width >= $media-query-post-value) {
     .post{
         width: $width-post-dekstop;
