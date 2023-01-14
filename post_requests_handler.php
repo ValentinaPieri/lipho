@@ -3,10 +3,8 @@ ini_set('display_errors', 1);
 session_start();
 
 require_once 'app/DBConnection.php';
-require_once 'app/models/User.php';
 
 use app\DBConnection;
-use app\models\User;
 use app\models\Post;
 
 if (isset($_POST['deleteNotification'])) {
@@ -25,12 +23,14 @@ if (isset($_POST['signup'])) {
     $result["nameNotEmpty"] = $_POST['name'] != "";
     $result["surnameNotEmpty"] = $_POST['surname'] != "";
     $result["emailValid"] = $_POST['email'] == "" || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+
     if ($result["usernameValid"] && $result["passwordsMatching"] && $result["passwordValid"] && $result["nameNotEmpty"] && $result["surnameNotEmpty"] && $result["phoneValid"] && $result["emailValid"]) {
         $options = [
             'cost' => 12,
         ];
         $hashed_password = password_hash($_POST['password2'], PASSWORD_BCRYPT, $options);
-        $user = new User($_POST['username'], $hashed_password, $_POST['name'], $_POST['surname'], $dbconnection->getConnection(), $_POST['email'], $_POST['phone'], $_POST['birthdate'], true);
+
+        $dbconnection->addUser($_POST['username'], $hashed_password, $_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['birthdate']);
         $dbconnection->setUserLoggedIn($_POST['username']);
     }
     echo json_encode($result);
@@ -144,7 +144,7 @@ if (isset($_POST['getNotifications'])) {
 
 if (isset($_POST['getUserData'])) {
     $dbconnection = new DBConnection();
-    $user = $dbconnection->getUserData();
+    $user = $dbconnection->getUserData($_SESSION['username']);
     echo json_encode($user);
 }
 

@@ -4,11 +4,9 @@ namespace app;
 
 require_once 'query.php';
 require_once 'models/Post.php';
-require_once 'models/User.php';
 
 use mysqli;
 use app\models\Post;
-use app\models\User;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
@@ -55,7 +53,8 @@ class DBConnection
         return $notifications;
     }
 
-    public function sendNotification($text, $receiver) {
+    public function sendNotification($text, $receiver)
+    {
         if ($receiver != $_SESSION['username']) {
             $stmt = $this->conn->prepare(QUERIES['send_notification']);
             $stmt->bind_param('sss', $text, $receiver, $_SESSION['username']);
@@ -154,7 +153,7 @@ class DBConnection
         $posts = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $post = new Post($username = $row['owner'], $caption = $row['caption'], $conn = $this->conn, $images = array(), $post_id = $row['post_id'], $timestamp = $row['timestamp'], $avg_exposure_rating = $row['average_exposure_rating'], $avg_colors_rating = $row['average_colors_rating'], $avg_composition_rating = $row['average_composition_rating']);
+                $post = new Post($username = $row['owner'], $caption = $row['caption'], $this->conn = $this->conn, $images = array(), $post_id = $row['post_id'], $timestamp = $row['timestamp'], $avg_exposure_rating = $row['average_exposure_rating'], $avg_colors_rating = $row['average_colors_rating'], $avg_composition_rating = $row['average_composition_rating']);
 
                 array_push($posts, array("post" => $post, "liked" => isset($row['username']), "rated" => isset($row['rated'])));
             }
@@ -237,15 +236,14 @@ class DBConnection
         $stmt->execute();
     }
 
-    public function getUserData()
+    public function getUserData($username)
     {
         $stmt = $this->conn->prepare(QUERIES['get_user']);
-        $stmt->bind_param('s', $_SESSION['username']);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $user = new User($row['username'], $row['password'], $row['name'], $row['surname'], $this->conn, $row['email'], $row['phone'], $row['birthdate'], base64_encode($row['profile_image']));
+            $user = $result->fetch_assoc();
             return $user;
         }
     }
@@ -291,6 +289,43 @@ class DBConnection
         if ($birthdate != null) {
             $stmt = $this->conn->prepare(QUERIES['update_user_birthdate']);
             $stmt->bind_param('ss', $birthdate, $_SESSION['username']);
+            $stmt->execute();
+        }
+    }
+
+    public function addUser($username, $password, $name, $surname, $email, $phone, $birthdate)
+    {
+        if ($email != "" && $phone != "" && $birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email_phone_birthdate']);
+            $stmt->bind_param('sssssss', $username, $password, $name, $surname, $email, $phone, $birthdate);
+            $stmt->execute();
+        } else if ($email != "" && $phone != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email_phone']);
+            $stmt->bind_param('ssssss', $username, $password, $name, $surname, $email, $phone);
+            $stmt->execute();
+        } else if ($email != "" && $birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email_birthdate']);
+            $stmt->bind_param('ssssss', $username, $password, $name, $surname, $email, $birthdate);
+            $stmt->execute();
+        } else if ($phone != "" && $birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_phone_birthdate']);
+            $stmt->bind_param('ssssss', $username, $password, $name, $surname, $phone, $birthdate);
+            $stmt->execute();
+        } else if ($email != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_email']);
+            $stmt->bind_param('sssss', $username, $password, $name, $surname, $email);
+            $stmt->execute();
+        } else if ($phone != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_phone']);
+            $stmt->bind_param('sssss', $username, $password, $name, $surname, $phone);
+            $stmt->execute();
+        } else if ($birthdate != "") {
+            $stmt = $this->conn->prepare(QUERIES['add_user_birthdate']);
+            $stmt->bind_param('sssss', $username, $password, $name, $surname, $birthdate);
+            $stmt->execute();
+        } else {
+            $stmt = $this->conn->prepare(QUERIES['add_user']);
+            $stmt->bind_param('ssss', $username, $password, $name, $surname);
             $stmt->execute();
         }
     }
