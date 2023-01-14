@@ -1,5 +1,9 @@
-setInterval(function () {
-    $.post("/lipho/post_requests_handler.php", { getNotSeenNotificationsNumber: true }, function (notSeenNotificationsNumber) {
+getNotSeenNotificationsNumber();
+
+setInterval(getNotSeenNotificationsNumber, 1000);
+
+function getNotSeenNotificationsNumber() {
+    $.post("./post_requests_handler.php", { getNotSeenNotificationsNumber: true }, function (notSeenNotificationsNumber) {
         var notificationsBadgeSpan = document.getElementById("notifications-badge");
         if (notSeenNotificationsNumber > 0) {
             notificationsBadgeSpan.innerText = notSeenNotificationsNumber;
@@ -7,4 +11,4 @@ setInterval(function () {
             notificationsBadgeSpan.innerText = "";
         }
     }, "json");
-}, 1000);
+}

@@ -10,9 +10,10 @@ form.addEventListener("submit", function (e) {
 function submitForm(username, password1, password2, name, surname, email, phone, birthdate) {
     const inputs = [...document.getElementsByTagName("input")];
     inputs.forEach(input => {
-        input.style.borderColor = "black";
+        input.classList.remove("insert-error-input");
+        input.classList.remove("invalid-input");
     });
-    $.post("/lipho/post_requests_handler.php", { signup: true, username: username, password1: password1, password2: password2, name: name, surname: surname, email: email, phone: phone, birthdate: birthdate }, function (result) {
+    $.post("./post_requests_handler.php", { signup: true, username: username, password1: password1, password2: password2, name: name, surname: surname, email: email, phone: phone, birthdate: birthdate }, function (result) {
         if (username === "") {
             showInsertError("username");
         } else if (result.usernameValid === false) {
@@ -47,7 +48,7 @@ function submitForm(username, password1, password2, name, surname, email, phone,
 }
 
 function showInsertError($value) {
-    document.getElementById($value).style.borderColor = "red";
+    document.getElementById($value).classList.add("insert-error-input");
     if ($value === "password2") {
         document.getElementById($value).placeholder = "Please insert password again";
     } else if ($value === "password1") {
@@ -58,7 +59,7 @@ function showInsertError($value) {
 }
 
 function showInvalidError($value) {
-    document.getElementById($value).style.borderColor = "red";
+    document.getElementById($value).classList.add("invalid-input");
     document.getElementById($value).value = "";
     if ($value !== "password2" && $value !== "username") {
         document.getElementById($value).placeholder = "Insert a valid " + $value;

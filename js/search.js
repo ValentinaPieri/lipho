@@ -1,10 +1,14 @@
-function getMatchingUsers(username) {
-    $.post("/lipho/post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
-        console.log(users);
-        if (users != "") {
+let searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", function () {
+    getMatchingUsers(searchInput.value);
+});
 
-            const searchResultsContainer = document.getElementById("search-results-container");
-            searchResultsContainer.innerHTML = "";
+function getMatchingUsers(username) {
+    $.post("./post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
+        const searchResultsContainer = document.getElementById("search-results-container");
+        searchResultsContainer.innerHTML = "";
+
+        if (users.length > 0) {
 
             const resultsCount = document.createElement("p");
             resultsCount.classList.add("results-count");
@@ -17,7 +21,7 @@ function getMatchingUsers(username) {
 
                 const userImage = document.createElement("img");
                 userImage.classList.add("user-image");
-                if (user.profile_image != "") {
+                if (user.profile_image != null) {
                     userImage.src = "data:image/jpeg;base64," + user.profile_image;
                 } else {
                     userImage.src = "resources/images/blank_profile_picture.jpeg";
@@ -33,6 +37,16 @@ function getMatchingUsers(username) {
 
                 searchResultsContainer.appendChild(userContainer);
             });
+        } else {
+            let noMatchesDiv = document.createElement("div");
+            noMatchesDiv.className = "no-matches-found";
+            let noMatchesHeader = document.createElement("h2");
+            noMatchesHeader.textContent = "No matches found";
+            let noMatchesIcon = document.createElement("span");
+            noMatchesIcon.className = "fa-regular fa-face-frown-slight";
+            noMatchesDiv.appendChild(noMatchesHeader);
+            noMatchesDiv.appendChild(noMatchesIcon);
+            searchResultsContainer.appendChild(noMatchesDiv);
         }
     }, "json");
 }
