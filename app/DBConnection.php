@@ -40,7 +40,7 @@ class DBConnection
             while ($row = $result->fetch_assoc()) {
                 $notification['notification_id'] = $row['notification_id'];
                 $notification['text'] = $row['text'];
-                $notification['seen'] = $row['seen'];
+                $notification['seen'] = $row['seen'] == 1;
                 $notification['receiver'] = $row['receiver'];
                 $notification['sender'] = $row['sender'];
                 $notification['timestamp'] = $row['timestamp'];
@@ -49,6 +49,8 @@ class DBConnection
                 array_push($notifications, $notification);
             }
         }
+
+        $this->setNotificationsSeen();
         return $notifications;
     }
 
@@ -112,6 +114,13 @@ class DBConnection
             $row = $result->fetch_assoc();
             return $row['number'];
         }
+    }
+
+    public function setNotificationsSeen()
+    {
+        $stmt = $this->conn->prepare(QUERIES['set_notifications_seen']);
+        $stmt->bind_param('s', $_SESSION['username']);
+        $stmt->execute();
     }
 
     public function setUserLoggedIn($username)

@@ -121,7 +121,7 @@ if (isset($_POST['login'])) {
 }
 
 if (isset($_POST['logout'])) {
-    $dbconnection->setUserLoggedOut($_SESSION['username']);
+    $dbconnection->setUserLoggedOut();
 }
 
 if (isset($_POST['deleteUser'])) {

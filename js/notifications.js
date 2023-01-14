@@ -2,7 +2,7 @@ showNotifications();
 
 setInterval(function () {
     showNotifications();
-}, 1000);
+}, 500);
 
 function showNotifications() {
     $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
@@ -25,6 +25,7 @@ function showNotifications() {
             let trashIcon = document.createElement("span");
             trashIcon.className = "fa-regular fa-trash-can-list";
             deleteAllNotificationsButton.appendChild(trashIcon);
+            mainTag.appendChild(deleteAllNotificationsButton);
         }
 
 
@@ -42,6 +43,7 @@ function showNotifications() {
                 notificationsDiv.id = "today-notifications";
                 let todayNotificationsHeader = document.createElement("h2");
                 todayNotificationsHeader.textContent = "Today";
+                notificationsDiv.appendChild(todayNotificationsHeader);
                 todayShown = true;
             } else if (!yesterdayShown && isYesterday(new Date(notification.timestamp))) {
                 notificationsDiv = document.createElement("div");
@@ -49,6 +51,7 @@ function showNotifications() {
                 notificationsDiv.id = "yesterday-notifications";
                 let yesterdayNotificationsHeader = document.createElement("h2");
                 yesterdayNotificationsHeader.textContent = "Yesterday";
+                notificationsDiv.appendChild(yesterdayNotificationsHeader);
                 yesterdayShown = true;
             } else if (!earlierShown && isEarlier(new Date(notification.timestamp))) {
                 notificationsDiv = document.createElement("div");
@@ -56,6 +59,7 @@ function showNotifications() {
                 notificationsDiv.id = "earlier-notifications";
                 let earlierNotificationsHeader = document.createElement("h2");
                 earlierNotificationsHeader.textContent = "Earlier";
+                notificationsDiv.appendChild(earlierNotificationsHeader);
                 earlierShown = true;
             }
 
@@ -68,10 +72,16 @@ function showNotifications() {
 function getNotificationContainer(notification, profileImage) {
     let notificationDiv = document.createElement("div");
     notificationDiv.className = "notification";
+    if (notification.seen) {
+        notificationDiv.classList.add("notification-seen");
+    }
     notificationDiv.id = "notification-" + notification.id;
 
     let notificationProfileImage = document.createElement("img");
     notificationProfileImage.src = "data:image/jpeg;base64," + profileImage;
+
+    let notificationInfoDiv = document.createElement("div");
+    notificationInfoDiv.className = "notification-info";
 
     let notificationProfileLink = document.createElement("a");
     notificationProfileLink.href = "profile.php?user=" + notification.sender;
@@ -91,9 +101,10 @@ function getNotificationContainer(notification, profileImage) {
     notificationDeleteButton.appendChild(notificationDeleteIcon);
 
     notificationDiv.appendChild(notificationProfileImage);
-    notificationDiv.appendChild(notificationProfileLink);
-    notificationDiv.appendChild(notificationText);
-    notificationDiv.appendChild(notificationDeleteButton);
+    notificationInfoDiv.appendChild(notificationProfileLink);
+    notificationInfoDiv.appendChild(notificationText);
+    notificationInfoDiv.appendChild(notificationDeleteButton);
+    notificationDiv.appendChild(notificationInfoDiv);
 
     return notificationDiv;
 }
@@ -124,15 +135,9 @@ function isEarlier(date) {
 }
 
 function deleteNotification(notificationId) {
-    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId })
-        .done(function (result) {
-            location.reload();
-        });
+    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId });
 }
 
 function deleteAllNotifications() {
-    $.post("./post_requests_handler.php", { deleteAllNotifications: true })
-        .done(function (result) {
-            location.reload();
-        });
+    $.post("./post_requests_handler.php", { deleteAllNotifications: true });
 }
