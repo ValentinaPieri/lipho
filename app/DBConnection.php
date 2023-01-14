@@ -55,6 +55,14 @@ class DBConnection
         return $notifications;
     }
 
+    public function sendNotification($text, $receiver) {
+        if ($receiver != $_SESSION['username']) {
+            $stmt = $this->conn->prepare(QUERIES['send_notification']);
+            $stmt->bind_param('sss', $text, $receiver, $_SESSION['username']);
+            $stmt->execute();
+        }
+    }
+
     public function deleteNotification($notificationId)
     {
         $stmt = $this->conn->prepare(QUERIES['delete_notification']);
@@ -181,12 +189,7 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['rate_post']);
         $stmt->bind_param("isiii", $postId, $_SESSION['username'], $exposure, $colors, $composition);
         $stmt->execute();
-        if ($owner != $_SESSION['username']) {
-            $stmt = $this->conn->prepare(QUERIES['send_notification']);
-            $text = "rated your post";
-            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
-            $stmt->execute();
-        }
+        $this->sendNotification($owner, "rated your post");
     }
 
     public function commentPost($postId, $owner, $text)
@@ -194,12 +197,7 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['comment_post']);
         $stmt->bind_param("iss", $postId, $text, $_SESSION['username']);
         $stmt->execute();
-        if ($owner != $_SESSION['username']) {
-            $stmt = $this->conn->prepare(QUERIES['send_notification']);
-            $text = "commented on your post";
-            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
-            $stmt->execute();
-        }
+        $this->sendNotification($owner, "commented on your post");
     }
 
     public function uncommentPost($commentId)
@@ -214,12 +212,7 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['like_post']);
         $stmt->bind_param("is", $postId, $_SESSION['username']);
         $stmt->execute();
-        if ($owner != $_SESSION['username']) {
-            $stmt = $this->conn->prepare(QUERIES['send_notification']);
-            $text = "liked your post";
-            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
-            $stmt->execute();
-        }
+        $this->sendNotification($owner, "liked your post");
     }
 
     public function unlikePost($postId)
@@ -234,12 +227,7 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['like_comment']);
         $stmt->bind_param("is", $commentId, $_SESSION['username']);
         $stmt->execute();
-        if ($owner != $_SESSION['username']) {
-            $stmt = $this->conn->prepare(QUERIES['send_notification']);
-            $text = "liked your comment";
-            $stmt->bind_param('sss', $text, $owner, $_SESSION['username']);
-            $stmt->execute();
-        }
+        $this->sendNotification($owner, "liked your comment");
     }
 
     public function unlikeComment($commentId)
