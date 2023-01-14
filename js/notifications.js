@@ -80,6 +80,9 @@ function getNotificationContainer(notification, profileImage) {
     let notificationProfileImage = document.createElement("img");
     notificationProfileImage.src = "data:image/jpeg;base64," + profileImage;
 
+    let notificationInfoDiv = document.createElement("div");
+    notificationInfoDiv.className = "notification-info";
+
     let notificationProfileLink = document.createElement("a");
     notificationProfileLink.href = "profile.php?user=" + notification.sender;
     notificationProfileLink.textContent = notification.sender;
@@ -98,9 +101,10 @@ function getNotificationContainer(notification, profileImage) {
     notificationDeleteButton.appendChild(notificationDeleteIcon);
 
     notificationDiv.appendChild(notificationProfileImage);
-    notificationDiv.appendChild(notificationProfileLink);
-    notificationDiv.appendChild(notificationText);
-    notificationDiv.appendChild(notificationDeleteButton);
+    notificationInfoDiv.appendChild(notificationProfileLink);
+    notificationInfoDiv.appendChild(notificationText);
+    notificationInfoDiv.appendChild(notificationDeleteButton);
+    notificationDiv.appendChild(notificationInfoDiv);
 
     return notificationDiv;
 }
