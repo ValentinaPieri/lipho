@@ -21,6 +21,7 @@ function getMatchingUsers(username) {
 
                 const userImage = document.createElement("img");
                 userImage.classList.add("user-image");
+                userImage.alt = user.username + " profile picture";
                 if (user.profile_image != null) {
                     userImage.src = "data:image/jpeg;base64," + user.profile_image;
                 } else {
