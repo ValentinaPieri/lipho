@@ -41,9 +41,9 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         let leftArrowButtonIcon = document.createElement("span");
         leftArrowButtonIcon.className = "fa-regular fa-arrow-left";
         leftArrowButton.appendChild(leftArrowButtonIcon);
-        leftArrowButton.addEventListener("click", function () {
+        leftArrowButton.onclick = function () {
             showSlideLeft(postId);
-        });
+        };
         let rightArrowButton = document.createElement("button");
         rightArrowButton.className = "post-button arrow-button";
         rightArrowButton.id = "next-slide-button" + postId;
@@ -52,9 +52,9 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         rightArrowButtonIcon.className = "fa-regular fa-arrow-right";
         rightArrowButton.appendChild(rightArrowButtonIcon);
 
-        rightArrowButton.addEventListener("click", function () {
+        rightArrowButton.onclick = function () {
             showSlideRight(postId);
-        });
+        };
         arrowButtonsDiv.appendChild(leftArrowButton);
         arrowButtonsDiv.appendChild(rightArrowButton);
         postImagesDiv.appendChild(arrowButtonsDiv);
@@ -67,9 +67,9 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     let fullScreenButtonIcon = document.createElement("span");
     fullScreenButtonIcon.className = "fa-regular fa-expand";
     fullScreenButton.appendChild(fullScreenButtonIcon);
-    fullScreenButton.addEventListener("click", function () {
+    fullScreenButton.onclick = function () {
         fullScreenImage(postId);
-    });
+    };
 
     let buttonsDiv = document.createElement("div");
     buttonsDiv.className = "post-buttons-div";
@@ -80,14 +80,14 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     let likeButtonIcon = document.createElement("span");
     if (liked) {
         likeButtonIcon.className = "fa-solid fa-heart";
-        likeButton.addEventListener("click", function () {
+        likeButton.onclick = function () {
             unlikePost(postId, owner);
-        });
+        };
     } else {
         likeButtonIcon.className = "fa-regular fa-heart";
-        likeButton.addEventListener("click", function () {
+        likeButton.onclick = function () {
             likePost(postId, owner);
-        });
+        };
     }
     let likesNumber = document.createElement("span");
     likesNumber.className = "likes-number";
@@ -102,9 +102,9 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     let commentButtonIcon = document.createElement("span");
     commentButtonIcon.className = "fa-regular fa-comment-dots";
     commentButton.appendChild(commentButtonIcon);
-    commentButton.addEventListener("click", function () {
+    commentButton.onclick = function () {
         showCommentsDiv(postId);
-    });
+    };
     let ratingButton;
     if (!rated) {
         ratingButton = document.createElement("button");
@@ -114,9 +114,9 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         let ratingButtonIcon = document.createElement("span");
         ratingButtonIcon.className = "fa-regular fa-square-star";
         ratingButton.appendChild(ratingButtonIcon);
-        ratingButton.addEventListener("click", function () {
+        ratingButton.onclick = function () {
             showRatingDiv(postId)
-        });
+        };
     }
     postImagesDiv.appendChild(fullScreenButton);
     buttonsDiv.appendChild(likeButton);
@@ -146,9 +146,9 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     let submitCommentButtonIcon = document.createElement("span");
     submitCommentButtonIcon.className = "fa-regular fa-paper-plane-top";
     submitCommentButton.appendChild(submitCommentButtonIcon);
-    submitCommentButton.addEventListener("click", function () {
+    submitCommentButton.onclick = function () {
         commentPost(postId, owner, document.getElementById("post-comment-input" + postId).value);
-    });
+    };
     postInputCommentDiv.appendChild(commentInput);
     postInputCommentDiv.appendChild(submitCommentButton);
 
@@ -215,9 +215,9 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         submitRatingButton.id = "submit-rating-button" + postId;
         submitRatingButton.type = "button";
         submitRatingButton.textContent = "Rate";
-        submitRatingButton.addEventListener("click", function () {
+        submitRatingButton.onclick = function () {
             ratePost(postId, owner, parseInt(document.getElementById("exposure-rating" + postId).value), parseInt(document.getElementById("colors-rating" + postId).value), parseInt(document.getElementById("composition-rating" + postId).value));
-        });
+        };
         postRatingDiv.appendChild(exposureRatingDiv);
         postRatingDiv.appendChild(colorRatingDiv);
         postRatingDiv.appendChild(compositionRatingDiv);
@@ -280,14 +280,14 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         let likeCommentIcon = document.createElement("span");
         if (comments[i].liked) {
             likeCommentIcon.className = "fa-solid fa-heart";
-            likeCommentButton.addEventListener("click", function () {
+            likeCommentButton.onclick = function () {
                 unlikeComment(comments[i].comment_id, comments[i].username);
-            });
+            };
         } else {
             likeCommentIcon.className = "fa-regular fa-heart";
-            likeCommentButton.addEventListener("click", function () {
+            likeCommentButton.onclick = function () {
                 likeComment(comments[i].comment_id, comments[i].username);
-            });
+            };
         }
         likeCommentButton.appendChild(likeCommentIcon);
 
@@ -299,9 +299,9 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
             let deleteCommentIcon = document.createElement("span");
             deleteCommentIcon.className = "fa-regular fa-trash-can";
             deleteCommentButton.appendChild(deleteCommentIcon);
-            deleteCommentButton.addEventListener("click", function () {
+            deleteCommentButton.onclick = function () {
                 uncommentPost(comments[i].comment_id);
-            });
+            };
         }
 
         let replyButton = document.createElement("button");
@@ -309,9 +309,9 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         replyButton.id = "reply-button" + comments[i].comment_id;
         replyButton.type = "button";
         replyButton.textContent = "Reply";
-        replyButton.addEventListener("click", function () {
+        replyButton.onclick = function () {
             replyToComment(postId, comments[i].comment_id);
-        });
+        };
         commentDiv.appendChild(commentUsername);
         commentDiv.appendChild(commentText);
 
@@ -374,10 +374,9 @@ function likePost(postId, owner) {
             let likeButton = document.getElementById("like-button" + postId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
             likeButtonIcon.className = "fa-solid fa-heart";
-            likeButton.removeEventListener("click", likePost);
-            likeButton.addEventListener("click", function () {
+            likeButton.onclick = function () {
                 unlikePost(postId, owner);
-            });
+            };
         });
 }
 
@@ -387,10 +386,9 @@ function unlikePost(postId, owner) {
             let likeButton = document.getElementById("like-button" + postId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
             likeButtonIcon.className = "fa-regular fa-heart";
-            likeButton.removeEventListener("click", unlikePost);
-            likeButton.addEventListener("click", function () {
+            likeButton.onclick = function () {
                 likePost(postId, owner);
-            });
+            };
         });
 }
 
@@ -411,10 +409,9 @@ function likeComment(commentId, owner) {
             let likeButton = document.getElementById("like-comment-button" + commentId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
             likeButtonIcon.className = "fa-solid fa-heart";
-            likeButton.removeEventListener("click", likeComment);
-            likeButton.addEventListener("click", function () {
+            likeButton.onclick = function () {
                 unlikeComment(commentId, owner);
-            });
+            };
         });
 }
 
@@ -424,10 +421,9 @@ function unlikeComment(commentId, owner) {
             let likeButton = document.getElementById("like-comment-button" + commentId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
             likeButtonIcon.className = "fa-regular fa-heart";
-            likeButton.removeEventListener("click", unlikeComment);
-            likeButton.addEventListener("click", function () {
+            likeButton.onclick = function () {
                 likeComment(commentId, owner);
-            });
+            };
         });
 }
 

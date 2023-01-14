@@ -26,9 +26,9 @@ function getFeedPosts(offset, limit) {
     }, "json");
 }
 
-window.addEventListener("scroll", function () {
+window.onscroll = function () {
     if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
         offset += limit;
         getFeedPosts(offset, limit);
     }
-});
+};

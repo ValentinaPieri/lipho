@@ -1,7 +1,7 @@
 let searchInput = document.getElementById("search-input");
-searchInput.addEventListener("input", function () {
+searchInput.oninput = function () {
     getMatchingUsers(searchInput.value);
-});
+};
 
 function getMatchingUsers(username) {
     $.post("./post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {

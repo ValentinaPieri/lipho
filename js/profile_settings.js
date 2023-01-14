@@ -29,23 +29,12 @@ editProfileForm.onsubmit = function (e) {
     submitForm(args.username, args.password, args.name, args.surname, args.email, args.phone, args.birthdate);
 }
 
-changeProfileImage.onmouseover = function () {
-    changeProfileImage.style.opacity = "0.5";
-    let changeProfileImageIcon = document.createElement("span");
-    changeProfileImageIcon.className = "fa-regular fa-pencil change-profile-image-icon";
-    changeProfileImageIcon.id = "change-profile-image-icon";
-    editProfileForm.insertBefore(changeProfileImageIcon, changeProfileImage);
-}
+changeProfileImage.onmouseover = addChangeProfleImageIcon;
 
-changeProfileImage.onmouseout = function () {
-    changeProfileImage.style.opacity = "1";
-    let changeProfileImageIcon = document.getElementById("change-profile-image-icon");
-    if (changeProfileImageIcon != null) {
-        editProfileForm.removeChild(document.getElementById("change-profile-image-icon"));
-    }
-}
+changeProfileImage.onmouseout = removeChangeProfileImageIcon;
 
 changeProfileImage.onclick = function () {
+    removeChangeProfileImageIcon();
     let fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.id = "file-input";
@@ -95,7 +84,7 @@ function getUserData() {
     }, "json");
 }
 
-function submitForm(username, password, name, surname, email, phone, birthdate, profileImage) {
+function submitForm(username, password, name, surname, email, phone, birthdate) {
     editUsername.classList.remove("invalid-input");
     editPassword.classList.remove("invalid-input");
     editName.classList.remove("invalid-input");
@@ -159,4 +148,20 @@ function submitForm(username, password, name, surname, email, phone, birthdate, 
             editBirthdate.classList.add("invalid-input");
         }
     });
+}
+
+function addChangeProfleImageIcon() {
+    changeProfileImage.style.opacity = "0.5";
+    let changeProfileImageIcon = document.createElement("span");
+    changeProfileImageIcon.className = "fa-regular fa-pencil change-profile-image-icon";
+    changeProfileImageIcon.id = "change-profile-image-icon";
+    editProfileForm.insertBefore(changeProfileImageIcon, changeProfileImage);
+}
+
+function removeChangeProfileImageIcon() {
+    changeProfileImage.style.opacity = "1";
+    let changeProfileImageIcon = document.getElementById("change-profile-image-icon");
+    if (changeProfileImageIcon != null) {
+        editProfileForm.removeChild(document.getElementById("change-profile-image-icon"));
+    }
 }

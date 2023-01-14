@@ -295,7 +295,7 @@ function updateImageFormsCounter() {
 function showUploadedImage(index) {
     const imageInput = document.getElementById('image-input' + index + '');
     const imageElement = document.getElementById('image-element' + index + '');
-    imageInput.addEventListener('input', () => {
+    imageInput.oninput = function () {
         const file = imageInput.files[0];
         const reader = new FileReader();
         reader.onload = () => {
@@ -305,7 +305,7 @@ function showUploadedImage(index) {
         imageElement.hidden = false;
         imageElement.style.display = 'block';
         document.getElementsByClassName('image-div')[index].style.display = 'flex';
-    });
+    };
 }
 
 function updateUploadedImagesCounter(index) {
