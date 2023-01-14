@@ -308,7 +308,7 @@ class DBConnection
     {
         if ($profileImage != null) {
             $stmt = $this->conn->prepare(QUERIES['update_user_profile_image']);
-            $stmt->bind_param('bs', $profileImage, $_SESSION['username']);
+            $stmt->bind_param('ss', $profileImage, $_SESSION['username']);
             $stmt->execute();
         }
         if ($username != null) {
