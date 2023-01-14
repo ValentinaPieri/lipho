@@ -138,13 +138,14 @@ if (isset($_POST['getNotifications'])) {
 }
 
 if (isset($_POST['getProfileData'])) {
-    $profileData['user'] = $dbconnection->getUserData(($_POST['username'] != "") ? $_POST['username'] : $_SESSION['username']);
-    $profileData['numberPosts'] = $dbconnection->getUserPostsNumber($_POST['username']);
-    $profileData['numberFollowers'] = $dbconnection->getUserFollowersNumber($_POST['username']);
-    $profileData['numberFollowings'] = $dbconnection->getUserFollowingNumber($_POST['username']);
-    $profileData['postFrequency'] = $dbconnection->getUserPostFrequency($_POST['username']);
-    $profileData['averageRating'] = $dbconnection->getUserAverageRating($_POST['username']);
-    $profileData['isFollowing'] = $_SESSION['username'] != $_POST['username'] ? $dbconnection->isFollowing($_POST['username']) : false;
+    $username = ($_POST['username'] != "") ? $_POST['username'] : $_SESSION['username'];
+    $profileData['user'] = $dbconnection->getUserData($username);
+    $profileData['numberPosts'] = $dbconnection->getUserPostsNumber($username);
+    $profileData['numberFollowers'] = $dbconnection->getUserFollowersNumber($username);
+    $profileData['numberFollowings'] = $dbconnection->getUserFollowingNumber($username);
+    $profileData['postFrequency'] = $dbconnection->getUserPostFrequency($username);
+    $profileData['averageRating'] = $dbconnection->getUserAverageRating($username);
+    $profileData['isFollowing'] = $_SESSION['username'] != $username ? $dbconnection->isFollowing($_POST['username']) : false;
     echo json_encode(array("profileData" => $profileData, "currentUsername" => $_SESSION['username']));
 }
 
