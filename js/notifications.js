@@ -68,6 +68,9 @@ function showNotifications() {
 function getNotificationContainer(notification, profileImage) {
     let notificationDiv = document.createElement("div");
     notificationDiv.className = "notification";
+    if (notification.seen) {
+        notificationDiv.classList.add("notification-seen");
+    }
     notificationDiv.id = "notification-" + notification.id;
 
     let notificationProfileImage = document.createElement("img");
