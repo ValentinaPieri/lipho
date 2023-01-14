@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
     <header>
-        <h1><img src="resources/icons/foreground.png" alt="Lipho logo"> - <?php echo $templateParams["title"]; ?></h1>
+        <h1><img src="resources/icons/foreground.png" alt="Lipho logo">&nbsp;-&nbsp;<?php echo $templateParams["title"]; ?></h1>
     </header>
     <main>
         <?php

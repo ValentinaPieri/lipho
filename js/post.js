@@ -15,7 +15,6 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         indexDiv.className = "slide-index";
         indexDiv.id = "slide-index" + postId;
         let indexParagraph = document.createElement("p");
-        indexParagraph.className = "slide-index";
         indexParagraph.id = "index" + postId;
         indexParagraph.textContent = "1/" + images.length;
         indexDiv.appendChild(indexParagraph);
@@ -33,8 +32,10 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     }
 
     if (images.length > 1) {
+        let arrowButtonsDiv = document.createElement("div");
+        arrowButtonsDiv.className = "arrow-buttons-div";
         let leftArrowButton = document.createElement("button");
-        leftArrowButton.className = "post-button";
+        leftArrowButton.className = "post-button arrow-button";
         leftArrowButton.id = "previous-slide-button" + postId;
         leftArrowButton.type = "button";
         let leftArrowButtonIcon = document.createElement("span");
@@ -44,7 +45,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
             showSlideLeft(postId);
         };
         let rightArrowButton = document.createElement("button");
-        rightArrowButton.className = "post-button";
+        rightArrowButton.className = "post-button arrow-button";
         rightArrowButton.id = "next-slide-button" + postId;
         rightArrowButton.type = "button";
         let rightArrowButtonIcon = document.createElement("span");
@@ -54,12 +55,13 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         rightArrowButton.onclick = function () {
             showSlideRight(postId);
         };
-        postImagesDiv.appendChild(leftArrowButton);
-        postImagesDiv.appendChild(rightArrowButton);
+        arrowButtonsDiv.appendChild(leftArrowButton);
+        arrowButtonsDiv.appendChild(rightArrowButton);
+        postImagesDiv.appendChild(arrowButtonsDiv);
     }
 
     let fullScreenButton = document.createElement("button");
-    fullScreenButton.className = "post-button";
+    fullScreenButton.className = "post-button full-screen-button";
     fullScreenButton.id = "full-screen-button" + postId;
     fullScreenButton.type = "button";
     let fullScreenButtonIcon = document.createElement("span");
@@ -69,8 +71,10 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         fullScreenImage(postId);
     };
 
+    let buttonsDiv = document.createElement("div");
+    buttonsDiv.className = "post-buttons-div";
     let likeButton = document.createElement("button");
-    likeButton.className = "post-button";
+    likeButton.className = "post-button like-button";
     likeButton.id = "like-button" + postId;
     likeButton.type = "button";
     let likeButtonIcon = document.createElement("span");
@@ -92,7 +96,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     likeButton.appendChild(likeButtonIcon);
 
     let commentButton = document.createElement("button");
-    commentButton.className = "post-button";
+    commentButton.className = "post-button comment-button";
     commentButton.id = "comment-button" + postId;
     commentButton.type = "button";
     let commentButtonIcon = document.createElement("span");
@@ -104,7 +108,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     let ratingButton;
     if (!rated) {
         ratingButton = document.createElement("button");
-        ratingButton.className = "post-button";
+        ratingButton.className = "post-button rating-button";
         ratingButton.id = "rating-button" + postId;
         ratingButton.type = "button";
         let ratingButtonIcon = document.createElement("span");
@@ -115,16 +119,19 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         };
     }
     postImagesDiv.appendChild(fullScreenButton);
-    postImagesDiv.appendChild(likesNumber);
-    postImagesDiv.appendChild(likeButton);
-    postImagesDiv.appendChild(commentButton);
+    buttonsDiv.appendChild(likeButton);
+    buttonsDiv.appendChild(likesNumber);
+    buttonsDiv.appendChild(commentButton);
     if (!rated) {
-        postImagesDiv.appendChild(ratingButton);
+        buttonsDiv.appendChild(ratingButton);
     }
+    postImagesDiv.appendChild(buttonsDiv);
 
     let postInputCommentDiv = document.createElement("div");
     postInputCommentDiv.className = "post-input-comment-div";
     postInputCommentDiv.id = "post-input-comment-div" + postId;
+    postInputCommentDiv.hidden = true;
+    postInputCommentDiv.style.display = "none";
     let commentInput = document.createElement("input");
     commentInput.className = "post-comment-input";
     commentInput.id = "post-comment-input" + postId;
@@ -133,7 +140,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     commentInput.type = "text";
     commentInput.placeholder = "Type here your comment";
     let submitCommentButton = document.createElement("button");
-    submitCommentButton.className = "post-button";
+    submitCommentButton.className = "post-button submit-comment-button";
     submitCommentButton.id = "submit-comment-button" + postId;
     submitCommentButton.type = "button";
     let submitCommentButtonIcon = document.createElement("span");
@@ -158,6 +165,8 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         postRatingDiv = document.createElement("div");
         postRatingDiv.className = "post-rating";
         postRatingDiv.id = "post-rating" + postId;
+        let exposureRatingDiv = document.createElement("div");
+        exposureRatingDiv.className = "rating-div";
         let exposureLabel = document.createElement("label");
         exposureLabel.className = "rating-label";
         exposureLabel.htmlFor = "exposure-rating" + postId;
@@ -169,6 +178,10 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         exposureRating.min = 0;
         exposureRating.max = 5;
         exposureRating.value = 5;
+        exposureRatingDiv.appendChild(exposureLabel);
+        exposureRatingDiv.appendChild(exposureRating);
+        let colorRatingDiv = document.createElement("div");
+        colorRatingDiv.className = "rating-div";
         let colorLabel = document.createElement("label");
         colorLabel.className = "rating-label";
         colorLabel.htmlFor = "colors-rating" + postId;
@@ -180,6 +193,10 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         colorRating.min = 0;
         colorRating.max = 5;
         colorRating.value = 5;
+        colorRatingDiv.appendChild(colorLabel);
+        colorRatingDiv.appendChild(colorRating);
+        let compositionRatingDiv = document.createElement("div");
+        compositionRatingDiv.className = "rating-div";
         let compositionLabel = document.createElement("label");
         compositionLabel.className = "rating-label";
         compositionLabel.htmlFor = "composition-rating" + postId;
@@ -191,22 +208,22 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         compositionRating.min = 0;
         compositionRating.max = 5;
         compositionRating.value = 5;
+        compositionRatingDiv.appendChild(compositionLabel);
+        compositionRatingDiv.appendChild(compositionRating);
         let submitRatingButton = document.createElement("button");
-        submitRatingButton.className = "post-button";
+        submitRatingButton.className = "post-button submit-rating-button";
         submitRatingButton.id = "submit-rating-button" + postId;
         submitRatingButton.type = "button";
         submitRatingButton.textContent = "Rate";
         submitRatingButton.onclick = function () {
             ratePost(postId, owner, parseInt(document.getElementById("exposure-rating" + postId).value), parseInt(document.getElementById("colors-rating" + postId).value), parseInt(document.getElementById("composition-rating" + postId).value));
         };
-        postRatingDiv.appendChild(exposureLabel);
-        postRatingDiv.appendChild(exposureRating);
-        postRatingDiv.appendChild(colorLabel);
-        postRatingDiv.appendChild(colorRating);
-        postRatingDiv.appendChild(compositionLabel);
-        postRatingDiv.appendChild(compositionRating);
+        postRatingDiv.appendChild(exposureRatingDiv);
+        postRatingDiv.appendChild(colorRatingDiv);
+        postRatingDiv.appendChild(compositionRatingDiv);
         postRatingDiv.appendChild(submitRatingButton);
         postRatingDiv.hidden = true;
+        postRatingDiv.style.display = "none";
     }
 
     let postCaptionDiv = document.createElement("div");
@@ -254,8 +271,10 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         commentText.id = "post-comment-text" + comments[i].comment_id;
         commentText.innerHTML = comments[i].text;
 
+        let commentButtonsDiv = document.createElement("div");
+        commentButtonsDiv.className = "comment-buttons-div";
         let likeCommentButton = document.createElement("button");
-        likeCommentButton.className = "post-button";
+        likeCommentButton.className = "post-button like-comment-button";
         likeCommentButton.id = "like-comment-button" + comments[i].comment_id;
         likeCommentButton.type = "button";
         let likeCommentIcon = document.createElement("span");
@@ -274,7 +293,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
 
         let deleteCommentButton = document.createElement("button");
         if (currentUsername == comments[i].username) {
-            deleteCommentButton.className = "post-button";
+            deleteCommentButton.className = "post-button delete-comment-button";
             deleteCommentButton.id = "delete-comment-button" + comments[i].comment_id;
             deleteCommentButton.type = "button";
             let deleteCommentIcon = document.createElement("span");
@@ -286,7 +305,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         }
 
         let replyButton = document.createElement("button");
-        replyButton.className = "post-button";
+        replyButton.className = "post-button reply-button";
         replyButton.id = "reply-button" + comments[i].comment_id;
         replyButton.type = "button";
         replyButton.textContent = "Reply";
@@ -295,11 +314,13 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         };
         commentDiv.appendChild(commentUsername);
         commentDiv.appendChild(commentText);
+
         if (currentUsername == comments[i].username) {
-            commentDiv.appendChild(deleteCommentButton);
+            commentButtonsDiv.appendChild(deleteCommentButton);
         }
-        commentDiv.appendChild(likeCommentButton);
-        commentDiv.appendChild(replyButton);
+        commentButtonsDiv.appendChild(likeCommentButton);
+        commentButtonsDiv.appendChild(replyButton);
+        commentDiv.appendChild(commentButtonsDiv);
         postCommentsDiv.appendChild(commentDiv);
     }
 }
@@ -421,6 +442,8 @@ function showCommentsDiv(postId) {
     if (document.getElementById("post-comments" + postId).hidden == false && document.getElementById("post-input-comment-div" + postId).hidden == false) {
         document.getElementById("post-input-comment-div" + postId).hidden = true;
         document.getElementById("post-comments" + postId).hidden = true;
+        document.getElementById("post-input-comment-div" + postId).style.display = 'none';
+        document.getElementById("post-comments" + postId).style.display = 'none';
         let commentButton = document.getElementById("comment-button" + postId);
         let commentButtonIcon = commentButton.getElementsByTagName("span")[0];
         commentButtonIcon.className = "fa-regular fa-comment-dots";
@@ -429,6 +452,10 @@ function showCommentsDiv(postId) {
         let ratingDiv = document.getElementById("post-rating" + postId);
         document.getElementById("post-input-comment-div" + postId).hidden = false;
         document.getElementById("post-comments" + postId).hidden = false;
+        document.getElementById("post-input-comment-div" + postId).style.display = 'flex';
+        document.getElementById("post-comments" + postId).style.display = 'grid';
+        document.getElementById("post-rating" + postId).hidden = true;
+        document.getElementById("post-rating" + postId).style.display = 'none';
         if (ratingDiv != null) {
             ratingDiv.hidden = true;
             let ratingButton = document.getElementById("rating-button" + postId);
@@ -444,11 +471,15 @@ function showCommentsDiv(postId) {
 function showRatingDiv(postId) {
     if (document.getElementById("post-rating" + postId).hidden == false) {
         document.getElementById("post-rating" + postId).hidden = true;
+        document.getElementById("post-rating" + postId).style.display = 'none';
         let ratingButton = document.getElementById("rating-button" + postId);
         let ratingButtonIcon = ratingButton.getElementsByTagName("span")[0];
         ratingButtonIcon.className = "fa-regular fa-square-star";
     }
     else {
+        document.getElementById("post-input-comment-div" + postId).style.display = 'none';
+        document.getElementById("post-comments" + postId).style.display = 'none';
+        document.getElementById("post-rating" + postId).style.display = 'grid';
         document.getElementById("post-rating" + postId).hidden = false;
         document.getElementById("post-input-comment-div" + postId).hidden = true;
         document.getElementById("post-comments" + postId).hidden = true;
@@ -463,22 +494,22 @@ function showRatingDiv(postId) {
 
 function fullScreenImage(postId) {
     let postImagesDiv = document.getElementById("post-images" + postId);
-    let postSlides = postImagesDiv.getElementsByTagName("img");
+    let postSlides = postImagesDiv.getElementsByClassName("post-image-slide");
     for (let i = 0; i < postSlides.length; i++) {
-        if (!postSlides[i].getAttribute("hidden")) {
-            let imgAspectRatio = postSlides[i].naturalWidth / postSlides[i].naturalHeight;
-            let screenAspectRatio = window.innerWidth / window.innerHeight;
-            if (imgAspectRatio > screenAspectRatio) {
-                postSlides[i].style.width = "100vw";
-                postSlides[i].style.height = "auto";
-            } else {
-                postSlides[i].style.height = "100vh";
-                postSlides[i].style.width = "auto";
+        if (!postSlides[i].style.display == 'none' || !postSlides[i].hidden) {
+            if (postSlides[i].requestFullscreen) {
+                postSlides[i].requestFullscreen();
+            } else if (postSlides[i].mozRequestFullScreen) {
+                /* Firefox */
+                postSlides[i].mozRequestFullScreen();
+            } else if (postSlides[i].webkitRequestFullscreen) {
+                /* Chrome, Safari and Opera */
+                postSlides[i].webkitRequestFullscreen();
+            } else if (postSlides[i].msRequestFullscreen) {
+                /* IE/Edge */
+                postSlides[i].msRequestFullscreen();
             }
+            break;
         }
     }
-    let fullScreenButton = document.getElementById("full-screen-button" + postId);
-    let fullScreenButtonIcon = fullScreenButton.getElementsByTagName("span")[0];
-    fullScreenButtonIcon.className = "fa-regular fa-compress";
-
 }

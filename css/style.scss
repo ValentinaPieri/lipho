@@ -1,0 +1,18 @@
+@import 'variables';
+@import 'mixins';
+@import 'post';
+@import 'navbar';
+@import 'header';
+@import 'search';
+@import 'notification';
+@import 'not-found';
+@import 'signup';
+@import 'login';
+@import 'settings';
+@import 'create-post';
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}

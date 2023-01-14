@@ -8,6 +8,10 @@ checkAddButton();
 function displayImageForms() {
     const div = document.getElementById('images-form');
     for (let i = 0; i < 5; i++) {
+        let imageFormDiv = document.createElement('div');
+        imageFormDiv.className = 'image-form-div';
+        let inputButtonsDiv = document.createElement('div');
+        inputButtonsDiv.className = 'input-buttons-div';
         if (i == 0) {
             let imageInput = document.createElement('input');
             imageInput.title = 'Image input form ' + i;
@@ -22,7 +26,8 @@ function displayImageForms() {
             imageInput.onchange = function () {
                 updateUploadedImagesCounter(i);
             };
-            div.appendChild(imageInput);
+            imageFormDiv.appendChild(imageInput);
+            inputButtonsDiv.appendChild(imageInput);
         } else {
             let imageInput = document.createElement('input');
             imageInput.title = 'Image input form ' + i;
@@ -38,14 +43,21 @@ function displayImageForms() {
                 updateUploadedImagesCounter(i);
             };
             imageInput.hidden = true;
-            div.appendChild(imageInput);
+            imageFormDiv.appendChild(imageInput);
+            inputButtonsDiv.appendChild(imageInput);
         }
+        let imageDiv = document.createElement('div');
+        imageDiv.className = 'image-div';
         let imageElement = document.createElement('img');
         imageElement.src = 'resources/images/blankspace.jpg';
         imageElement.id = 'image-element' + i;
         imageElement.alt = 'Image ' + i;
         imageElement.hidden = true;
-        div.appendChild(imageElement);
+        imageElement.style.display = 'none';
+        imageFormDiv.appendChild(imageElement);
+        imageDiv.appendChild(imageElement);
+        imageDiv.style.display = 'none';
+
         let leftArrow = document.createElement('button');
         leftArrow.type = 'button';
         leftArrow.id = 'left-arrow' + i;
@@ -56,7 +68,8 @@ function displayImageForms() {
         let leftArrowIcon = document.createElement('span');
         leftArrowIcon.className = 'fa-regular fa-arrow-left';
         leftArrow.appendChild(leftArrowIcon);
-        div.appendChild(leftArrow);
+        imageFormDiv.appendChild(leftArrow);
+        inputButtonsDiv.appendChild(leftArrow);
         let trashCan = document.createElement('button');
         trashCan.type = 'button';
         trashCan.id = 'trash-can' + i;
@@ -67,7 +80,8 @@ function displayImageForms() {
         let trashCanIcon = document.createElement('span');
         trashCanIcon.className = 'fa-regular fa-trash-can';
         trashCan.appendChild(trashCanIcon);
-        div.appendChild(trashCan);
+        imageFormDiv.appendChild(trashCan);
+        inputButtonsDiv.appendChild(trashCan);
         let rightArrow = document.createElement('button');
         rightArrow.type = 'button';
         rightArrow.id = 'right-arrow' + i;
@@ -78,7 +92,11 @@ function displayImageForms() {
         let rightArrowIcon = document.createElement('span');
         rightArrowIcon.className = 'fa-regular fa-arrow-right';
         rightArrow.appendChild(rightArrowIcon);
-        div.appendChild(rightArrow);
+        imageFormDiv.appendChild(rightArrow);
+        inputButtonsDiv.appendChild(rightArrow);
+        imageFormDiv.appendChild(imageDiv);
+        imageFormDiv.appendChild(inputButtonsDiv);
+        div.appendChild(imageFormDiv);
     }
     checkRequiredImageForms();
 }
@@ -125,9 +143,9 @@ function imageFormsRefresh() {
             }
             index--;
         }
+        checkAddButton();
+        checkRequiredImageForms();
     }
-    checkAddButton();
-    checkRequiredImageForms();
 }
 
 function checkAddButton() {
@@ -171,6 +189,9 @@ function deleteImageForm(index) {
         if ((document.getElementById('image-input' + index + '')).value != '') {
             document.getElementById('image-input' + index + '').value = '';
             document.getElementById('image-element' + index + '').hidden = true;
+            document.getElementById('image-element' + index + '').style.display = 'none';
+            document.getElementsByClassName('image-div')[index].style.display = 'none';
+            document.getElementsByClassName('input-buttons-div')[index].style.display = 'none';
             imagesUploaded--;
         }
         document.getElementById('left-arrow' + index + '').hidden = true;
@@ -282,6 +303,8 @@ function showUploadedImage(index) {
         };
         reader.readAsDataURL(file);
         imageElement.hidden = false;
+        imageElement.style.display = 'block';
+        document.getElementsByClassName('image-div')[index].style.display = 'flex';
     };
 }
 
