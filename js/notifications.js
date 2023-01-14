@@ -22,7 +22,7 @@ function showNotifications() {
             let deleteAllNotificationsButton = document.createElement("button");
             deleteAllNotificationsButton.classList.add("delete-all-notifications");
             deleteAllNotificationsButton.type = "button";
-            deleteAllNotificationsButton.addEventListener("click", deleteAllNotifications);
+            deleteAllNotificationsButton.onclick = deleteAllNotifications;
             let trashIcon = document.createElement("span");
             trashIcon.className = "fa-regular fa-trash-can-list";
             deleteAllNotificationsButton.appendChild(trashIcon);
@@ -73,10 +73,7 @@ function showNotifications() {
 function getNotificationContainer(notification, profileImage) {
     let notificationDiv = document.createElement("div");
     notificationDiv.className = "notification";
-    if (notification.seen) {
-        notificationDiv.classList.add("notification-seen");
-    }
-    notificationDiv.id = "notification-" + notification.id;
+    notificationDiv.id = "notification-" + notification.notification_id;
 
     let notificationProfileImage = document.createElement("img");
     notificationProfileImage.src = "data:image/jpeg;base64," + profileImage;
@@ -85,7 +82,7 @@ function getNotificationContainer(notification, profileImage) {
     notificationInfoDiv.className = "notification-info";
 
     let notificationProfileLink = document.createElement("a");
-    notificationProfileLink.href = "profile.php?user=" + notification.sender;
+    notificationProfileLink.href = "profile.php?username=" + notification.sender;
     notificationProfileLink.textContent = notification.sender;
 
     let notificationText = document.createElement("p");
@@ -93,9 +90,9 @@ function getNotificationContainer(notification, profileImage) {
 
     let notificationDeleteButton = document.createElement("button");
     notificationDeleteButton.type = "button";
-    notificationDeleteButton.addEventListener("click", function () {
+    notificationDeleteButton.onclick = function () {
         deleteNotification(notification.notification_id);
-    });
+    };
 
     let notificationDeleteIcon = document.createElement("span");
     notificationDeleteIcon.className = "fa-regular fa-trash-can";
@@ -104,8 +101,8 @@ function getNotificationContainer(notification, profileImage) {
     notificationDiv.appendChild(notificationProfileImage);
     notificationInfoDiv.appendChild(notificationProfileLink);
     notificationInfoDiv.appendChild(notificationText);
-    notificationDiv.appendChild(notificationDeleteButton);
     notificationDiv.appendChild(notificationInfoDiv);
+    notificationDiv.appendChild(notificationDeleteButton);
 
     return notificationDiv;
 }

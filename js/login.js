@@ -1,7 +1,7 @@
 import retrieveData from './retrieve_data.js';
 
 //on click on the eye icon, the password will be visible
-document.getElementById("visible").addEventListener("click", function () {
+document.getElementById("visible").onclick = function () {
     let span = document.getElementById("visible");
     let passwordInput = document.getElementById("password");
     if (span.className === "fa-solid fa-eye") {
@@ -11,14 +11,14 @@ document.getElementById("visible").addEventListener("click", function () {
         passwordInput.type = "password";
         span.className = "fa-solid fa-eye";
     }
-});
+};
 
 let form = document.getElementById("loginForm");
-form.addEventListener("submit", function (e) {
+form.onsubmit = function (e) {
     e.preventDefault();
     let args = retrieveData(new FormData(form));
     searchForm(args.username, args.password);
-});
+};
 
 function searchForm(username, password) {
     const inputs = [...document.getElementsByTagName("input")];
