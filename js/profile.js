@@ -125,7 +125,7 @@ function showPostFrequencyText(postFrequency) {
   } else if (postFrequency >= 1) {
     postFrequencyDiv.textContent = "monthly";
   } else if (postFrequency === 0) {
-    postFrequencyDiv.textContent = "once in a while";
+    postFrequencyDiv.textContent = "rarely";
   }
 }
 
