@@ -163,6 +163,7 @@ class DBConnection
                 $post['images'] = $this->getPostImages($row['post_id']);
                 $post['liked'] = isset($row['username']);
                 $post['rated'] = isset($row['rated']);
+                unset($post['username']);
 
                 array_push($posts, $post);
             }
