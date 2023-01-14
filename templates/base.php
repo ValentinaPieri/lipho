@@ -25,7 +25,9 @@
             <a href="search.php" title="Search Page"><span class="fa-regular fa-magnifying-glass"></span></a>
             <a href="create_post.php" title="Create Post Page"><span class="fa-regular fa-plus"></span></a>
             <a href="notifications.php" title="Notifications Page">
-                <span class="fa-regular fa-bell"></span>
+                <span class="fa-regular fa-bell">
+                    <span id="notifications-badge" class="notifications-badge"></span>
+                </span>
             </a>
             <a href="profile.php" title="Profile Page"><span class="fa-regular fa-user"></span></a>
         </div>

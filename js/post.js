@@ -260,7 +260,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         likeCommentButton.id = "like-comment-button" + comments[i].comment_id;
         likeCommentButton.type = "button";
         let likeCommentIcon = document.createElement("span");
-        if (comments[i].liked != null) {
+        if (comments[i].liked) {
             likeCommentIcon.className = "fa-solid fa-heart";
             likeCommentButton.addEventListener("click", function () {
                 unlikeComment(comments[i].comment_id, comments[i].username);
