@@ -2,7 +2,7 @@ showNotifications();
 
 setInterval(function () {
     showNotifications();
-}, 1000);
+}, 500);
 
 function showNotifications() {
     $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
@@ -124,15 +124,9 @@ function isEarlier(date) {
 }
 
 function deleteNotification(notificationId) {
-    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId })
-        .done(function (result) {
-            location.reload();
-        });
+    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId });
 }
 
 function deleteAllNotifications() {
-    $.post("./post_requests_handler.php", { deleteAllNotifications: true })
-        .done(function (result) {
-            location.reload();
-        });
+    $.post("./post_requests_handler.php", { deleteAllNotifications: true });
 }
