@@ -15,7 +15,6 @@ let url = new URL(window.location.href);
 let username = url.searchParams.get("username");
 let currentUsername = null;
 showProfile(username);
-showPostsGrid(offset, limit);
 
 showPostsGridButton.onclick = function () {
   if (!gridActive) {
@@ -55,6 +54,8 @@ function showProfile(username) {
     if (username === null) {
       username = currentUsername;
     }
+
+    showPostsGrid(offset, limit);
 
     if (currentUsername === username) {
       followUnfollowButton.remove();
