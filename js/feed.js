@@ -21,7 +21,7 @@ function getFeedPosts(offset, limit) {
                         getCommentsContainer(post.post_id, postCommentsDiv, comments, result.currentUsername);
                     }, "json");
                 }
-            }, 1000);
+            }, 5000);
         });
     }, "json");
 }
