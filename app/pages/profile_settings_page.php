@@ -1,7 +1,7 @@
 <div class="edit-profile-image">
     <form id="edit-profile-form" action="">
         <button id="save-button" type="submit">Save</button>
-        <label for="change-profile-image">Edit profile image</label><img id="change-profile-image" src="/lipho/resources/images/blank_profile_picture.jpeg" alt="Current profile image" />
+        <label for="change-profile-image">Edit profile image</label><img id="change-profile-image" src="./resources/images/blank_profile_picture.jpeg" alt="Current profile image" />
         <p class="image-size-disclaimer">max image size:<br />15 MB</p>
         <label for="edit-username">Edit username</label><input id="edit-username" name="username" type="text" />
         <label for="edit-password">Edit password</label><input id="edit-password" name="password" type="password" />
