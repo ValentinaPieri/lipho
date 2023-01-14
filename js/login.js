@@ -23,7 +23,8 @@ form.addEventListener("submit", function (e) {
 function searchForm(username, password) {
     const inputs = [...document.getElementsByTagName("input")];
     inputs.forEach(input => {
-        input.style.borderColor = "black";
+        input.classList.remove("insert-error-input");
+        input.classList.remove("invalid-error-input");
     });
     $.post("./post_requests_handler.php", { login: true, username: username, password: password }, function (result) {
         if (username === "") {
@@ -41,12 +42,12 @@ function searchForm(username, password) {
 }
 
 function showInsertError($value) {
-    document.getElementById($value).style.borderColor = "red";
+    document.getElementById($value).classList.add("insert-error-input");
     document.getElementById($value).placeholder = "Please insert " + $value;
 }
 
 function showInvalidError($value) {
-    document.getElementById($value).style.borderColor = "red";
+    document.getElementById($value).classList.add("invalid-error-input");
     document.getElementById($value).value = "";
     if ($value === "username") {
         document.getElementById($value).placeholder = "Username does not exists";
