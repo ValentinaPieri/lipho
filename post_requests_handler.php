@@ -98,7 +98,7 @@ if (isset($_POST['likeComment'])) {
 
 if (isset($_POST['unlikeComment'])) {
     $dbconnection = new DBConnection();
-    $dbconnection->unlikeComment($_POST['commentId'], $_POST['owner']);
+    $dbconnection->unlikeComment($_POST['commentId']);
 }
 
 if (isset($_POST['ratePost'])) {

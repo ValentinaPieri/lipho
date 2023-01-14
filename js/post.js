@@ -242,61 +242,61 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
     for (let i = 0; i < comments.length; i++) {
         let commentDiv = document.createElement("div");
         commentDiv.className = "comment-div";
-        commentDiv.id = "comment-div" + comments[i].comment.comment_id;
+        commentDiv.id = "comment-div" + comments[i].comment_id;
         let commentUsername = document.createElement("a");
         commentUsername.className = "comment-username";
-        commentUsername.id = "post-comment-username" + comments[i].comment.comment_id;
+        commentUsername.id = "post-comment-username" + comments[i].comment_id;
         commentUsername.title = "comment user link";
-        commentUsername.href = "profile.php?username=" + comments[i].comment.username;
-        commentUsername.textContent = comments[i].comment.username;
+        commentUsername.href = "profile.php?username=" + comments[i].username;
+        commentUsername.textContent = comments[i].username;
         convertMentionsToLinks(comments);
         let commentText = document.createElement("p");
         commentText.className = "comment-text";
-        commentText.id = "post-comment-text" + comments[i].comment.comment_id;
-        commentText.innerHTML = comments[i].comment.text;
+        commentText.id = "post-comment-text" + comments[i].comment_id;
+        commentText.innerHTML = comments[i].text;
 
         let likeCommentButton = document.createElement("button");
         likeCommentButton.className = "post-button";
-        likeCommentButton.id = "like-comment-button" + comments[i].comment.comment_id;
+        likeCommentButton.id = "like-comment-button" + comments[i].comment_id;
         likeCommentButton.type = "button";
         let likeCommentIcon = document.createElement("span");
-        if (comments[i].liked) {
+        if (comments[i].liked != null) {
             likeCommentIcon.className = "fa-solid fa-heart";
             likeCommentButton.addEventListener("click", function () {
-                unlikeComment(comments[i].comment.comment_id, comments[i].comment.username);
+                unlikeComment(comments[i].comment_id, comments[i].username);
             });
         } else {
             likeCommentIcon.className = "fa-regular fa-heart";
             likeCommentButton.addEventListener("click", function () {
-                likeComment(comments[i].comment.comment_id, comments[i].comment.username);
+                likeComment(comments[i].comment_id, comments[i].username);
             });
         }
         likeCommentButton.appendChild(likeCommentIcon);
 
         let deleteCommentButton = document.createElement("button");
-        if (currentUsername == comments[i].comment.username) {
+        if (currentUsername == comments[i].username) {
             deleteCommentButton.className = "post-button";
-            deleteCommentButton.id = "delete-comment-button" + comments[i].comment.comment_id;
+            deleteCommentButton.id = "delete-comment-button" + comments[i].comment_id;
             deleteCommentButton.type = "button";
             let deleteCommentIcon = document.createElement("span");
             deleteCommentIcon.className = "fa-regular fa-trash-can";
             deleteCommentButton.appendChild(deleteCommentIcon);
             deleteCommentButton.addEventListener("click", function () {
-                uncommentPost(comments[i].comment.comment_id);
+                uncommentPost(comments[i].comment_id);
             });
         }
 
         let replyButton = document.createElement("button");
         replyButton.className = "post-button";
-        replyButton.id = "reply-button" + comments[i].comment.comment_id;
+        replyButton.id = "reply-button" + comments[i].comment_id;
         replyButton.type = "button";
         replyButton.textContent = "Reply";
         replyButton.addEventListener("click", function () {
-            replyToComment(postId, comments[i].comment.comment_id);
+            replyToComment(postId, comments[i].comment_id);
         });
         commentDiv.appendChild(commentUsername);
         commentDiv.appendChild(commentText);
-        if (currentUsername == comments[i].comment.username) {
+        if (currentUsername == comments[i].username) {
             commentDiv.appendChild(deleteCommentButton);
         }
         commentDiv.appendChild(likeCommentButton);
@@ -307,7 +307,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
 
 function convertMentionsToLinks(comments) {
     for (let i = 0; i < comments.length; i++) {
-        const comment = comments[i].comment;
+        const comment = comments[i];
         comment.text = comment.text.replace(/@([a-zA-Z0-9]+)/g, function (match, username) {
             return `<a title="mentioned user link" href="profile.php?username=${username}">@${username}</a>`;
         });

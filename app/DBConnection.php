@@ -7,7 +7,6 @@ require_once 'models/Post.php';
 require_once 'models/User.php';
 
 use mysqli;
-use app\models\Comment;
 use app\models\Post;
 use app\models\User;
 
@@ -173,11 +172,8 @@ class DBConnection
         $stmt->bind_param("si", $_SESSION['username'], $postId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $comments = array();
-        foreach ($result as $comment) {
-            array_push($comments, array("comment" => new Comment($comment['text'], $comment['post_id'], $comment['username'], $this->conn, $comment['comment_id'], $comment['timestamp']), "liked" => isset($comment['liked'])));
-        }
-        return $comments;
+
+        return $result;
     }
 
     public function ratePost($postId, $owner, $exposure, $colors, $composition)
@@ -195,7 +191,9 @@ class DBConnection
 
     public function commentPost($postId, $owner, $text)
     {
-        new Comment($text, $postId, $_SESSION['username'], $this->conn);
+        $stmt = $this->conn->prepare(QUERIES['comment_post']);
+        $stmt->bind_param("iss", $postId, $text, $_SESSION['username']);
+        $stmt->execute();
         if ($owner != $_SESSION['username']) {
             $stmt = $this->conn->prepare(QUERIES['send_notification']);
             $text = "commented on your post";
@@ -206,8 +204,9 @@ class DBConnection
 
     public function uncommentPost($commentId)
     {
-        $comment = new Comment("", 0, "", $this->conn, $commentId);
-        $comment->delete();
+        $stmt = $this->conn->prepare(QUERIES['delete_comment']);
+        $stmt->bind_param("i", $commentId);
+        $stmt->execute();
     }
 
     public function likePost($postId, $owner)
@@ -232,8 +231,9 @@ class DBConnection
 
     public function likeComment($commentId, $owner)
     {
-        $comment = new Comment("", 0, $owner, $this->conn, $commentId);
-        $comment->like();
+        $stmt = $this->conn->prepare(QUERIES['like_comment']);
+        $stmt->bind_param("is", $commentId, $_SESSION['username']);
+        $stmt->execute();
         if ($owner != $_SESSION['username']) {
             $stmt = $this->conn->prepare(QUERIES['send_notification']);
             $text = "liked your comment";
@@ -242,10 +242,11 @@ class DBConnection
         }
     }
 
-    public function unlikeComment($commentId, $username)
+    public function unlikeComment($commentId)
     {
-        $comment = new Comment("", 0, $username, $this->conn, $commentId);
-        $comment->unlike();
+        $stmt = $this->conn->prepare(QUERIES['unlike_comment']);
+        $stmt->bind_param("is", $commentId, $_SESSION['username']);
+        $stmt->execute();
     }
 
     public function getUserData()
