@@ -45,7 +45,7 @@ class DBConnection
                 $notification['sender'] = $row['sender'];
                 $notification['timestamp'] = $row['timestamp'];
 
-                array_push($notifications, array("notification" => $notification, "profileImage" => base64_encode(isset($row['profile_image']) ? $row['profile_image'] : file_get_contents(("/resources/images/blank_profile.jpeg")))));
+                array_push($notifications, array("notification" => $notification, "profileImage" => isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents(("/resources/images/blank_profile.jpeg")))));
             }
         }
         return $notifications;
@@ -130,14 +130,7 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['get_matching_users']);
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $users = array();
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $user = array('username' => $row['username'], 'profile_image' => base64_encode($row['profile_image']));
-                array_push($users, $user);
-            }
-        }
+        $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         return $users;
     }
@@ -215,7 +208,7 @@ class DBConnection
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         foreach ($result as &$comment) {
-            $comment['liked'] = isset($comment['username']);
+            $comment['liked'] = isset($comment['liked']);
         }
 
         return $result;

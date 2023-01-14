@@ -4,11 +4,10 @@ getFeedPosts(offset, limit);
 
 function getFeedPosts(offset, limit) {
     $.post("./post_requests_handler.php", { getFeedPosts: true, offset: offset, limit: limit }, function (result) {
-        console.log(result);
         let postDiv;
         const mainTag = document.querySelector("main");
         result.posts.forEach(post => {
-            postDiv = getPostContainer(post.post_id, post.username, post.caption, post.images, post.likes, post.comments, post.liked, post.rated, result.currentUsername);
+            postDiv = getPostContainer(post.post_id, post.username, post.caption, post.images, post.comments, post.liked, post.rated, result.currentUsername);
             mainTag.appendChild(postDiv);
             setInterval(function () {
                 $.post("./post_requests_handler.php", { getPostLikesNumber: true, post_id: post.post_id }, function (likesNumber) {

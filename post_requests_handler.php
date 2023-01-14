@@ -5,7 +5,6 @@ session_start();
 require_once 'app/DBConnection.php';
 
 use app\DBConnection;
-use app\models\Post;
 
 if (isset($_POST['deleteNotification'])) {
     $index = intval($_POST['notificationId']);
@@ -56,12 +55,12 @@ if (isset($_POST["post-button"])) {
             $allowedTypes = array('jpg', 'png', 'jpeg');
             if (in_array($fileType, $allowedTypes)) {
                 $image = $_FILES['image-input' . $i]['tmp_name'];
-                $imgContent = file_get_contents($image);
+                $imgContent = base64_encode(file_get_contents($image));
                 array_push($images, $imgContent);
             }
         }
     }
-    $post = new Post($_SESSION['username'], $_POST["caption"], $dbconnection->getConnection(), $images);
+    $dbconnection->createPost($_POST['caption'], $images);
     header("Location: create_post.php");
 }
 

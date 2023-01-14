@@ -1,6 +1,6 @@
 let postsCurrentSlide = [];
 
-function getPostContainer(postId, owner, caption, images, likes, comments, liked, rated, currentUsername) {
+function getPostContainer(postId, owner, caption, images, comments, liked, rated, currentUsername) {
     postsCurrentSlide[postId] = 0;
     let postDiv = document.createElement("div");
     postDiv.className = "post";
@@ -26,7 +26,7 @@ function getPostContainer(postId, owner, caption, images, likes, comments, liked
         let postImageSlide = document.createElement("img");
         postImageSlide.className = "post-image-slide";
         postImageSlide.id = "post-image-slide" + postId + i;
-        postImageSlide.src = images[i];
+        postImageSlide.src = "data:images/jpeg;base64," + images[i];
         postImageSlide.alt = "Post image " + i;
         postImageSlide.hidden = i != 0;
         postImagesDiv.appendChild(postImageSlide);
@@ -88,7 +88,7 @@ function getPostContainer(postId, owner, caption, images, likes, comments, liked
     let likesNumber = document.createElement("span");
     likesNumber.className = "likes-number";
     likesNumber.id = "likes-number" + postId;
-    likesNumber.textContent = likes.length;
+    likesNumber.textContent = 0;
     likeButton.appendChild(likeButtonIcon);
 
     let commentButton = document.createElement("button");
@@ -149,7 +149,6 @@ function getPostContainer(postId, owner, caption, images, likes, comments, liked
     postCommentsDiv.className = "post-comments";
     postCommentsDiv.id = "post-comments" + postId;
 
-    getCommentsContainer(postId, postCommentsDiv, comments, currentUsername);
 
     postInputCommentDiv.hidden = true;
     postCommentsDiv.hidden = true;
