@@ -41,7 +41,7 @@ const QUERIES = [
     "add_post_image" => "INSERT INTO post_image (post_id, position, `image`) VALUES (?, ?, ?)",
     "get_user_notifications" => "SELECT n.*, u.profile_image FROM notification n LEFT JOIN user u ON n.sender = u.username WHERE receiver = ? ORDER BY `timestamp` DESC",
     "get_not_seen_notifications_number" => "SELECT COUNT(*) AS number FROM notification WHERE receiver = ? AND seen = 0",
-    "set_notifications_seen" => "UPDATE notification SET seen = 1 WHERE notification_id IN (?)",
+    "set_notifications_seen" => "UPDATE notification SET seen = 1 WHERE receiver = ?",
     "delete_notification" => "DELETE FROM notification WHERE notification_id = ?",
     "delete_user_notifications" => "DELETE FROM notification WHERE receiver = ?",
     "send_notification" => "INSERT INTO notification (`text`, receiver, sender) VALUES (?, ?, ?)",
