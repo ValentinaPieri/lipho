@@ -116,8 +116,6 @@ class DBConnection
 
     public function setUserLoggedIn($username)
     {
-        session_start();
-
         $_SESSION["loggedin"] = true;
         $_SESSION["username"] = $username;
     }
