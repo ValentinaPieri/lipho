@@ -830,17 +830,42 @@ main > .delete-all-notifications span {
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   padding-bottom: 20vh;
+  grid-row-gap: 10vmin;
+  grid-column-gap: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15vh;
 }
-.profile-posts.grid .post-button {
-  width: 100%;
-  height: 100%;
-  height: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
+.profile-posts.grid .grid-post-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 33vh;
 }
-.profile-posts.grid img {
+.profile-posts.grid .grid-post-container .post .post-images {
+  z-index: 0;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 150vw;
+  background: #040F0F;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.profile-posts.grid .grid-post-container .post .post-images img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  /* Scale the image to cover the entire div */
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
 }
 
 * {

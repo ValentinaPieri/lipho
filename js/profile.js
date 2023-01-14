@@ -170,8 +170,9 @@ function getGridViewPostContainer(postId, owner, images) {
   post.className = "post";
   post.id = "post" + postId;
 
+  let imageDiv = document.createElement("div");
+  imageDiv.className = "post-image";
   let postImage = document.createElement("img");
-  postImage.className = "post-image";
   postImage.id = "post-image" + postId;
   postImage.src = "data:image/jpeg;base64," + images[0];
   postImage.onclick = function () {
@@ -215,7 +216,8 @@ function getGridViewPostContainer(postId, owner, images) {
     post.appendChild(deleteButton);
   }
 
-  post.appendChild(postImage);
+  imageDiv.appendChild(postImage);
+  post.appendChild(imageDiv);
   post.appendChild(postOwner);
   post.appendChild(fullScreenButton);
   postContainer.appendChild(post);
