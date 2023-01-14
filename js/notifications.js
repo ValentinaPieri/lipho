@@ -42,6 +42,7 @@ function showNotifications() {
                 notificationsDiv.id = "today-notifications";
                 let todayNotificationsHeader = document.createElement("h2");
                 todayNotificationsHeader.textContent = "Today";
+                notificationsDiv.appendChild(todayNotificationsHeader);
                 todayShown = true;
             } else if (!yesterdayShown && isYesterday(new Date(notification.timestamp))) {
                 notificationsDiv = document.createElement("div");
@@ -49,6 +50,7 @@ function showNotifications() {
                 notificationsDiv.id = "yesterday-notifications";
                 let yesterdayNotificationsHeader = document.createElement("h2");
                 yesterdayNotificationsHeader.textContent = "Yesterday";
+                notificationsDiv.appendChild(yesterdayNotificationsHeader);
                 yesterdayShown = true;
             } else if (!earlierShown && isEarlier(new Date(notification.timestamp))) {
                 notificationsDiv = document.createElement("div");
@@ -56,6 +58,7 @@ function showNotifications() {
                 notificationsDiv.id = "earlier-notifications";
                 let earlierNotificationsHeader = document.createElement("h2");
                 earlierNotificationsHeader.textContent = "Earlier";
+                notificationsDiv.appendChild(earlierNotificationsHeader);
                 earlierShown = true;
             }
 
