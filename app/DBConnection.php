@@ -3,10 +3,8 @@
 namespace app;
 
 require_once 'query.php';
-require_once 'models/Post.php';
 
 use mysqli;
-use app\models\Post;
 
 const host = 'detu.ddns.net';
 const user = 'lipho';
@@ -153,12 +151,49 @@ class DBConnection
         $posts = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $post = new Post($username = $row['owner'], $caption = $row['caption'], $this->conn = $this->conn, $images = array(), $post_id = $row['post_id'], $timestamp = $row['timestamp'], $avg_exposure_rating = $row['average_exposure_rating'], $avg_colors_rating = $row['average_colors_rating'], $avg_composition_rating = $row['average_composition_rating']);
+                $post = $row;
+                $post['images'] = $this->getPostImages($row['post_id']);
+                $post['liked'] = isset($row['username']);
+                $post['rated'] = isset($row['rated']);
 
-                array_push($posts, array("post" => $post, "liked" => isset($row['username']), "rated" => isset($row['rated'])));
+                array_push($posts, $post);
             }
         }
         return $posts;
+    }
+
+    public function getPostImages($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_images']);
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $images = array();
+        foreach ($result as $image) {
+            array_push($images, $image['image']);
+        }
+
+        return $images;
+    }
+
+    public function createPost($caption, $images)
+    {
+        $stmt = $this->conn->prepare(QUERIES['add_post']);
+        $stmt->bind_param("ss", $caption, $_SESSION['username']);
+        $stmt->execute();
+        $this->addPostImages($this->conn->insert_id, $images);
+    }
+
+    private function addPostImages($postId, $images)
+    {
+        if (isset($images) && !empty($images)) {
+            $stmt = $this->conn->prepare(QUERIES['add_post_image']);
+            for ($i = 0; $i < count($images); $i++) {
+                $image = $images[$i];
+                $stmt->bind_param("iis", $postId, $i, $image);
+                $stmt->execute();
+            }
+        }
     }
 
     public function getPostLikesNumber($postId)
@@ -179,6 +214,9 @@ class DBConnection
         $stmt->bind_param("si", $_SESSION['username'], $postId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        foreach ($result as &$comment) {
+            $comment['liked'] = isset($comment['username']);
+        }
 
         return $result;
     }

@@ -26,7 +26,7 @@ function getPostContainer(postId, owner, caption, images, likes, comments, liked
         let postImageSlide = document.createElement("img");
         postImageSlide.className = "post-image-slide";
         postImageSlide.id = "post-image-slide" + postId + i;
-        postImageSlide.src = "data:image/jpeg;base64," + images[i];
+        postImageSlide.src = images[i];
         postImageSlide.alt = "Post image " + i;
         postImageSlide.hidden = i != 0;
         postImagesDiv.appendChild(postImageSlide);
