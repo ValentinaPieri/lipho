@@ -12,7 +12,7 @@ function submitForm(username, password1, password2, name, surname, email, phone,
     inputs.forEach(input => {
         input.style.borderColor = "black";
     });
-    $.post("/lipho/post_requests_handler.php", { signup: true, username: username, password1: password1, password2: password2, name: name, surname: surname, email: email, phone: phone, birthdate: birthdate }, function (result) {
+    $.post("./post_requests_handler.php", { signup: true, username: username, password1: password1, password2: password2, name: name, surname: surname, email: email, phone: phone, birthdate: birthdate }, function (result) {
         if (username === "") {
             showInsertError("username");
         } else if (result.usernameValid === false) {

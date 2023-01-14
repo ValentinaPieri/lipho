@@ -3,7 +3,7 @@ getNotSeenNotificationsNumber();
 setInterval(getNotSeenNotificationsNumber, 1000);
 
 function getNotSeenNotificationsNumber() {
-    $.post("/lipho/post_requests_handler.php", { getNotSeenNotificationsNumber: true }, function (notSeenNotificationsNumber) {
+    $.post("./post_requests_handler.php", { getNotSeenNotificationsNumber: true }, function (notSeenNotificationsNumber) {
         var notificationsBadgeSpan = document.getElementById("notifications-badge");
         if (notSeenNotificationsNumber > 0) {
             notificationsBadgeSpan.innerText = notSeenNotificationsNumber;

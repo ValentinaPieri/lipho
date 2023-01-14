@@ -5,7 +5,7 @@ setInterval(function () {
 }, 1000);
 
 function showNotifications() {
-    $.post("/lipho/post_requests_handler.php", { getNotifications: true }, function (notifications) {
+    $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
         let mainTag = document.getElementsByTagName("main")[0];
         mainTag.innerHTML = "";
         if (notifications.length == 0) {
@@ -117,14 +117,14 @@ function isEarlier(date) {
 }
 
 function deleteNotification(notificationId) {
-    $.post("/lipho/post_requests_handler.php", { deleteNotification: true, notificationId: notificationId })
+    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId })
         .done(function (result) {
             location.reload();
         });
 }
 
 function deleteAllNotifications() {
-    $.post("/lipho/post_requests_handler.php", { deleteAllNotifications: true })
+    $.post("./post_requests_handler.php", { deleteAllNotifications: true })
         .done(function (result) {
             location.reload();
         });

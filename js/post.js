@@ -349,7 +349,7 @@ function showSlideRight(postId) {
 }
 
 function likePost(postId) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, owner: username, likePost: true })
+    $.post("./post_requests_handler.php", { postId: postId, owner: username, likePost: true })
         .done(function () {
             let likeButton = document.getElementById("like-button" + postId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
@@ -362,7 +362,7 @@ function likePost(postId) {
 }
 
 function unlikePost(postId) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, unlikePost: true })
+    $.post("./post_requests_handler.php", { postId: postId, unlikePost: true })
         .done(function () {
             let likeButton = document.getElementById("like-button" + postId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
@@ -375,18 +375,18 @@ function unlikePost(postId) {
 }
 
 function commentPost(postId, owner, text) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, owner: owner, text: text, commentPost: true })
+    $.post("./post_requests_handler.php", { postId: postId, owner: owner, text: text, commentPost: true })
         .done(function () {
             document.getElementById("post-comment-input" + postId).value = "";
         });
 }
 
 function uncommentPost(commentId) {
-    $.post("/lipho/post_requests_handler.php", { commentId: commentId, uncommentPost: true });
+    $.post("./post_requests_handler.php", { commentId: commentId, uncommentPost: true });
 }
 
 function likeComment(commentId, owner) {
-    $.post("/lipho/post_requests_handler.php", { commentId: commentId, owner: owner, likeComment: true })
+    $.post("./post_requests_handler.php", { commentId: commentId, owner: owner, likeComment: true })
         .done(function () {
             let likeButton = document.getElementById("like-comment-button" + commentId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
@@ -399,7 +399,7 @@ function likeComment(commentId, owner) {
 }
 
 function unlikeComment(commentId, owner) {
-    $.post("/lipho/post_requests_handler.php", { commentId: commentId, owner: owner, unlikeComment: true })
+    $.post("./post_requests_handler.php", { commentId: commentId, owner: owner, unlikeComment: true })
         .done(function () {
             let likeButton = document.getElementById("like-comment-button" + commentId);
             let likeButtonIcon = likeButton.getElementsByTagName("span")[0];
@@ -412,7 +412,7 @@ function unlikeComment(commentId, owner) {
 }
 
 function ratePost(postId, owner, exposure, colors, composition) {
-    $.post("/lipho/post_requests_handler.php", { postId: postId, owner: owner, exposure: exposure, colors: colors, composition: composition, ratePost: true }).done(function () {
+    $.post("./post_requests_handler.php", { postId: postId, owner: owner, exposure: exposure, colors: colors, composition: composition, ratePost: true }).done(function () {
         document.getElementById("post-rating" + postId).remove();
         document.getElementById("rating-button" + postId).remove();
     });

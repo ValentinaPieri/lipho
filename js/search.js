@@ -4,7 +4,7 @@ searchInput.addEventListener("input", function () {
 });
 
 function getMatchingUsers(username) {
-    $.post("/lipho/post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
+    $.post("./post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
         const searchResultsContainer = document.getElementById("search-results-container");
         searchResultsContainer.innerHTML = "";
 

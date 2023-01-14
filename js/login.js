@@ -25,7 +25,7 @@ function searchForm(username, password) {
     inputs.forEach(input => {
         input.style.borderColor = "black";
     });
-    $.post("/lipho/post_requests_handler.php", { login: true, username: username, password: password }, function (result) {
+    $.post("./post_requests_handler.php", { login: true, username: username, password: password }, function (result) {
         if (username === "") {
             showInsertError("username");
         } else if (result.usernameValid === false) {
