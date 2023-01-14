@@ -26,9 +26,9 @@
                     <input title="login button" class="login-button" aria-label="button to login" type="submit" id="loginButton" value="Login" />
                 </form>
             </div>
-        </div>
-        <div class="option">
-            <p>Don't have an account? <a href="./sign_up.php">Sign-up now</a></p>
+            <div class="option">
+                <p>Don't have an account? <a href="./sign_up.php">Sign-up now</a></p>
+            </div>
         </div>
     </main>
 </body>
