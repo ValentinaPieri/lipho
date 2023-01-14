@@ -145,7 +145,7 @@ function showPostsList(offset, limit) {
         let postCommentsDiv = document.getElementById("post-comments" + post.post_id);
         if (!postCommentsDiv.hidden) {
           $.post("./post_requests_handler.php", { getPostComments: true, post_id: post.post_id }, function (comments) {
-            getCommentsContainer(post.post_id, postCommentsDiv, comments, result.currentUsername);
+            getCommentsContainer(post.post_id, postCommentsDiv, comments, currentUsername);
           }, "json");
         }
       }, 5000));
