@@ -135,6 +135,16 @@ if (isset($_POST['login'])) {
     echo json_encode($result);
 }
 
+if (isset($_POST['logout'])) {
+    $dbconnection = new DBConnection();
+    $dbconnection->setUserLoggedOut($_SESSION['username']);
+}
+
+if (isset($_POST['deleteUser'])) {
+    $dbconnection = new DBConnection();
+    $dbconnection->deleteUser();
+}
+
 if (isset($_POST['getNotifications'])) {
     $dbconnection = new DBConnection();
     $notifications = $dbconnection->getNotifications();

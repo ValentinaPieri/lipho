@@ -120,6 +120,22 @@ class DBConnection
         $_SESSION["username"] = $username;
     }
 
+    public function setUserLoggedOut()
+    {
+        unset($_SESSION["loggedin"]);
+        unset($_SESSION["username"]);
+        session_destroy();
+    }
+
+    public function deleteUser()
+    {
+        $stmt = $this->conn->prepare(QUERIES['delete_user']);
+        $stmt->bind_param('s', $_SESSION['username']);
+        $stmt->execute();
+
+        $this->setUserLoggedOut();
+    }
+
     public function getMatchingUsers($username)
     {
         if ($username == '') {
