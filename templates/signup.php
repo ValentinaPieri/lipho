@@ -7,6 +7,7 @@
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
