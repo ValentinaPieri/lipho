@@ -9,6 +9,8 @@ const editSurname = document.getElementById("edit-surname");
 const editEmail = document.getElementById("edit-email");
 const editPhoneNumber = document.getElementById("edit-phone-number");
 const editBirthdate = document.getElementById("edit-birthdate");
+const logoutButton = document.getElementById("logout-button");
+const deleteAccountButton = document.getElementById("delete-account-button");
 
 let originalUsername;
 let originalName;
@@ -58,6 +60,18 @@ changeProfileImage.onclick = function () {
         reader.readAsDataURL(file);
     }
     fileInput.click();
+}
+
+logoutButton.onclick = function () {
+    $.post("./post_requests_handler.php", { logout: true }, function () {
+        window.location.href = "./login.php";
+    });
+}
+
+deleteAccountButton.onclick = function () {
+    $.post("./post_requests_handler.php", { deleteUser: true }, function () {
+        window.location.href = "./login.php";
+    });
 }
 
 function getUserData() {

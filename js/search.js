@@ -4,7 +4,7 @@ searchInput.addEventListener("input", function () {
 });
 
 function getMatchingUsers(username) {
-    $.post("/lipho/post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
+    $.post("./post_requests_handler.php", { getMatchingUsers: true, username: username }, function (users) {
         const searchResultsContainer = document.getElementById("search-results-container");
         searchResultsContainer.innerHTML = "";
 
@@ -21,7 +21,7 @@ function getMatchingUsers(username) {
 
                 const userImage = document.createElement("img");
                 userImage.classList.add("user-image");
-                if (user.profile_image != "") {
+                if (user.profile_image != null) {
                     userImage.src = "data:image/jpeg;base64," + user.profile_image;
                 } else {
                     userImage.src = "resources/images/blank_profile_picture.jpeg";
