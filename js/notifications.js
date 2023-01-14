@@ -25,6 +25,7 @@ function showNotifications() {
             let trashIcon = document.createElement("span");
             trashIcon.className = "fa-regular fa-trash-can-list";
             deleteAllNotificationsButton.appendChild(trashIcon);
+            mainTag.appendChild(deleteAllNotificationsButton);
         }
 
 
