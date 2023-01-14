@@ -9,21 +9,30 @@ function getFeedPosts(offset, limit) {
         result.posts.forEach(post => {
             postDiv = getPostContainer(post.post_id, post.owner, post.caption, post.images, post.comments, post.liked, post.rated, result.currentUsername);
             mainTag.appendChild(postDiv);
+            retrieveLikesNumber(post.post_id);
+            retrieveComments(post.post_id, result.currentUsername);
             setInterval(function () {
-                $.post("./post_requests_handler.php", { getPostLikesNumber: true, post_id: post.post_id }, function (likesNumber) {
-                    let likesNumberTag = document.getElementById("likes-number" + post.post_id);
-                    likesNumberTag.textContent = likesNumber;
-                }, "json");
-
-                let postCommentsDiv = document.getElementById("post-comments" + post.post_id);
-                if (!postCommentsDiv.hidden) {
-                    $.post("./post_requests_handler.php", { getPostComments: true, post_id: post.post_id }, function (comments) {
-                        getCommentsContainer(post.post_id, postCommentsDiv, comments, result.currentUsername);
-                    }, "json");
-                }
+                retrieveLikesNumber(post.post_id);
+                retrieveComments(post.post_id, result.currentUsername);
             }, 5000);
         });
     }, "json");
+}
+
+function retrieveLikesNumber(postId) {
+    $.post("./post_requests_handler.php", { getPostLikesNumber: true, post_id: postId }, function (likesNumber) {
+        let likesNumberTag = document.getElementById("likes-number" + postId);
+        likesNumberTag.textContent = likesNumber;
+    }, "json");
+}
+
+function retrieveComments(postId, currentUsername) {
+    let postCommentsDiv = document.getElementById("post-comments" + postId);
+    if (!postCommentsDiv.hidden) {
+        $.post("./post_requests_handler.php", { getPostComments: true, post_id: postId }, function (comments) {
+            getCommentsContainer(postId, postCommentsDiv, comments, currentUsername);
+        }, "json");
+    }
 }
 
 window.onscroll = function () {
