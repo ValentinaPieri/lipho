@@ -43,10 +43,9 @@
                     <input class='signup-button' title="signup button" aria-label="button to submit" type="submit" id="signupButton" value="Sign Up" />
                 </form>
             </div>
-        </div>
-        <div class="option">
-            <p>Already have an account? <a href="./login.php">Login now</a></p>
-        </div>
+            <div class="option">
+                <p>Already have an account? <a href="./login.php">Login now</a></p>
+            </div>
         </div>
     </main>
 </body>
