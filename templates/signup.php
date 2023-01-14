@@ -17,16 +17,16 @@
             </div>
             <div class="container">
                 <form id="signupForm" action="">
-                    <span class="fa-solid fa-asterisk"></span><input title="username" aria-label="username input form" type="text" name="username" id="username" placeholder="username">
-                    <span class="fa-solid fa-asterisk"></span><input title="password" aria-label="password input form" type="password" name="password1" id="password1" placeholder="password">
-                    <span class="fa-solid fa-asterisk"></span><input title="confirm password" aria-label="confirm password input form" type="password" name="password2" id="password2" placeholder="confirm password">
-                    <span class="fa-solid fa-asterisk"></span><input title="name" aria-label="name input form" type="text" name="name" id="name" placeholder="name">
-                    <span class="fa-solid fa-asterisk"></span><input title="surname" aria-label="surname input form" type="text" name="surname" id="surname" placeholder="surname">
-                    <input title="email" aria-label="email input form" type="text" name="email" id="email" placeholder="email">
-                    <input title="phone" aria-label="phone input form" type="tel" name="phone" id="phone" placeholder="ex. +393213334444">
+                    <span class="fa-solid fa-asterisk"></span><input title="username" aria-label="username input form" type="text" name="username" id="username" placeholder="username" />
+                    <span class="fa-solid fa-asterisk"></span><input title="password" aria-label="password input form" type="password" name="password1" id="password1" placeholder="password" />
+                    <span class="fa-solid fa-asterisk"></span><input title="confirm password" aria-label="confirm password input form" type="password" name="password2" id="password2" placeholder="confirm password" />
+                    <span class="fa-solid fa-asterisk"></span><input title="name" aria-label="name input form" type="text" name="name" id="name" placeholder="name" />
+                    <span class="fa-solid fa-asterisk"></span><input title="surname" aria-label="surname input form" type="text" name="surname" id="surname" placeholder="surname" />
+                    <input title="email" aria-label="email input form" type="text" name="email" id="email" placeholder="email" />
+                    <input title="phone" aria-label="phone input form" type="tel" name="phone" id="phone" placeholder="ex. +393213334444" />
                     <label for="birthdate">birthday:</label>
-                    <input title="birthdate" type="date" id="birthdate" name="birthdate"><span class="fa-regular fa-calendar"></span>
-                    <input title="signup button" aria-label="button to submit" type="submit" id="signupButton" value="Sign Up">
+                    <input title="birthdate" type="date" id="birthdate" name="birthdate" /><span class="fa-regular fa-calendar"></span>
+                    <input title="signup button" aria-label="button to submit" type="submit" id="signupButton" value="Sign Up" />
                 </form>
             </div>
         </div>
