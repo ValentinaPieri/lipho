@@ -84,7 +84,7 @@ function getUserData() {
     }, "json");
 }
 
-function submitForm(username, password, name, surname, email, phone, birthdate, profileImage) {
+function submitForm(username, password, name, surname, email, phone, birthdate) {
     editUsername.classList.remove("invalid-input");
     editPassword.classList.remove("invalid-input");
     editName.classList.remove("invalid-input");
