@@ -22,7 +22,7 @@ function showNotifications() {
             let deleteAllNotificationsButton = document.createElement("button");
             deleteAllNotificationsButton.classList.add("delete-all-notifications");
             deleteAllNotificationsButton.type = "button";
-            deleteAllNotificationsButton.addEventListener("click", deleteAllNotifications);
+            deleteAllNotificationsButton.onclick = deleteAllNotifications;
             let trashIcon = document.createElement("span");
             trashIcon.className = "fa-regular fa-trash-can-list";
             deleteAllNotificationsButton.appendChild(trashIcon);
@@ -90,9 +90,9 @@ function getNotificationContainer(notification, profileImage) {
 
     let notificationDeleteButton = document.createElement("button");
     notificationDeleteButton.type = "button";
-    notificationDeleteButton.addEventListener("click", function () {
+    notificationDeleteButton.onclick = function () {
         deleteNotification(notification.notification_id);
-    });
+    };
 
     let notificationDeleteIcon = document.createElement("span");
     notificationDeleteIcon.className = "fa-regular fa-trash-can";
