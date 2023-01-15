@@ -108,6 +108,11 @@ if (isset($_POST['getPostImages'])) {
     echo json_encode($images);
 }
 
+if (isset($_POST['getPostFirstImage'])) {
+    $image = $dbconnection->getPostFirstImage($_POST['post_id']);
+    echo json_encode($image);
+}
+
 if (isset($_POST['getPostLikesNumber'])) {
     $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['post_id']);
     echo json_encode($postLikesNumber);
