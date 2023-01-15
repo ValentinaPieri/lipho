@@ -12,6 +12,7 @@ let offset = 0;
 let listActive = false;
 let gridActive = true;
 let intervalIds = [];
+let firstLoad = false;
 
 let url = new URL(window.location.href);
 let username = url.searchParams.get("username");
@@ -20,6 +21,7 @@ showProfile();
 
 showPostsGridButton.onclick = function () {
   if (!gridActive) {
+    firstLoad = false;
     gridActive = true;
     listActive = false;
     showPostsGridButton.classList.add("active");
@@ -37,6 +39,7 @@ showPostsGridButton.onclick = function () {
 
 showPostsListButton.onclick = function () {
   if (!listActive) {
+    firstLoad = false;
     listActive = true;
     gridActive = false;
     showPostsListButton.classList.add("active");
@@ -161,6 +164,7 @@ function showPostsList(offset, limit) {
         }
       }, 5000));
     });
+    firstLoad = true;
   }, "json");
 }
 
@@ -170,17 +174,14 @@ function showPostsGrid(offset, limit) {
       profilePosts.appendChild(getGridViewPostContainer(post.post_id, post.owner));
       getPostFirstImage(post.post_id);
     });
+    firstLoad = true;
   }, "json");
 }
 
 function getGridViewPostContainer(postId, owner, images) {
   let postContainer = document.createElement("div");
-  postContainer.className = "grid-post-container";
-  postContainer.id = "grid-post-container" + postId;
-
-  let post = document.createElement("div");
-  post.className = "post";
-  post.id = "post" + postId;
+  postContainer.className = "post";
+  postContainer.id = "post" + postId;
 
   let postImage = document.createElement("img");
   postImage.className = "post-image";
@@ -223,13 +224,12 @@ function getGridViewPostContainer(postId, owner, images) {
     deleteButton.onclick = function () {
       deletePost(postId);
     };
-    post.appendChild(deleteButton);
+    postContainer.appendChild(deleteButton);
   }
 
-  post.appendChild(postImage);
-  post.appendChild(postOwner);
-  post.appendChild(fullScreenButton);
-  postContainer.appendChild(post);
+  postContainer.appendChild(postImage);
+  postContainer.appendChild(postOwner);
+  postContainer.appendChild(fullScreenButton);
 
   return postContainer;
 }
@@ -258,8 +258,12 @@ function deletePost(postId) {
 }
 
 window.onscroll = function () {
-  if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+  if (firstLoad && window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
     offset += limit;
-    showPostsList(offset, limit);
+    if (gridActive) {
+      showPostsGrid(offset, limit);
+    } else {
+      showPostsList(offset, limit);
+    }
   }
 };
