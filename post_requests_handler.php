@@ -103,6 +103,11 @@ if (isset($_POST['getFeedPosts'])) {
     echo json_encode(array('posts' => $posts, 'currentUsername' => $_SESSION['username']));
 }
 
+if (isset($_POST['getPostImages'])) {
+    $images = $dbconnection->getPostImages($_POST['post_id']);
+    echo json_encode($images);
+}
+
 if (isset($_POST['getPostLikesNumber'])) {
     $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['post_id']);
     echo json_encode($postLikesNumber);
