@@ -170,7 +170,6 @@ class DBConnection
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $post = $row;
-                $post['images'] = $this->getPostImages($row['post_id']);
                 $post['liked'] = isset($row['username']);
                 $post['rated'] = isset($row['rated']);
                 unset($post['username']);
@@ -191,7 +190,6 @@ class DBConnection
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $post = $row;
-                $post['images'] = $this->getPostImages($row['post_id']);
                 $post['liked'] = isset($row['username']);
                 $post['rated'] = isset($row['rated']);
 
