@@ -192,6 +192,7 @@ class DBConnection
                 $post = $row;
                 $post['liked'] = isset($row['username']);
                 $post['rated'] = isset($row['rated']);
+                unset($post['username']);
 
                 array_push($posts, $post);
             }

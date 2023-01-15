@@ -1,3 +1,5 @@
+import retrieveImages from "./utils.js";
+
 const followUnfollowButton = document.getElementById("follow-unfollow-button");
 const profileImage = document.getElementById("profile-image").querySelector("img");
 const postFrequencyDiv = document.getElementById("post-frequency");
@@ -105,6 +107,14 @@ function showProfile() {
   }, "json");
 }
 
+function getPostFirstImage(postId) {
+  $.post("./post_requests_handler.php", { getPostFirstImage: true, postId: postId }, function (image) {
+    console.log(image);
+    let postImage = document.getElementById("post-image" + postId);
+    postImage.src = "data:image/jpeg;base64," + image;
+  }, "json");
+}
+
 function follow() {
   $.post("./post_requests_handler.php", { follow: true, username: username });
   followUnfollowButton.textContent = "Unfollow";
@@ -132,10 +142,11 @@ function showPostFrequencyText(postFrequency) {
 function showPostsList(offset, limit) {
   $.post("./post_requests_handler.php", { getProfilePosts: true, username: username, offset: offset, limit: limit }, function (posts) {
     posts.forEach(post => {
-      profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.images, post.comments, post.liked, post.rated, currentUsername));
+      profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.liked, post.rated));
+      retrieveImages(post.post_id);
 
       intervalIds.push(setInterval(function () {
-        $.post("./post_requests_handler.php", { getPostLikesNumber: true, post_id: post.post_id }, function (likesNumber) {
+        $.post("./post_requests_handler.php", { getPostLikesNumber: true, postId: post.post_id }, function (likesNumber) {
           let likesNumberTag = document.getElementById("likes-number" + post.post_id);
           if (likesNumberTag !== null) {
             likesNumberTag.textContent = likesNumber;
@@ -144,7 +155,7 @@ function showPostsList(offset, limit) {
 
         let postCommentsDiv = document.getElementById("post-comments" + post.post_id);
         if (!postCommentsDiv.hidden) {
-          $.post("./post_requests_handler.php", { getPostComments: true, post_id: post.post_id }, function (comments) {
+          $.post("./post_requests_handler.php", { getPostComments: true, postId: post.post_id }, function (comments) {
             getCommentsContainer(post.post_id, postCommentsDiv, comments, currentUsername);
           }, "json");
         }
@@ -156,7 +167,8 @@ function showPostsList(offset, limit) {
 function showPostsGrid(offset, limit) {
   $.post("./post_requests_handler.php", { getProfilePosts: true, username: username, offset: offset, limit: limit }, function (posts) {
     posts.forEach(post => {
-      profilePosts.appendChild(getGridViewPostContainer(post.post_id, post.owner, post.images));
+      profilePosts.appendChild(getGridViewPostContainer(post.post_id, post.owner));
+      getPostFirstImage(post.post_id);
     });
   }, "json");
 }
@@ -173,7 +185,6 @@ function getGridViewPostContainer(postId, owner, images) {
   let postImage = document.createElement("img");
   postImage.className = "post-image";
   postImage.id = "post-image" + postId;
-  postImage.src = "data:image/jpeg;base64," + images[0];
   postImage.onclick = function () {
     showPostsListButton.click();
     while (true) {

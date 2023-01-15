@@ -104,22 +104,22 @@ if (isset($_POST['getFeedPosts'])) {
 }
 
 if (isset($_POST['getPostImages'])) {
-    $images = $dbconnection->getPostImages($_POST['post_id']);
+    $images = $dbconnection->getPostImages($_POST['postId']);
     echo json_encode($images);
 }
 
 if (isset($_POST['getPostFirstImage'])) {
-    $image = $dbconnection->getPostFirstImage($_POST['post_id']);
+    $image = $dbconnection->getPostFirstImage($_POST['postId']);
     echo json_encode($image);
 }
 
 if (isset($_POST['getPostLikesNumber'])) {
-    $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['post_id']);
+    $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['postId']);
     echo json_encode($postLikesNumber);
 }
 
 if (isset($_POST['getPostComments'])) {
-    $comments = $dbconnection->getPostComments($_POST['post_id']);
+    $comments = $dbconnection->getPostComments($_POST['postId']);
     echo json_encode($comments);
 }
 
