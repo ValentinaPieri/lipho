@@ -280,6 +280,15 @@ class DBConnection
         return $images;
     }
 
+    public function getPostFirstImage($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_first_image']);
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['image'];
+    }
+
     public function createPost($caption, $images)
     {
         $stmt = $this->conn->prepare(QUERIES['add_post']);
