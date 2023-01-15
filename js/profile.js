@@ -180,11 +180,12 @@ function showPostsGrid(offset, limit) {
 
 function getGridViewPostContainer(postId, owner, images) {
   let postContainer = document.createElement("div");
-  postContainer.className = "post";
-  postContainer.id = "post" + postId;
+  postContainer.className = "grid-post";
+  postContainer.id = "grid-post" + postId;
 
+  let imageDiv = document.createElement("div");
+  imageDiv.className = "post-image";
   let postImage = document.createElement("img");
-  postImage.className = "post-image";
   postImage.id = "post-image" + postId;
   postImage.onclick = function () {
     showPostsListButton.click();
@@ -227,7 +228,8 @@ function getGridViewPostContainer(postId, owner, images) {
     postContainer.appendChild(deleteButton);
   }
 
-  postContainer.appendChild(postImage);
+  imageDiv.appendChild(postImage);
+  postContainer.appendChild(imageDiv);
   postContainer.appendChild(postOwner);
   postContainer.appendChild(fullScreenButton);
 
