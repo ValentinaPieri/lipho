@@ -11,7 +11,16 @@
 @import 'settings';
 @import 'create-post';
 
-*{
+@font-face {
+    font-family: NotoSans;
+    src: url('http://localhost/lipho/resources/font/NotoSans-Regular.ttf');
+}
+
+body {
+    font-family: NotoSans;
+}
+
+* {
     margin: 0;
     padding: 0;
     text-decoration: none;

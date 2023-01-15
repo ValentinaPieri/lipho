@@ -734,6 +734,14 @@ main > .delete-all-notifications span {
     height: 5rem;
   }
 }
+@font-face {
+  font-family: NotoSans;
+  src: url("http://localhost/lipho/resources/font/NotoSans-Regular.ttf");
+}
+body {
+  font-family: NotoSans;
+}
+
 * {
   margin: 0;
   padding: 0;
