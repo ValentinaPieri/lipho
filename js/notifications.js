@@ -36,7 +36,6 @@ function showNotifications() {
         let notificationsDiv;
         for (let current = 0; current < notifications.length; current++) {
             const notification = notifications[current];
-            const profileImage = notification.profile_image;
 
             if (!todayShown && isToday(new Date(notification.timestamp))) {
                 notificationsDiv = document.createElement("div");
@@ -64,19 +63,19 @@ function showNotifications() {
                 earlierShown = true;
             }
 
-            notificationsDiv.appendChild(getNotificationContainer(notification, profileImage));
+            notificationsDiv.appendChild(getNotificationContainer(notification));
             mainTag.appendChild(notificationsDiv);
+            getUserProfileImage(notification.sender, notification.notification_id);
         }
     }, "json");
 }
 
-function getNotificationContainer(notification, profileImage) {
+function getNotificationContainer(notification) {
     let notificationDiv = document.createElement("div");
     notificationDiv.className = "notification";
     notificationDiv.id = "notification-" + notification.notification_id;
 
     let notificationProfileImage = document.createElement("img");
-    notificationProfileImage.src = "data:image/jpeg;base64," + profileImage;
 
     let notificationInfoDiv = document.createElement("div");
     notificationInfoDiv.className = "notification-info";
@@ -105,6 +104,13 @@ function getNotificationContainer(notification, profileImage) {
     notificationDiv.appendChild(notificationDeleteButton);
 
     return notificationDiv;
+}
+
+function getUserProfileImage(username, notificationId) {
+    $.post("./post_requests_handler.php", { getUserProfileImage: true, username: username }, function (profileImage) {
+        let notificationProfileImage = document.getElementById("notification-" + notificationId).querySelector("img");
+        notificationProfileImage.src = "data:image/jpeg;base64," + profileImage;
+    }, "json");
 }
 
 function isToday(date) {
