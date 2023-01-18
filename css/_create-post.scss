@@ -1,29 +1,34 @@
-.create-post-form{
+.create-post-form {
     margin: 0 5vw;
     padding-bottom: 30vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    #images-form{
+
+    #images-form {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        .top-form{
+
+        .top-form {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            > * {
+
+            >* {
                 margin: 0.2rem 0;
             }
         }
-        .image-form-div{
+
+        .image-form-div {
             width: 100%;
             margin-bottom: 0.2rem;
-            .image-div{
+
+            .image-div {
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
@@ -33,22 +38,27 @@
                 background-size: contain;
                 background-position: center;
                 background-repeat: no-repeat;
-                img{
-                    object-fit: contain; /* Scale the image to cover the entire div */
+
+                img {
+                    object-fit: contain;
+                    /* Scale the image to cover the entire div */
                     max-width: 100%;
                     max-height: 100%;
                     width: 100%;
                 }
             }
-            .input-buttons-div{
+
+            .input-buttons-div {
                 margin: 0.3rem 0;
                 display: flex;
                 align-items: center;
                 flex-direction: column;
                 justify-content: center;
-                > * {
+
+                >* {
                     margin: 0.2rem 0;
                 }
+
                 input {
                     max-width: 80%;
                     cursor: pointer;
@@ -61,51 +71,111 @@
         }
     }
 
-    #caption-form{
+    #caption-form {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        > * {
+
+        >* {
             margin: 0.2rem 0;
         }
-        textarea{
+
+        textarea {
             width: 100%;
             height: 5rem;
             resize: none;
         }
     }
-    button{
+
+    button {
         background: $white;
         border: none;
         cursor: pointer;
     }
 
-    .btn{
+    .btn {
         font-weight: bold;
     }
 }
 
+.post-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 2/3;
+    width: 100%;
+    height: auto;
+    background: $black;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    img {
+        width: 100%;
+    }
+
+    .post-buttons-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: absolute;
+        background: $white;
+        border: $border-navbar;
+        border-right: none;
+        top: calc($img-dimensions - 12vmin - 4rem - 6px);
+        right: 0;
+
+        button {
+            border: none;
+            cursor: pointer;
+        }
+
+        span {
+            background: $white;
+            padding: 1.5vmin;
+            text-align: center;
+            font-size: 1rem;
+        }
+    }
+
+    .post-button {
+        z-index: 1;
+
+        &.full-screen-button {
+            display: none;
+            cursor: pointer;
+        }
+
+        &.rating-button {
+            position: relative;
+            bottom: 0;
+            left: 0;
+        }
+    }
+}
 
 
-@media screen and (width >= $media-query-post-value) {
-    .create-post-form{
+@media screen and (width >=$media-query-post-value) {
+    .create-post-form {
         margin: 0 10vw;
         display: flex;
         align-items: center;
         justify-content: center;
-        #images-form{
-            .image-form-div{
-                .image-div{
+
+        #images-form {
+            .image-form-div {
+                .image-div {
                     margin: auto;
                     width: $width-post-dekstop !important;
                     height: $height-post-dekstop !important;
                 }
             }
         }
-        #caption-form{
-            textarea{
+
+        #caption-form {
+            textarea {
                 max-width: 60%;
                 height: 5rem;
             }
