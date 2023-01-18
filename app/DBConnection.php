@@ -45,7 +45,6 @@ class DBConnection
                 $notification['receiver'] = $row['receiver'];
                 $notification['sender'] = $row['sender'];
                 $notification['timestamp'] = $row['timestamp'];
-                $notification['profile_image'] = isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
 
                 array_push($notifications, $notification);
             }
@@ -53,6 +52,19 @@ class DBConnection
 
         $this->setNotificationsSeen();
         return $notifications;
+    }
+
+    public function getUserProfileImage($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_profile_image']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['profile_image'];
+        }
+        return base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
     }
 
     public function sendNotification($receiver, $text)
