@@ -177,6 +177,11 @@ if (isset($_POST['getUserData'])) {
     echo json_encode($user);
 }
 
+if (isset($_POST['getUserProfileImage'])) {
+    $image = $dbconnection->getUserProfileImage($_POST['username']);
+    echo json_encode($image);
+}
+
 if (isset($_POST['editProfile'])) {
     $result["usernameValid"] = !isset($_POST['username']) || $_POST['username'] != "" && ($dbconnection->checkUsername($_POST['username']) || $_POST['username'] == $_SESSION['username']);
     $result["passwordValid"] = !isset($_POST['password']) || preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/", $_POST['password']) == 1;
