@@ -62,9 +62,8 @@ class DBConnection
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            return $row['profile_image'];
+            return isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
         }
-        return base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
     }
 
     public function sendNotification($receiver, $text)
