@@ -42,7 +42,7 @@
             justify-content: space-between;
             position: absolute;
             background: $white;
-            border: $border-navbar;
+            border: $border;
             border-right: none;
             top: calc($img-dimensions - 12vmin - 4rem - 6px);
             right: 0;
@@ -112,7 +112,7 @@
         input{
             width: 85%;
             border: none;
-            border: $border-navbar;
+            border: $border;
             background: transparent;
             color: $black;
             padding: 0.6vmin 0;
@@ -185,7 +185,7 @@
                     height: 15px;
                     border-radius: 50%;
                     background-color: $white;
-                    border: $border-navbar;
+                    border: $border;
                 }
             }
 
@@ -195,7 +195,7 @@
             padding: 1vmin 0;
             background: $white;
             color: $black;
-            border: $border-navbar;
+            border: $border;
             margin-bottom: 5vmin;
             cursor: pointer;
         }
@@ -205,7 +205,7 @@
 @media (width >= $media-query-post-value) {
     .post{
         width: $width-post-dekstop;
-        border: $border-navbar;
+        border: $border;
         margin: 6rem auto;
         &:first-child{
             margin: 0 auto;
@@ -223,7 +223,7 @@
                 position: absolute;
                 top: calc($height-post-dekstop - 1.5vmin - 2rem);
                 background: $white;
-                border: $border-navbar;
+                border: $border;
                 padding: 1.5vmin;
                 left: 0;
             }

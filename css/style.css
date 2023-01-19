@@ -392,6 +392,7 @@ main > .delete-all-notifications span {
 }
 .today-notifications .notification img, .yesterday-notifications .notification img, .earlier-notifications .notification img {
   width: 10vmin;
+  height: 10vmin;
   border-radius: 50%;
   margin: 3vmin 5vmin 3vmin 3vmin;
 }
@@ -427,6 +428,7 @@ main > .delete-all-notifications span {
 @media screen and (width >= 768px) {
   .today-notifications > img, .yesterday-notifications > img, .earlier-notifications > img {
     width: 5vmin;
+    height: 5vmin;
   }
   .today-notifications .notification > button span, .yesterday-notifications .notification > button span, .earlier-notifications .notification > button span {
     font-size: 2rem;
@@ -831,6 +833,7 @@ main > .delete-all-notifications span {
 .profile-header .profile-details .profile-specs .profile-stats span {
   font-size: 1.2rem;
   font-weight: bold;
+  color: #040F0F;
 }
 .profile-header .profile-details .profile-specs .profile-stats button {
   padding: 0 0.7rem;

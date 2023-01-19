@@ -3,7 +3,7 @@
     z-index: 1;
     background: $white;
     bottom: 0;
-    border: $border-navbar;
+    border: $border;
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -13,7 +13,7 @@
         font-size: 0.8rem;
         border-radius: 50%;
         padding: 0.3rem;
-        border: $border-navbar;
+        border: $border;
     }
     a {
         width: 100%;
@@ -29,7 +29,7 @@
             opacity: 0.8;
         }
         &:not(:last-child){
-            border-right: $border-navbar;
+            border-right: $border;
         }
     }
 }
