@@ -285,7 +285,7 @@ body {
   background: #FFFCF2;
 }
 
-@media screen and (min-aspect-ratio: aspect-ratio(4/3)) {
+@media screen and (min-aspect-ratio: 4/3) {
   .navbar {
     bottom: 1vh;
     left: 50%;
