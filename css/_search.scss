@@ -47,7 +47,7 @@
     }
 }
 
-@media screen and (width >=$media-query-value) {
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     #search-results-container>.user-container>.user-image {
         width: 5vmin;
         height: 5vmin;

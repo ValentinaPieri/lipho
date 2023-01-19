@@ -76,7 +76,7 @@ main>.delete-all-notifications {
     }
 }
 
-@media screen and (width >=$media-query-value) {
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
 
     .today-notifications,
     .yesterday-notifications,
