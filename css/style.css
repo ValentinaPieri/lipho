@@ -968,12 +968,16 @@ main > .delete-all-notifications span {
   font-family: NotoSans;
   src: url("http://localhost/lipho/resources/font/NotoSans-Regular.ttf");
 }
-body {
-  font-family: NotoSans;
-}
-
 * {
   margin: 0;
   padding: 0;
+  font-family: NotoSans;
   text-decoration: none;
+}
+
+@media screen and (min-aspect-ratio: 4/3) {
+  main {
+    margin: 0 auto;
+    width: 65%;
+  }
 }/*# sourceMappingURL=style.css.map */
