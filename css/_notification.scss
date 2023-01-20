@@ -1,79 +1,100 @@
-main > .delete-all-notifications{
+main>.delete-all-notifications {
     float: right;
     margin: 0 1rem;
     background: $white;
     border: none;
     margin-top: 0.7rem;
-    span{
+
+    span {
         font-size: 1rem;
         width: 100%;
     }
 }
-.today-notifications, .yesterday-notifications, .earlier-notifications {
+
+.today-notifications,
+.yesterday-notifications,
+.earlier-notifications {
     margin: 0 0.7rem;
     padding-top: 1rem;
     padding-bottom: 1.3rem;
-    &:not(:last-child){
-        border-bottom: $border-navbar;
+
+    &:not(:last-child) {
+        border-bottom: $border;
     }
-    h2{
+
+    h2 {
         width: 100%;
         font-size: 2rem;
     }
+
     .notification {
         display: flex;
         justify-content: start;
         align-items: center;
+
         img {
             width: 10vmin;
+            height: 10vmin;
             border-radius: 50%;
             margin: 3vmin 5vmin 3vmin 3vmin;
         }
-        .notification-info{
+
+        .notification-info {
             display: flex;
             justify-content: start;
             align-items: flex-start;
             width: 100%;
-            a{
+
+            a {
                 color: $username;
                 font-weight: bold;
+
                 &:hover {
                     color: $a-hover;
                 }
             }
+
             p {
                 margin: 0 0.5rem;
             }
         }
+
         button {
             margin: 0 0.5rem;
             background: $white;
             border: none;
-            span{
+
+            span {
                 font-size: 1rem;
                 width: 100%;
             }
         }
     }
 
-    .notification.notification-seen > .notification-info{
+    .notification.notification-seen>.notification-info {
         opacity: 0.5;
     }
 }
 
-@media screen and (width >= $media-query-value) {
-    .today-notifications, .yesterday-notifications, .earlier-notifications {
-        & > img {
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+
+    .today-notifications,
+    .yesterday-notifications,
+    .earlier-notifications {
+        &>img {
             width: 5vmin;
+            height: 5vmin;
         }
-        .notification > button{
+
+        .notification>button {
             span {
                 font-size: 2rem;
                 cursor: pointer;
             }
         }
     }
-    main > .delete-all-notifications > span{
+
+    main>.delete-all-notifications>span {
         font-size: 2rem;
         cursor: pointer;
     }

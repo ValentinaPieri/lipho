@@ -1,6 +1,11 @@
 .edit-profile {
     margin: 0.4rem 2rem;
     text-align: end;
+
+    span {
+        cursor: pointer;
+        color: $black;
+    }
 }
 
 .profile-header {
@@ -52,11 +57,12 @@
                 span {
                     font-size: 1.2rem;
                     font-weight: bold;
+                    color: $black;
                 }
 
                 button {
                     padding: 0 0.7rem;
-                    border: $border-navbar;
+                    border: $border;
                     background: $white;
                     color: $black;
                     font-size: 1rem;
@@ -65,7 +71,7 @@
             }
 
             .profile-insights {
-                border: $border-navbar;
+                border: $border;
                 padding: 0.3rem;
                 display: flex;
                 flex-direction: column;

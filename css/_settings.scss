@@ -1,70 +1,100 @@
-.edit-profile-image{
+.edit-profile-image {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
+    padding-top: 0;
+
     button {
         padding: 0.2rem;
+        color: $black;
         background: $white;
+        font-weight: bold;
         cursor: pointer;
     }
-    img{
+
+    img {
         width: 5rem;
         height: 5rem;
         border-radius: 50%;
+        cursor: pointer;
     }
-    .save-button{
+
+    .save-button {
         width: 100%;
         text-align: right;
-        button{
+
+        button {
             margin: 1rem 0.6rem 0.4rem 0;
             border: none;
+            color: $light-green;
         }
     }
-    .image-settings{
+
+    .image-settings {
         display: flex;
         align-items: center;
         justify-content: center;
+
         p {
             margin-left: 1.2rem;
             margin-top: 3rem;
             font-size: 0.7rem;
         }
+
         label {
             margin-right: 1.2rem;
             font-size: 1rem;
         }
-        span{
+
+        span {
             position: absolute;
             margin-left: 2rem;
         }
     }
-    .form-settings{
+
+    .form-settings {
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        .input-field{
+
+        .input-field {
             display: flex;
             justify-content: space-between;
             width: 100%;
             margin: 0.4rem 0;
-            input{
+
+            input {
                 max-width: 100%;
             }
-            &.logout-delete{
+
+            &.logout-delete {
                 display: flex;
                 justify-content: flex-start;
+
                 span {
                     margin-left: 1.2rem;
                     margin-top: 0.3rem;
                     font-size: 1rem;
                 }
-                .delete-account{
+
+                .delete-account {
                     border: solid 2px $delete-button;
                     color: $delete-button;
                 }
             }
         }
+    }
+}
+
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    .edit-profile-image {
+        padding: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

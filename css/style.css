@@ -47,7 +47,7 @@
   background: #FFFCF2;
   border: 2px solid #040F0F;
   border-right: none;
-  top: calc(150vw - 12vmin - 4rem - 6px);
+  top: calc(150vw - 12vmin - 4.5rem);
   right: 0;
 }
 .post .post-images .post-buttons-div button {
@@ -216,14 +216,14 @@
     width: 25rem;
   }
   .post .post-images .post-buttons-div {
-    top: calc(37.5rem - 12vmin - 4rem - 6px);
+    top: calc(37.5rem - 12vmin - 4.57rem);
   }
   .post .post-images .arrow-buttons-div {
     top: 18.75rem;
   }
   .post .post-images .full-screen-button {
     position: absolute;
-    top: calc(37.5rem - 1.5vmin - 2rem);
+    top: calc(37.5rem - 1.5vmin - 1.7rem);
     background: #FFFCF2;
     border: 2px solid #040F0F;
     padding: 1.5vmin;
@@ -257,7 +257,8 @@
   height: 5vh;
 }
 .navbar .notifications-badge:not(:empty) {
-  font-size: 0.8rem;
+  font-size: 0.45rem;
+  font-weight: bold;
   border-radius: 50%;
   padding: 0.3rem;
   border: 2px solid #040F0F;
@@ -270,7 +271,7 @@
   color: #040F0F;
 }
 .navbar a span {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 .navbar a:hover {
   background-color: #A4E378;
@@ -291,12 +292,19 @@ body {
     transform: translateX(-50%);
     width: 35rem;
   }
+  .navbar .notifications-badge:not(:empty) {
+    font-size: 0.45rem;
+    font-weight: bold;
+  }
+  a span {
+    font-size: 1.5rem;
+  }
 }
 header {
   display: none;
 }
 
-@media (width >= 768px) {
+@media screen and (min-aspect-ratio: 4/3) {
   header {
     display: inline;
   }
@@ -314,21 +322,21 @@ header {
   margin: 0 3vw;
   border-bottom: 2px solid #040F0F;
 }
-.search-container input {
+.search-container .search-bar {
   width: 100%;
-  height: 3vh;
+  height: 4vh;
   background: #FFFCF9;
   border: 2px solid #040F0F;
   border-radius: 0.3rem;
   font-size: 1.5vh;
 }
-.search-container input::-moz-placeholder {
+.search-container .search-bar::-moz-placeholder {
   padding-left: 1vw;
 }
-.search-container input:-ms-input-placeholder {
+.search-container .search-bar:-ms-input-placeholder {
   padding-left: 1vw;
 }
-.search-container input::placeholder {
+.search-container .search-bar::placeholder {
   padding-left: 1vw;
 }
 
@@ -355,10 +363,13 @@ header {
   color: #A4E378;
 }
 
-@media screen and (width >= 768px) {
+@media screen and (min-aspect-ratio: 4/3) {
   #search-results-container > .user-container > .user-image {
     width: 5vmin;
     height: 5vmin;
+  }
+  .search-container .search-bar {
+    height: 5vh;
   }
 }
 main > .delete-all-notifications {
@@ -373,62 +384,92 @@ main > .delete-all-notifications span {
   width: 100%;
 }
 
-.today-notifications, .yesterday-notifications, .earlier-notifications {
+.today-notifications,
+.yesterday-notifications,
+.earlier-notifications {
   margin: 0 0.7rem;
   padding-top: 1rem;
   padding-bottom: 1.3rem;
 }
-.today-notifications:not(:last-child), .yesterday-notifications:not(:last-child), .earlier-notifications:not(:last-child) {
+.today-notifications:not(:last-child),
+.yesterday-notifications:not(:last-child),
+.earlier-notifications:not(:last-child) {
   border-bottom: 2px solid #040F0F;
 }
-.today-notifications h2, .yesterday-notifications h2, .earlier-notifications h2 {
+.today-notifications h2,
+.yesterday-notifications h2,
+.earlier-notifications h2 {
   width: 100%;
   font-size: 2rem;
 }
-.today-notifications .notification, .yesterday-notifications .notification, .earlier-notifications .notification {
+.today-notifications .notification,
+.yesterday-notifications .notification,
+.earlier-notifications .notification {
   display: flex;
   justify-content: start;
   align-items: center;
 }
-.today-notifications .notification img, .yesterday-notifications .notification img, .earlier-notifications .notification img {
+.today-notifications .notification img,
+.yesterday-notifications .notification img,
+.earlier-notifications .notification img {
   width: 10vmin;
+  height: 10vmin;
   border-radius: 50%;
   margin: 3vmin 5vmin 3vmin 3vmin;
 }
-.today-notifications .notification .notification-info, .yesterday-notifications .notification .notification-info, .earlier-notifications .notification .notification-info {
+.today-notifications .notification .notification-info,
+.yesterday-notifications .notification .notification-info,
+.earlier-notifications .notification .notification-info {
   display: flex;
   justify-content: start;
   align-items: flex-start;
   width: 100%;
 }
-.today-notifications .notification .notification-info a, .yesterday-notifications .notification .notification-info a, .earlier-notifications .notification .notification-info a {
+.today-notifications .notification .notification-info a,
+.yesterday-notifications .notification .notification-info a,
+.earlier-notifications .notification .notification-info a {
   color: #0F571F;
   font-weight: bold;
 }
-.today-notifications .notification .notification-info a:hover, .yesterday-notifications .notification .notification-info a:hover, .earlier-notifications .notification .notification-info a:hover {
+.today-notifications .notification .notification-info a:hover,
+.yesterday-notifications .notification .notification-info a:hover,
+.earlier-notifications .notification .notification-info a:hover {
   color: #A4E378;
 }
-.today-notifications .notification .notification-info p, .yesterday-notifications .notification .notification-info p, .earlier-notifications .notification .notification-info p {
+.today-notifications .notification .notification-info p,
+.yesterday-notifications .notification .notification-info p,
+.earlier-notifications .notification .notification-info p {
   margin: 0 0.5rem;
 }
-.today-notifications .notification button, .yesterday-notifications .notification button, .earlier-notifications .notification button {
+.today-notifications .notification button,
+.yesterday-notifications .notification button,
+.earlier-notifications .notification button {
   margin: 0 0.5rem;
   background: #FFFCF2;
   border: none;
 }
-.today-notifications .notification button span, .yesterday-notifications .notification button span, .earlier-notifications .notification button span {
+.today-notifications .notification button span,
+.yesterday-notifications .notification button span,
+.earlier-notifications .notification button span {
   font-size: 1rem;
   width: 100%;
 }
-.today-notifications .notification.notification-seen > .notification-info, .yesterday-notifications .notification.notification-seen > .notification-info, .earlier-notifications .notification.notification-seen > .notification-info {
+.today-notifications .notification.notification-seen > .notification-info,
+.yesterday-notifications .notification.notification-seen > .notification-info,
+.earlier-notifications .notification.notification-seen > .notification-info {
   opacity: 0.5;
 }
 
-@media screen and (width >= 768px) {
-  .today-notifications > img, .yesterday-notifications > img, .earlier-notifications > img {
+@media screen and (min-aspect-ratio: 4/3) {
+  .today-notifications > img,
+.yesterday-notifications > img,
+.earlier-notifications > img {
     width: 5vmin;
+    height: 5vmin;
   }
-  .today-notifications .notification > button span, .yesterday-notifications .notification > button span, .earlier-notifications .notification > button span {
+  .today-notifications .notification > button span,
+.yesterday-notifications .notification > button span,
+.earlier-notifications .notification > button span {
     font-size: 2rem;
     cursor: pointer;
   }
@@ -486,6 +527,10 @@ main > .delete-all-notifications span {
 .page .container > form .input-field input {
   margin: 0;
   width: 100%;
+  height: 1.5rem;
+}
+.page .container > form .input-field span {
+  padding-top: 0.4rem;
 }
 .page .container > form .birthday-field {
   display: flex;
@@ -494,7 +539,16 @@ main > .delete-all-notifications span {
 .page .container > form .signup-button {
   margin: 1rem auto !important;
   padding: 0.3rem;
+  border: 3px solid #040F0F;
+  border-radius: 5px;
   width: 7rem !important;
+  height: 2.2rem;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+.page .container > form .signup-button:hover {
+  background-color: rgba(164, 227, 120, 0.7);
 }
 .page .option a {
   font-weight: bold;
@@ -504,10 +558,14 @@ main > .delete-all-notifications span {
   color: #A4E378;
 }
 
-@media screen and (width >= 768px) {
+@media screen and (min-aspect-ratio: 4/3) {
   .page {
     width: 100%;
     height: 100vh;
+  }
+  .page .container > form .signup-button {
+    width: 5.6rem !important;
+    height: 2.1rem;
   }
 }
 .page {
@@ -532,10 +590,8 @@ main > .delete-all-notifications span {
 .page .containerForm > form input {
   background: #FFFCF9;
   width: 78%;
+  height: 1.5rem;
   margin-right: 15%;
-}
-.page .containerForm > form span {
-  width: 15%;
 }
 .page .containerForm > form .input-field {
   display: flex;
@@ -545,16 +601,33 @@ main > .delete-all-notifications span {
   margin-right: 5%;
   width: 100%;
 }
+.page .containerForm > form .input-field span {
+  width: 15%;
+  cursor: pointer;
+}
 .page .containerForm > form .login-button {
   margin: 1rem auto !important;
   padding: 0.3rem;
-  width: 7rem !important;
+  border: 3px solid #040F0F;
+  border-radius: 5px;
+  width: 6rem !important;
+  height: 2.2rem;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+.page .containerForm > form .login-button:hover {
+  background-color: rgba(164, 227, 120, 0.7);
 }
 
-@media screen and (width >= 768px) {
+@media screen and (min-aspect-ratio: 4/3) {
   .page {
     width: 100%;
     height: 100vh;
+  }
+  .page .containerForm > form .login-button {
+    width: 5.6rem !important;
+    height: 2.1rem;
   }
 }
 .edit-profile-image {
@@ -562,16 +635,21 @@ main > .delete-all-notifications span {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
+  padding-top: 0;
 }
 .edit-profile-image button {
   padding: 0.2rem;
+  color: #040F0F;
   background: #FFFCF2;
+  font-weight: bold;
   cursor: pointer;
 }
 .edit-profile-image img {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
+  cursor: pointer;
 }
 .edit-profile-image .save-button {
   width: 100%;
@@ -580,6 +658,7 @@ main > .delete-all-notifications span {
 .edit-profile-image .save-button button {
   margin: 1rem 0.6rem 0.4rem 0;
   border: none;
+  color: #0F571F;
 }
 .edit-profile-image .image-settings {
   display: flex;
@@ -628,6 +707,15 @@ main > .delete-all-notifications span {
   color: #70161E;
 }
 
+@media screen and (min-aspect-ratio: 4/3) {
+  .edit-profile-image {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .create-post-form {
   margin: 0 5vw;
   padding-bottom: 30vh;
@@ -787,6 +875,10 @@ main > .delete-all-notifications span {
   margin: 0.4rem 2rem;
   text-align: end;
 }
+.edit-profile span {
+  cursor: pointer;
+  color: #040F0F;
+}
 
 .profile-header {
   margin-left: 2vw;
@@ -831,6 +923,7 @@ main > .delete-all-notifications span {
 .profile-header .profile-details .profile-specs .profile-stats span {
   font-size: 1.2rem;
   font-weight: bold;
+  color: #040F0F;
 }
 .profile-header .profile-details .profile-specs .profile-stats button {
   padding: 0 0.7rem;
@@ -910,5 +1003,13 @@ body {
 * {
   margin: 0;
   padding: 0;
+  font-family: NotoSans;
   text-decoration: none;
+}
+
+@media screen and (min-aspect-ratio: 4/3) {
+  main {
+    margin: 0 auto;
+    width: 65%;
+  }
 }/*# sourceMappingURL=style.css.map */

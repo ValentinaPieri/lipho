@@ -2,7 +2,7 @@ header {
     display: none;
 }
 
-@media (width >=$media-query-value) {
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     header {
         display: inline;
         h1 {
