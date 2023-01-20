@@ -47,7 +47,7 @@
   background: #FFFCF2;
   border: 2px solid #040F0F;
   border-right: none;
-  top: calc(150vw - 12vmin - 4rem - 6px);
+  top: calc(150vw - 12vmin - 4.5rem);
   right: 0;
 }
 .post .post-images .post-buttons-div button {
@@ -216,14 +216,14 @@
     width: 25rem;
   }
   .post .post-images .post-buttons-div {
-    top: calc(37.5rem - 12vmin - 4rem - 6px);
+    top: calc(37.5rem - 12vmin - 4.57rem);
   }
   .post .post-images .arrow-buttons-div {
     top: 18.75rem;
   }
   .post .post-images .full-screen-button {
     position: absolute;
-    top: calc(37.5rem - 1.5vmin - 2rem);
+    top: calc(37.5rem - 1.5vmin - 1.7rem);
     background: #FFFCF2;
     border: 2px solid #040F0F;
     padding: 1.5vmin;
@@ -603,6 +603,8 @@ main > .delete-all-notifications span {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
+  padding-top: 0;
 }
 .edit-profile-image button {
   padding: 0.2rem;
@@ -673,6 +675,15 @@ main > .delete-all-notifications span {
   color: #70161E;
 }
 
+@media screen and (min-aspect-ratio: 4/3) {
+  .edit-profile-image {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .create-post-form {
   margin: 0 5vw;
   padding-bottom: 30vh;

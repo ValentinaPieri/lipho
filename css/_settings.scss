@@ -3,6 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
+    padding-top: 0;
 
     button {
         padding: 0.2rem;
@@ -84,5 +86,15 @@
                 }
             }
         }
+    }
+}
+
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    .edit-profile-image {
+        padding: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
