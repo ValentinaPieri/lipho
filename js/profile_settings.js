@@ -147,6 +147,10 @@ function submitForm(username, password, name, surname, email, phone, birthdate) 
         if (result.birthdateValid === false) {
             editBirthdate.classList.add("invalid-input");
         }
+
+        if (result.usernameValid && result.passwordValid && result.nameValid && result.surnameValid && result.emailValid && result.phoneValid && result.birthdateValid) {
+            location.href = "./profile.php";
+        }
     });
 }
 
