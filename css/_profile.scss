@@ -1,6 +1,11 @@
 .edit-profile {
     margin: 0.4rem 2rem;
     text-align: end;
+
+    span {
+        cursor: pointer;
+        color: $black;
+    }
 }
 
 .profile-header {
