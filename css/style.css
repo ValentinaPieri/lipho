@@ -527,6 +527,7 @@ main > .delete-all-notifications span {
 .page .container > form .input-field input {
   margin: 0;
   width: 100%;
+  height: 1.5rem;
 }
 .page .container > form .birthday-field {
   display: flex;
@@ -535,7 +536,16 @@ main > .delete-all-notifications span {
 .page .container > form .signup-button {
   margin: 1rem auto !important;
   padding: 0.3rem;
+  border: 3px solid #040F0F;
+  border-radius: 5px;
   width: 7rem !important;
+  height: 2.2rem;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+.page .container > form .signup-button:hover {
+  background-color: rgba(164, 227, 120, 0.7);
 }
 .page .option a {
   font-weight: bold;
@@ -549,6 +559,10 @@ main > .delete-all-notifications span {
   .page {
     width: 100%;
     height: 100vh;
+  }
+  .page .container > form .signup-button {
+    width: 5.6rem !important;
+    height: 2.1rem;
   }
 }
 .page {
