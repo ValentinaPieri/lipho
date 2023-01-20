@@ -903,10 +903,6 @@ main > .delete-all-notifications span {
   width: 100%;
 }
 
-@font-face {
-  font-family: NotoSans;
-  src: url("http://localhost/lipho/resources/font/NotoSans-Regular.ttf");
-}
 body {
   font-family: NotoSans;
 }

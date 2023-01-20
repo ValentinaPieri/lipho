@@ -7,6 +7,7 @@
     <title>Lipho | <?php echo $templateParams["title"]; ?></title>
     <link rel="icon" type="image/x-icon" href="resources/icons/favicon.ico">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Noto Sans'>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
