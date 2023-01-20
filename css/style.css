@@ -996,14 +996,10 @@ main > .delete-all-notifications span {
   width: 100%;
 }
 
-body {
-  font-family: NotoSans;
-}
-
 * {
   margin: 0;
   padding: 0;
-  font-family: NotoSans;
+  font-family: Noto Sans;
   text-decoration: none;
 }
 
