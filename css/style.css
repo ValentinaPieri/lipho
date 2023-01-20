@@ -606,7 +606,10 @@ main > .delete-all-notifications span {
 }
 .edit-profile-image button {
   padding: 0.2rem;
+  color: #040F0F;
   background: #FFFCF2;
+  font-weight: bold;
+  cursor: pointer;
 }
 .edit-profile-image img {
   width: 5rem;
@@ -621,7 +624,7 @@ main > .delete-all-notifications span {
 .edit-profile-image .save-button button {
   margin: 1rem 0.6rem 0.4rem 0;
   border: none;
-  cursor: pointer;
+  color: #0F571F;
 }
 .edit-profile-image .image-settings {
   display: flex;
@@ -665,14 +668,9 @@ main > .delete-all-notifications span {
   margin-top: 0.3rem;
   font-size: 1rem;
 }
-.edit-profile-image .form-settings .input-field.logout-delete #logout-button {
-  color: #040F0F;
-  cursor: pointer;
-}
 .edit-profile-image .form-settings .input-field.logout-delete .delete-account {
   border: solid 2px #70161E;
   color: #70161E;
-  cursor: pointer;
 }
 
 .create-post-form {

@@ -6,7 +6,10 @@
 
     button {
         padding: 0.2rem;
+        color: $black;
         background: $white;
+        font-weight: bold;
+        cursor: pointer;
     }
 
     img {
@@ -23,7 +26,7 @@
         button {
             margin: 1rem 0.6rem 0.4rem 0;
             border: none;
-            cursor: pointer;
+            color: $light-green;
         }
     }
 
@@ -75,15 +78,9 @@
                     font-size: 1rem;
                 }
 
-                #logout-button {
-                    color: $black;
-                    cursor: pointer;
-                }
-
                 .delete-account {
                     border: solid 2px $delete-button;
                     color: $delete-button;
-                    cursor: pointer;
                 }
             }
         }
