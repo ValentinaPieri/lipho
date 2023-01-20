@@ -19,6 +19,14 @@
     text-decoration: none;
 }
 
+.text-button {
+    padding: 0.2rem;
+    color: $black;
+    background: $white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     main {
         margin: 0 auto;

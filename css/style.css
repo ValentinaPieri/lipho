@@ -1003,6 +1003,14 @@ main > .delete-all-notifications span {
   text-decoration: none;
 }
 
+.text-button {
+  padding: 0.2rem;
+  color: #040F0F;
+  background: #FFFCF2;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 @media screen and (min-aspect-ratio: 4/3) {
   main {
     margin: 0 auto;
