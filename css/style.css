@@ -591,12 +591,16 @@ main > .delete-all-notifications span {
 .page .containerForm > form .login-button {
   margin: 1rem auto !important;
   padding: 0.3rem;
-  border: 2px solid #040F0F;
+  border: 3px solid #040F0F;
+  border-radius: 5px;
   width: 6rem !important;
   height: 2.2rem;
   font-size: medium;
   font-weight: bold;
   cursor: pointer;
+}
+.page .containerForm > form .login-button:hover {
+  background-color: rgba(164, 227, 120, 0.7);
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
@@ -605,8 +609,8 @@ main > .delete-all-notifications span {
     height: 100vh;
   }
   .page .containerForm > form .login-button {
-    width: 5.8rem !important;
-    height: 2.3rem;
+    width: 5.6rem !important;
+    height: 2.1rem;
   }
 }
 .edit-profile-image {

@@ -44,12 +44,17 @@
         .login-button {
             margin: 1rem auto !important;
             padding: 0.3rem;
-            border: $border;
+            border: 3px solid $black;
+            border-radius: 5px;
             width: 6rem !important;
             height: 2.2rem;
             font-size: medium;
             font-weight: bold;
             cursor: pointer;
+
+            &:hover {
+                background-color: transparentize($a-hover, 0.3);
+            }
         }
     }
 }
@@ -61,8 +66,8 @@
 
         .containerForm>form {
             .login-button {
-                width: 5.8rem !important;
-                height: 2.3rem;
+                width: 5.6rem !important;
+                height: 2.1rem;
             }
         }
     }
