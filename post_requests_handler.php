@@ -44,21 +44,7 @@ if (isset($_POST['getNotSeenNotificationsNumber'])) {
 }
 
 if (isset($_POST["createPost"])) {
-    $images = array();
-    for ($i = 0; $i < 5; $i++) {
-        if (isset($_FILES['image-input' . $i])) {
-            $fileName = basename($_FILES['image-input' . $i]['name']);
-            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-            $allowedTypes = array('jpg', 'jpeg');
-            if (in_array($fileType, $allowedTypes)) {
-                $image = $_FILES['image-input' . $i]['tmp_name'];
-                $imgContent = base64_encode(file_get_contents($image));
-                array_push($images, $imgContent);
-            }
-        }
-    }
-    $dbconnection->createPost($_POST['caption'], $images);
-    header("Location: create_post.php");
+    $dbconnection->createPost($_POST['caption'], $_POST['images']);
 }
 
 if (isset($_POST['deletePost'])) {
