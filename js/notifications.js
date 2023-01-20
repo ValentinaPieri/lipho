@@ -1,3 +1,5 @@
+let oldNotificationsCount = 0;
+
 showNotifications();
 
 setInterval(function () {
@@ -6,19 +8,12 @@ setInterval(function () {
 
 function showNotifications() {
     $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
-        let mainTag = document.getElementsByTagName("main")[0];
-        mainTag.innerHTML = "";
-        if (notifications.length == 0) {
-            let noNotificationsFoundDiv = document.createElement("div");
-            noNotificationsFoundDiv.className = "no-notifications-found";
-            let noNotificationsFoundHeader = document.createElement("h2");
-            noNotificationsFoundHeader.textContent = "No notifications";
-            let noNotificationsFoundIcon = document.createElement("span");
-            noNotificationsFoundIcon.className = "fa-regular fa-face-frown-slight";
-            noNotificationsFoundDiv.appendChild(noNotificationsFoundHeader);
-            noNotificationsFoundDiv.appendChild(noNotificationsFoundIcon);
-            mainTag.appendChild(noNotificationsFoundDiv);
-        } else {
+        showNoNotificationsFound(notifications.length);
+        if (notifications.length > oldNotificationsCount) {
+            oldNotificationsCount = notifications.length;
+            let mainTag = document.querySelector("main");
+            mainTag.innerHTML = "";
+
             let deleteAllNotificationsButton = document.createElement("button");
             deleteAllNotificationsButton.classList.add("delete-all-notifications");
             deleteAllNotificationsButton.type = "button";
@@ -27,45 +22,45 @@ function showNotifications() {
             trashIcon.className = "fa-regular fa-trash-can-list";
             deleteAllNotificationsButton.appendChild(trashIcon);
             mainTag.appendChild(deleteAllNotificationsButton);
-        }
 
 
-        let todayShown = false;
-        let yesterdayShown = false;
-        let earlierShown = false;
-        let notificationsDiv;
-        for (let current = 0; current < notifications.length; current++) {
-            const notification = notifications[current];
+            let todayShown = false;
+            let yesterdayShown = false;
+            let earlierShown = false;
+            let notificationsDiv;
+            for (let current = 0; current < notifications.length; current++) {
+                const notification = notifications[current];
 
-            if (!todayShown && isToday(new Date(notification.timestamp))) {
-                notificationsDiv = document.createElement("div");
-                notificationsDiv.className = "today-notifications";
-                notificationsDiv.id = "today-notifications";
-                let todayNotificationsHeader = document.createElement("h2");
-                todayNotificationsHeader.textContent = "Today";
-                notificationsDiv.appendChild(todayNotificationsHeader);
-                todayShown = true;
-            } else if (!yesterdayShown && isYesterday(new Date(notification.timestamp))) {
-                notificationsDiv = document.createElement("div");
-                notificationsDiv.className = "yesterday-notifications";
-                notificationsDiv.id = "yesterday-notifications";
-                let yesterdayNotificationsHeader = document.createElement("h2");
-                yesterdayNotificationsHeader.textContent = "Yesterday";
-                notificationsDiv.appendChild(yesterdayNotificationsHeader);
-                yesterdayShown = true;
-            } else if (!earlierShown && isEarlier(new Date(notification.timestamp))) {
-                notificationsDiv = document.createElement("div");
-                notificationsDiv.className = "earlier-notifications";
-                notificationsDiv.id = "earlier-notifications";
-                let earlierNotificationsHeader = document.createElement("h2");
-                earlierNotificationsHeader.textContent = "Earlier";
-                notificationsDiv.appendChild(earlierNotificationsHeader);
-                earlierShown = true;
+                if (!todayShown && isToday(new Date(notification.timestamp))) {
+                    notificationsDiv = document.createElement("div");
+                    notificationsDiv.className = "today-notifications";
+                    notificationsDiv.id = "today-notifications";
+                    let todayNotificationsHeader = document.createElement("h2");
+                    todayNotificationsHeader.textContent = "Today";
+                    notificationsDiv.appendChild(todayNotificationsHeader);
+                    todayShown = true;
+                } else if (!yesterdayShown && isYesterday(new Date(notification.timestamp))) {
+                    notificationsDiv = document.createElement("div");
+                    notificationsDiv.className = "yesterday-notifications";
+                    notificationsDiv.id = "yesterday-notifications";
+                    let yesterdayNotificationsHeader = document.createElement("h2");
+                    yesterdayNotificationsHeader.textContent = "Yesterday";
+                    notificationsDiv.appendChild(yesterdayNotificationsHeader);
+                    yesterdayShown = true;
+                } else if (!earlierShown && isEarlier(new Date(notification.timestamp))) {
+                    notificationsDiv = document.createElement("div");
+                    notificationsDiv.className = "earlier-notifications";
+                    notificationsDiv.id = "earlier-notifications";
+                    let earlierNotificationsHeader = document.createElement("h2");
+                    earlierNotificationsHeader.textContent = "Earlier";
+                    notificationsDiv.appendChild(earlierNotificationsHeader);
+                    earlierShown = true;
+                }
+
+                notificationsDiv.appendChild(getNotificationContainer(notification));
+                mainTag.appendChild(notificationsDiv);
+                getUserProfileImage(notification.sender, notification.notification_id);
             }
-
-            notificationsDiv.appendChild(getNotificationContainer(notification));
-            mainTag.appendChild(notificationsDiv);
-            getUserProfileImage(notification.sender, notification.notification_id);
         }
     }, "json");
 }
@@ -139,9 +134,33 @@ function isEarlier(date) {
 }
 
 function deleteNotification(notificationId) {
-    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId });
+    $.post("./post_requests_handler.php", { deleteNotification: true, notificationId: notificationId }, function () {
+        let notificationDiv = document.getElementById("notification-" + notificationId);
+        notificationDiv.remove();
+        oldNotificationsCount--;
+        showNoNotificationsFound(oldNotificationsCount);
+    });
 }
 
 function deleteAllNotifications() {
-    $.post("./post_requests_handler.php", { deleteAllNotifications: true });
+    $.post("./post_requests_handler.php", { deleteAllNotifications: true }, function () {
+        oldNotificationsCount = 0;
+        showNoNotificationsFound(oldNotificationsCount);
+    });
+}
+
+function showNoNotificationsFound(notificationsNumber) {
+    if (notificationsNumber === 0) {
+        let mainTag = document.querySelector("main");
+        mainTag.innerHTML = "";
+        let noNotificationsFoundDiv = document.createElement("div");
+        noNotificationsFoundDiv.className = "no-notifications-found";
+        let noNotificationsFoundHeader = document.createElement("h2");
+        noNotificationsFoundHeader.textContent = "No notifications";
+        let noNotificationsFoundIcon = document.createElement("span");
+        noNotificationsFoundIcon.className = "fa-regular fa-face-frown-slight";
+        noNotificationsFoundDiv.appendChild(noNotificationsFoundHeader);
+        noNotificationsFoundDiv.appendChild(noNotificationsFoundIcon);
+        mainTag.appendChild(noNotificationsFoundDiv);
+    }
 }
