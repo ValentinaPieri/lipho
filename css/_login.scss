@@ -18,6 +18,7 @@
         input{
             background: $background-white;
             width: 78%;
+            height: 1.5rem;
             margin-right: 15%;
         }
         span{
@@ -35,7 +36,11 @@
         .login-button{
             margin: 1rem auto !important;
             padding: 0.3rem;
-            width: 7rem !important;
+            border: $border;
+            width: 6rem !important;
+            height: 2.2rem;
+            font-size: medium;
+            font-weight: bold;
         }
     }
 }

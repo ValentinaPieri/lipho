@@ -573,6 +573,7 @@ main > .delete-all-notifications span {
 .page .containerForm > form input {
   background: #FFFCF9;
   width: 78%;
+  height: 1.5rem;
   margin-right: 15%;
 }
 .page .containerForm > form span {
@@ -589,7 +590,11 @@ main > .delete-all-notifications span {
 .page .containerForm > form .login-button {
   margin: 1rem auto !important;
   padding: 0.3rem;
-  width: 7rem !important;
+  border: 2px solid #040F0F;
+  width: 6rem !important;
+  height: 2.2rem;
+  font-size: medium;
+  font-weight: bold;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
