@@ -187,16 +187,6 @@ function getGridViewPostContainer(postId, owner, images) {
   imageDiv.className = "post-image";
   let postImage = document.createElement("img");
   postImage.id = "post-image" + postId;
-  postImage.onclick = function () {
-    showPostsListButton.click();
-    while (true) {
-      let postContainer = document.getElementById("post" + postId);
-      if (postContainer !== null) {
-        postContainer.scrollIntoView();
-        break;
-      }
-    }
-  };
 
   let postOwner = document.createElement("a");
   postOwner.className = "post-owner";
