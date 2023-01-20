@@ -44,7 +44,7 @@
             background: $white;
             border: $border;
             border-right: none;
-            top: calc($img-dimensions - 12vmin - 4rem - 6px);
+            top: calc($img-dimensions - 12vmin - 4.5rem);
             right: 0;
             button{
                 border: none;
@@ -214,14 +214,14 @@
             height: $height-post-dekstop;
             width: $width-post-dekstop;
             .post-buttons-div{
-                top: calc($height-post-dekstop - 12vmin - 4rem - 6px);
+                top: calc($height-post-dekstop - 12vmin - 4.57rem);
             }
             .arrow-buttons-div{
                 top: calc($height-post-dekstop / 2);
             }
             .full-screen-button{
                 position: absolute;
-                top: calc($height-post-dekstop - 1.5vmin - 2rem);
+                top: calc($height-post-dekstop - 1.5vmin - 1.7rem);
                 background: $white;
                 border: $border;
                 padding: 1.5vmin;
