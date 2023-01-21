@@ -100,64 +100,8 @@
     }
 }
 
-.post-image-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 2/3;
-    width: 100%;
-    height: auto;
-    background: $black;
-    background-repeat: no-repeat;
-    background-size: cover;
 
-    img {
-        width: 100%;
-    }
-
-    .post-buttons-div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: absolute;
-        background: $white;
-        border: $border;
-        border-right: none;
-        top: calc($img-dimensions - 12vmin - 4rem - 6px);
-        right: 0;
-
-        button {
-            border: none;
-            cursor: pointer;
-        }
-
-        span {
-            background: $white;
-            padding: 1.5vmin;
-            text-align: center;
-            font-size: 1rem;
-        }
-    }
-
-    .post-button {
-        z-index: 1;
-
-        &.full-screen-button {
-            display: none;
-            cursor: pointer;
-        }
-
-        &.rating-button {
-            position: relative;
-            bottom: 0;
-            left: 0;
-        }
-    }
-}
-
-
-@media screen and (width >=$media-query-post-value) {
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     .create-post-form {
         margin: 0 10vw;
         display: flex;

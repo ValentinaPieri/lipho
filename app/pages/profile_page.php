@@ -16,7 +16,7 @@
                 <p><span id='posts' class="stat"></span> posts</p>
                 <p><span id='followers' class="stat"></span> followers</p>
                 <p><span id='following' class="stat"></span> following</p>
-                <p><button id='follow-unfollow-button'></button>
+                <p><button id='follow-unfollow-button' class="text-button"></button>
             </div>
             <div id="profile-insights" class="profile-insights">
                 <div class="insight-icon">
@@ -35,7 +35,7 @@
     </div>
 </div>
 <div id="display-mode-buttons" class="display-mode-buttons">
-    <button id="grid-button" class="grid-button"><span class="fa-solid fa-grid"></span></button>
-    <button id="list-button" class="list-button"><span class="fa-regular fa-bars"></span></button>
+    <button id="grid-button" class="icon-button"><span class="fa-solid fa-grid"></span></button>
+    <button id="list-button" class="icon-button"><span class="fa-regular fa-bars"></span></button>
 </div>
 <div id='profile-posts' class="profile-posts grid"></div>

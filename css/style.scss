@@ -17,19 +17,43 @@
     padding: 0;
     font-family: Noto Sans;
     text-decoration: none;
+    color: $black;
+}
+
+button {
+    background: $white;
+    color: $black;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.profile-link {
+    color: $username;
+    font-weight: bold;
+
+    &:hover {
+        color: $a-hover;
+    }
 }
 
 .text-button {
     padding: 0.2rem;
-    color: $black;
-    background: $white;
     font-weight: bold;
-    cursor: pointer;
+    border: $border;
+}
+
+.icon-button {
+    border: none;
+
+    span {
+        font-size: 1.2rem;
+    }
 }
 
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     main {
         margin: 0 auto;
-        width: 65%;
+        width: 50%;
     }
 }

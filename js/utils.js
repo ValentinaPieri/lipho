@@ -1,6 +1,6 @@
 function retrieveImages(postId) {
     $.post("./post_requests_handler.php", { getPostImages: true, postId: postId }, function (images) {
-        let postImagesDiv = document.getElementById("post-images" + postId);
+        let postImagesDiv = document.getElementById("post-image-container" + postId);
         if (images.length > 1) {
             let indexDiv = document.createElement("div");
             indexDiv.className = "slide-index";
@@ -26,7 +26,7 @@ function retrieveImages(postId) {
             let arrowButtonsDiv = document.createElement("div");
             arrowButtonsDiv.className = "arrow-buttons-div";
             let leftArrowButton = document.createElement("button");
-            leftArrowButton.className = "post-button arrow-button";
+            leftArrowButton.className = "icon-button post-button arrow-button";
             leftArrowButton.id = "previous-slide-button" + postId;
             leftArrowButton.type = "button";
             let leftArrowButtonIcon = document.createElement("span");
@@ -36,7 +36,7 @@ function retrieveImages(postId) {
                 showSlideLeft(postId);
             };
             let rightArrowButton = document.createElement("button");
-            rightArrowButton.className = "post-button arrow-button";
+            rightArrowButton.className = "icon-button post-button arrow-button";
             rightArrowButton.id = "next-slide-button" + postId;
             rightArrowButton.type = "button";
             let rightArrowButtonIcon = document.createElement("span");

@@ -15,7 +15,7 @@ function showNotifications() {
             mainTag.innerHTML = "";
 
             let deleteAllNotificationsButton = document.createElement("button");
-            deleteAllNotificationsButton.classList.add("delete-all-notifications");
+            deleteAllNotificationsButton.className = "icon-button delete-all-notifications-button";
             deleteAllNotificationsButton.type = "button";
             deleteAllNotificationsButton.onclick = deleteAllNotifications;
             let trashIcon = document.createElement("span");
@@ -76,6 +76,7 @@ function getNotificationContainer(notification) {
     notificationInfoDiv.className = "notification-info";
 
     let notificationProfileLink = document.createElement("a");
+    notificationProfileLink.className = "profile-link";
     notificationProfileLink.href = "profile.php?username=" + notification.sender;
     notificationProfileLink.textContent = notification.sender;
 
@@ -83,6 +84,7 @@ function getNotificationContainer(notification) {
     notificationText.textContent = notification.text;
 
     let notificationDeleteButton = document.createElement("button");
+    notificationDeleteButton.className = "icon-button";
     notificationDeleteButton.type = "button";
     notificationDeleteButton.onclick = function () {
         deleteNotification(notification.notification_id);

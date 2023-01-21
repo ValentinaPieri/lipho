@@ -39,11 +39,11 @@
                 <input id="edit-birthdate" name="birthdate" type="date" />
             </div>
             <div class="input-field logout-delete">
-                <button type="button" id="logout-button">Log out</button>
+                <button type="button" id="logout-button" class="text-button">Log out</button>
                 <span class="fa-regular fa-arrow-right-from-bracket"></span>
             </div>
             <div class="input-field logout-delete">
-                <button type="button" class="delete-account" id="delete-account-button">Delete account</button>
+                <button type="button" class="text-button delete-account" id="delete-account-button">Delete account</button>
                 <span class="fa-regular fa-trash-xmark"></span>
             </div>
         </div>

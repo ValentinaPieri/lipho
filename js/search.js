@@ -29,7 +29,7 @@ function getMatchingUsers(username) {
                 }
 
                 const userLink = document.createElement("a");
-                userLink.classList.add("user-link");
+                userLink.className = "profile-link";
                 userLink.href = "profile.php?username=" + user.username;
                 userLink.innerText = user.username;
 

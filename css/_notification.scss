@@ -1,13 +1,10 @@
 main>.delete-all-notifications {
     float: right;
     margin: 0 1rem;
-    background: $white;
-    border: none;
     margin-top: 0.7rem;
 
     span {
         font-size: 1rem;
-        width: 100%;
     }
 }
 
@@ -45,28 +42,8 @@ main>.delete-all-notifications {
             align-items: flex-start;
             width: 100%;
 
-            a {
-                color: $username;
-                font-weight: bold;
-
-                &:hover {
-                    color: $a-hover;
-                }
-            }
-
             p {
                 margin: 0 0.5rem;
-            }
-        }
-
-        button {
-            margin: 0 0.5rem;
-            background: $white;
-            border: none;
-
-            span {
-                font-size: 1rem;
-                width: 100%;
             }
         }
     }
@@ -85,17 +62,5 @@ main>.delete-all-notifications {
             width: 5vmin;
             height: 5vmin;
         }
-
-        .notification>button {
-            span {
-                font-size: 2rem;
-                cursor: pointer;
-            }
-        }
-    }
-
-    main>.delete-all-notifications>span {
-        font-size: 2rem;
-        cursor: pointer;
     }
 }

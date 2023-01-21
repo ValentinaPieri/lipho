@@ -24,8 +24,10 @@ showPostsGridButton.onclick = function () {
     firstLoad = false;
     gridActive = true;
     listActive = false;
-    showPostsGridButton.classList.add("active");
-    showPostsListButton.classList.remove("active");
+    showPostsListButton.querySelector("span").classList.remove("fa-solid");
+    showPostsListButton.querySelector("span").classList.add("fa-regular");
+    showPostsGridButton.querySelector("span").classList.remove("fa-regular");
+    showPostsGridButton.querySelector("span").classList.add("fa-solid");
     profilePosts.classList.remove("list");
     profilePosts.classList.add("grid");
     intervalIds.forEach(id => clearInterval(id));
@@ -42,8 +44,10 @@ showPostsListButton.onclick = function () {
     firstLoad = false;
     listActive = true;
     gridActive = false;
-    showPostsListButton.classList.add("active");
-    showPostsGridButton.classList.remove("active");
+    showPostsGridButton.querySelector("span").classList.remove("fa-solid");
+    showPostsGridButton.querySelector("span").classList.add("fa-regular");
+    showPostsListButton.querySelector("span").classList.remove("fa-regular");
+    showPostsListButton.querySelector("span").classList.add("fa-solid");
     profilePosts.classList.remove("grid");
     profilePosts.classList.add("list");
     profilePosts.innerHTML = "";
@@ -66,6 +70,7 @@ function showProfile() {
       followUnfollowButton.remove();
       let editProfileDiv = document.getElementById("edit-profile");
       let editProfileLink = document.createElement("a");
+      editProfileLink.className = "profile-link";
       editProfileLink.href = "./profile_settings.php";
       let editProfileButton = document.createElement("span");
       editProfileButton.className = "fa-regular fa-gear";
@@ -194,7 +199,7 @@ function getGridViewPostContainer(postId, owner, images) {
   postOwner.textContent = owner;
 
   let fullScreenButton = document.createElement("button");
-  fullScreenButton.className = "post-button";
+  fullScreenButton.className = "icon-button post-button";
   fullScreenButton.id = "full-screen-button" + postId;
   fullScreenButton.type = "button";
   let fullScreenButtonIcon = document.createElement("span");
@@ -206,7 +211,7 @@ function getGridViewPostContainer(postId, owner, images) {
 
   if (owner === currentUsername) {
     let deleteButton = document.createElement("button");
-    deleteButton.className = "post-button";
+    deleteButton.className = "icon-button post-button";
     deleteButton.id = "delete-button" + postId;
     deleteButton.type = "button";
     let deleteButtonIcon = document.createElement("span");
