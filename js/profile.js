@@ -117,8 +117,7 @@ function showProfile() {
 
 function getPostFirstImage(postId) {
   $.post("./post_requests_handler.php", { getPostFirstImage: true, postId: postId }, function (image) {
-    console.log(image);
-    let postImage = document.getElementById("post-image" + postId);
+    let postImage = document.getElementById("post-image-container" + postId);
     postImage.src = "data:image/jpeg;base64," + image;
   }, "json");
 }
@@ -183,23 +182,18 @@ function showPostsGrid(offset, limit) {
   }, "json");
 }
 
-function getGridViewPostContainer(postId, owner, images) {
+function getGridViewPostContainer(postId, owner) {
   let postContainer = document.createElement("div");
   postContainer.className = "grid-post";
   postContainer.id = "grid-post" + postId;
 
   let imageDiv = document.createElement("div");
-  imageDiv.className = "post-image";
+  imageDiv.className = "post-image-container";
   let postImage = document.createElement("img");
-  postImage.id = "post-image" + postId;
-
-  let postOwner = document.createElement("a");
-  postOwner.className = "post-owner";
-  postOwner.href = "./profile.php?username=" + owner;
-  postOwner.textContent = owner;
+  postImage.id = "post-image-container" + postId;
 
   let fullScreenButton = document.createElement("button");
-  fullScreenButton.className = "icon-button post-button";
+  fullScreenButton.className = "icon-button post-button full-screen-button";
   fullScreenButton.id = "full-screen-button" + postId;
   fullScreenButton.type = "button";
   let fullScreenButtonIcon = document.createElement("span");
@@ -211,28 +205,27 @@ function getGridViewPostContainer(postId, owner, images) {
 
   if (owner === currentUsername) {
     let deleteButton = document.createElement("button");
-    deleteButton.className = "icon-button post-button";
+    deleteButton.className = "icon-button post-button delete-button";
     deleteButton.id = "delete-button" + postId;
     deleteButton.type = "button";
     let deleteButtonIcon = document.createElement("span");
     deleteButtonIcon.className = "fa-regular fa-trash-alt";
     deleteButton.appendChild(deleteButtonIcon);
+    imageDiv.appendChild(postImage);
     deleteButton.onclick = function () {
       deletePost(postId);
     };
-    postContainer.appendChild(deleteButton);
+    imageDiv.appendChild(deleteButton);
   }
 
-  imageDiv.appendChild(postImage);
+  imageDiv.appendChild(fullScreenButton);
   postContainer.appendChild(imageDiv);
-  postContainer.appendChild(postOwner);
-  postContainer.appendChild(fullScreenButton);
 
   return postContainer;
 }
 
 function fullScreenImageGrid(postId) {
-  let image = document.getElementById("post-image" + postId);
+  let image = document.getElementById("post-image-container" + postId);
   if (image.requestFullscreen) {
     image.requestFullscreen();
   } else if (image.mozRequestFullScreen) {
@@ -249,8 +242,10 @@ function fullScreenImageGrid(postId) {
 
 function deletePost(postId) {
   $.post("./post_requests_handler.php", { deletePost: true, postId: postId }, function () {
-    let postContainer = document.getElementById("grid-post-container" + postId);
+    let postContainer = document.getElementById("grid-post" + postId);
     postContainer.remove();
+    let postsNumber = document.getElementById("posts");
+    postsNumber.textContent = parseInt(postsNumber.textContent) - 1;
   });
 }
 

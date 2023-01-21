@@ -1,4 +1,6 @@
 .post-image-container {
+  z-index: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,10 +26,6 @@
   height: auto;
   width: 100%;
   border: 2px solid #040F0F;
-}
-.post .post-image-container {
-  z-index: 0;
-  position: relative;
 }
 .post .post-image-container .slide-index {
   width: 100%;
@@ -867,18 +865,18 @@ main > .delete-all-notifications span {
   width: 100%;
   height: auto;
 }
-.profile-posts.grid .grid-post .post-image {
-  background: #040F0F;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.profile-posts.grid .grid-post .post-image-container button {
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  border: 2px solid #040F0F;
+  padding: 1vmin;
 }
-.profile-posts.grid .grid-post .post-image img {
-  width: 100%;
+.profile-posts.grid .grid-post .post-image-container .full-screen-button {
+  left: 0;
+}
+.profile-posts.grid .grid-post .post-image-container .delete-button {
+  right: 0;
 }
 
 * {
