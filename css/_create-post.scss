@@ -64,8 +64,6 @@
                     cursor: pointer;
                     border: $border;
                     border-radius: 0.2rem;
-                    background: $white;
-                    color: $black;
                 }
             }
         }
@@ -87,12 +85,6 @@
             height: 5rem;
             resize: none;
         }
-    }
-
-    button {
-        background: $white;
-        border: none;
-        cursor: pointer;
     }
 
     .btn {

@@ -1,7 +1,6 @@
 .navbar {
     position: fixed;
     z-index: 1;
-    background: $white;
     bottom: 0;
     border: $border;
     display: flex;
@@ -27,6 +26,7 @@
 
         span {
             font-size: 1rem;
+            background: none;
         }
 
         &:hover {
@@ -38,10 +38,6 @@
             border-right: $border;
         }
     }
-}
-
-body {
-    background: $white;
 }
 
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {

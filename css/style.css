@@ -1,3 +1,19 @@
+.post-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 2/3;
+  width: 100%;
+  height: auto;
+  background: #040F0F;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.post-image-container img {
+  width: 100%;
+}
+
 .post {
   position: relative;
   display: flex;
@@ -7,81 +23,64 @@
   margin-bottom: 15vh;
   height: auto;
   width: 100%;
+  border: 2px solid #040F0F;
 }
-.post .post-images {
+.post .post-image-container {
   z-index: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 150vw;
-  background: #040F0F;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
 }
-.post .post-images img {
-  -o-object-fit: contain;
-     object-fit: contain; /* Scale the image to cover the entire div */
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-}
-.post .post-images .slide-index {
+.post .post-image-container .slide-index {
   width: 100%;
   background: transparent;
   display: flex;
   justify-content: center;
 }
-.post .post-images .slide-index p {
+.post .post-image-container .slide-index p {
   position: absolute;
   background: rgba(255, 252, 242, 0.3);
   color: rgba(4, 15, 15, 0.7);
 }
-.post .post-images .post-buttons-div {
+.post .post-image-container .post-buttons-div {
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
-  background: #FFFCF2;
   border: 2px solid #040F0F;
   border-right: none;
-  top: calc(150vw - 12vmin - 4.5rem);
+  bottom: 0;
   right: 0;
 }
-.post .post-images .post-buttons-div button {
-  border: none;
-  cursor: pointer;
-}
-.post .post-images .post-buttons-div span {
-  background: #FFFCF2;
+.post .post-image-container .post-buttons-div span {
   padding: 1.5vmin;
   text-align: center;
   font-size: 1rem;
 }
-.post .post-images .arrow-buttons-div {
+.post .post-image-container .arrow-buttons-div {
   display: flex;
   justify-content: space-between;
   position: absolute;
   z-index: 1;
   width: 100%;
   top: 75vw;
+  background: none;
 }
-.post .post-images .arrow-buttons-div button {
+.post .post-image-container .arrow-buttons-div button {
   border: none;
   background: rgba(255, 252, 242, 0.3);
   padding: 1.5vmin;
   text-align: center;
 }
-.post .post-images .post-button {
+.post .post-image-container .arrow-buttons-div button span {
+  background: none;
+}
+.post .post-image-container .post-button {
   z-index: 1;
 }
-.post .post-images .post-button.full-screen-button {
+.post .post-image-container .post-button.full-screen-button {
   display: none;
-  cursor: pointer;
 }
-.post .post-images .post-button.rating-button {
+.post .post-image-container .post-button.rating-button {
   position: relative;
   bottom: 0;
   left: 0;
@@ -156,10 +155,7 @@
   width: 100%;
 }
 .post .post-comments .comment-div .comment-buttons-div button {
-  border: none;
-  background: #FFFCF2;
   padding: 1vmin;
-  cursor: pointer;
 }
 .post .post-rating {
   width: calc(100% - 4vmin);
@@ -195,44 +191,40 @@
 .post .post-rating button {
   width: 100%;
   padding: 1vmin 0;
-  background: #FFFCF2;
-  color: #040F0F;
   border: 2px solid #040F0F;
   margin-bottom: 5vmin;
-  cursor: pointer;
 }
 
-@media (width >= 425px) {
+@media screen and (min-aspect-ratio: 4/3) {
   .post {
     width: 25rem;
-    border: 2px solid #040F0F;
     margin: 6rem auto;
   }
   .post:first-child {
     margin: 0 auto;
   }
-  .post .post-images {
-    height: 37.5rem;
+  .post .post-image-container {
     width: 25rem;
   }
-  .post .post-images .post-buttons-div {
-    top: calc(37.5rem - 12vmin - 4.57rem);
-  }
-  .post .post-images .arrow-buttons-div {
+  .post .post-image-container .arrow-buttons-div {
     top: 18.75rem;
   }
-  .post .post-images .full-screen-button {
+  .post .post-image-container .full-screen-button {
     position: absolute;
-    top: calc(37.5rem - 1.5vmin - 1.7rem);
-    background: #FFFCF2;
     border: 2px solid #040F0F;
+    border-left: none;
     padding: 1.5vmin;
+    bottom: 0;
     left: 0;
   }
-  .post .post-images .post-buttons-div, .post .post-images .arrow-buttons-div, .post .post-images .full-screen-button {
+  .post .post-image-container .post-buttons-div,
+.post .post-image-container .arrow-buttons-div,
+.post .post-image-container .full-screen-button {
     display: none;
   }
-  .post .post-images:hover .post-buttons-div, .post .post-images:hover .arrow-buttons-div, .post .post-images:hover .full-screen-button {
+  .post .post-image-container:hover .post-buttons-div,
+.post .post-image-container:hover .arrow-buttons-div,
+.post .post-image-container:hover .full-screen-button {
     display: flex;
   }
   .post .post-input-comment-div {
@@ -247,7 +239,6 @@
 .navbar {
   position: fixed;
   z-index: 1;
-  background: #FFFCF2;
   bottom: 0;
   border: 2px solid #040F0F;
   display: flex;
@@ -272,6 +263,7 @@
 }
 .navbar a span {
   font-size: 1rem;
+  background: none;
 }
 .navbar a:hover {
   background-color: #A4E378;
@@ -279,10 +271,6 @@
 }
 .navbar a:not(:last-child) {
   border-right: 2px solid #040F0F;
-}
-
-body {
-  background: #FFFCF2;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
@@ -375,13 +363,10 @@ header {
 main > .delete-all-notifications {
   float: right;
   margin: 0 1rem;
-  background: #FFFCF2;
-  border: none;
   margin-top: 0.7rem;
 }
 main > .delete-all-notifications span {
   font-size: 1rem;
-  width: 100%;
 }
 
 .today-notifications,
@@ -425,34 +410,10 @@ main > .delete-all-notifications span {
   align-items: flex-start;
   width: 100%;
 }
-.today-notifications .notification .notification-info a,
-.yesterday-notifications .notification .notification-info a,
-.earlier-notifications .notification .notification-info a {
-  color: #0F571F;
-  font-weight: bold;
-}
-.today-notifications .notification .notification-info a:hover,
-.yesterday-notifications .notification .notification-info a:hover,
-.earlier-notifications .notification .notification-info a:hover {
-  color: #A4E378;
-}
 .today-notifications .notification .notification-info p,
 .yesterday-notifications .notification .notification-info p,
 .earlier-notifications .notification .notification-info p {
   margin: 0 0.5rem;
-}
-.today-notifications .notification button,
-.yesterday-notifications .notification button,
-.earlier-notifications .notification button {
-  margin: 0 0.5rem;
-  background: #FFFCF2;
-  border: none;
-}
-.today-notifications .notification button span,
-.yesterday-notifications .notification button span,
-.earlier-notifications .notification button span {
-  font-size: 1rem;
-  width: 100%;
 }
 .today-notifications .notification.notification-seen > .notification-info,
 .yesterday-notifications .notification.notification-seen > .notification-info,
@@ -466,16 +427,6 @@ main > .delete-all-notifications span {
 .earlier-notifications > img {
     width: 5vmin;
     height: 5vmin;
-  }
-  .today-notifications .notification > button span,
-.yesterday-notifications .notification > button span,
-.earlier-notifications .notification > button span {
-    font-size: 2rem;
-    cursor: pointer;
-  }
-  main > .delete-all-notifications > span {
-    font-size: 2rem;
-    cursor: pointer;
   }
 }
 .no-matches-found, .no-notifications-found {
@@ -640,10 +591,7 @@ main > .delete-all-notifications span {
 }
 .edit-profile-image button {
   padding: 0.2rem;
-  color: #040F0F;
-  background: #FFFCF2;
   font-weight: bold;
-  cursor: pointer;
 }
 .edit-profile-image img {
   width: 5rem;
@@ -778,8 +726,6 @@ main > .delete-all-notifications span {
   cursor: pointer;
   border: 2px solid #040F0F;
   border-radius: 0.2rem;
-  background: #FFFCF2;
-  color: #040F0F;
 }
 .create-post-form #caption-form {
   width: 100%;
@@ -796,65 +742,11 @@ main > .delete-all-notifications span {
   height: 5rem;
   resize: none;
 }
-.create-post-form button {
-  background: #FFFCF2;
-  border: none;
-  cursor: pointer;
-}
 .create-post-form .btn {
   font-weight: bold;
 }
 
-.post-image-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 2/3;
-  width: 100%;
-  height: auto;
-  background: #040F0F;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.post-image-container img {
-  width: 100%;
-}
-.post-image-container .post-buttons-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  background: #FFFCF2;
-  border: 2px solid #040F0F;
-  border-right: none;
-  top: calc(150vw - 12vmin - 4rem - 6px);
-  right: 0;
-}
-.post-image-container .post-buttons-div button {
-  border: none;
-  cursor: pointer;
-}
-.post-image-container .post-buttons-div span {
-  background: #FFFCF2;
-  padding: 1.5vmin;
-  text-align: center;
-  font-size: 1rem;
-}
-.post-image-container .post-button {
-  z-index: 1;
-}
-.post-image-container .post-button.full-screen-button {
-  display: none;
-  cursor: pointer;
-}
-.post-image-container .post-button.rating-button {
-  position: relative;
-  bottom: 0;
-  left: 0;
-}
-
-@media screen and (width >= 425px) {
+@media screen and (min-aspect-ratio: 4/3) {
   .create-post-form {
     margin: 0 10vw;
     display: flex;
@@ -928,10 +820,7 @@ main > .delete-all-notifications span {
 .profile-header .profile-details .profile-specs .profile-stats button {
   padding: 0 0.7rem;
   border: 2px solid #040F0F;
-  background: #FFFCF2;
-  color: #040F0F;
   font-size: 1rem;
-  cursor: pointer;
 }
 .profile-header .profile-details .profile-specs .profile-insights {
   border: 2px solid #040F0F;
@@ -958,11 +847,7 @@ main > .delete-all-notifications span {
 }
 .display-mode-buttons button {
   padding: 0.5rem 1rem;
-  background: #FFFCF2;
-  color: #040F0F;
-  border: none;
   font-size: 1rem;
-  cursor: pointer;
 }
 
 .profile-posts.grid {
@@ -1001,19 +886,41 @@ main > .delete-all-notifications span {
   padding: 0;
   font-family: Noto Sans;
   text-decoration: none;
+  color: #040F0F;
+  background: #FFFCF2;
+}
+
+button {
+  color: #040F0F;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.profile-link {
+  color: #0F571F;
+  font-weight: bold;
+}
+.profile-link:hover {
+  color: #A4E378;
 }
 
 .text-button {
   padding: 0.2rem;
-  color: #040F0F;
-  background: #FFFCF2;
   font-weight: bold;
-  cursor: pointer;
+  border: 2px solid #040F0F;
+}
+
+.icon-button {
+  border: none;
+}
+.icon-button span {
+  font-size: 1.2rem;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
   main {
     margin: 0 auto;
-    width: 65%;
+    width: 50%;
   }
 }/*# sourceMappingURL=style.css.map */

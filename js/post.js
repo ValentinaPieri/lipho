@@ -74,6 +74,8 @@ function getPostContainer(postId, owner, caption, liked, rated) {
     buttonsDiv.appendChild(commentButton);
     if (!rated) {
         buttonsDiv.appendChild(ratingButton);
+    } else {
+        buttonsDiv.classList.add("no-rating-button");
     }
     postImagesDiv.appendChild(buttonsDiv);
 
