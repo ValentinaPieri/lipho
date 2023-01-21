@@ -87,7 +87,7 @@
 }
 .post .post-caption {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   padding: 2vmin 0;
   width: 100%;
@@ -98,7 +98,7 @@
 .post .post-caption a {
   color: #0F571F;
   font-weight: bold;
-  text-align: start;
+  text-align: flex-start;
 }
 .post .post-caption a:hover {
   color: #A4E378;
@@ -131,7 +131,7 @@
 }
 .post .post-comments {
   display: grid;
-  align-items: start;
+  align-items: flex-start;
   width: calc(100% - 1vmin);
 }
 .post .post-comments > * {
@@ -151,7 +151,7 @@
   color: #040F0F;
 }
 .post .post-comments .comment-div .comment-buttons-div {
-  text-align: end;
+  text-align: flex-end;
   width: 100%;
 }
 .post .post-comments .comment-div .comment-buttons-div button {
@@ -175,7 +175,7 @@
 }
 .post .post-rating .rating-div input[type=range] {
   color: #040F0F;
-  text-align: end;
+  text-align: flex-end;
   -webkit-appearance: none;
   background: #040F0F;
   border-radius: 1rem;
@@ -243,7 +243,7 @@
   justify-content: space-around;
   text-align: center;
   width: 100%;
-  height: 5vh;
+  height: 2.3rem;
 }
 .navbar .notifications-badge:not(:empty) {
   font-size: 0.45rem;
@@ -260,7 +260,7 @@
   color: #040F0F;
 }
 .navbar a span {
-  font-size: 1rem;
+  font-size: 1.2rem;
   background: none;
 }
 .navbar a:hover {
@@ -281,9 +281,6 @@
   .navbar .notifications-badge:not(:empty) {
     font-size: 0.45rem;
     font-weight: bold;
-  }
-  a span {
-    font-size: 1.5rem;
   }
 }
 header {
@@ -332,7 +329,7 @@ header {
 }
 #search-results-container .user-container {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 #search-results-container .user-container .user-image {
@@ -389,7 +386,7 @@ main > .delete-all-notifications span {
 .yesterday-notifications .notification,
 .earlier-notifications .notification {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 .today-notifications .notification img,
@@ -404,7 +401,7 @@ main > .delete-all-notifications span {
 .yesterday-notifications .notification .notification-info,
 .earlier-notifications .notification .notification-info {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
 }
@@ -452,7 +449,7 @@ main > .delete-all-notifications span {
 .page .container > form {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
 }
 .page .container > form > * {
@@ -529,7 +526,7 @@ main > .delete-all-notifications span {
 .page .containerForm > form {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 }
 .page .containerForm > form > * {
@@ -763,7 +760,7 @@ main > .delete-all-notifications span {
 }
 .edit-profile {
   margin: 0.4rem 2rem;
-  text-align: end;
+  text-align: flex-end;
 }
 .edit-profile span {
   cursor: pointer;
@@ -791,7 +788,7 @@ main > .delete-all-notifications span {
 .profile-header .profile-details .profile-data {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
 }
 .profile-header .profile-details .profile-data .username {
   font-size: 1.5rem;
@@ -826,7 +823,7 @@ main > .delete-all-notifications span {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   right: 0;
 }
 .profile-header .profile-details .profile-specs .profile-insights .insight-icon {

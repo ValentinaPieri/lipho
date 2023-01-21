@@ -1,6 +1,6 @@
 .edit-profile {
     margin: 0.4rem 2rem;
-    text-align: end;
+    text-align: flex-end;
 
     span {
         cursor: pointer;
@@ -30,7 +30,7 @@
         .profile-data {
             display: flex;
             flex-direction: column;
-            justify-content: start;
+            justify-content: flex-start;
 
             .username {
                 font-size: 1.5rem;
@@ -73,7 +73,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: start;
+                align-items: flex-start;
                 right: 0;
 
                 .insight-icon {
