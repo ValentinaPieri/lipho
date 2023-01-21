@@ -355,13 +355,13 @@ header {
     height: 5vh;
   }
 }
-main > .delete-all-notifications {
+main > .delete-all-notifications-button {
   float: right;
   margin: 0 1rem;
   margin-top: 0.7rem;
 }
-main > .delete-all-notifications span {
-  font-size: 1rem;
+main > .delete-all-notifications-button span {
+  font-size: 1.5rem;
 }
 
 .today-notifications,
