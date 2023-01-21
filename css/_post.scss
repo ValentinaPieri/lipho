@@ -27,6 +27,8 @@
     height: auto;
     width: 100%;
     border: $border;
+    border-left: none;
+    border-right: none;
 
     .post-image-container {
 
@@ -235,6 +237,7 @@
     .post {
         width: $width-post-dekstop;
         margin: 6rem auto;
+        border: $border;
 
         &:first-child {
             margin: 0 auto;
