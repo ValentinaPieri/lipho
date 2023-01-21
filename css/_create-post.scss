@@ -33,7 +33,7 @@
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                height: $img-dimensions;
+                height: $post-height-mobile;
                 background: $black;
                 background-size: contain;
                 background-position: center;
@@ -104,8 +104,8 @@
             .image-form-div {
                 .image-div {
                     margin: auto;
-                    width: $width-post-dekstop !important;
-                    height: $height-post-dekstop !important;
+                    width: $post-width-desktop !important;
+                    height: $post-height-desktop !important;
                 }
             }
         }

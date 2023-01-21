@@ -69,7 +69,7 @@
             position: absolute;
             z-index: 1;
             width: 100%;
-            top: calc($img-dimensions / 2);
+            top: calc($post-height-mobile / 2);
             background: none;
 
             button {
@@ -235,7 +235,7 @@
 
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     .post {
-        width: $width-post-dekstop;
+        width: $post-width-desktop;
         margin: 6rem auto;
         border: $border;
 
@@ -244,10 +244,9 @@
         }
 
         .post-image-container {
-            width: $width-post-dekstop;
 
             .arrow-buttons-div {
-                top: calc($height-post-dekstop / 2);
+                top: calc($post-height-desktop / 2);
             }
 
             .full-screen-button {
