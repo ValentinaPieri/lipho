@@ -3,6 +3,8 @@
     z-index: 1;
     bottom: 0;
     border: $border;
+    border-left: none;
+    border-right: none;
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -46,10 +48,6 @@
         left: 50%;
         transform: translateX(-50%);
         width: 35rem;
-
-        .notifications-badge:not(:empty) {
-            font-size: 0.45rem;
-            font-weight: bold;
-        }
+        border: $border;
     }
 }
