@@ -8,6 +8,7 @@ main>.delete-all-notifications-button {
     }
 }
 
+
 .today-notifications,
 .yesterday-notifications,
 .earlier-notifications {
@@ -30,8 +31,8 @@ main>.delete-all-notifications-button {
         align-items: center;
 
         img {
-            width: 10vmin;
-            height: 10vmin;
+            width: 5rem;
+            height: 5rem;
             border-radius: 50%;
             margin: 3vmin 5vmin 3vmin 3vmin;
         }
@@ -45,22 +46,6 @@ main>.delete-all-notifications-button {
             p {
                 margin: 0 0.5rem;
             }
-        }
-    }
-
-    .notification.notification-seen>.notification-info {
-        opacity: 0.5;
-    }
-}
-
-@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
-
-    .today-notifications,
-    .yesterday-notifications,
-    .earlier-notifications {
-        &>img {
-            width: 5vmin;
-            height: 5vmin;
         }
     }
 }

@@ -392,8 +392,8 @@ main > .delete-all-notifications-button span {
 .today-notifications .notification img,
 .yesterday-notifications .notification img,
 .earlier-notifications .notification img {
-  width: 10vmin;
-  height: 10vmin;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   margin: 3vmin 5vmin 3vmin 3vmin;
 }
@@ -410,20 +410,7 @@ main > .delete-all-notifications-button span {
 .earlier-notifications .notification .notification-info p {
   margin: 0 0.5rem;
 }
-.today-notifications .notification.notification-seen > .notification-info,
-.yesterday-notifications .notification.notification-seen > .notification-info,
-.earlier-notifications .notification.notification-seen > .notification-info {
-  opacity: 0.5;
-}
 
-@media screen and (min-aspect-ratio: 4/3) {
-  .today-notifications > img,
-.yesterday-notifications > img,
-.earlier-notifications > img {
-    width: 5vmin;
-    height: 5vmin;
-  }
-}
 .no-matches-found, .no-notifications-found {
   display: flex;
   justify-content: center;
