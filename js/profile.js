@@ -149,7 +149,7 @@ function showPostFrequencyText(postFrequency) {
 function showPostsList(offset, limit) {
   $.post("./post_requests_handler.php", { getProfilePosts: true, username: username, offset: offset, limit: limit }, function (posts) {
     posts.forEach(post => {
-      profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.liked, post.rated));
+      profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.liked, true));
       retrieveImages(post.post_id);
 
       intervalIds.push(setInterval(function () {
