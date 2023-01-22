@@ -1,3 +1,5 @@
+import { showSnackbar } from "./utils.js";
+
 const addImageButton = document.getElementById("add-image-button");
 const imagesContainer = document.getElementById("images-container");
 const captionTextArea = document.getElementById("caption");
@@ -180,7 +182,11 @@ function createPost() {
         caption: document.getElementById('caption').value,
     }
 
-    $.post('./post_requests_handler.php', args, function () {
-        location.reload();
-    });
+    if (images.length == 0) {
+        showSnackbar('Please add at least one image');
+    } else {
+        $.post('./post_requests_handler.php', args, function () {
+            location.reload();
+        });
+    }
 }
