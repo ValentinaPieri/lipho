@@ -64,7 +64,7 @@ function showImage(index) {
     postButtonsContainer.className = 'post-buttons-div';
 
     let removeButton = document.createElement("button");
-    removeButton.className = "icon-button post-button";
+    removeButton.className = "icon-button remove-button";
     removeButton.id = "remove-button" + index;
     removeButton.type = "button";
 
@@ -120,7 +120,7 @@ function refreshArrowButtons() {
 
 function getMoveUpButton(imageIndex) {
     let moveUpButton = document.createElement("button");
-    moveUpButton.className = "icon-button post-button";
+    moveUpButton.className = "icon-button";
     moveUpButton.id = "move-up-button" + imageIndex;
     moveUpButton.type = "button";
 
@@ -148,7 +148,7 @@ function moveImageUp(imageIndex) {
 
 function getMoveDownButton(imageIndex) {
     let moveDownButton = document.createElement("button");
-    moveDownButton.className = "icon-button post-button";
+    moveDownButton.className = "icon-button";
     moveDownButton.id = "move-down-button" + imageIndex;
     moveDownButton.type = "button";
 

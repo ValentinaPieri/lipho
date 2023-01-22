@@ -193,7 +193,7 @@ function getGridViewPostContainer(postId, owner) {
   postImage.id = "post-image-container" + postId;
 
   let fullScreenButton = document.createElement("button");
-  fullScreenButton.className = "icon-button post-button full-screen-button";
+  fullScreenButton.className = "icon-button full-screen-button";
   fullScreenButton.id = "full-screen-button" + postId;
   fullScreenButton.type = "button";
   let fullScreenButtonIcon = document.createElement("span");
@@ -205,7 +205,7 @@ function getGridViewPostContainer(postId, owner) {
 
   if (owner === currentUsername) {
     let deleteButton = document.createElement("button");
-    deleteButton.className = "icon-button post-button delete-button";
+    deleteButton.className = "icon-button delete-button";
     deleteButton.id = "delete-button" + postId;
     deleteButton.type = "button";
     let deleteButtonIcon = document.createElement("span");

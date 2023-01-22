@@ -559,10 +559,6 @@ main > .delete-all-notifications-button span {
   padding: 1rem;
   padding-top: 0;
 }
-.edit-profile-image button {
-  padding: 0.2rem;
-  font-weight: bold;
-}
 .edit-profile-image img {
   width: 5rem;
   height: 5rem;
@@ -575,8 +571,8 @@ main > .delete-all-notifications-button span {
 }
 .edit-profile-image .save-button button {
   margin: 1rem 0.6rem 0.4rem 0;
-  border: none;
   color: #0F571F;
+  font-weight: bold;
 }
 .edit-profile-image .image-settings {
   display: flex;
@@ -634,105 +630,69 @@ main > .delete-all-notifications-button span {
     align-items: center;
   }
 }
-.create-post-form {
-  margin: 0 5vw;
-  padding-bottom: 30vh;
+.create-post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rem;
+}
+.create-post-container .images-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.create-post-form #images-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.create-post-container .images-form .add-image-button {
+  margin: 1rem 0;
 }
-.create-post-form #images-form .top-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.create-post-form #images-form .top-form > * {
-  margin: 0.2rem 0;
-}
-.create-post-form #images-form .image-form-div {
-  width: 100%;
-  margin-bottom: 0.2rem;
-}
-.create-post-form #images-form .image-form-div .image-div {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 150vw;
-  background: #040F0F;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.create-post-form #images-form .image-form-div .image-div img {
-  -o-object-fit: contain;
-     object-fit: contain;
-  /* Scale the image to cover the entire div */
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-}
-.create-post-form #images-form .image-form-div .input-buttons-div {
-  margin: 0.3rem 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
-.create-post-form #images-form .image-form-div .input-buttons-div > * {
-  margin: 0.2rem 0;
-}
-.create-post-form #images-form .image-form-div .input-buttons-div input {
-  max-width: 80%;
-  cursor: pointer;
+.create-post-container .post-image-container {
+  width: 18rem;
   border: 2px solid #040F0F;
-  border-radius: 0.2rem;
+  margin: 1rem 0;
 }
-.create-post-form #caption-form {
-  width: 100%;
+.create-post-container .post-image-container .post-buttons-div {
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #040F0F;
+  border-right: none;
+  border-bottom: none;
+}
+.create-post-container .post-image-container .post-buttons-div .icon-button {
+  padding: 0.4rem;
+}
+.create-post-container .caption-form {
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 1rem 0;
 }
-.create-post-form #caption-form > * {
-  margin: 0.2rem 0;
-}
-.create-post-form #caption-form textarea {
+.create-post-container .caption-form .textarea {
   width: 100%;
-  height: 5rem;
-  resize: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 }
-.create-post-form .btn {
-  font-weight: bold;
+.create-post-container .caption-form .textarea textarea {
+  background-color: #FFFCF9;
+  width: 100%;
+  height: 7rem;
+  resize: none;
+  border: 2px solid #040F0F;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.create-post-container .caption-form .textarea .remaining-characters {
+  text-align: right;
+  font-size: 0.8rem;
 }
 
-@media screen and (min-aspect-ratio: 4/3) {
-  .create-post-form {
-    margin: 0 10vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .create-post-form #images-form .image-form-div .image-div {
-    margin: auto;
-    width: 25rem !important;
-    height: 37.5rem !important;
-  }
-  .create-post-form #caption-form textarea {
-    max-width: 60%;
-    height: 5rem;
-  }
-}
 .edit-profile {
   margin: 0.4rem 2rem;
   text-align: end;
@@ -833,7 +793,7 @@ main > .delete-all-notifications-button span {
   width: 100%;
   height: auto;
 }
-.profile-posts.grid .grid-post .post-image-container button {
+.profile-posts.grid .grid-post .post-image-container .icon-button {
   z-index: 1;
   position: absolute;
   bottom: 0;
@@ -872,7 +832,7 @@ button {
 }
 
 .text-button {
-  padding: 0.2rem;
+  padding: 0.2rem 0.5rem;
   font-weight: bold;
   border: 2px solid #040F0F;
 }

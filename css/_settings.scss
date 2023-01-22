@@ -6,11 +6,6 @@
     padding: 1rem;
     padding-top: 0;
 
-    button {
-        padding: 0.2rem;
-        font-weight: bold;
-    }
-
     img {
         width: 5rem;
         height: 5rem;
@@ -24,8 +19,8 @@
 
         button {
             margin: 1rem 0.6rem 0.4rem 0;
-            border: none;
             color: $light-green;
+            font-weight: bold;
         }
     }
 
