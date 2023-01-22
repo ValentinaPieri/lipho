@@ -31,7 +31,7 @@
                 </form>
             </div>
             <div class="option">
-                <p>Don't have an account? <a href="./sign_up.php">Sign-up now</a></p>
+                <p>Don't have an account? <a href="./signup.php">Sign-up now</a></p>
             </div>
         </div>
     </main>
