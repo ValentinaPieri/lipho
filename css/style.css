@@ -181,10 +181,10 @@
   border: 2px solid #040F0F;
 }
 .post .post-rating button {
-  width: 100%;
+  width: 30%;
   padding: 1vmin 0;
   border: 2px solid #040F0F;
-  margin-bottom: 5vmin;
+  margin: 0.5rem auto;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
