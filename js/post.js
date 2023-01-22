@@ -264,14 +264,18 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         replyButton.onclick = function () {
             replyToComment(postId, comments[i].comment_id);
         };
-        commentDiv.appendChild(commentUsername);
-        commentDiv.appendChild(commentText);
+
+        let commentContentDiv = document.createElement("div");
+        commentContentDiv.className = "comment-content-div";
+        commentContentDiv.appendChild(commentUsername);
+        commentContentDiv.appendChild(commentText);
 
         if (currentUsername == comments[i].username) {
             commentButtonsDiv.appendChild(deleteCommentButton);
         }
         commentButtonsDiv.appendChild(likeCommentButton);
         commentButtonsDiv.appendChild(replyButton);
+        commentDiv.appendChild(commentContentDiv);
         commentDiv.appendChild(commentButtonsDiv);
         postCommentsDiv.appendChild(commentDiv);
     }

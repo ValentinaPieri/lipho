@@ -23,8 +23,6 @@
   align-items: center;
   justify-content: center;
   margin: 5rem 0.5rem;
-  height: auto;
-  width: 97%;
   border: 2px solid #040F0F;
 }
 .post .post-image-container .slide-index {
@@ -129,14 +127,14 @@
 }
 .post .post-comments {
   display: grid;
-  align-items: flex-start;
   width: calc(100% - 1vmin);
 }
 .post .post-comments > * {
-  padding: 0 1vmin;
+  margin: 0.5rem 0.5rem;
 }
 .post .post-comments .comment-div {
-  display: grid;
+  display: flex;
+  justify-content: space-between;
 }
 .post .post-comments .comment-div a {
   color: #0F571F;
@@ -147,10 +145,6 @@
 }
 .post .post-comments .comment-div p {
   color: #040F0F;
-}
-.post .post-comments .comment-div .comment-buttons-div {
-  text-align: flex-end;
-  width: 100%;
 }
 .post .post-comments .comment-div .comment-buttons-div button {
   padding: 1vmin;

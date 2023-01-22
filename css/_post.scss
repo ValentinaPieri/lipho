@@ -24,8 +24,6 @@
     align-items: center;
     justify-content: center;
     margin: 5rem 0.5rem;
-    height: auto;
-    width: 97%;
     border: $border;
 
     .post-image-container {
@@ -151,15 +149,15 @@
 
     .post-comments {
         display: grid;
-        align-items: flex-start;
         width: calc(100% - 1vmin);
 
         >* {
-            padding: 0 1vmin;
+            margin: 0.5rem 0.5rem;
         }
 
         .comment-div {
-            display: grid;
+            display: flex;
+            justify-content: space-between;
 
             a {
                 color: $username;
@@ -175,9 +173,6 @@
             }
 
             .comment-buttons-div {
-                text-align: flex-end;
-                width: 100%;
-
                 button {
                     padding: 1vmin;
                 }
