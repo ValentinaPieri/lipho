@@ -1,4 +1,4 @@
-import retrieveImages from "./utils.js";
+import { retrieveImages } from "./utils.js";
 
 const followUnfollowButton = document.getElementById("follow-unfollow-button");
 const profileImage = document.getElementById("profile-image").querySelector("img");

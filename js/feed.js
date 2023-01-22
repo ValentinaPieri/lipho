@@ -1,4 +1,4 @@
-import retrieveImages from "./utils.js";
+import { retrieveImages } from "./utils.js";
 
 let offset = 0;
 let limit = 10;
