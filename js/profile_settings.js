@@ -2,6 +2,7 @@ import retrieveData from "./retrieve_data.js";
 
 const editProfileForm = document.getElementById("edit-profile-form");
 const changeProfileImage = document.getElementById("change-profile-image");
+const imageContainer = document.getElementById("image-container");
 const editUsername = document.getElementById("edit-username");
 const editPassword = document.getElementById("edit-password");
 const editName = document.getElementById("edit-name");
@@ -29,11 +30,11 @@ editProfileForm.onsubmit = function (e) {
     submitForm(args.username, args.password, args.name, args.surname, args.email, args.phone, args.birthdate);
 }
 
-changeProfileImage.onmouseover = addChangeProfleImageIcon;
+imageContainer.onmouseover = addChangeProfleImageIcon;
 
-changeProfileImage.onmouseout = removeChangeProfileImageIcon;
+imageContainer.onmouseout = removeChangeProfileImageIcon;
 
-changeProfileImage.onclick = function () {
+imageContainer.onclick = function () {
     removeChangeProfileImageIcon();
     let fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -159,13 +160,13 @@ function addChangeProfleImageIcon() {
     let changeProfileImageIcon = document.createElement("span");
     changeProfileImageIcon.className = "fa-regular fa-pencil change-profile-image-icon";
     changeProfileImageIcon.id = "change-profile-image-icon";
-    editProfileForm.insertBefore(changeProfileImageIcon, changeProfileImage);
+    imageContainer.appendChild(changeProfileImageIcon);
 }
 
 function removeChangeProfileImageIcon() {
     changeProfileImage.style.opacity = "1";
     let changeProfileImageIcon = document.getElementById("change-profile-image-icon");
     if (changeProfileImageIcon != null) {
-        editProfileForm.removeChild(document.getElementById("change-profile-image-icon"));
+        changeProfileImageIcon.remove();
     }
 }

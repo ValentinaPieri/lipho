@@ -1,24 +1,14 @@
-.edit-profile-image {
+main {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 1rem;
     padding-top: 0;
 
-    img {
-        width: 5rem;
-        height: 5rem;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
     .save-button {
-        width: 100%;
         text-align: right;
 
         button {
-            margin: 1rem 0.6rem 0.4rem 0;
             color: $light-green;
             font-weight: bold;
         }
@@ -27,40 +17,47 @@
     .image-settings {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
 
         p {
-            margin-left: 1.2rem;
             margin-top: 3rem;
             font-size: 0.7rem;
         }
 
-        label {
-            margin-right: 1.2rem;
-            font-size: 1rem;
+        #image-container {
+            position: relative;
+            cursor: pointer;
+
+            #change-profile-image {
+                z-index: 1;
+                position: relative;
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+            }
+
+            .change-profile-image-icon {
+                z-index: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: none;
+            }
         }
 
-        span {
-            position: absolute;
-            margin-left: 2rem;
-        }
     }
 
     .form-settings {
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
 
         .input-field {
             display: flex;
             justify-content: space-between;
-            width: 100%;
+            align-items: center;
             margin: 0.4rem 0;
-
-            input {
-                max-width: 100%;
-            }
 
             &.logout-delete {
                 display: flex;
@@ -82,11 +79,9 @@
 }
 
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
-    .edit-profile-image {
+    main {
         padding: 0;
-        width: 100%;
-        display: flex;
+        width: 40% !important;
         justify-content: center;
-        align-items: center;
     }
 }

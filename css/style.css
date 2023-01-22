@@ -563,27 +563,16 @@ main > .delete-all-notifications-button span {
   align-items: flex-start;
   justify-content: center;
 }
-.page .containerForm > form > * {
-  width: 15rem;
-  margin: 0.3rem;
-}
-.page .containerForm > form input {
-  background: #FFFCF9;
-  width: 78%;
-  height: 1.5rem;
-  margin-right: 15%;
+.page .containerForm > form #username {
+  margin-bottom: 0.5rem;
 }
 .page .containerForm > form .input-field {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
-.page .containerForm > form .input-field input {
-  margin-right: 5%;
-  width: 100%;
-}
-.page .containerForm > form .input-field span {
-  width: 15%;
-  cursor: pointer;
+.page .containerForm > form .input-field .icon-button {
+  margin-left: 0.5rem;
 }
 .page .containerForm > form .login-button {
   margin: 1rem auto !important;
@@ -601,92 +590,83 @@ main > .delete-all-notifications-button span {
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
-  .page {
-    width: 100%;
-    height: 100vh;
-  }
-  .page .containerForm > form .login-button {
+  .containerForm > form .login-button {
     width: 5.6rem !important;
     height: 2.1rem;
   }
 }
-.edit-profile-image {
+main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 1rem;
   padding-top: 0;
 }
-.edit-profile-image img {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.edit-profile-image .save-button {
-  width: 100%;
+main .save-button {
   text-align: right;
 }
-.edit-profile-image .save-button button {
-  margin: 1rem 0.6rem 0.4rem 0;
+main .save-button button {
   color: #0F571F;
   font-weight: bold;
 }
-.edit-profile-image .image-settings {
+main .image-settings {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
-.edit-profile-image .image-settings p {
-  margin-left: 1.2rem;
+main .image-settings p {
   margin-top: 3rem;
   font-size: 0.7rem;
 }
-.edit-profile-image .image-settings label {
-  margin-right: 1.2rem;
-  font-size: 1rem;
+main .image-settings #image-container {
+  position: relative;
+  cursor: pointer;
 }
-.edit-profile-image .image-settings span {
+main .image-settings #image-container #change-profile-image {
+  z-index: 1;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+main .image-settings #image-container .change-profile-image-icon {
+  z-index: 0;
   position: absolute;
-  margin-left: 2rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
 }
-.edit-profile-image .form-settings {
+main .form-settings {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
-.edit-profile-image .form-settings .input-field {
+main .form-settings .input-field {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
   margin: 0.4rem 0;
 }
-.edit-profile-image .form-settings .input-field input {
-  max-width: 100%;
-}
-.edit-profile-image .form-settings .input-field.logout-delete {
+main .form-settings .input-field.logout-delete {
   display: flex;
   justify-content: flex-start;
 }
-.edit-profile-image .form-settings .input-field.logout-delete span {
+main .form-settings .input-field.logout-delete span {
   margin-left: 1.2rem;
   margin-top: 0.3rem;
   font-size: 1rem;
 }
-.edit-profile-image .form-settings .input-field.logout-delete .delete-account {
+main .form-settings .input-field.logout-delete .delete-account {
   border: solid 2px #70161E;
   color: #70161E;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
-  .edit-profile-image {
+  main {
     padding: 0;
-    width: 100%;
-    display: flex;
+    width: 40% !important;
     justify-content: center;
-    align-items: center;
   }
 }
 .create-post-container {
@@ -739,14 +719,9 @@ main > .delete-all-notifications-button span {
   margin-top: 1rem;
 }
 .create-post-container .caption-form .textarea textarea {
-  background-color: #FFFCF9;
   width: 100%;
   height: 7rem;
   resize: none;
-  border: 2px solid #040F0F;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  outline-color: #0F571F;
 }
 .create-post-container .caption-form .textarea .remaining-characters {
   text-align: right;
@@ -902,6 +877,27 @@ button {
 }
 .icon-button span {
   font-size: 1.2rem;
+}
+
+.invalid-error-input {
+  border: 2px solid #70161E;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=tel],
+input[type=number],
+input[type=search],
+input[type=url],
+input[type=date],
+textarea {
+  background-color: #FFFCF9;
+  color: #040F0F;
+  border: 2px solid #040F0F;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+  outline-color: #0F571F;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
