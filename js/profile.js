@@ -70,11 +70,11 @@ function showProfile() {
       followUnfollowButton.remove();
       let editProfileDiv = document.getElementById("edit-profile");
       let editProfileLink = document.createElement("a");
-      editProfileLink.className = "profile-link";
+      editProfileLink.className = "icon-button";
       editProfileLink.href = "./profile_settings.php";
-      let editProfileButton = document.createElement("span");
-      editProfileButton.className = "fa-regular fa-gear";
-      editProfileLink.appendChild(editProfileButton);
+      let editProfileIcon = document.createElement("span");
+      editProfileIcon.className = "fa-regular fa-gear";
+      editProfileLink.appendChild(editProfileIcon);
       editProfileDiv.appendChild(editProfileLink);
     } else {
       if (result.profileData.isFollowing) {

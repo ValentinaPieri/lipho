@@ -735,11 +735,7 @@ main > .delete-all-notifications-button span {
 }
 .edit-profile {
   margin: 0.4rem 2rem;
-  text-align: flex-end;
-}
-.edit-profile span {
-  cursor: pointer;
-  color: #040F0F;
+  text-align: end;
 }
 
 .profile-header {
