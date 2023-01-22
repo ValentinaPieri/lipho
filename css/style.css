@@ -357,20 +357,16 @@ header {
 }
 .search-container .search-bar {
   width: 100%;
-  height: 4vh;
+  height: 2rem;
   background: #FFFCF9;
   border: 2px solid #040F0F;
   border-radius: 0.3rem;
-  font-size: 1.5vh;
+  font-size: 1rem;
+  padding: 0.5rem;
+  outline-color: #0F571F;
 }
-.search-container .search-bar::-moz-placeholder {
-  padding-left: 1vw;
-}
-.search-container .search-bar:-ms-input-placeholder {
-  padding-left: 1vw;
-}
-.search-container .search-bar::placeholder {
-  padding-left: 1vw;
+.search-container .search-bar::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }
 
 #search-results-container .results-count {
@@ -749,6 +745,7 @@ main > .delete-all-notifications-button span {
   border: 2px solid #040F0F;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  outline-color: #0F571F;
 }
 .create-post-container .caption-form .textarea .remaining-characters {
   text-align: right;
