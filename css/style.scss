@@ -52,6 +52,27 @@ button {
     }
 }
 
+.invalid-error-input {
+    border: 2px solid $delete-button;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="date"],
+textarea {
+    background-color: $background-white;
+    color: $black;
+    border: $border;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+    outline-color: $light-green;
+}
+
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     main {
         margin: 0 auto;

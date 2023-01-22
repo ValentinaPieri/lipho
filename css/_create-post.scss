@@ -53,14 +53,9 @@
             margin-top: 1rem;
 
             textarea {
-                background-color: $background-white;
                 width: 100%;
                 height: 7rem;
                 resize: none;
-                border: $border;
-                border-radius: 0.5rem;
-                padding: 0.5rem;
-                outline-color: $light-green;
             }
 
             .remaining-characters {
