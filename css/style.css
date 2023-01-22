@@ -21,13 +21,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15vh;
+  justify-content: center;
+  margin: 5rem 0.5rem;
   height: auto;
-  width: 100%;
+  width: 97%;
   border: 2px solid #040F0F;
-  border-left: none;
-  border-right: none;
 }
 .post .post-image-container .slide-index {
   width: 100%;
@@ -200,9 +198,6 @@
     width: 25rem;
     margin: 6rem auto;
     border: 2px solid #040F0F;
-  }
-  .post:first-child {
-    margin: 0 auto;
   }
   .post .post-image-container .arrow-buttons-div {
     top: 18.75rem;

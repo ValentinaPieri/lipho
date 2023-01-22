@@ -22,13 +22,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15vh;
+    justify-content: center;
+    margin: 5rem 0.5rem;
     height: auto;
-    width: 100%;
+    width: 97%;
     border: $border;
-    border-left: none;
-    border-right: none;
 
     .post-image-container {
 
@@ -238,10 +236,6 @@
         width: $post-width-desktop;
         margin: 6rem auto;
         border: $border;
-
-        &:first-child {
-            margin: 0 auto;
-        }
 
         .post-image-container {
 
