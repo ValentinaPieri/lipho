@@ -23,7 +23,9 @@
                     <input title="username" aria-label="username" type="text" name="username" id="username" placeholder="Username" />
                     <div class="input-field">
                         <input title="password" aria-label="password" type="password" name="password" id="password" placeholder="Password" />
-                        <span id="visible" class="fa-solid fa-eye"></span>
+                        <button id="visible" class="icon-button">
+                            <span class="fa-solid fa-eye"></span>
+                        </button>
                     </div>
                     <input title="login button" class="login-button" aria-label="button to login" type="submit" id="loginButton" value="Login" />
                 </form>

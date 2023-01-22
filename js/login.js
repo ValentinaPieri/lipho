@@ -1,8 +1,9 @@
 import retrieveData from './retrieve_data.js';
 
 //on click on the eye icon, the password will be visible
-document.getElementById("visible").onclick = function () {
-    let span = document.getElementById("visible");
+let visibleButton = document.getElementById("visible");
+visibleButton.onclick = function () {
+    let span = visibleButton.querySelector("span");
     let passwordInput = document.getElementById("password");
     if (span.className === "fa-solid fa-eye") {
         passwordInput.type = "text";

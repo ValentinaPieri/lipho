@@ -14,30 +14,17 @@
         align-items: flex-start;
         justify-content: center;
 
-        >* {
-            width: 15rem;
-            margin: 0.3rem;
-        }
-
-        input {
-            background: $background-white;
-            width: 78%;
-            height: 1.5rem;
-            margin-right: 15%;
+        #username {
+            margin-bottom: 0.5rem;
         }
 
         .input-field {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
 
-            input {
-                margin-right: 5%;
-                width: 100%;
-            }
-
-            span {
-                width: 15%;
-                cursor: pointer;
+            .icon-button {
+                margin-left: 0.5rem;
             }
         }
 
@@ -60,15 +47,10 @@
 }
 
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
-    .page {
-        width: 100%;
-        height: 100vh;
-
-        .containerForm>form {
-            .login-button {
-                width: 5.6rem !important;
-                height: 2.1rem;
-            }
+    .containerForm>form {
+        .login-button {
+            width: 5.6rem !important;
+            height: 2.1rem;
         }
     }
 }
