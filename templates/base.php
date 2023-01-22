@@ -22,6 +22,7 @@
         }
         ?>
     </main>
+    <div id="snackbar"></div>
     <footer>
         <div class="navbar">
             <a href="index.php" title="Home Page"><span class="fa-regular fa-house"></span></a>
