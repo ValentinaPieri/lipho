@@ -173,7 +173,7 @@ if (isset($_POST['editProfile'])) {
     $result["passwordValid"] = !isset($_POST['password']) || preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/", $_POST['password']) == 1;
     $result["nameValid"] = !isset($_POST['name']) || $_POST['name'] != "";
     $result["surnameValid"] = !isset($_POST['surname']) || $_POST['surname'] != "";
-    $result["emailValid"] = !isset($_POST['email']) || $_POST['email'] == "" && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $result["emailValid"] = !isset($_POST['email']) || $_POST['email'] == "" || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
     $result["phoneValid"] = !isset($_POST['phone']) || $_POST['phone'] == "" || preg_match("/(\+98|0|98|0098)?([ ]|-|[()]){0,2}9[0-9]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/", $_POST['phone']) == 1;
 
     if ($result["usernameValid"] && $result["passwordValid"] && $result["nameValid"] && $result["surnameValid"] && $result["emailValid"] && $result["phoneValid"]) {
