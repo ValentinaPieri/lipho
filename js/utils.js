@@ -54,4 +54,13 @@ function retrieveImages(postId) {
     }, "json");
 }
 
-export default retrieveImages;
+function showSnackbar(message) {
+    var snackbar = document.getElementById("snackbar");
+    snackbar.className = "show";
+    snackbar.innerText = message;
+    setTimeout(function () {
+        snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
+}
+
+export {retrieveImages, showSnackbar};
