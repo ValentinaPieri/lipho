@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-bottom: 2.5rem;
+    margin-bottom: 4rem;
     border: $border;
 
     .post-image-container {
@@ -223,7 +223,6 @@
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     .post {
         width: $post-width-desktop;
-        margin-bottom: 3rem;
         border: $border;
 
         .post-image-container {

@@ -86,7 +86,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  margin-bottom: 2.5rem;
+  margin-bottom: 4rem;
   border: 2px solid #040F0F;
 }
 .post .post-image-container .slide-index {
@@ -245,7 +245,6 @@
 @media screen and (min-aspect-ratio: 4/3) {
   .post {
     width: 25rem;
-    margin-bottom: 3rem;
     border: 2px solid #040F0F;
   }
   .post .post-image-container .arrow-buttons-div {
@@ -730,20 +729,32 @@ main > .delete-all-notifications-button span {
   font-size: 1rem;
 }
 .profile-header .profile-details .profile-specs .profile-insights {
+  position: relative;
   border: 2px solid #040F0F;
   padding: 0.3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   right: 0;
 }
 .profile-header .profile-details .profile-specs .profile-insights .insight-icon {
+  width: 100%;
   display: flex;
-  word-break: break-all;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
-.profile-header .profile-details .profile-specs .profile-insights .insight-icon span {
-  margin-right: 0.5rem;
+.profile-header .profile-details .profile-specs .profile-insights .insight-icon .insights-header {
+  margin-left: 0.5rem;
+}
+.profile-header .profile-details .profile-specs .profile-insights > span {
+  margin-bottom: 0.2rem;
+}
+.profile-header .profile-details .profile-specs .profile-insights .rating-values {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .display-mode-buttons {

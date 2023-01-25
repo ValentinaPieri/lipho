@@ -21,14 +21,14 @@
             <div id="profile-insights" class="profile-insights">
                 <div class="insight-icon">
                     <span class="fa-regular fa-chart-simple"></span>
-                    <p> - Insight</p>
+                    <span class="insights-header">Insights</span>
                 </div>
-                <p>Post frequency: <span id='post-frequency'></span></p>
-                <p>Average post rating: </p>
+                <span>Post frequency: <span id='post-frequency'></span></span>
+                <span>Average post rating: </span>
                 <div class="rating-values">
-                    <p>- Exposure: <span id='exposure'></span></p>
-                    <p>- Colors: <span id='colors'></span></p>
-                    <p>- Composition: <span id='composition'></span></p>
+                    <span>- Exposure: <span id='exposure'></span></span>
+                    <span>- Colors: <span id='colors'></span></span>
+                    <span>- Composition: <span id='composition'></span></span>
                 </div>
             </div>
         </div>

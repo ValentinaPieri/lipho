@@ -63,21 +63,35 @@
             }
 
             .profile-insights {
+                position: relative;
                 border: $border;
                 padding: 0.3rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: flex-start;
                 right: 0;
 
                 .insight-icon {
+                    width: 100%;
                     display: flex;
-                    word-break: break-all;
+                    flex-direction: row;
+                    justify-content: start;
+                    align-items: center;
+                    margin-bottom: 0.5rem;
 
-                    span {
-                        margin-right: 0.5rem;
+                    .insights-header {
+                        margin-left: 0.5rem;
                     }
+                }
+
+                >span {
+                    margin-bottom: 0.2rem;
+                }
+
+                .rating-values {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
                 }
             }
         }
