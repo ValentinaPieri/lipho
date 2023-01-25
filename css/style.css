@@ -628,8 +628,8 @@ main > .delete-all-notifications-button span {
   align-items: center;
   justify-content: center;
 }
-.create-post-container .images-form .add-image-button {
-  margin: 1rem 0;
+.create-post-container .images-form * {
+  margin: 0.2rem 0;
 }
 .create-post-container .post-image-container {
   width: 18rem;
