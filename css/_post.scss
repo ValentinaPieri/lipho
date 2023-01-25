@@ -24,7 +24,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 5rem 0.5rem;
+    margin: 0 auto;
+    margin-bottom: 2.5rem;
     border: $border;
 
     .post-image-container {
@@ -100,7 +101,6 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 2vmin 0;
         width: 100%;
 
         >* {
@@ -123,55 +123,48 @@
     }
 
     .post-input-comment-div {
-        width: calc(100% - 4vmin);
-        padding: 2vmin 0;
-        margin-left: 4vmin;
+        width: 90%;
+        padding: 0.7rem;
 
-        input {
-            width: 85%;
-            border: none;
-            border: $border;
-            background: transparent;
-            color: $black;
-            padding: 0.6vmin 0;
-            font-size: 1rem;
+        .post-comment-input {
+            width: 100%;
         }
 
-        button {
-            margin-left: 2vmin;
-            border: none;
-            background: transparent;
-            padding: 1vmin;
-            color: $black;
-            font-size: 1rem;
-            cursor: pointer;
+        .submit-comment-button {
+            margin-left: 0.5rem;
         }
     }
 
     .post-comments {
-        display: grid;
-        width: calc(100% - 1vmin);
-
-        >* {
-            margin: 0.5rem 0.5rem;
-        }
+        width: 95%;
 
         .comment-div {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
 
-            a {
-                color: $username;
-                font-weight: bold;
+            .comment-content-div {
+                margin-bottom: 0.5rem;
+                * {
+                    margin: 0;
+                }
 
-                &:hover {
-                    color: $a-hover;
+                a {
+                    color: $username;
+                    font-weight: bold;
+                    margin-bottom: 0.3rem;
+
+                    &:hover {
+                        color: $a-hover;
+                    }
+                }
+
+                p {
+                    margin-left: 1rem;
+                    color: $black;
                 }
             }
 
-            p {
-                color: $black;
-            }
 
             .comment-buttons-div {
                 button {
@@ -230,7 +223,7 @@
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     .post {
         width: $post-width-desktop;
-        margin: 6rem auto;
+        margin-bottom: 3rem;
         border: $border;
 
         .post-image-container {
@@ -261,16 +254,6 @@
                 .full-screen-button {
                     display: flex;
                 }
-            }
-        }
-
-        .post-input-comment-div {
-            margin-left: 0;
-            display: flex;
-            justify-content: space-between;
-
-            input {
-                max-width: 100%;
             }
         }
     }

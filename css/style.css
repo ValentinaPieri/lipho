@@ -85,7 +85,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 5rem 0.5rem;
+  margin: 0 auto;
+  margin-bottom: 2.5rem;
   border: 2px solid #040F0F;
 }
 .post .post-image-container .slide-index {
@@ -148,7 +149,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 2vmin 0;
   width: 100%;
 }
 .post .post-caption > * {
@@ -166,47 +166,39 @@
   color: #040F0F;
 }
 .post .post-input-comment-div {
-  width: calc(100% - 4vmin);
-  padding: 2vmin 0;
-  margin-left: 4vmin;
+  width: 90%;
+  padding: 0.7rem;
 }
-.post .post-input-comment-div input {
-  width: 85%;
-  border: none;
-  border: 2px solid #040F0F;
-  background: transparent;
-  color: #040F0F;
-  padding: 0.6vmin 0;
-  font-size: 1rem;
+.post .post-input-comment-div .post-comment-input {
+  width: 100%;
 }
-.post .post-input-comment-div button {
-  margin-left: 2vmin;
-  border: none;
-  background: transparent;
-  padding: 1vmin;
-  color: #040F0F;
-  font-size: 1rem;
-  cursor: pointer;
+.post .post-input-comment-div .submit-comment-button {
+  margin-left: 0.5rem;
 }
 .post .post-comments {
-  display: grid;
-  width: calc(100% - 1vmin);
-}
-.post .post-comments > * {
-  margin: 0.5rem 0.5rem;
+  width: 95%;
 }
 .post .post-comments .comment-div {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
-.post .post-comments .comment-div a {
+.post .post-comments .comment-div .comment-content-div {
+  margin-bottom: 0.5rem;
+}
+.post .post-comments .comment-div .comment-content-div * {
+  margin: 0;
+}
+.post .post-comments .comment-div .comment-content-div a {
   color: #0F571F;
   font-weight: bold;
+  margin-bottom: 0.3rem;
 }
-.post .post-comments .comment-div a:hover {
+.post .post-comments .comment-div .comment-content-div a:hover {
   color: #A4E378;
 }
-.post .post-comments .comment-div p {
+.post .post-comments .comment-div .comment-content-div p {
+  margin-left: 1rem;
   color: #040F0F;
 }
 .post .post-comments .comment-div .comment-buttons-div button {
@@ -253,7 +245,7 @@
 @media screen and (min-aspect-ratio: 4/3) {
   .post {
     width: 25rem;
-    margin: 6rem auto;
+    margin-bottom: 3rem;
     border: 2px solid #040F0F;
   }
   .post .post-image-container .arrow-buttons-div {
@@ -276,14 +268,6 @@
 .post .post-image-container:hover .arrow-buttons-div,
 .post .post-image-container:hover .full-screen-button {
     display: flex;
-  }
-  .post .post-input-comment-div {
-    margin-left: 0;
-    display: flex;
-    justify-content: space-between;
-  }
-  .post .post-input-comment-div input {
-    max-width: 100%;
   }
 }
 .navbar {

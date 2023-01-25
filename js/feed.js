@@ -7,10 +7,13 @@ getFeedPosts(offset, limit);
 function getFeedPosts(offset, limit) {
     $.post("./post_requests_handler.php", { getFeedPosts: true, offset: offset, limit: limit }, function (result) {
         let postDiv;
+        const homePageDiv = document.createElement("div");
+        homePageDiv.className = "home-page";
         const mainTag = document.querySelector("main");
+        mainTag.appendChild(homePageDiv);
         result.posts.forEach(post => {
             postDiv = getPostContainer(post.post_id, post.owner, post.caption, post.liked, post.rated);
-            mainTag.appendChild(postDiv);
+            homePageDiv.appendChild(postDiv);
             retrieveImages(post.post_id);
             retrieveLikesNumber(post.post_id);
             retrieveComments(post.post_id, result.currentUsername);
