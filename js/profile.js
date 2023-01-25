@@ -166,7 +166,7 @@ function showPostsList(offset, limit) {
             getCommentsContainer(post.post_id, postCommentsDiv, comments, currentUsername);
           }, "json");
         }
-      }, 5000));
+      }, 2000));
     });
     firstLoad = true;
   }, "json");
@@ -211,13 +211,13 @@ function getGridViewPostContainer(postId, owner) {
     let deleteButtonIcon = document.createElement("span");
     deleteButtonIcon.className = "fa-regular fa-trash-alt";
     deleteButton.appendChild(deleteButtonIcon);
-    imageDiv.appendChild(postImage);
     deleteButton.onclick = function () {
       deletePost(postId);
     };
     imageDiv.appendChild(deleteButton);
   }
 
+  imageDiv.appendChild(postImage);
   imageDiv.appendChild(fullScreenButton);
   postContainer.appendChild(imageDiv);
 

@@ -4,7 +4,7 @@ showNotifications();
 
 setInterval(function () {
     showNotifications();
-}, 5000);
+}, 2000);
 
 function showNotifications() {
     $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {

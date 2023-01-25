@@ -17,7 +17,7 @@ function getFeedPosts(offset, limit) {
             setInterval(function () {
                 retrieveLikesNumber(post.post_id);
                 retrieveComments(post.post_id, result.currentUsername);
-            }, 5000);
+            }, 2000);
         });
     }, "json");
 }
