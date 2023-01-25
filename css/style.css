@@ -471,52 +471,35 @@ main > .delete-all-notifications-button span {
   font-size: 1.2rem;
 }
 
-.page {
+.signup-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.page > * {
-  padding: 1rem;
-}
-.page .container > form {
+.signup-page .container > form {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-}
-.page .container > form > * {
-  width: 15rem;
-  margin: 0.3rem;
-}
-.page .container > form input {
-  background: #FFFCF9;
-}
-.page .container > form input:not([type=date]) {
-  margin-left: 15%;
-  width: 82%;
-}
-.page .container > form span {
-  width: 15%;
-}
-.page .container > form .input-field {
-  display: flex;
   justify-content: space-between;
 }
-.page .container > form .input-field input {
-  margin: 0;
-  width: 100%;
-  height: 1.5rem;
+.signup-page .container > form > * {
+  margin: 0.3rem 0;
 }
-.page .container > form .input-field span {
-  padding-top: 0.4rem;
-}
-.page .container > form .birthday-field {
+.signup-page .container > form .input-field {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 }
-.page .container > form .signup-button {
+.signup-page .container > form .input-field span {
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+}
+.signup-page .container > form .signup-button {
   margin: 1rem auto !important;
   padding: 0.3rem;
   border: 3px solid #040F0F;
@@ -527,54 +510,45 @@ main > .delete-all-notifications-button span {
   font-weight: bold;
   cursor: pointer;
 }
-.page .container > form .signup-button:hover {
+.signup-page .container > form .signup-button:hover {
   background-color: rgba(164, 227, 120, 0.7);
 }
-.page .option a {
+.signup-page .option a {
   font-weight: bold;
   color: #0F571F;
 }
-.page .option a:hover {
+.signup-page .option a:hover {
   color: #A4E378;
 }
 
-@media screen and (min-aspect-ratio: 4/3) {
-  .page {
-    width: 100%;
-    height: 100vh;
-  }
-  .page .container > form .signup-button {
-    width: 5.6rem !important;
-    height: 2.1rem;
-  }
-}
-.page {
+.login-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.page > * {
-  padding: 1rem;
-}
-.page .containerForm > form {
+.login-page .containerForm > form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
-.page .containerForm > form #username {
+.login-page .containerForm > form #username {
   margin-bottom: 0.5rem;
 }
-.page .containerForm > form .input-field {
+.login-page .containerForm > form .input-field {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.page .containerForm > form .input-field .icon-button {
+.login-page .containerForm > form .input-field .icon-button {
   margin-left: 0.5rem;
 }
-.page .containerForm > form .login-button {
+.login-page .containerForm > form .login-button {
   margin: 1rem auto !important;
   padding: 0.3rem;
   border: 3px solid #040F0F;
@@ -585,7 +559,7 @@ main > .delete-all-notifications-button span {
   font-weight: bold;
   cursor: pointer;
 }
-.page .containerForm > form .login-button:hover {
+.login-page .containerForm > form .login-button:hover {
   background-color: rgba(164, 227, 120, 0.7);
 }
 
@@ -595,41 +569,35 @@ main > .delete-all-notifications-button span {
     height: 2.1rem;
   }
 }
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-  padding-top: 0;
-}
-main .save-button {
+.save-button {
   text-align: right;
 }
-main .save-button button {
+.save-button button {
   color: #0F571F;
   font-weight: bold;
 }
-main .image-settings {
+
+.image-settings {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-main .image-settings p {
+.image-settings p {
   margin-top: 3rem;
   font-size: 0.7rem;
 }
-main .image-settings #image-container {
+.image-settings #image-container {
   position: relative;
   cursor: pointer;
 }
-main .image-settings #image-container #change-profile-image {
+.image-settings #image-container #change-profile-image {
   z-index: 1;
   position: relative;
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
 }
-main .image-settings #image-container .change-profile-image-icon {
+.image-settings #image-container .change-profile-image-icon {
   z-index: 0;
   position: absolute;
   top: 50%;
@@ -637,38 +605,32 @@ main .image-settings #image-container .change-profile-image-icon {
   transform: translate(-50%, -50%);
   background: none;
 }
-main .form-settings {
+
+.form-settings {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
 }
-main .form-settings .input-field {
+.form-settings .input-field {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0.4rem 0;
 }
-main .form-settings .input-field.logout-delete {
+.form-settings .input-field.logout-delete {
   display: flex;
   justify-content: flex-start;
 }
-main .form-settings .input-field.logout-delete span {
+.form-settings .input-field.logout-delete span {
   margin-left: 1.2rem;
   margin-top: 0.3rem;
   font-size: 1rem;
 }
-main .form-settings .input-field.logout-delete .delete-account {
+.form-settings .input-field.logout-delete .delete-account {
   border: solid 2px #70161E;
   color: #70161E;
 }
 
-@media screen and (min-aspect-ratio: 4/3) {
-  main {
-    padding: 0;
-    width: 40% !important;
-    justify-content: center;
-  }
-}
 .create-post-container {
   display: flex;
   flex-direction: column;
@@ -843,8 +805,6 @@ main .form-settings .input-field.logout-delete .delete-account {
 }
 
 * {
-  margin: 0;
-  padding: 0;
   font-family: Noto Sans;
   text-decoration: none;
   color: #040F0F;
@@ -902,7 +862,7 @@ textarea {
 
 @media screen and (min-aspect-ratio: 4/3) {
   main {
-    margin: 0 auto;
+    margin: auto;
     width: 50%;
   }
 }/*# sourceMappingURL=style.css.map */

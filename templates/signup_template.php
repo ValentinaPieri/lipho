@@ -14,7 +14,7 @@
 
 <body>
     <main>
-        <div class="page">
+        <div class="signup-page">
             <div class="header">
                 <h1 id="SignUp">Sign up</h1>
             </div>
@@ -40,7 +40,7 @@
                     <input title="phone" aria-label="phone input form" type="tel" name="phone" id="phone" placeholder="ex. +393213334444" />
                     <div class="birthday-field">
                         <label for="birthdate">birthday:</label>
-                        <input title="birthdate" type="date" id="birthdate" name="birthdate" /><span class="fa-regular fa-calendar"></span>
+                        <input title="birthdate" type="date" id="birthdate" name="birthdate" />
                     </div>
                     <input class='signup-button' title="signup button" aria-label="button to submit" type="submit" id="signupButton" value="Sign Up" />
                 </form>

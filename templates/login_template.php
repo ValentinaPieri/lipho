@@ -14,7 +14,7 @@
 
 <body>
     <main>
-        <div class="page">
+        <div class="login-page">
             <div class="header">
                 <h1 id="Login">Login</h1>
             </div>

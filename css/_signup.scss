@@ -1,55 +1,32 @@
-.page {
+.signup-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    >* {
-        padding: 1rem;
-    }
-
     .container>form {
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
-        justify-content: center;
+        justify-content: space-between;
 
         >* {
-            width: 15rem;
-            margin: 0.3rem;
-        }
-
-        input {
-            background: $background-white;
-
-            &:not([type='date']) {
-                margin-left: 15%;
-                width: 82%;
-            }
-        }
-
-        span {
-            width: 15%;
+            margin: 0.3rem 0;
         }
 
         .input-field {
             display: flex;
+            flex-direction: row;
+            align-items: center;
             justify-content: space-between;
-
-            input {
-                margin: 0;
-                width: 100%;
-                height: 1.5rem;
-            }
 
             span {
-                padding-top: 0.4rem;
+                font-size: 0.7rem;
+                margin-right: 0.5rem;
             }
-        }
-
-        .birthday-field {
-            display: flex;
-            justify-content: space-between;
         }
 
         .signup-button {
@@ -76,20 +53,6 @@
 
             &:hover {
                 color: $a-hover;
-            }
-        }
-    }
-}
-
-@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
-    .page {
-        width: 100%;
-        height: 100vh;
-
-        .container>form {
-            .signup-button {
-                width: 5.6rem !important;
-                height: 2.1rem;
             }
         }
     }
