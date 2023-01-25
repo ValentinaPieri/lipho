@@ -109,9 +109,9 @@ function showProfile() {
     let compositionValue = document.getElementById("composition");
 
     showPostFrequencyText(result.profileData.postFrequency);
-    exposureValue.textContent = result.profileData.averageRating.average_exposure_rating;
-    colorsValue.textContent = result.profileData.averageRating.average_colors_rating;
-    compositionValue.textContent = result.profileData.averageRating.average_composition_rating;
+    exposureValue.textContent = Math.round(result.profileData.averageRating.average_exposure_rating * 10) / 10;
+    colorsValue.textContent = Math.round(result.profileData.averageRating.average_colors_rating * 10) / 10;
+    compositionValue.textContent = Math.round(result.profileData.averageRating.average_composition_rating * 10) / 10;;
   }, "json");
 }
 
@@ -149,7 +149,7 @@ function showPostFrequencyText(postFrequency) {
 function showPostsList(offset, limit) {
   $.post("./post_requests_handler.php", { getProfilePosts: true, username: username, offset: offset, limit: limit }, function (posts) {
     posts.forEach(post => {
-      profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.liked, true));
+      profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.liked, currentUsername === post.owner || post.rated));
       retrieveImages(post.post_id);
 
       intervalIds.push(setInterval(function () {

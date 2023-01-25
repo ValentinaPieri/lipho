@@ -358,7 +358,14 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['rate_post']);
         $stmt->bind_param("isiii", $postId, $_SESSION['username'], $exposure, $colors, $composition);
         $stmt->execute();
+        $this->updateAveragePostRating($postId);
         $this->sendNotification($owner, "rated your post");
+    }
+
+    public function updateAveragePostRating($postId) {
+        $stmt = $this->conn->prepare(QUERIES['update_average_post_rating']);
+        $stmt->bind_param("iiii", $postId, $postId, $postId, $postId);
+        $stmt->execute();
     }
 
     public function commentPost($postId, $owner, $text)
