@@ -112,7 +112,7 @@
   right: 0;
 }
 .post .post-image-container .post-buttons-div span {
-  padding: 1.5vmin;
+  padding: 0.3rem;
   text-align: center;
   font-size: 1rem;
 }
@@ -326,7 +326,7 @@ header {
     display: inline;
   }
   header h1 {
-    padding: 2vmin;
+    margin: 0.5rem;
     font-size: 5vmin;
   }
   header h1 img {
@@ -552,35 +552,37 @@ main > .delete-all-notifications-button span {
     height: 2.1rem;
   }
 }
-.save-button {
+#edit-profile-form {
+  margin-bottom: 5rem;
+}
+#edit-profile-form .save-button {
   text-align: right;
 }
-.save-button button {
+#edit-profile-form .save-button button {
   color: #0F571F;
   font-weight: bold;
 }
-
-.image-settings {
+#edit-profile-form .image-settings {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.image-settings p {
+#edit-profile-form .image-settings p {
   margin-top: 3rem;
   font-size: 0.7rem;
 }
-.image-settings #image-container {
+#edit-profile-form .image-settings #image-container {
   position: relative;
   cursor: pointer;
 }
-.image-settings #image-container #change-profile-image {
+#edit-profile-form .image-settings #image-container #change-profile-image {
   z-index: 1;
   position: relative;
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
 }
-.image-settings #image-container .change-profile-image-icon {
+#edit-profile-form .image-settings #image-container .change-profile-image-icon {
   z-index: 0;
   position: absolute;
   top: 50%;
@@ -588,32 +590,37 @@ main > .delete-all-notifications-button span {
   transform: translate(-50%, -50%);
   background: none;
 }
-
-.form-settings {
+#edit-profile-form .form-settings {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
 }
-.form-settings .input-field {
+#edit-profile-form .form-settings .input-field {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0.4rem 0;
 }
-.form-settings .input-field.logout-delete {
+#edit-profile-form .form-settings .input-field.logout-delete {
   display: flex;
   justify-content: flex-start;
 }
-.form-settings .input-field.logout-delete span {
+#edit-profile-form .form-settings .input-field.logout-delete span {
   margin-left: 1.2rem;
   margin-top: 0.3rem;
   font-size: 1rem;
 }
-.form-settings .input-field.logout-delete .delete-account {
+#edit-profile-form .form-settings .input-field.logout-delete .delete-account {
   border: solid 2px #70161E;
   color: #70161E;
 }
 
+@media screen and (min-aspect-ratio: 4/3) {
+  #edit-profile-form {
+    width: 80%;
+    margin: 4rem auto;
+  }
+}
 .create-post-container {
   display: flex;
   flex-direction: column;
