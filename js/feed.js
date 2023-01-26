@@ -2,12 +2,19 @@ import { retrieveImages } from "./utils.js";
 
 let offset = 0;
 let limit = 10;
+let postsNumber = 0;
 getFeedPosts(offset, limit);
+
 
 function getFeedPosts(offset, limit) {
     $.post("./post_requests_handler.php", { getFeedPosts: true, offset: offset, limit: limit }, function (result) {
         let postDiv;
         const homePageDiv = document.getElementById("home-page");
+        if (offset === 0) {
+            postsNumber = result.posts.length;
+        } else {
+            postsNumber += result.posts.length;
+        }
         result.posts.forEach(post => {
             postDiv = getPostContainer(post.post_id, post.owner, post.caption, post.liked, post.rated);
             homePageDiv.appendChild(postDiv);
@@ -19,8 +26,9 @@ function getFeedPosts(offset, limit) {
                 retrieveComments(post.post_id, result.currentUsername);
             }, 2000);
         });
-
-        if (result.posts.length == 0) {
+        console.log(postsNumber);
+        if (postsNumber === 0) {
+            homePageDiv.innerHTML = "";
             let noPostsDiv = document.createElement("div");
             noPostsDiv.className = "no-matches-found";
             let noPostsHeader = document.createElement("h2");
