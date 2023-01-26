@@ -1,80 +1,52 @@
-main > .delete-all-notifications{
+main>.delete-all-notifications-button {
     float: right;
     margin: 0 1rem;
-    background: $white;
-    border: none;
     margin-top: 0.7rem;
-    span{
-        font-size: 1rem;
-        width: 100%;
+
+    span {
+        font-size: 1.5rem;
     }
 }
-.today-notifications, .yesterday-notifications, .earlier-notifications {
+
+
+.today-notifications,
+.yesterday-notifications,
+.earlier-notifications {
     margin: 0 0.7rem;
     padding-top: 1rem;
     padding-bottom: 1.3rem;
-    &:not(:last-child){
-        border-bottom: $border-navbar;
+
+    &:not(:last-child) {
+        border-bottom: $border;
     }
-    h2{
+
+    h2 {
         width: 100%;
         font-size: 2rem;
     }
+
     .notification {
         display: flex;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
+        margin-bottom: 1rem;
+
         img {
-            width: 10vmin;
+            width: 4rem;
+            height: 4rem;
             border-radius: 50%;
-            margin: 3vmin 5vmin 3vmin 3vmin;
+            margin-right: 1rem;
         }
-        .notification-info{
+
+        .notification-info {
             display: flex;
-            justify-content: start;
+            justify-content: flex-start;
             align-items: flex-start;
             width: 100%;
-            a{
-                color: $username;
-                font-weight: bold;
-                &:hover {
-                    color: $a-hover;
-                }
-            }
+
             p {
                 margin: 0 0.5rem;
             }
         }
-        button {
-            margin: 0 0.5rem;
-            background: $white;
-            border: none;
-            span{
-                font-size: 1rem;
-                width: 100%;
-            }
-        }
-    }
-
-    .notification.notification-seen > .notification-info{
-        opacity: 0.5;
-    }
-}
-
-@media screen and (width >= $media-query-value) {
-    .today-notifications, .yesterday-notifications, .earlier-notifications {
-        & > img {
-            width: 5vmin;
-        }
-        .notification > button{
-            span {
-                font-size: 2rem;
-                cursor: pointer;
-            }
-        }
-    }
-    main > .delete-all-notifications > span{
-        font-size: 2rem;
-        cursor: pointer;
     }
 }

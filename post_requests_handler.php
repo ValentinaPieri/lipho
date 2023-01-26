@@ -43,22 +43,8 @@ if (isset($_POST['getNotSeenNotificationsNumber'])) {
     echo $dbconnection->getNotSeenNotificationsNumber();
 }
 
-if (isset($_POST["post-button"])) {
-    $images = array();
-    for ($i = 0; $i < 5; $i++) {
-        if (isset($_FILES['image-input' . $i])) {
-            $fileName = basename($_FILES['image-input' . $i]['name']);
-            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-            $allowedTypes = array('jpg', 'png', 'jpeg');
-            if (in_array($fileType, $allowedTypes)) {
-                $image = $_FILES['image-input' . $i]['tmp_name'];
-                $imgContent = base64_encode(file_get_contents($image));
-                array_push($images, $imgContent);
-            }
-        }
-    }
-    $dbconnection->createPost($_POST['caption'], $images);
-    header("Location: create_post.php");
+if (isset($_POST["createPost"])) {
+    $dbconnection->createPost($_POST['caption'], $_POST['images']);
 }
 
 if (isset($_POST['deletePost'])) {
@@ -103,13 +89,23 @@ if (isset($_POST['getFeedPosts'])) {
     echo json_encode(array('posts' => $posts, 'currentUsername' => $_SESSION['username']));
 }
 
+if (isset($_POST['getPostImages'])) {
+    $images = $dbconnection->getPostImages($_POST['postId']);
+    echo json_encode($images);
+}
+
+if (isset($_POST['getPostFirstImage'])) {
+    $image = $dbconnection->getPostFirstImage($_POST['postId']);
+    echo json_encode($image);
+}
+
 if (isset($_POST['getPostLikesNumber'])) {
-    $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['post_id']);
+    $postLikesNumber = $dbconnection->getPostLikesNumber($_POST['postId']);
     echo json_encode($postLikesNumber);
 }
 
 if (isset($_POST['getPostComments'])) {
-    $comments = $dbconnection->getPostComments($_POST['post_id']);
+    $comments = $dbconnection->getPostComments($_POST['postId']);
     echo json_encode($comments);
 }
 
@@ -138,13 +134,14 @@ if (isset($_POST['getNotifications'])) {
 }
 
 if (isset($_POST['getProfileData'])) {
-    $profileData['user'] = $dbconnection->getUserData(($_POST['username'] != "") ? $_POST['username'] : $_SESSION['username']);
-    $profileData['numberPosts'] = $dbconnection->getUserPostsNumber($_POST['username']);
-    $profileData['numberFollowers'] = $dbconnection->getUserFollowersNumber($_POST['username']);
-    $profileData['numberFollowings'] = $dbconnection->getUserFollowingNumber($_POST['username']);
-    $profileData['postFrequency'] = $dbconnection->getUserPostFrequency($_POST['username']);
-    $profileData['averageRating'] = $dbconnection->getUserAverageRating($_POST['username']);
-    $profileData['isFollowing'] = $_SESSION['username'] != $_POST['username'] ? $dbconnection->isFollowing($_POST['username']) : false;
+    $username = ($_POST['username'] != "") ? $_POST['username'] : $_SESSION['username'];
+    $profileData['user'] = $dbconnection->getUserData($username);
+    $profileData['numberPosts'] = $dbconnection->getUserPostsNumber($username);
+    $profileData['numberFollowers'] = $dbconnection->getUserFollowersNumber($username);
+    $profileData['numberFollowings'] = $dbconnection->getUserFollowingNumber($username);
+    $profileData['postFrequency'] = $dbconnection->getUserPostFrequency($username);
+    $profileData['averageRating'] = $dbconnection->getUserAverageRating($username);
+    $profileData['isFollowing'] = $_SESSION['username'] != $username ? $dbconnection->isFollowing($_POST['username']) : false;
     echo json_encode(array("profileData" => $profileData, "currentUsername" => $_SESSION['username']));
 }
 
@@ -166,12 +163,17 @@ if (isset($_POST['getUserData'])) {
     echo json_encode($user);
 }
 
+if (isset($_POST['getUserProfileImage'])) {
+    $image = $dbconnection->getUserProfileImage($_POST['username']);
+    echo json_encode($image);
+}
+
 if (isset($_POST['editProfile'])) {
     $result["usernameValid"] = !isset($_POST['username']) || $_POST['username'] != "" && ($dbconnection->checkUsername($_POST['username']) || $_POST['username'] == $_SESSION['username']);
     $result["passwordValid"] = !isset($_POST['password']) || preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/", $_POST['password']) == 1;
     $result["nameValid"] = !isset($_POST['name']) || $_POST['name'] != "";
     $result["surnameValid"] = !isset($_POST['surname']) || $_POST['surname'] != "";
-    $result["emailValid"] = !isset($_POST['email']) || $_POST['email'] == "" && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $result["emailValid"] = !isset($_POST['email']) || $_POST['email'] == "" || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
     $result["phoneValid"] = !isset($_POST['phone']) || $_POST['phone'] == "" || preg_match("/(\+98|0|98|0098)?([ ]|-|[()]){0,2}9[0-9]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/", $_POST['phone']) == 1;
 
     if ($result["usernameValid"] && $result["passwordValid"] && $result["nameValid"] && $result["surnameValid"] && $result["emailValid"] && $result["phoneValid"]) {

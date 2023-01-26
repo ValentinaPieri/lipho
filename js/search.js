@@ -21,6 +21,7 @@ function getMatchingUsers(username) {
 
                 const userImage = document.createElement("img");
                 userImage.classList.add("user-image");
+                userImage.alt = user.username + " profile picture";
                 if (user.profile_image != null) {
                     userImage.src = "data:image/jpeg;base64," + user.profile_image;
                 } else {
@@ -28,7 +29,7 @@ function getMatchingUsers(username) {
                 }
 
                 const userLink = document.createElement("a");
-                userLink.classList.add("user-link");
+                userLink.className = "profile-link";
                 userLink.href = "profile.php?username=" + user.username;
                 userLink.innerText = user.username;
 

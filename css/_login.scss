@@ -1,48 +1,57 @@
-.page{
+.login-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    > *{
-        padding: 1rem;
-    }
-    .containerForm > form{
+
+    .containerForm>form {
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
         justify-content: center;
-        > *{
-            width: 15rem;
-            margin: 0.3rem;
+
+        #username {
+            margin-bottom: 0.5rem;
         }
-        input{
-            background: $background-searchbar;
-            width: 78%;
-            margin-right: 15%;
-        }
-        span{
-            width: 15%;
-        }
-        .input-field{
+
+        .input-field {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
 
-            input{
-                margin-right: 5%;
-                width: 100%;
+            .icon-button {
+                margin-left: 0.5rem;
             }
         }
-        .login-button{
+
+        .login-button {
             margin: 1rem auto !important;
             padding: 0.3rem;
-            width: 7rem !important;
+            border: 3px solid $black;
+            border-radius: 0.5rem;
+            width: 6rem !important;
+            height: 2.2rem;
+            font-size: medium;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+                background-color: transparentize($a-hover, 0.3);
+            }
         }
     }
 }
 
-@media screen and (width >= $media-query-value) {
-    .page{
-        width: 100%;
-        height: 100vh;
+
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    .containerForm>form {
+        .login-button {
+            width: 5.6rem !important;
+            height: 2.1rem;
+        }
     }
 }

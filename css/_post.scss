@@ -1,248 +1,252 @@
-.post{
+.post-image-container {
+    z-index: 0;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15vh;
-    height: auto;
+    justify-content: center;
+    aspect-ratio: 2/3;
     width: 100%;
-    .post-images{
-        z-index: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    height: auto;
+    background: $black;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    img {
         width: 100%;
-        height: $img-dimensions;
         background: $black;
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        img{
-            object-fit: contain; /* Scale the image to cover the entire div */
-            max-width: 100%;
-            max-height: 100%;
-            width: 100%;
-        }
-        .slide-index{
+    }
+}
+
+.post {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    border: $border;
+
+    .post-image-container {
+
+        .slide-index {
             width: 100%;
             background: transparent;
             display: flex;
             justify-content: center;
-            p{
+
+            p {
                 position: absolute;
                 background: transparentize($white, 0.7);
                 color: transparentize($black, 0.3);
             }
         }
-        .post-buttons-div{
+
+        .post-buttons-div {
+            z-index: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: absolute;
-            background: $white;
-            border: $border-navbar;
+            border: $border;
             border-right: none;
-            top: calc($img-dimensions - 12vmin - 4rem - 6px);
+            bottom: 0;
             right: 0;
-            button{
-                border: none;
-                cursor: pointer;
-            }
-            span{
-                background: $white;
-                padding: 1.5vmin;
+
+            span {
+                padding: 0.3rem;
                 text-align: center;
                 font-size: 1rem;
             }
         }
-        .arrow-buttons-div{
+
+        .arrow-buttons-div {
             display: flex;
             justify-content: space-between;
             position: absolute;
             z-index: 1;
             width: 100%;
-            top: calc($img-dimensions / 2);
-            button{
+            top: calc($post-height-mobile / 2);
+            background: none;
+
+            button {
                 border: none;
                 background: transparentize($white, 0.7);
-                padding: 1.5vmin;
+                padding: 0.5rem;
                 text-align: center;
+
+                span {
+                    background: none;
+                }
             }
         }
-        .post-button{
+
+        .post-button {
             z-index: 1;
-            &.full-screen-button{
+
+            &.full-screen-button {
                 display: none;
-                cursor: pointer;
             }
-            &.rating-button{
+
+            &.rating-button {
                 position: relative;
                 bottom: 0;
                 left: 0;
             }
         }
     }
-    .post-caption{
+
+    .post-caption {
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         align-items: center;
-        padding: 2vmin 0;
         width: 100%;
-        > * {
-            padding: 0 1vmin;
+
+        >* {
+            padding: 0 0.5rem;
         }
-        a{
+
+        a {
             color: $username;
             font-weight: bold;
-            text-align: start;
+            text-align: flex-start;
+
             &:hover {
                 color: $a-hover;
             }
         }
-        p{
+
+        p {
             color: $black;
         }
     }
-    .post-input-comment-div{
-        width: calc(100% - 4vmin);
-        padding: 2vmin 0;
-        margin-left: 4vmin;
-        input{
-            width: 85%;
-            border: none;
-            border: $border-navbar;
-            background: transparent;
-            color: $black;
-            padding: 0.6vmin 0;
-            font-size: 1rem;
+
+    .post-input-comment-div {
+        width: 90%;
+        padding: 0.7rem;
+
+        .post-comment-input {
+            width: 100%;
         }
-        button{
-            margin-left: 2vmin;
-            border: none;
-            background: transparent;
-            padding: 1vmin;
-            color: $black;
-            font-size: 1rem;
-            cursor: pointer;
+
+        .submit-comment-button {
+            margin-left: 0.5rem;
         }
     }
-    .post-comments{
-        display: grid;
-        align-items: start;
-        width: calc(100% - 1vmin);
-        > * {
-            padding: 0 1vmin;
-        }
-        .comment-div{
-            display: grid;
-            a{
-                color: $username;
-                font-weight: bold;
-                &:hover {
-                    color: $a-hover;
+
+    .post-comments {
+        width: 95%;
+
+        .comment-div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .comment-content-div {
+                margin-bottom: 0.5rem;
+                * {
+                    margin: 0;
                 }
-            }
-            p{
-                color: $black;
-            }
-            .comment-buttons-div{
-                text-align: end;
-                width: 100%;
-                button{
-                    border: none;
-                    background: $white;
-                    padding: 1vmin;
-                    cursor: pointer;
+
+                a {
+                    color: $username;
+                    font-weight: bold;
+                    margin-bottom: 0.3rem;
+
+                    &:hover {
+                        color: $a-hover;
+                    }
+                }
+
+                p {
+                    margin-left: 1rem;
+                    color: $black;
                 }
             }
         }
     }
-    .post-rating{
-        width: calc(100% - 4vmin);
-        margin: 2vmin;
-        .rating-div{
+
+    .post-rating {
+        width: 95%;
+        margin-top: 0.5rem;
+
+        .rating-div {
             display: flex;
             justify-content: space-between;
-            padding: 2vmin 0;
-            > * {
+            margin-bottom: 1rem;
+
+            >* {
                 width: 100%;
             }
-            label{
+
+            label {
                 color: $black;
                 font-weight: bold;
             }
-            input[type=range]{
+
+            input[type=range] {
                 color: $black;
-                text-align: end;
+                text-align: flex-end;
                 -webkit-appearance: none;
                 background: $black;
                 border-radius: 1rem;
+
                 &::-webkit-slider-thumb {
                     -webkit-appearance: none;
-                    width: 15px;
-                    height: 15px;
+                    width: 1rem;
+                    height: 1rem;
                     border-radius: 50%;
                     background-color: $white;
-                    border: $border-navbar;
+                    border: $border;
                 }
             }
 
         }
+
         button {
-            width: 100%;
-            padding: 1vmin 0;
-            background: $white;
-            color: $black;
-            border: $border-navbar;
-            margin-bottom: 5vmin;
-            cursor: pointer;
+            width: 30%;
+            padding: 0.5rem 0;
+            border: $border;
+            margin: 0 auto;
         }
     }
 }
 
-@media (width >= $media-query-post-value) {
-    .post{
-        width: $width-post-dekstop;
-        border: $border-navbar;
-        margin: 6rem auto;
-        &:first-child{
-            margin: 0 auto;
-        }
-        .post-images{
-            height: $height-post-dekstop;
-            width: $width-post-dekstop;
-            .post-buttons-div{
-                top: calc($height-post-dekstop - 12vmin - 4rem - 6px);
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    .post {
+        width: $post-width-desktop;
+        border: $border;
+
+        .post-image-container {
+
+            .arrow-buttons-div {
+                top: calc($post-height-desktop / 2);
             }
-            .arrow-buttons-div{
-                top: calc($height-post-dekstop / 2);
-            }
-            .full-screen-button{
+
+            .full-screen-button {
                 position: absolute;
-                top: calc($height-post-dekstop - 1.5vmin - 2rem);
-                background: $white;
-                border: $border-navbar;
-                padding: 1.5vmin;
+                border: $border;
+                border-left: none;
+                padding: 0.5rem;
+                bottom: 0;
                 left: 0;
             }
-            .post-buttons-div,  .arrow-buttons-div, .full-screen-button{
+
+            .post-buttons-div,
+            .arrow-buttons-div,
+            .full-screen-button {
                 display: none;
             }
-            &:hover{
-                .post-buttons-div,  .arrow-buttons-div, .full-screen-button{
+
+            &:hover {
+
+                .post-buttons-div,
+                .arrow-buttons-div,
+                .full-screen-button {
                     display: flex;
                 }
-            }
-        }
-        .post-input-comment-div{
-            margin-left: 0;
-            display: flex;
-            justify-content: space-between;
-
-            input{
-                max-width: 100%;
             }
         }
     }

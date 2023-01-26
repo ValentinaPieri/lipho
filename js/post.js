@@ -1,67 +1,17 @@
 let postsCurrentSlide = [];
 
-function getPostContainer(postId, owner, caption, images, comments, liked, rated, currentUsername) {
+function getPostContainer(postId, owner, caption, liked, rated) {
     postsCurrentSlide[postId] = 0;
     let postDiv = document.createElement("div");
     postDiv.className = "post";
     postDiv.id = "post" + postId;
 
     let postImagesDiv = document.createElement("div");
-    postImagesDiv.className = "post-images";
-    postImagesDiv.id = "post-images" + postId;
-
-    if (images.length > 1) {
-        let indexDiv = document.createElement("div");
-        indexDiv.className = "slide-index";
-        indexDiv.id = "slide-index" + postId;
-        let indexParagraph = document.createElement("p");
-        indexParagraph.id = "index" + postId;
-        indexParagraph.textContent = "1/" + images.length;
-        indexDiv.appendChild(indexParagraph);
-        postImagesDiv.appendChild(indexDiv);
-    }
-
-    for (let i = 0; i < images.length; i++) {
-        let postImageSlide = document.createElement("img");
-        postImageSlide.className = "post-image-slide";
-        postImageSlide.id = "post-image-slide" + postId + i;
-        postImageSlide.src = "data:image/jpeg;base64," + images[i];
-        postImageSlide.alt = "Post image " + i;
-        postImageSlide.hidden = i != 0;
-        postImagesDiv.appendChild(postImageSlide);
-    }
-
-    if (images.length > 1) {
-        let arrowButtonsDiv = document.createElement("div");
-        arrowButtonsDiv.className = "arrow-buttons-div";
-        let leftArrowButton = document.createElement("button");
-        leftArrowButton.className = "post-button arrow-button";
-        leftArrowButton.id = "previous-slide-button" + postId;
-        leftArrowButton.type = "button";
-        let leftArrowButtonIcon = document.createElement("span");
-        leftArrowButtonIcon.className = "fa-regular fa-arrow-left";
-        leftArrowButton.appendChild(leftArrowButtonIcon);
-        leftArrowButton.onclick = function () {
-            showSlideLeft(postId);
-        };
-        let rightArrowButton = document.createElement("button");
-        rightArrowButton.className = "post-button arrow-button";
-        rightArrowButton.id = "next-slide-button" + postId;
-        rightArrowButton.type = "button";
-        let rightArrowButtonIcon = document.createElement("span");
-        rightArrowButtonIcon.className = "fa-regular fa-arrow-right";
-        rightArrowButton.appendChild(rightArrowButtonIcon);
-
-        rightArrowButton.onclick = function () {
-            showSlideRight(postId);
-        };
-        arrowButtonsDiv.appendChild(leftArrowButton);
-        arrowButtonsDiv.appendChild(rightArrowButton);
-        postImagesDiv.appendChild(arrowButtonsDiv);
-    }
+    postImagesDiv.className = "post-image-container";
+    postImagesDiv.id = "post-image-container" + postId;
 
     let fullScreenButton = document.createElement("button");
-    fullScreenButton.className = "post-button full-screen-button";
+    fullScreenButton.className = "icon-button post-button full-screen-button";
     fullScreenButton.id = "full-screen-button" + postId;
     fullScreenButton.type = "button";
     let fullScreenButtonIcon = document.createElement("span");
@@ -74,7 +24,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     let buttonsDiv = document.createElement("div");
     buttonsDiv.className = "post-buttons-div";
     let likeButton = document.createElement("button");
-    likeButton.className = "post-button like-button";
+    likeButton.className = "icon-button post-button like-button";
     likeButton.id = "like-button" + postId;
     likeButton.type = "button";
     let likeButtonIcon = document.createElement("span");
@@ -96,7 +46,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     likeButton.appendChild(likeButtonIcon);
 
     let commentButton = document.createElement("button");
-    commentButton.className = "post-button comment-button";
+    commentButton.className = "icon-button post-button comment-button";
     commentButton.id = "comment-button" + postId;
     commentButton.type = "button";
     let commentButtonIcon = document.createElement("span");
@@ -108,7 +58,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     let ratingButton;
     if (!rated) {
         ratingButton = document.createElement("button");
-        ratingButton.className = "post-button rating-button";
+        ratingButton.className = "icon-button post-button rating-button";
         ratingButton.id = "rating-button" + postId;
         ratingButton.type = "button";
         let ratingButtonIcon = document.createElement("span");
@@ -124,6 +74,8 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     buttonsDiv.appendChild(commentButton);
     if (!rated) {
         buttonsDiv.appendChild(ratingButton);
+    } else {
+        buttonsDiv.classList.add("no-rating-button");
     }
     postImagesDiv.appendChild(buttonsDiv);
 
@@ -140,7 +92,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     commentInput.type = "text";
     commentInput.placeholder = "Type here your comment";
     let submitCommentButton = document.createElement("button");
-    submitCommentButton.className = "post-button submit-comment-button";
+    submitCommentButton.className = "icon-button post-button submit-comment-button";
     submitCommentButton.id = "submit-comment-button" + postId;
     submitCommentButton.type = "button";
     let submitCommentButtonIcon = document.createElement("span");
@@ -211,7 +163,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
         compositionRatingDiv.appendChild(compositionLabel);
         compositionRatingDiv.appendChild(compositionRating);
         let submitRatingButton = document.createElement("button");
-        submitRatingButton.className = "post-button submit-rating-button";
+        submitRatingButton.className = "text-button post-button submit-rating-button";
         submitRatingButton.id = "submit-rating-button" + postId;
         submitRatingButton.type = "button";
         submitRatingButton.textContent = "Rate";
@@ -230,7 +182,7 @@ function getPostContainer(postId, owner, caption, images, comments, liked, rated
     postCaptionDiv.className = "post-caption";
     postCaptionDiv.id = "post-caption" + postId;
     let captionUsername = document.createElement("a");
-    captionUsername.className = "caption-username";
+    captionUsername.className = "profile-link caption-username";
     captionUsername.id = "caption-username" + postId;
     captionUsername.title = "caption user link";
     captionUsername.href = "profile.php?username=" + owner;
@@ -260,7 +212,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         commentDiv.className = "comment-div";
         commentDiv.id = "comment-div" + comments[i].comment_id;
         let commentUsername = document.createElement("a");
-        commentUsername.className = "comment-username";
+        commentUsername.className = "profile-link comment-username";
         commentUsername.id = "post-comment-username" + comments[i].comment_id;
         commentUsername.title = "comment user link";
         commentUsername.href = "profile.php?username=" + comments[i].username;
@@ -274,7 +226,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         let commentButtonsDiv = document.createElement("div");
         commentButtonsDiv.className = "comment-buttons-div";
         let likeCommentButton = document.createElement("button");
-        likeCommentButton.className = "post-button like-comment-button";
+        likeCommentButton.className = "icon-button post-button like-comment-button";
         likeCommentButton.id = "like-comment-button" + comments[i].comment_id;
         likeCommentButton.type = "button";
         let likeCommentIcon = document.createElement("span");
@@ -294,7 +246,7 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
         let deleteCommentButton = document.createElement("button");
         if (currentUsername == comments[i].username) {
             deleteCommentButton.className = "post-button delete-comment-button";
-            deleteCommentButton.id = "delete-comment-button" + comments[i].comment_id;
+            deleteCommentButton.id = "icon-button delete-comment-button" + comments[i].comment_id;
             deleteCommentButton.type = "button";
             let deleteCommentIcon = document.createElement("span");
             deleteCommentIcon.className = "fa-regular fa-trash-can";
@@ -306,20 +258,24 @@ function getCommentsContainer(postId, postCommentsDiv, comments, currentUsername
 
         let replyButton = document.createElement("button");
         replyButton.className = "post-button reply-button";
-        replyButton.id = "reply-button" + comments[i].comment_id;
+        replyButton.id = "icon-button reply-button" + comments[i].comment_id;
         replyButton.type = "button";
         replyButton.textContent = "Reply";
         replyButton.onclick = function () {
             replyToComment(postId, comments[i].comment_id);
         };
-        commentDiv.appendChild(commentUsername);
-        commentDiv.appendChild(commentText);
+
+        let commentContentDiv = document.createElement("div");
+        commentContentDiv.className = "comment-content-div";
+        commentContentDiv.appendChild(commentUsername);
+        commentContentDiv.appendChild(commentText);
 
         if (currentUsername == comments[i].username) {
             commentButtonsDiv.appendChild(deleteCommentButton);
         }
         commentButtonsDiv.appendChild(likeCommentButton);
         commentButtonsDiv.appendChild(replyButton);
+        commentDiv.appendChild(commentContentDiv);
         commentDiv.appendChild(commentButtonsDiv);
         postCommentsDiv.appendChild(commentDiv);
     }
@@ -339,7 +295,7 @@ function displayPostImageNumber(postId, imageIndex, totalImagesNumber) {
 }
 
 function showSlideLeft(postId) {
-    let slides = document.getElementById("post-images" + postId);
+    let slides = document.getElementById("post-image-container" + postId);
     let slide = slides.getElementsByClassName("post-image-slide");
     if (postsCurrentSlide[postId] > 0) {
         slide[postsCurrentSlide[postId]].hidden = true;
@@ -354,7 +310,7 @@ function showSlideLeft(postId) {
 }
 
 function showSlideRight(postId) {
-    let slides = document.getElementById("post-images" + postId);
+    let slides = document.getElementById("post-image-container" + postId);
     let slide = slides.getElementsByClassName("post-image-slide");
     if (postsCurrentSlide[postId] < slide.length - 1) {
         slide[postsCurrentSlide[postId]].hidden = true;
@@ -454,10 +410,9 @@ function showCommentsDiv(postId) {
         document.getElementById("post-comments" + postId).hidden = false;
         document.getElementById("post-input-comment-div" + postId).style.display = 'flex';
         document.getElementById("post-comments" + postId).style.display = 'grid';
-        document.getElementById("post-rating" + postId).hidden = true;
-        document.getElementById("post-rating" + postId).style.display = 'none';
         if (ratingDiv != null) {
             ratingDiv.hidden = true;
+            ratingDiv.style.display = 'none';
             let ratingButton = document.getElementById("rating-button" + postId);
             let ratingButtonIcon = ratingButton.getElementsByTagName("span")[0];
             ratingButtonIcon.className = "fa-regular fa-square-star";
@@ -493,7 +448,7 @@ function showRatingDiv(postId) {
 }
 
 function fullScreenImage(postId) {
-    let postImagesDiv = document.getElementById("post-images" + postId);
+    let postImagesDiv = document.getElementById("post-image-container" + postId);
     let postSlides = postImagesDiv.getElementsByClassName("post-image-slide");
     for (let i = 0; i < postSlides.length; i++) {
         if (!postSlides[i].style.display == 'none' || !postSlides[i].hidden) {

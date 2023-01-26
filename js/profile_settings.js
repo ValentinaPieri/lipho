@@ -1,7 +1,9 @@
 import retrieveData from "./retrieve_data.js";
+import { showSnackbar } from "./utils.js";
 
 const editProfileForm = document.getElementById("edit-profile-form");
 const changeProfileImage = document.getElementById("change-profile-image");
+const imageContainer = document.getElementById("image-container");
 const editUsername = document.getElementById("edit-username");
 const editPassword = document.getElementById("edit-password");
 const editName = document.getElementById("edit-name");
@@ -29,11 +31,11 @@ editProfileForm.onsubmit = function (e) {
     submitForm(args.username, args.password, args.name, args.surname, args.email, args.phone, args.birthdate);
 }
 
-changeProfileImage.onmouseover = addChangeProfleImageIcon;
+imageContainer.onmouseover = addChangeProfleImageIcon;
 
-changeProfileImage.onmouseout = removeChangeProfileImageIcon;
+imageContainer.onmouseout = removeChangeProfileImageIcon;
 
-changeProfileImage.onclick = function () {
+imageContainer.onclick = function () {
     removeChangeProfileImageIcon();
     let fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -85,13 +87,13 @@ function getUserData() {
 }
 
 function submitForm(username, password, name, surname, email, phone, birthdate) {
-    editUsername.classList.remove("invalid-input");
-    editPassword.classList.remove("invalid-input");
-    editName.classList.remove("invalid-input");
-    editSurname.classList.remove("invalid-input");
-    editEmail.classList.remove("invalid-input");
-    editPhoneNumber.classList.remove("invalid-input");
-    editBirthdate.classList.remove("invalid-input");
+    editUsername.classList.remove("invalid-error-input");
+    editPassword.classList.remove("invalid-error-input");
+    editName.classList.remove("invalid-error-input");
+    editSurname.classList.remove("invalid-error-input");
+    editEmail.classList.remove("invalid-error-input");
+    editPhoneNumber.classList.remove("invalid-error-input");
+    editBirthdate.classList.remove("invalid-error-input");
 
     let args = { editProfile: true };
     if (profileImageEdited) {
@@ -121,33 +123,35 @@ function submitForm(username, password, name, surname, email, phone, birthdate) 
 
     $.post("./post_requests_handler.php", args, function (result) {
         if (result.usernameValid === false) {
-            editUsername.classList.add("invalid-input");
+            editUsername.classList.add("invalid-error-input");
         }
 
         if (result.passwordValid === false) {
-            editPassword.classList.add("invalid-input");
+            editPassword.classList.add("invalid-error-input");
         }
 
         if (result.nameValid === false) {
-            editName.classList.add("invalid-input");
+            editName.classList.add("invalid-error-input");
         }
 
         if (result.surnameValid === false) {
-            editSurname.classList.add("invalid-input");
+            editSurname.classList.add("invalid-error-input");
         }
 
         if (result.emailValid === false) {
-            editEmail.classList.add("invalid-input");
+            editEmail.classList.add("invalid-error-input");
         }
 
         if (result.phoneValid === false) {
-            editPhoneNumber.classList.add("invalid-input");
+            editPhoneNumber.classList.add("invalid-error-input");
         }
 
-        if (result.birthdateValid === false) {
-            editBirthdate.classList.add("invalid-input");
+        if (result.usernameValid && result.passwordValid && result.nameValid && result.surnameValid && result.emailValid && result.phoneValid) {
+            location.href = "./profile.php";
+        } else {
+            showSnackbar("Invalid input");
         }
-    });
+    }, "json");
 }
 
 function addChangeProfleImageIcon() {
@@ -155,13 +159,13 @@ function addChangeProfleImageIcon() {
     let changeProfileImageIcon = document.createElement("span");
     changeProfileImageIcon.className = "fa-regular fa-pencil change-profile-image-icon";
     changeProfileImageIcon.id = "change-profile-image-icon";
-    editProfileForm.insertBefore(changeProfileImageIcon, changeProfileImage);
+    imageContainer.appendChild(changeProfileImageIcon);
 }
 
 function removeChangeProfileImageIcon() {
     changeProfileImage.style.opacity = "1";
     let changeProfileImageIcon = document.getElementById("change-profile-image-icon");
     if (changeProfileImageIcon != null) {
-        editProfileForm.removeChild(document.getElementById("change-profile-image-icon"));
+        changeProfileImageIcon.remove();
     }
 }

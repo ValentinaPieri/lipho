@@ -7,9 +7,9 @@ require_once 'query.php';
 use mysqli;
 use DateTime;
 
-const host = 'detu.ddns.net';
-const user = 'lipho';
-const passw = 'RV4^yKIoyD4E#$';
+const host = 'localhost';
+const user = 'root';
+const passw = '';
 const db = 'lipho';
 const port = 3306;
 
@@ -45,7 +45,6 @@ class DBConnection
                 $notification['receiver'] = $row['receiver'];
                 $notification['sender'] = $row['sender'];
                 $notification['timestamp'] = $row['timestamp'];
-                $notification['profile_image'] = isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
 
                 array_push($notifications, $notification);
             }
@@ -53,6 +52,18 @@ class DBConnection
 
         $this->setNotificationsSeen();
         return $notifications;
+    }
+
+    public function getUserProfileImage($username)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_user_profile_image']);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return isset($row['profile_image']) ? $row['profile_image'] : base64_encode(file_get_contents("./resources/images/blank_profile_picture.jpeg"));
+        }
     }
 
     public function sendNotification($receiver, $text)
@@ -85,7 +96,7 @@ class DBConnection
 
     public function checkPassword($username, $password)
     {
-        $stmt = $this->conn->prepare(QUERIES['get_username_password']);
+        $stmt = $this->conn->prepare(QUERIES['get_password']);
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -170,7 +181,6 @@ class DBConnection
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $post = $row;
-                $post['images'] = $this->getPostImages($row['post_id']);
                 $post['liked'] = isset($row['username']);
                 $post['rated'] = isset($row['rated']);
                 unset($post['username']);
@@ -191,9 +201,9 @@ class DBConnection
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $post = $row;
-                $post['images'] = $this->getPostImages($row['post_id']);
                 $post['liked'] = isset($row['username']);
                 $post['rated'] = isset($row['rated']);
+                unset($post['username']);
 
                 array_push($posts, $post);
             }
@@ -282,6 +292,15 @@ class DBConnection
         return $images;
     }
 
+    public function getPostFirstImage($postId)
+    {
+        $stmt = $this->conn->prepare(QUERIES['get_post_first_image']);
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['image'];
+    }
+
     public function createPost($caption, $images)
     {
         $stmt = $this->conn->prepare(QUERIES['add_post']);
@@ -339,7 +358,14 @@ class DBConnection
         $stmt = $this->conn->prepare(QUERIES['rate_post']);
         $stmt->bind_param("isiii", $postId, $_SESSION['username'], $exposure, $colors, $composition);
         $stmt->execute();
+        $this->updateAveragePostRating($postId);
         $this->sendNotification($owner, "rated your post");
+    }
+
+    public function updateAveragePostRating($postId) {
+        $stmt = $this->conn->prepare(QUERIES['update_average_post_rating']);
+        $stmt->bind_param("iiii", $postId, $postId, $postId, $postId);
+        $stmt->execute();
     }
 
     public function commentPost($postId, $owner, $text)
