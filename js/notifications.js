@@ -156,7 +156,7 @@ function showNoNotificationsFound(notificationsNumber) {
         let mainTag = document.querySelector("main");
         mainTag.innerHTML = "";
         let noNotificationsFoundDiv = document.createElement("div");
-        noNotificationsFoundDiv.className = "no-notifications-found";
+        noNotificationsFoundDiv.className = "no-matches-found";
         let noNotificationsFoundHeader = document.createElement("h2");
         noNotificationsFoundHeader.textContent = "No notifications";
         let noNotificationsFoundIcon = document.createElement("span");

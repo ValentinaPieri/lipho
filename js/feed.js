@@ -19,6 +19,18 @@ function getFeedPosts(offset, limit) {
                 retrieveComments(post.post_id, result.currentUsername);
             }, 2000);
         });
+
+        if (result.posts.length == 0) {
+            let noPostsDiv = document.createElement("div");
+            noPostsDiv.className = "no-matches-found";
+            let noPostsHeader = document.createElement("h2");
+            noPostsHeader.textContent = "Nothing to see here... Follow someone first!";
+            let noPostsIcon = document.createElement("span");
+            noPostsIcon.className = "fa-regular fa-face-frown-slight";
+            noPostsDiv.appendChild(noPostsHeader);
+            noPostsDiv.appendChild(noPostsIcon);
+            homePageDiv.appendChild(noPostsDiv);
+        }
     }, "json");
 }
 

@@ -430,16 +430,16 @@ main > .delete-all-notifications-button span {
   margin: 0 0.5rem;
 }
 
-.no-matches-found, .no-notifications-found {
+.no-matches-found {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
-.no-matches-found > *, .no-notifications-found > * {
+.no-matches-found > * {
   margin: 0.4rem;
 }
-.no-matches-found span, .no-notifications-found span {
+.no-matches-found span {
   font-size: 1.2rem;
 }
 
