@@ -280,6 +280,7 @@
   justify-content: space-around;
   text-align: center;
   width: 100%;
+  left: 0;
   height: 2.3rem;
 }
 .navbar .notifications-badge:not(:empty) {
@@ -842,7 +843,7 @@ button {
 }
 
 .invalid-error-input {
-  border: 2px solid #70161E;
+  border: 2px solid #BF0603 !important;
 }
 
 input[type=text],
