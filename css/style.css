@@ -485,13 +485,6 @@ main > .delete-all-notifications-button span {
 .signup-page .container > form .signup-button:hover {
   background-color: rgba(164, 227, 120, 0.7);
 }
-.signup-page .option a {
-  font-weight: bold;
-  color: #0F571F;
-}
-.signup-page .option a:hover {
-  color: #A4E378;
-}
 
 .login-page {
   position: absolute;
@@ -847,6 +840,14 @@ textarea {
 
 .current-page {
   background-color: #A4E378;
+}
+
+.option a {
+  font-weight: bold;
+  color: #0F571F;
+}
+.option a:hover {
+  color: #A4E378;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {

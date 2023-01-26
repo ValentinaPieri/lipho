@@ -75,6 +75,17 @@ textarea {
     background-color: $a-hover;
 }
 
+.option {
+    a {
+        font-weight: bold;
+        color: $light-green;
+
+        &:hover {
+            color: $a-hover;
+        }
+    }
+}
+
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     main {
         margin: auto;
