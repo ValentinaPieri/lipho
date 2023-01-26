@@ -35,6 +35,7 @@ function getFeedPosts(offset, limit) {
             noPostsDiv.className = "no-matches-found";
             let noPostsHeader = document.createElement("h2");
             noPostsHeader.textContent = "Nothing to see here... Follow someone first!";
+            noPostsHeader.style.textAlign = "center";
             let noPostsIcon = document.createElement("span");
             noPostsIcon.className = "fa-regular fa-face-frown-slight";
             noPostsDiv.appendChild(noPostsHeader);
