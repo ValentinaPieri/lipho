@@ -1,5 +1,6 @@
 let oldNotificationsCount = 0;
 let userProfileImages = {};
+let loadingNotifications = false;
 
 showNotifications();
 
@@ -8,62 +9,67 @@ setInterval(function () {
 }, 5000);
 
 function showNotifications() {
-    $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
-        showNoNotificationsFound(notifications.length);
-        if (notifications.length > oldNotificationsCount) {
-            oldNotificationsCount = notifications.length;
-            let mainTag = document.querySelector("main");
-            mainTag.innerHTML = "";
+    if (!loadingNotifications) {
+        loadingNotifications = true;
+        $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
+            showNoNotificationsFound(notifications.length);
+            if (notifications.length > oldNotificationsCount) {
+                oldNotificationsCount = notifications.length;
+                let mainTag = document.querySelector("main");
+                mainTag.innerHTML = "";
 
-            let deleteAllNotificationsButton = document.createElement("button");
-            deleteAllNotificationsButton.className = "icon-button delete-all-notifications-button";
-            deleteAllNotificationsButton.type = "button";
-            deleteAllNotificationsButton.onclick = deleteAllNotifications;
-            let trashIcon = document.createElement("span");
-            trashIcon.className = "fa-regular fa-trash-can-list";
-            deleteAllNotificationsButton.appendChild(trashIcon);
-            mainTag.appendChild(deleteAllNotificationsButton);
+                let deleteAllNotificationsButton = document.createElement("button");
+                deleteAllNotificationsButton.className = "icon-button delete-all-notifications-button";
+                deleteAllNotificationsButton.type = "button";
+                deleteAllNotificationsButton.onclick = deleteAllNotifications;
+                let trashIcon = document.createElement("span");
+                trashIcon.className = "fa-regular fa-trash-can-list";
+                deleteAllNotificationsButton.appendChild(trashIcon);
+                mainTag.appendChild(deleteAllNotificationsButton);
 
 
-            let todayShown = false;
-            let yesterdayShown = false;
-            let earlierShown = false;
-            let notificationsDiv;
-            for (let current = 0; current < notifications.length; current++) {
-                const notification = notifications[current];
+                let todayShown = false;
+                let yesterdayShown = false;
+                let earlierShown = false;
+                let notificationsDiv;
+                for (let current = 0; current < notifications.length; current++) {
+                    const notification = notifications[current];
 
-                if (!todayShown && isToday(new Date(notification.timestamp))) {
-                    notificationsDiv = document.createElement("div");
-                    notificationsDiv.className = "today-notifications";
-                    notificationsDiv.id = "today-notifications";
-                    let todayNotificationsHeader = document.createElement("h2");
-                    todayNotificationsHeader.textContent = "Today";
-                    notificationsDiv.appendChild(todayNotificationsHeader);
-                    todayShown = true;
-                } else if (!yesterdayShown && isYesterday(new Date(notification.timestamp))) {
-                    notificationsDiv = document.createElement("div");
-                    notificationsDiv.className = "yesterday-notifications";
-                    notificationsDiv.id = "yesterday-notifications";
-                    let yesterdayNotificationsHeader = document.createElement("h2");
-                    yesterdayNotificationsHeader.textContent = "Yesterday";
-                    notificationsDiv.appendChild(yesterdayNotificationsHeader);
-                    yesterdayShown = true;
-                } else if (!earlierShown && isEarlier(new Date(notification.timestamp))) {
-                    notificationsDiv = document.createElement("div");
-                    notificationsDiv.className = "earlier-notifications";
-                    notificationsDiv.id = "earlier-notifications";
-                    let earlierNotificationsHeader = document.createElement("h2");
-                    earlierNotificationsHeader.textContent = "Earlier";
-                    notificationsDiv.appendChild(earlierNotificationsHeader);
-                    earlierShown = true;
+                    if (!todayShown && isToday(new Date(notification.timestamp))) {
+                        notificationsDiv = document.createElement("div");
+                        notificationsDiv.className = "today-notifications";
+                        notificationsDiv.id = "today-notifications";
+                        let todayNotificationsHeader = document.createElement("h2");
+                        todayNotificationsHeader.textContent = "Today";
+                        notificationsDiv.appendChild(todayNotificationsHeader);
+                        todayShown = true;
+                    } else if (!yesterdayShown && isYesterday(new Date(notification.timestamp))) {
+                        notificationsDiv = document.createElement("div");
+                        notificationsDiv.className = "yesterday-notifications";
+                        notificationsDiv.id = "yesterday-notifications";
+                        let yesterdayNotificationsHeader = document.createElement("h2");
+                        yesterdayNotificationsHeader.textContent = "Yesterday";
+                        notificationsDiv.appendChild(yesterdayNotificationsHeader);
+                        yesterdayShown = true;
+                    } else if (!earlierShown && isEarlier(new Date(notification.timestamp))) {
+                        notificationsDiv = document.createElement("div");
+                        notificationsDiv.className = "earlier-notifications";
+                        notificationsDiv.id = "earlier-notifications";
+                        let earlierNotificationsHeader = document.createElement("h2");
+                        earlierNotificationsHeader.textContent = "Earlier";
+                        notificationsDiv.appendChild(earlierNotificationsHeader);
+                        earlierShown = true;
+                    }
+
+                    notificationsDiv.appendChild(getNotificationContainer(notification));
+                    mainTag.appendChild(notificationsDiv);
+                    getUserProfileImage(notification.sender, notification.notification_id);
                 }
-
-                notificationsDiv.appendChild(getNotificationContainer(notification));
-                mainTag.appendChild(notificationsDiv);
-                getUserProfileImage(notification.sender, notification.notification_id);
             }
-        }
-    }, "json");
+
+            loadingNotifications = false;
+        }, "json");
+    }
 }
 
 function getNotificationContainer(notification) {

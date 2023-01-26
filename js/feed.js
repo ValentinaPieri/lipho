@@ -23,6 +23,8 @@ function getFeedPosts(offset, limit) {
             retrieveComments(post.post_id, result.currentUsername);
             setInterval(function () {
                 retrieveLikesNumber(post.post_id);
+            }, 5000);
+            setInterval(function () {
                 retrieveComments(post.post_id, result.currentUsername);
             }, 2000);
         });
