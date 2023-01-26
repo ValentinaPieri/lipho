@@ -122,6 +122,7 @@ function submitForm(username, password, name, surname, email, phone, birthdate) 
     }
 
     $.post("./post_requests_handler.php", args, function (result) {
+        console.log(result);
         if (result.usernameValid === false) {
             editUsername.classList.add("invalid-error-input");
         }
@@ -146,11 +147,7 @@ function submitForm(username, password, name, surname, email, phone, birthdate) 
             editPhoneNumber.classList.add("invalid-error-input");
         }
 
-        if (result.birthdateValid === false) {
-            editBirthdate.classList.add("invalid-error-input");
-        }
-
-        if (result.usernameValid && result.passwordValid && result.nameValid && result.surnameValid && result.emailValid && result.phoneValid && result.birthdateValid) {
+        if (result.usernameValid && result.passwordValid && result.nameValid && result.surnameValid && result.emailValid && result.phoneValid) {
             location.href = "./profile.php";
         } else {
             showSnackbar("Invalid input");

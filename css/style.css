@@ -5,6 +5,7 @@
   color: #040F0F;
   text-align: center;
   border-radius: 0.5rem;
+  border: 2px solid #093412;
   padding: 0.8rem;
   position: fixed;
   z-index: 1;
