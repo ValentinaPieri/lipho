@@ -7,9 +7,9 @@ require_once 'query.php';
 use mysqli;
 use DateTime;
 
-const host = 'detu.ddns.net';
-const user = 'lipho';
-const passw = 'RV4^yKIoyD4E#$';
+const host = 'localhost';
+const user = 'root';
+const passw = '';
 const db = 'lipho';
 const port = 3306;
 
