@@ -36,7 +36,7 @@ const QUERIES = [
     "rate_post" => "INSERT INTO post_rating (post_id, username, exposure, colors, composition) VALUES (?, ?, ?, ?, ?)",
     "update_average_post_rating" => "UPDATE post SET average_exposure_rating = (SELECT AVG(exposure) FROM post_rating WHERE post_id = ?), average_colors_rating = (SELECT AVG(colors) FROM post_rating WHERE post_id = ?), average_composition_rating = (SELECT AVG(composition) FROM post_rating WHERE post_id = ?) WHERE post_id = ?",
     "get_average_post_rating" => "SELECT average_exposure_rating, average_colors_rating, average_composition_rating FROM post WHERE post_id = ?",
-    "get_user_average_post_rating" => "SELECT AVG(average_exposure_rating) AS average_exposure_rating, AVG(average_colors_rating) AS average_colors_rating, AVG(average_composition_rating) AS average_composition_rating FROM post WHERE username = ?",
+    "get_user_average_post_rating" => "SELECT AVG(p.average_exposure_rating) AS average_exposure_rating, AVG(p.average_colors_rating) AS average_colors_rating, AVG(p.average_composition_rating) AS average_composition_rating FROM post p WHERE username = ? AND EXISTS (SELECT * FROM post_rating pr WHERE pr.post_id = p.post_id)",
     "get_post_images" => "SELECT * FROM post_image WHERE post_id = ?",
     "get_post_first_image" => "SELECT `image` FROM post_image WHERE post_id = ? AND position = 0",
     "add_post_image" => "INSERT INTO post_image (post_id, position, `image`) VALUES (?, ?, ?)",
