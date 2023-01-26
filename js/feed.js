@@ -26,7 +26,7 @@ function getFeedPosts(offset, limit) {
                 retrieveComments(post.post_id, result.currentUsername);
             }, 2000);
         });
-        console.log(postsNumber);
+
         if (postsNumber === 0) {
             homePageDiv.innerHTML = "";
             let noPostsDiv = document.createElement("div");

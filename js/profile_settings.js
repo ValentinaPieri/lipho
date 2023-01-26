@@ -122,7 +122,6 @@ function submitForm(username, password, name, surname, email, phone, birthdate) 
     }
 
     $.post("./post_requests_handler.php", args, function (result) {
-        console.log(result);
         if (result.usernameValid === false) {
             editUsername.classList.add("invalid-error-input");
         }
