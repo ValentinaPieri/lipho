@@ -1,0 +1,57 @@
+.login-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .containerForm>form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        #username {
+            margin-bottom: 0.5rem;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .icon-button {
+                margin-left: 0.5rem;
+            }
+        }
+
+        .login-button {
+            margin: 1rem auto !important;
+            padding: 0.3rem;
+            border: 3px solid $black;
+            border-radius: 0.5rem;
+            width: 6rem !important;
+            height: 2.2rem;
+            font-size: medium;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+                background-color: transparentize($a-hover, 0.3);
+            }
+        }
+    }
+}
+
+
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    .containerForm>form {
+        .login-button {
+            width: 5.6rem !important;
+            height: 2.1rem;
+        }
+    }
+}

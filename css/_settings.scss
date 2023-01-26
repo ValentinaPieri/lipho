@@ -1,0 +1,82 @@
+#edit-profile-form {
+    margin-bottom: 5rem;
+
+    .save-button {
+        text-align: right;
+
+        button {
+            color: $light-green;
+            font-weight: bold;
+        }
+    }
+
+    .image-settings {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            margin-top: 3rem;
+            font-size: 0.7rem;
+        }
+
+        #image-container {
+            position: relative;
+            cursor: pointer;
+
+            #change-profile-image {
+                z-index: 1;
+                position: relative;
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+            }
+
+            .change-profile-image-icon {
+                z-index: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: none;
+            }
+        }
+
+    }
+
+    .form-settings {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+
+        .input-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.4rem 0;
+
+            &.logout-delete {
+                display: flex;
+                justify-content: flex-start;
+
+                span {
+                    margin-left: 1.2rem;
+                    margin-top: 0.3rem;
+                    font-size: 1rem;
+                }
+
+                .delete-account {
+                    border: solid 2px $delete-button;
+                    color: $delete-button;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    #edit-profile-form {
+        width: 80%;
+        margin: 4rem auto;
+    }
+}

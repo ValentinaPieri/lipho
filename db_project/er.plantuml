@@ -1,0 +1,93 @@
+@startuml Lipho DB ER Diagram
+!theme plain
+
+entity user {
+    * **username :: String**
+    --
+    * password :: String
+    * name :: String
+    * surname :: String
+    email :: String
+    phone :: String
+    birthdate :: Date
+}
+
+entity following {
+    * **from_username :: String**
+    * **to_username :: String**
+    --
+    * since :: Timestamp
+}
+
+entity post {
+    * **post_id :: Integer**
+    --
+    caption :: String
+    * timestamp :: Timestamp
+    * average_exposure_rating :: Double
+    * average_colors_rating :: Double
+    * average_composition_rating :: Double
+    * username :: String
+}
+
+entity post_image {
+    * **post_id :: Integer**
+    * **position :: Integer**
+    --
+    * image :: String
+}
+
+entity post_like {
+    * **post_id :: Integer**
+    * **username :: String**
+    --
+    * timestamp :: Timestamp
+}
+
+entity post_rating {
+    * **post_id :: Integer**
+    * **username:: String**
+    --
+    * exposure :: Integer[1-5]
+    * colors :: Integer[1-5]
+    * composition :: Integer[1-5]
+}
+
+entity comment {
+    * **comment_id :: Integer**
+    --
+    * text :: String
+    * timestamp :: Timestamp
+    * post_id :: Integer
+    * username :: String
+}
+
+entity comment_like {
+    * **comment_id :: Integer**
+    * **username :: String**
+    --
+    * timestamp :: Timestamp
+}
+
+entity notification {
+    * **notification_id :: Integer**
+    --
+    * text :: String
+    * seen :: Boolean
+    * timestamp :: Timestamp
+    * receiver :: String
+    * sender :: String
+}
+
+user }o--o{ following
+user }o--|| post
+user }o--|| notification
+post }o--|| post_image
+post }o--|| post_rating
+post }o--|| comment
+post }o--|| post_like
+post_rating ||--o{ user
+comment ||--o{ user
+comment }o--|| comment_like
+
+@enduml

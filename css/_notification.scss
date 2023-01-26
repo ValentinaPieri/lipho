@@ -1,0 +1,52 @@
+main>.delete-all-notifications-button {
+    float: right;
+    margin: 0 1rem;
+    margin-top: 0.7rem;
+
+    span {
+        font-size: 1.5rem;
+    }
+}
+
+
+.today-notifications,
+.yesterday-notifications,
+.earlier-notifications {
+    margin: 0 0.7rem;
+    padding-top: 1rem;
+    padding-bottom: 1.3rem;
+
+    &:not(:last-child) {
+        border-bottom: $border;
+    }
+
+    h2 {
+        width: 100%;
+        font-size: 2rem;
+    }
+
+    .notification {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        img {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .notification-info {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+
+            p {
+                margin: 0 0.5rem;
+            }
+        }
+    }
+}

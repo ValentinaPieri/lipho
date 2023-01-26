@@ -1,0 +1,63 @@
+.navbar {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    border: $border;
+    border-left: none;
+    border-right: none;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    height: 2.3rem;
+
+    .notifications-badge:not(:empty) {
+        font-size: 0.6rem;
+        font-weight: bold;
+        border-radius: 50%;
+        padding: 0.2rem;
+        border: $border;
+        background-color: transparent;
+        width: 0.4rem;
+        height: 0.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    a {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        color: $black;
+
+        >span {
+            font-size: 1.2rem;
+            background: none;
+            display: flex;
+            flex-direction: row;
+        }
+
+        &:hover {
+            background-color: #A4E378;
+            opacity: 0.8;
+        }
+
+        &:not(:last-child) {
+            border-right: $border;
+        }
+    }
+}
+
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    .navbar {
+        bottom: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 35rem;
+        border: $border;
+    }
+}

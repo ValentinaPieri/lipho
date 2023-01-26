@@ -1,0 +1,94 @@
+@import 'variables';
+@import 'mixins';
+@import 'snackbar';
+@import 'post';
+@import 'navbar';
+@import 'header';
+@import 'search';
+@import 'notification';
+@import 'not-found';
+@import 'signup';
+@import 'login';
+@import 'settings';
+@import 'create-post';
+@import 'profile';
+
+* {
+    font-family: Noto Sans;
+    text-decoration: none;
+    color: $black;
+    background: $white;
+}
+
+button {
+    color: $black;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.profile-link {
+    color: $username;
+    font-weight: bold;
+
+    &:hover {
+        color: $a-hover;
+    }
+}
+
+.text-button {
+    padding: 0.2rem 0.5rem;
+    font-weight: bold;
+    border: $border;
+}
+
+.icon-button {
+    border: none;
+
+    span {
+        font-size: 1.2rem;
+    }
+}
+
+.invalid-error-input {
+    border: 2px solid $error !important;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="date"],
+textarea {
+    background-color: $background-white;
+    color: $black;
+    border: $border;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+    outline-color: $light-green;
+}
+
+.current-page {
+    background-color: $a-hover;
+}
+
+.option {
+    a {
+        font-weight: bold;
+        color: $light-green;
+
+        &:hover {
+            color: $a-hover;
+        }
+    }
+}
+
+@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
+    main {
+        margin: auto;
+        width: 50%;
+    }
+}
