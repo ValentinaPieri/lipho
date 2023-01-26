@@ -23,7 +23,7 @@
                     <input title="username" aria-label="username" type="text" name="username" id="username" placeholder="Username" />
                     <div class="input-field">
                         <input title="password" aria-label="password" type="password" name="password" id="password" placeholder="Password" />
-                        <button id="visible" class="icon-button">
+                        <button id="visible" class="icon-button" type="button">
                             <span class="fa-solid fa-eye"></span>
                         </button>
                     </div>
