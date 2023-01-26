@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <h1><img src="resources/icons/foreground.png" alt="Lipho logo">&nbsp;-&nbsp;<?php echo $templateParams["title"]; ?></h1>
+        <h1><a href="./index.php"><img id="lipho-logo" src="resources/icons/foreground.png" alt="Lipho logo" /></a>&nbsp;-&nbsp;<?php echo $templateParams["title"]; ?></h1>
     </header>
     <main>
         <?php
