@@ -128,7 +128,7 @@
 .post .post-image-container .arrow-buttons-div button {
   border: none;
   background: rgba(255, 252, 242, 0.3);
-  padding: 1.5vmin;
+  padding: 0.5rem;
   text-align: center;
 }
 .post .post-image-container .arrow-buttons-div button span {
@@ -152,7 +152,7 @@
   width: 100%;
 }
 .post .post-caption > * {
-  padding: 0 1vmin;
+  padding: 0 0.5rem;
 }
 .post .post-caption a {
   color: #0F571F;
@@ -182,6 +182,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 .post .post-comments .comment-div .comment-content-div {
   margin-bottom: 0.5rem;
@@ -201,17 +202,14 @@
   margin-left: 1rem;
   color: #040F0F;
 }
-.post .post-comments .comment-div .comment-buttons-div button {
-  padding: 1vmin;
-}
 .post .post-rating {
-  width: calc(100% - 4vmin);
-  margin: 2vmin;
+  width: 95%;
+  margin-top: 0.5rem;
 }
 .post .post-rating .rating-div {
   display: flex;
   justify-content: space-between;
-  padding: 2vmin 0;
+  margin-bottom: 1rem;
 }
 .post .post-rating .rating-div > * {
   width: 100%;
@@ -229,17 +227,17 @@
 }
 .post .post-rating .rating-div input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   background-color: #FFFCF2;
   border: 2px solid #040F0F;
 }
 .post .post-rating button {
   width: 30%;
-  padding: 1vmin 0;
+  padding: 0.5rem 0;
   border: 2px solid #040F0F;
-  margin: 0.5rem auto;
+  margin: 0 auto;
 }
 
 @media screen and (min-aspect-ratio: 4/3) {
@@ -254,7 +252,7 @@
     position: absolute;
     border: 2px solid #040F0F;
     border-left: none;
-    padding: 1.5vmin;
+    padding: 0.5rem;
     bottom: 0;
     left: 0;
   }
@@ -311,7 +309,7 @@
 
 @media screen and (min-aspect-ratio: 4/3) {
   .navbar {
-    bottom: 1vh;
+    bottom: 0.5rem;
     left: 50%;
     transform: translateX(-50%);
     width: 35rem;
@@ -328,16 +326,14 @@ header {
   }
   header h1 {
     margin: 0.5rem;
-    font-size: 5vmin;
+    font-size: 3rem;
   }
   header h1 img {
-    width: 20vmin;
+    width: 10rem;
   }
 }
 .search-container {
-  padding-top: 2vh;
-  padding-bottom: 2.5vh;
-  margin: 0 3vw;
+  padding-bottom: 1.5rem;
   border-bottom: 2px solid #040F0F;
 }
 .search-container .search-bar {
@@ -355,19 +351,19 @@ header {
 }
 
 #search-results-container .results-count {
-  margin: 3vmin;
   text-align: right;
 }
 #search-results-container .user-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 1rem;
 }
 #search-results-container .user-container .user-image {
-  width: 10vmin;
-  height: 10vmin;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
-  margin: 3vmin 5vmin 3vmin 3vmin;
+  margin-right: 1rem;
 }
 #search-results-container .user-container a {
   color: #0F571F;
@@ -377,15 +373,6 @@ header {
   color: #A4E378;
 }
 
-@media screen and (min-aspect-ratio: 4/3) {
-  #search-results-container > .user-container > .user-image {
-    width: 5vmin;
-    height: 5vmin;
-  }
-  .search-container .search-bar {
-    height: 5vh;
-  }
-}
 main > .delete-all-notifications-button {
   float: right;
   margin: 0 1rem;
@@ -417,16 +404,17 @@ main > .delete-all-notifications-button span {
 .yesterday-notifications .notification,
 .earlier-notifications .notification {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 }
 .today-notifications .notification img,
 .yesterday-notifications .notification img,
 .earlier-notifications .notification img {
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
-  margin: 3vmin 5vmin 3vmin 3vmin;
+  margin-right: 1rem;
 }
 .today-notifications .notification .notification-info,
 .yesterday-notifications .notification .notification-info,
@@ -487,7 +475,7 @@ main > .delete-all-notifications-button span {
   margin: 1rem auto !important;
   padding: 0.3rem;
   border: 3px solid #040F0F;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   width: 7rem !important;
   height: 2.2rem;
   font-size: medium;
@@ -536,7 +524,7 @@ main > .delete-all-notifications-button span {
   margin: 1rem auto !important;
   padding: 0.3rem;
   border: 3px solid #040F0F;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   width: 6rem !important;
   height: 2.2rem;
   font-size: medium;
@@ -682,14 +670,10 @@ main > .delete-all-notifications-button span {
 }
 
 .edit-profile {
-  margin: 0.4rem 2rem;
+  margin: 0.4rem 0;
   text-align: end;
 }
 
-.profile-header {
-  margin-left: 2vw;
-  width: calc(100% - 5vw);
-}
 .profile-header .profile-details .profile-image {
   -o-object-fit: cover;
      object-fit: cover;
@@ -721,7 +705,6 @@ main > .delete-all-notifications-button span {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-right: 2vw;
 }
 .profile-header .profile-details .profile-specs .profile-stats {
   margin: 1rem 0;
@@ -779,11 +762,10 @@ main > .delete-all-notifications-button span {
 .profile-posts.grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-row-gap: 10vmin;
+  grid-row-gap: 1rem;
   grid-column-gap: 1rem;
   width: 100%;
-  padding-bottom: 20vh;
-  margin-bottom: 15vh;
+  margin-bottom: 5rem;
 }
 .profile-posts.grid .grid-post {
   display: flex;
@@ -798,7 +780,7 @@ main > .delete-all-notifications-button span {
   position: absolute;
   bottom: 0;
   border: 2px solid #040F0F;
-  padding: 1vmin;
+  padding: 0.5rem;
 }
 .profile-posts.grid .grid-post .post-image-container .full-screen-button {
   left: 0;

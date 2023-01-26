@@ -1,11 +1,9 @@
 .edit-profile {
-    margin: 0.4rem 2rem;
+    margin: 0.4rem 0;
     text-align: end;
 }
 
 .profile-header {
-    margin-left: 2vw;
-    width: calc(100% - 5vw);
 
     .profile-details {
         .profile-image {
@@ -44,7 +42,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-right: 2vw;
 
             .profile-stats {
                 margin: 1rem 0;
@@ -113,11 +110,10 @@
 .profile-posts.grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-row-gap: 10vmin;
+    grid-row-gap: 1rem;
     grid-column-gap: 1rem;
     width: 100%;
-    padding-bottom: 20vh;
-    margin-bottom: 15vh;
+    margin-bottom: 5rem;
 
     .grid-post {
         display: flex;
@@ -133,7 +129,7 @@
                 position: absolute;
                 bottom: 0;
                 border: $border;
-                padding: 1vmin;
+                padding: 0.5rem;
             }
 
             .full-screen-button {

@@ -1,7 +1,5 @@
 .search-container {
-    padding-top: 2vh;
-    padding-bottom: 2.5vh;
-    margin: 0 3vw;
+    padding-bottom: 1.5rem;
     border-bottom: $border;
 
     .search-bar {
@@ -22,7 +20,6 @@
 
 #search-results-container {
     .results-count {
-        margin: 3vmin;
         text-align: right;
     }
 
@@ -30,12 +27,13 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 1rem;
 
         .user-image {
-            width: 10vmin;
-            height: 10vmin;
+            width: 4rem;
+            height: 4rem;
             border-radius: 50%;
-            margin: 3vmin 5vmin 3vmin 3vmin;
+            margin-right: 1rem;
         }
 
         a {
@@ -45,19 +43,6 @@
             &:hover {
                 color: $a-hover;
             }
-        }
-    }
-}
-
-@media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
-    #search-results-container>.user-container>.user-image {
-        width: 5vmin;
-        height: 5vmin;
-    }
-
-    .search-container {
-        .search-bar {
-            height: 5vh;
         }
     }
 }

@@ -73,7 +73,7 @@
             button {
                 border: none;
                 background: transparentize($white, 0.7);
-                padding: 1.5vmin;
+                padding: 0.5rem;
                 text-align: center;
 
                 span {
@@ -104,7 +104,7 @@
         width: 100%;
 
         >* {
-            padding: 0 1vmin;
+            padding: 0 0.5rem;
         }
 
         a {
@@ -142,6 +142,7 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            align-items: center;
 
             .comment-content-div {
                 margin-bottom: 0.5rem;
@@ -164,24 +165,17 @@
                     color: $black;
                 }
             }
-
-
-            .comment-buttons-div {
-                button {
-                    padding: 1vmin;
-                }
-            }
         }
     }
 
     .post-rating {
-        width: calc(100% - 4vmin);
-        margin: 2vmin;
+        width: 95%;
+        margin-top: 0.5rem;
 
         .rating-div {
             display: flex;
             justify-content: space-between;
-            padding: 2vmin 0;
+            margin-bottom: 1rem;
 
             >* {
                 width: 100%;
@@ -201,8 +195,8 @@
 
                 &::-webkit-slider-thumb {
                     -webkit-appearance: none;
-                    width: 15px;
-                    height: 15px;
+                    width: 1rem;
+                    height: 1rem;
                     border-radius: 50%;
                     background-color: $white;
                     border: $border;
@@ -213,9 +207,9 @@
 
         button {
             width: 30%;
-            padding: 1vmin 0;
+            padding: 0.5rem 0;
             border: $border;
-            margin: 0.5rem auto;
+            margin: 0 auto;
         }
     }
 }
@@ -235,7 +229,7 @@
                 position: absolute;
                 border: $border;
                 border-left: none;
-                padding: 1.5vmin;
+                padding: 0.5rem;
                 bottom: 0;
                 left: 0;
             }

@@ -118,7 +118,9 @@ function showProfile() {
 function getPostFirstImage(postId) {
   $.post("./post_requests_handler.php", { getPostFirstImage: true, postId: postId }, function (image) {
     let postImage = document.getElementById("post-image-container" + postId);
-    postImage.src = "data:image/jpeg;base64," + image;
+    if (postImage !== null) {
+      postImage.src = "data:image/jpeg;base64," + image;
+    }
   }, "json");
 }
 
@@ -149,24 +151,31 @@ function showPostFrequencyText(postFrequency) {
 function showPostsList(offset, limit) {
   $.post("./post_requests_handler.php", { getProfilePosts: true, username: username, offset: offset, limit: limit }, function (posts) {
     posts.forEach(post => {
-      profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.liked, currentUsername === post.owner || post.rated));
-      retrieveImages(post.post_id);
+      if (!listActive) {
+        return;
+      }
 
-      intervalIds.push(setInterval(function () {
-        $.post("./post_requests_handler.php", { getPostLikesNumber: true, postId: post.post_id }, function (likesNumber) {
-          let likesNumberTag = document.getElementById("likes-number" + post.post_id);
-          if (likesNumberTag !== null) {
-            likesNumberTag.textContent = likesNumber;
-          }
-        }, "json");
+      let postContainer = document.getElementById("post" + post.post_id);
+      if (postContainer === null) {
+        profilePosts.appendChild(getPostContainer(post.post_id, post.owner, post.caption, post.liked, currentUsername === post.owner || post.rated));
+        retrieveImages(post.post_id);
 
-        let postCommentsDiv = document.getElementById("post-comments" + post.post_id);
-        if (!postCommentsDiv.hidden) {
-          $.post("./post_requests_handler.php", { getPostComments: true, postId: post.post_id }, function (comments) {
-            getCommentsContainer(post.post_id, postCommentsDiv, comments, currentUsername);
+        intervalIds.push(setInterval(function () {
+          $.post("./post_requests_handler.php", { getPostLikesNumber: true, postId: post.post_id }, function (likesNumber) {
+            let likesNumberTag = document.getElementById("likes-number" + post.post_id);
+            if (likesNumberTag !== null) {
+              likesNumberTag.textContent = likesNumber;
+            }
           }, "json");
-        }
-      }, 2000));
+
+          let postCommentsDiv = document.getElementById("post-comments" + post.post_id);
+          if (!postCommentsDiv.hidden) {
+            $.post("./post_requests_handler.php", { getPostComments: true, postId: post.post_id }, function (comments) {
+              getCommentsContainer(post.post_id, postCommentsDiv, comments, currentUsername);
+            }, "json");
+          }
+        }, 2000));
+      }
     });
     firstLoad = true;
   }, "json");
@@ -175,8 +184,14 @@ function showPostsList(offset, limit) {
 function showPostsGrid(offset, limit) {
   $.post("./post_requests_handler.php", { getProfilePosts: true, username: username, offset: offset, limit: limit }, function (posts) {
     posts.forEach(post => {
-      profilePosts.appendChild(getGridViewPostContainer(post.post_id, post.owner));
-      getPostFirstImage(post.post_id);
+      if (!gridActive) {
+        return;
+      }
+      let postContainer = document.getElementById("grid-post" + post.post_id);
+      if (postContainer === null) {
+        profilePosts.appendChild(getGridViewPostContainer(post.post_id, post.owner));
+        getPostFirstImage(post.post_id);
+      }
     });
     firstLoad = true;
   }, "json");

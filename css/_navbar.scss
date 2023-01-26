@@ -45,7 +45,7 @@
 
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     .navbar {
-        bottom: 1vh;
+        bottom: 0.5rem;
         left: 50%;
         transform: translateX(-50%);
         width: 35rem;
