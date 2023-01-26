@@ -50,6 +50,7 @@
             </div>
         </div>
     </main>
+    <div id="snackbar"></div>
 </body>
 <script src="js/signup.js" type="module"></script>
 

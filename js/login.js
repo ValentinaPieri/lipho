@@ -1,4 +1,5 @@
 import retrieveData from './retrieve_data.js';
+import { showSnackbar } from './utils.js';
 
 //on click on the eye icon, the password will be visible
 let visibleButton = document.getElementById("visible");
@@ -24,18 +25,21 @@ form.onsubmit = function (e) {
 function searchForm(username, password) {
     const inputs = [...document.getElementsByTagName("input")];
     inputs.forEach(input => {
-        input.classList.remove("insert-error-input");
         input.classList.remove("invalid-error-input");
     });
     $.post("./post_requests_handler.php", { login: true, username: username, password: password }, function (result) {
         if (username === "") {
             showInsertError("username");
+            showSnackbar("Please insert a username");
         } else if (result.usernameValid === false) {
             showInvalidError("username");
+            showSnackbar("Username does not exists");
         } else if (password === "") {
             showInsertError("password");
+            showSnackbar("Please insert a password");
         } else if (result.passwordValid === false) {
             showInvalidError("password");
+            showSnackbar("Wrong password");
         } else {
             window.location.href = "index.php";
         }
@@ -43,7 +47,7 @@ function searchForm(username, password) {
 }
 
 function showInsertError($value) {
-    document.getElementById($value).classList.add("insert-error-input");
+    document.getElementById($value).classList.add("invalid-error-input");
     document.getElementById($value).placeholder = "Please insert " + $value;
 }
 

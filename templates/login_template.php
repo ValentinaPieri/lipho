@@ -35,6 +35,7 @@
             </div>
         </div>
     </main>
+    <div id="snackbar"></div>
 </body>
 <script src="js/login.js" type="module"></script>
 

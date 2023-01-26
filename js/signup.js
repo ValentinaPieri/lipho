@@ -10,8 +10,7 @@ form.onsubmit = function (e) {
 function submitForm(username, password1, password2, name, surname, email, phone, birthdate) {
     const inputs = [...document.getElementsByTagName("input")];
     inputs.forEach(input => {
-        input.classList.remove("insert-error-input");
-        input.classList.remove("invalid-input");
+        input.classList.remove("invalid-error-input");
     });
     $.post("./post_requests_handler.php", { signup: true, username: username, password1: password1, password2: password2, name: name, surname: surname, email: email, phone: phone, birthdate: birthdate }, function (result) {
         if (username === "") {
@@ -43,12 +42,14 @@ function submitForm(username, password1, password2, name, surname, email, phone,
         }
         if (username !== "" && result.usernameValid === true && password1 !== "" && result.passwordValid === true && password2 !== "" && result.passwordsMatching === true && name !== "" && surname !== "" && result.phoneValid === true && result.emailValid === true) {
             window.location.href = "index.php";
+        } else {
+            showSnackbar("Invalid input");
         }
     }, "json");
 }
 
 function showInsertError($value) {
-    document.getElementById($value).classList.add("insert-error-input");
+    document.getElementById($value).classList.add("invalid-error-input");
     if ($value === "password2") {
         document.getElementById($value).placeholder = "Please insert password again";
     } else if ($value === "password1") {
@@ -59,7 +60,7 @@ function showInsertError($value) {
 }
 
 function showInvalidError($value) {
-    document.getElementById($value).classList.add("invalid-input");
+    document.getElementById($value).classList.add("invalid-error-input");
     document.getElementById($value).value = "";
     if ($value !== "password2" && $value !== "username") {
         document.getElementById($value).placeholder = "Insert a valid " + $value;
