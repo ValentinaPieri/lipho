@@ -442,12 +442,16 @@ main > .delete-all-notifications-button span {
 
 .no-matches-found {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 .no-matches-found > * {
-  margin: 0.4rem;
+  margin: 0.4rem 0;
 }
 .no-matches-found span {
   font-size: 1.2rem;
