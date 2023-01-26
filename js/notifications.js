@@ -1,10 +1,11 @@
 let oldNotificationsCount = 0;
+let userProfileImages = {};
 
 showNotifications();
 
 setInterval(function () {
     showNotifications();
-}, 2000);
+}, 5000);
 
 function showNotifications() {
     $.post("./post_requests_handler.php", { getNotifications: true }, function (notifications) {
@@ -104,10 +105,15 @@ function getNotificationContainer(notification) {
 }
 
 function getUserProfileImage(username, notificationId) {
-    $.post("./post_requests_handler.php", { getUserProfileImage: true, username: username }, function (profileImage) {
-        let notificationProfileImage = document.getElementById("notification-" + notificationId).querySelector("img");
-        notificationProfileImage.src = "data:image/jpeg;base64," + profileImage;
-    }, "json");
+    let notificationProfileImage = document.getElementById("notification-" + notificationId).querySelector("img");
+    if (username in userProfileImages) {
+        notificationProfileImage.src = "data:image/jpeg;base64," + userProfileImages[username];
+    } else {
+        $.post("./post_requests_handler.php", { getUserProfileImage: true, username: username }, function (profileImage) {
+            notificationProfileImage.src = "data:image/jpeg;base64," + profileImage;
+            userProfileImages[username] = profileImage;
+        }, "json");
+    }
 }
 
 function isToday(date) {
