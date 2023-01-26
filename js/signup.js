@@ -1,4 +1,5 @@
 import retrieveData from './retrieve_data.js';
+import { showSnackbar } from './utils.js';
 
 let form = document.getElementById("signupForm");
 form.onsubmit = function (e) {
