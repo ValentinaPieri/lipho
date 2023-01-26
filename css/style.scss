@@ -71,6 +71,10 @@ textarea {
     outline-color: $light-green;
 }
 
+.current-page {
+    background-color: $a-hover;
+}
+
 @media screen and (min-aspect-ratio: $desktop-aspect-ratio) {
     main {
         margin: auto;

@@ -845,6 +845,10 @@ textarea {
   outline-color: #0F571F;
 }
 
+.current-page {
+  background-color: #A4E378;
+}
+
 @media screen and (min-aspect-ratio: 4/3) {
   main {
     margin: auto;

@@ -25,15 +25,25 @@
     <div id="snackbar"></div>
     <footer>
         <div class="navbar">
-            <a href="index.php" title="Home Page"><span class="fa-regular fa-house"></span></a>
-            <a href="search.php" title="Search Page"><span class="fa-regular fa-magnifying-glass"></span></a>
-            <a href="create_post.php" title="Create Post Page"><span class="fa-regular fa-plus"></span></a>
-            <a href="notifications.php" title="Notifications Page">
+            <a href="index.php" title="Home Page" <?php if ($templateParams["title"] == "Home") {
+                                                        echo "class=\"current-page\"";
+                                                    } ?>><span class="fa-regular fa-house"></span></a>
+            <a href="search.php" title="Search Page" <?php if ($templateParams["title"] == "Search") {
+                                                            echo "class=\"current-page\"";
+                                                        } ?>><span class="fa-regular fa-magnifying-glass"></span></a>
+            <a href="create_post.php" title="Create Post Page" <?php if ($templateParams["title"] == "Create Post") {
+                                                                    echo "class=\"current-page\"";
+                                                                } ?>><span class="fa-regular fa-plus"></span></a>
+            <a href="notifications.php" title="Notifications Page" <?php if ($templateParams["title"] == "Notifications") {
+                                                                        echo "class=\"current-page\"";
+                                                                    } ?>>
                 <span class="fa-regular fa-bell">
                     <span id="notifications-badge" class="notifications-badge"></span>
                 </span>
             </a>
-            <a href="profile.php" title="Profile Page"><span class="fa-regular fa-user"></span></a>
+            <a href="profile.php" title="Profile Page" <?php if ($templateParams["title"] == "Profile") {
+                                                            echo "class=\"current-page\"";
+                                                        } ?>><span class="fa-regular fa-user"></span></a>
         </div>
     </footer>
 </body>
