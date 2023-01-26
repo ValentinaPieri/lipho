@@ -6,7 +6,7 @@ showNotifications();
 
 setInterval(function () {
     showNotifications();
-}, 5000);
+}, 1000);
 
 function showNotifications() {
     if (!loadingNotifications) {

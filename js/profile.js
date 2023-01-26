@@ -167,7 +167,7 @@ function showPostsList(offset, limit) {
               likesNumberTag.textContent = likesNumber;
             }
           }, "json");
-        }, 5000));
+        }, 1000));
 
         intervalIds.push(setInterval(function () {
           let postCommentsDiv = document.getElementById("post-comments" + post.post_id);
@@ -176,7 +176,7 @@ function showPostsList(offset, limit) {
               getCommentsContainer(post.post_id, postCommentsDiv, comments, currentUsername);
             }, "json");
           }
-        }, 2000));
+        }, 1000));
       }
     });
     firstLoad = true;
