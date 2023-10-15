@@ -22,14 +22,12 @@ With Lipho, you can share your photos with a community of like-minded individual
 
 ## How to test:
 
-1. Clone this repository
-2. Ensure you have the latest version of xampp or equivalent installed
-3. Copy the contents of the db_project folder into the htdocs folder of your xampp installation
-4. Start the Apache and MySQL servers
-5. Navigate to localhost/phpmyadmin in your browser
-6. Execute the file db_project/create_database.sql in the SQL tab to create the database and its tables
-7. Execute the file db_project/data.sql in the SQL tab to populate the database with sample data*
-
+1. Ensure you have the latest version of xampp or equivalent installed
+2. Clone the repository into the htdocs folder of your xampp installation
+3. Start the Apache and MySQL servers
+4. Navigate to localhost/phpmyadmin in your browser
+5. Execute the file db_project/create_database.sql in the SQL tab to create the database and its tables
+6. Execute the file db_project/data.sql in the SQL tab to populate the database with sample data*
 \* Note: the sample data includes three users with the following credentials:
   - Username: expl0r3rgu1, Password: password1!
   - Username: benny, Password: password1!
